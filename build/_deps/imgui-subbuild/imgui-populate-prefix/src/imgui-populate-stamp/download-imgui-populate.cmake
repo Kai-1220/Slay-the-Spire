@@ -22,14 +22,14 @@ function(check_file_hash has_hash hash_is_good)
   set("${has_hash}" TRUE PARENT_SCOPE)
 
   message(VERBOSE "verifying file...
-       file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip'")
+       file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip'")
 
-  file("MD5" "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip" actual_value)
+  file("MD5" "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip" actual_value)
 
   if(NOT "${actual_value}" STREQUAL "384084df566474aec3729df4ea30b937")
     set("${hash_is_good}" FALSE PARENT_SCOPE)
     message(VERBOSE "MD5 hash of
-    C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip
+    C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip
   does not match expected value
     expected: '384084df566474aec3729df4ea30b937'
       actual: '${actual_value}'")
@@ -71,32 +71,32 @@ function(sleep_before_download attempt)
   execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep "${sleep_seconds}")
 endfunction()
 
-if(EXISTS "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip")
+if(EXISTS "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip")
   check_file_hash(has_hash hash_is_good)
   if(has_hash)
     if(hash_is_good)
       message(VERBOSE "File already exists and hash match (skip download):
-  file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip'
+  file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip'
   MD5='384084df566474aec3729df4ea30b937'"
       )
       return()
     else()
       message(VERBOSE "File already exists but hash mismatch. Removing...")
-      file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip")
+      file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip")
     endif()
   else()
     message(VERBOSE "File already exists but no hash specified (use URL_HASH):
-  file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip'
+  file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip'
 Old file will be removed and new file downloaded from URL."
     )
-    file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip")
+    file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip")
   endif()
 endif()
 
 set(retry_number 5)
 
 message(VERBOSE "Downloading...
-   dst='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip'
+   dst='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip'
    timeout='none'
    inactivity timeout='none'"
 )
@@ -119,7 +119,7 @@ foreach(i RANGE ${retry_number})
 
       file(
         DOWNLOAD
-        "${url}" "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip"
+        "${url}" "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip"
         SHOW_PROGRESS
         # no TIMEOUT
         # no INACTIVITY_TIMEOUT
@@ -136,7 +136,7 @@ foreach(i RANGE ${retry_number})
         check_file_hash(has_hash hash_is_good)
         if(has_hash AND NOT hash_is_good)
           message(VERBOSE "Hash mismatch, removing...")
-          file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip")
+          file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/v1.90.4-docking.zip")
         else()
           message(VERBOSE "Downloading... done")
           return()

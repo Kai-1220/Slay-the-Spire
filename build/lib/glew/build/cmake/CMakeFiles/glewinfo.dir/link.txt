@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\glewinfo.dir/objects.a
-C:\mingw64\bin\ar.exe qc CMakeFiles\glewinfo.dir/objects.a @CMakeFiles\glewinfo.dir\objects1.rsp
-C:\mingw64\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\glewinfo.dir/objects.a -Wl,--no-whole-archive -o ..\..\..\..\bin\glewinfo.exe -Wl,--out-implib,..\..\..\libglewinfo.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\glewinfo.dir\linkLibs.rsp

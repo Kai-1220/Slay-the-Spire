@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\showimage.dir/objects.a
-C:\mingw64\bin\ar.exe qc CMakeFiles\showimage.dir/objects.a @CMakeFiles\showimage.dir\objects1.rsp
-C:\mingw64\bin\gcc.exe -g -mwindows -Wl,--whole-archive CMakeFiles\showimage.dir/objects.a -Wl,--no-whole-archive -o showimage.exe -Wl,--out-implib,libshowimage.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\showimage.dir\linkLibs.rsp

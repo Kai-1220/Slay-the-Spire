@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\glfont.dir/objects.a
-C:\mingw64\bin\ar.exe qc CMakeFiles\glfont.dir/objects.a @CMakeFiles\glfont.dir\objects1.rsp
-C:\mingw64\bin\gcc.exe -g -mwindows -Wl,--whole-archive CMakeFiles\glfont.dir/objects.a -Wl,--no-whole-archive -o glfont.exe -Wl,--out-implib,libglfont.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\glfont.dir\linkLibs.rsp
