@@ -1,0 +1,3 @@
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/CMakeFiles/sdl2_ttf-populate.dir
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/CMakeFiles/rebuild_cache.dir

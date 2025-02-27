@@ -1,0 +1,12 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=url
+command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/download-sdl2_image-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/verify-sdl2_image-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/extract-sdl2_image-populate.cmake
+source_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/sdl2_image
+work_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib
+url(s)=https://github.com/libsdl-org/SDL_image/releases/download/release-2.6.3/SDL2_image-2.6.3.zip
+hash=MD5=ecedb5078bbd31e7d1552e2b1443d2f6
+      no_extract=
+

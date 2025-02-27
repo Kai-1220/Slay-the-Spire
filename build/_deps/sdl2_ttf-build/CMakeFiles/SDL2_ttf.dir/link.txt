@@ -1,0 +1,2 @@
+C:\mingw64\bin\ar.exe qc libSDL2_ttfd.a CMakeFiles/SDL2_ttf.dir/SDL_ttf.c.obj
+C:\mingw64\bin\ranlib.exe libSDL2_ttfd.a

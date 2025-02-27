@@ -1,0 +1,12 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=url
+command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_mixer-subbuild/sdl2_mixer-populate-prefix/src/sdl2_mixer-populate-stamp/download-sdl2_mixer-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_mixer-subbuild/sdl2_mixer-populate-prefix/src/sdl2_mixer-populate-stamp/verify-sdl2_mixer-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_mixer-subbuild/sdl2_mixer-populate-prefix/src/sdl2_mixer-populate-stamp/extract-sdl2_mixer-populate.cmake
+source_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/sdl2_mixer
+work_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib
+url(s)=https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.3/SDL2_mixer-2.6.3.zip
+hash=MD5=fb3e71ef072ff8dd793cec3ed384f9a0
+      no_extract=
+

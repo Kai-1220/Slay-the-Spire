@@ -1,0 +1,1 @@
+ -lmingw32 libSDL2_imaged.a "../sdl2-build/libSDL2maind.a" "../sdl2-build/libSDL2d.a" -lm -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lversion -luuid -ladvapi32 -lsetupapi -ldinput8 -lshell32 -Wl,--undefined=WinMain -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

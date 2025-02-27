@@ -1,0 +1,14 @@
+# Target labels
+ sdl2_ttf-populate
+# Source files and their labels
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/CMakeFiles/sdl2_ttf-populate
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/CMakeFiles/sdl2_ttf-populate.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/CMakeFiles/sdl2_ttf-populate-complete.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-build.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-configure.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-download.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-install.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-mkdir.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-patch.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-test.rule
+C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-update.rule

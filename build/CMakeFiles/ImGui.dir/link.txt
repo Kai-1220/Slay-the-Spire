@@ -1,0 +1,2 @@
+C:\mingw64\bin\ar.exe qc libImGui.a CMakeFiles/ImGui.dir/lib/imgui/backends/imgui_impl_sdl2.cpp.obj CMakeFiles/ImGui.dir/lib/imgui/backends/imgui_impl_opengl3.cpp.obj CMakeFiles/ImGui.dir/lib/imgui/imgui.cpp.obj CMakeFiles/ImGui.dir/lib/imgui/imgui_demo.cpp.obj CMakeFiles/ImGui.dir/lib/imgui/imgui_draw.cpp.obj CMakeFiles/ImGui.dir/lib/imgui/imgui_tables.cpp.obj CMakeFiles/ImGui.dir/lib/imgui/imgui_widgets.cpp.obj
+C:\mingw64\bin\ranlib.exe libImGui.a
