@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
 
-cmake_minimum_required(VERSION 4.0.0-rc1)
+cmake_minimum_required(VERSION 3.31.0)
 
 # Reject any attempt to use a toolchain file. We must not use one because
 # we could be downloading it here. If the CMAKE_TOOLCHAIN_FILE environment
@@ -20,8 +20,8 @@ project(glew-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(glew-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "FALSE" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.zip" "URL_HASH" "MD5=970535b75b1b69ebd018a0fa05af63d1"
-                    SOURCE_DIR          "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/glew"
-                    BINARY_DIR          "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/glew-build"
+                    SOURCE_DIR          "C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib/glew"
+                    BINARY_DIR          "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/glew-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

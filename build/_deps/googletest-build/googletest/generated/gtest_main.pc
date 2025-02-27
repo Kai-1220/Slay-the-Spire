@@ -1,5 +1,5 @@
-libdir=C:/Program Files (x86)/PracticalToolsForSimpleDesign/lib
-includedir=C:/Program Files (x86)/PracticalToolsForSimpleDesign/include
+libdir=C:/Program Files (x86)/REPLACE_WITH_YOUR_PROJECT_NAME/lib
+includedir=C:/Program Files (x86)/REPLACE_WITH_YOUR_PROJECT_NAME/include
 
 Name: gtest_main
 Description: GoogleTest (with main() function)
