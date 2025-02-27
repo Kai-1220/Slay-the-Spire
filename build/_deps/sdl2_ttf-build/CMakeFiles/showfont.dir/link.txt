@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\showfont.dir/objects.a
+C:\mingw64\bin\ar.exe qc CMakeFiles\showfont.dir/objects.a @CMakeFiles\showfont.dir\objects1.rsp
+C:\mingw64\bin\gcc.exe -g -mwindows -Wl,--whole-archive CMakeFiles\showfont.dir/objects.a -Wl,--no-whole-archive -o showfont.exe -Wl,--out-implib,libshowfont.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\showfont.dir\linkLibs.rsp

@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\showanim.dir/objects.a
+C:\mingw64\bin\ar.exe qc CMakeFiles\showanim.dir/objects.a @CMakeFiles\showanim.dir\objects1.rsp
+C:\mingw64\bin\gcc.exe -g -mwindows -Wl,--whole-archive CMakeFiles\showanim.dir/objects.a -Wl,--no-whole-archive -o showanim.exe -Wl,--out-implib,libshowanim.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\showanim.dir\linkLibs.rsp

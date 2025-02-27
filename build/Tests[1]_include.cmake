@@ -1,0 +1,5 @@
+if(EXISTS "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/Tests[1]_tests.cmake")
+  include("C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/Tests[1]_tests.cmake")
+else()
+  add_test(Tests_NOT_BUILT Tests_NOT_BUILT)
+endif()
