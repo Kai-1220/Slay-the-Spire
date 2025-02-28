@@ -3,9 +3,9 @@
 # No other meaning or use of this file is supported.
 
 method=url
-command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/download-imgui-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/verify-imgui-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/extract-imgui-populate.cmake
-source_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/imgui
-work_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib
+command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/download-imgui-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/verify-imgui-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/extract-imgui-populate.cmake
+source_dir=C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib/imgui
+work_dir=C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib
 url(s)=https://github.com/ocornut/imgui/archive/refs/tags/v1.90.4-docking.zip
 hash=MD5=384084df566474aec3729df4ea30b937
       no_extract=

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(REPLACE_WITH_YOUR_PROJECT_NAME)
+project(Slay the Spire)
 
 set(CMAKE_CXX_STANDARD 17)
 

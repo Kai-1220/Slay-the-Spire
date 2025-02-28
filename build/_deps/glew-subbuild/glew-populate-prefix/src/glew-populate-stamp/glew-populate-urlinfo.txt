@@ -3,9 +3,9 @@
 # No other meaning or use of this file is supported.
 
 method=url
-command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp/download-glew-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp/verify-glew-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp/extract-glew-populate.cmake
-source_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/glew
-work_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib
+command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp/download-glew-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp/verify-glew-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp/extract-glew-populate.cmake
+source_dir=C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib/glew
+work_dir=C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib
 url(s)=https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.zip
 hash=MD5=970535b75b1b69ebd018a0fa05af63d1
       no_extract=

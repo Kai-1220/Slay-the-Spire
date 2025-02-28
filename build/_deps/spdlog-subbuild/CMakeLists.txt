@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
 
-cmake_minimum_required(VERSION 4.0.0-rc1)
+cmake_minimum_required(VERSION 3.31.0)
 
 # Reject any attempt to use a toolchain file. We must not use one because
 # we could be downloading it here. If the CMAKE_TOOLCHAIN_FILE environment
@@ -20,8 +20,8 @@ project(spdlog-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(spdlog-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "FALSE" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://github.com/gabime/spdlog/archive/refs/tags/v1.10.0.zip" "URL_HASH" "MD5=031565384b28f29e44c6e7fb247ad48a"
-                    SOURCE_DIR          "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/spdlog"
-                    BINARY_DIR          "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/spdlog-build"
+                    SOURCE_DIR          "C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib/spdlog"
+                    BINARY_DIR          "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/spdlog-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""
