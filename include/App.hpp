@@ -38,7 +38,7 @@ private:
     Util::Renderer m_Root;
     //----
     std::shared_ptr<Util::Image>test;
-    std::shared_ptr<Image_magic>test2;
+    std::shared_ptr<RUtil::Image_magic>test2;
     Core::Matrices data,data2;
     //----
 };

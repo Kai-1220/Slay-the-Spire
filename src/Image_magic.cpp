@@ -55,9 +55,24 @@ void Image_magic::Set_small_Pos(const glm::vec2& small_Pos){
 }
 void Image_magic::Reload_texture(){
     auto surface = s_Store.Get(m_Path);
+    auto sub_surface=std::shared_ptr<SDL_Surface>(SDL_CreateRGBSurface(0, small_Size[0], small_Size[1], surface->format->BitsPerPixel,
+        surface->format->Rmask, surface->format->Gmask,
+        surface->format->Bmask, surface->format->Amask));
+    if (!sub_surface) {
+        LOG_ERROR("SDL could not create surface!");
+        LOG_ERROR("{}", SDL_GetError());
+        return;
+    }
+    SDL_Rect sub_rect={0,0,int(small_Size[0]),int(small_Size[1])},
+             srcRect={int(small_Pos.x),int(small_Pos.y),int(small_Size[0]),int(small_Size[1])};
+    if (SDL_BlitSurface(surface.get(), &srcRect, sub_surface.get(), &sub_rect) != 0) {
+        LOG_ERROR("SDL_BlitSurface failed! SDL_Error");
+        LOG_ERROR("{}", SDL_GetError());
+        return;
+    }
     m_Texture = std::make_unique<Core::Texture>(
-        Core::SdlFormatToGlFormat(surface->format->format), surface->w,
-        surface->h, surface->pixels);
+        Core::SdlFormatToGlFormat(sub_surface->format->format), sub_surface->w,
+        sub_surface->h, sub_surface->pixels);
 }
 void Image_magic::SetImage(const std::string &filepath) {
     auto surface = s_Store.Get(filepath);

@@ -75,6 +75,8 @@ private:
     void InitProgram();
     void InitVertexArray();
     void InitUniformBuffer();
+    
+    void Reload_texture();
 
     static constexpr int UNIFORM_SURFACE_LOCATION = 0;
 
