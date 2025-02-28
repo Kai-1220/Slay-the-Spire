@@ -1,4 +1,4 @@
-#include "Image_magic.hpp"
+#include "RUtil/Image_magic.hpp"
 
 #include "Util/Logger.hpp"
 #include "pch.hpp"
@@ -43,14 +43,41 @@ Image_magic::Image_magic(const std::string &filepath)
     m_Texture = std::make_unique<Core::Texture>(
         Core::SdlFormatToGlFormat(surface->format->format), surface->w,
         surface->h, surface->pixels);
-    m_Size = {surface->w, surface->h};
+    small_Size=m_Size = {surface->w, surface->h};
+    small_Pos={0,0};
+}
+Image_magic::Image_magic(const std::string &filepath,const glm::vec2& small_Pos,const glm::vec2& small_Size):
+    m_Path(filepath),small_Pos(small_Pos),small_Size(small_Size){
+    if (s_Program == nullptr) {
+        InitProgram();
+    }
+    if (s_VertexArray == nullptr) {
+        InitVertexArray();
+    }
+
+    m_UniformBuffer = std::make_unique<Core::UniformBuffer<Core::Matrices>>(
+        *s_Program, "Matrices", 0);
+    
+    if(small_Pos.x<0||small_Pos.y<0||small_Size.x<0||small_Size.y<0||small_Pos.x+small_Size.x>m_Size.x||small_Pos.y+small_Size.y>m_Size.y){
+        auto surface = s_Store.Get(filepath);
+        m_Texture = std::make_unique<Core::Texture>(
+            Core::SdlFormatToGlFormat(surface->format->format), surface->w,
+            surface->h, surface->pixels);
+    }else{
+        Reload_texture();
+    }
 }
 void Image_magic::Set_small_Size(const glm::vec2& small_Size){
+    if(small_Size.x<0||small_Size.y<0) return;
     this->small_Size=small_Size;
+    if(small_Pos.x+small_Size.x>m_Size.x||small_Pos.y+small_Size.y>m_Size.y) return;
     Reload_texture();
 }
 void Image_magic::Set_small_Pos(const glm::vec2& small_Pos){
+    if(small_Pos.x<0||small_Pos.y<0) return;
     this->small_Pos=small_Pos;
+    // if (x + subWidth > surface->w || y + subHeight > surface->h) return;
+    if(small_Pos.x+small_Size.x>m_Size.x||small_Pos.y+small_Size.y>m_Size.y) return;
     Reload_texture();
 }
 void Image_magic::Reload_texture(){

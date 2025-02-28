@@ -1,5 +1,5 @@
-#ifndef UTIL_IMAGE_MAGIC_HPP
-#define UTIL_IMAGE_MAGIC_HPP
+#ifndef RUTIL_IMAGE_MAGIC_HPP
+#define RUTIL_IMAGE_MAGIC_HPP
 
 #include "pch.hpp" // IWYU pragma: export
 
@@ -23,7 +23,17 @@ public:
      * @param filepath The file path to the image.
      */
     explicit Image_magic(const std::string &filepath);
-
+    /**
+     * @brief Constructor that create image in specific position and size.
+     *
+     * @param filepath The file path to the image.
+     * 
+     * @param small_Pos The start position of the inside image.
+     * 
+     * @param small_Size The size of the inside image.
+     * 
+     */
+    explicit Image_magic(const std::string &filepath,const glm::vec2& small_Pos,const glm::vec2& small_Size);
     /**
      * @brief Retrieves the size of the image.
      *
@@ -43,11 +53,15 @@ public:
     glm::vec2 Get_small_Pos() const { return small_Pos; };
     /**
      * @brief Sets the inside image size.
+     * 
+     * if sub image is outside the original picture, the apply won't work.
      * @param small_Size The size of the inside image.
      */
     void Set_small_Size(const glm::vec2& small_Size);
     /**
      * @brief Sets the where the inside image start.
+     * 
+     * if sub image is outside the original picture, the apply won't work.
      * @param small_Pos The start position of the inside image.
      */
     void Set_small_Pos(const glm::vec2& small_Pos);
