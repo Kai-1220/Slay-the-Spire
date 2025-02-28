@@ -10,6 +10,8 @@
 #include "Util/GameObject.hpp"
 #include "Util/Transform.hpp"
 #include "Util/TransformUtils.hpp"
+
+#include "Image_magic.hpp"
 class App {
 public:
     enum class State {
@@ -36,7 +38,8 @@ private:
     Util::Renderer m_Root;
     //----
     std::shared_ptr<Util::Image>test;
-    Core::Matrices data;
+    std::shared_ptr<Image_magic>test2;
+    Core::Matrices data,data2;
     //----
 };
 
