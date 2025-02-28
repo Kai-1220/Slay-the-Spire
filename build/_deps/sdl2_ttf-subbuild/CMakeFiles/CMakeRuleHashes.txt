@@ -1,11 +1,11 @@
 # Hashes of file build rules.
-047db1e29189c7196773b519b7307c26 CMakeFiles/sdl2_ttf-populate
-81c07e5a9667fbee4e6602fb56dbf025 CMakeFiles/sdl2_ttf-populate-complete
-5e3065511c8b9102896269762c335542 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-build
-93ec2230e231ab6d3ec0f57f58846156 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-configure
-c62cb664a182533d6b87ea7bad896558 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-download
-e84e446ccedc7e1af25664130a3fc31d sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-install
-4f48fe6cc470042ab33dfdcb6194c07d sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-mkdir
-6be209e43e4cd21f3a07fc498bf1332e sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-patch
-8b2ed605d9284b89e9a6cd3f40535494 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-test
-7799dae4f8506c920081de887ebf70c9 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-update
+ade8e8b171e91dbf8435e5b3693e90f7 CMakeFiles/sdl2_ttf-populate
+1d488bab9fa7fe4828b9a6058475cab5 CMakeFiles/sdl2_ttf-populate-complete
+075802d72920d922191c6aff3f9f4ded sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-build
+c1493a00da4fd0b5f4d19d0671cc3be0 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-configure
+2e301b9d717af094ac210185ffa519da sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-download
+e4b04ffe56d10a1a2b269e9740ad7193 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-install
+f478a4dad416ed19c026adf170700eb7 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-mkdir
+f1f5f319fa64dc95a66b3bd42754a931 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-patch
+881c99e7de2260ad9bbd7b36404270b2 sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-test
+b8328aba378ba02a2d9c05291f7e364a sdl2_ttf-populate-prefix/src/sdl2_ttf-populate-stamp/sdl2_ttf-populate-update

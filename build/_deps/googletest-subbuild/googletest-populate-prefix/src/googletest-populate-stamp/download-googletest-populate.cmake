@@ -22,14 +22,14 @@ function(check_file_hash has_hash hash_is_good)
   set("${has_hash}" TRUE PARENT_SCOPE)
 
   message(VERBOSE "verifying file...
-       file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip'")
+       file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip'")
 
-  file("MD5" "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip" actual_value)
+  file("MD5" "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip" actual_value)
 
   if(NOT "${actual_value}" STREQUAL "a1279c6fb5bf7d4a5e0d0b2a4adb39ac")
     set("${hash_is_good}" FALSE PARENT_SCOPE)
     message(VERBOSE "MD5 hash of
-    C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip
+    C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip
   does not match expected value
     expected: 'a1279c6fb5bf7d4a5e0d0b2a4adb39ac'
       actual: '${actual_value}'")
@@ -71,32 +71,32 @@ function(sleep_before_download attempt)
   execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep "${sleep_seconds}")
 endfunction()
 
-if(EXISTS "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip")
+if(EXISTS "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip")
   check_file_hash(has_hash hash_is_good)
   if(has_hash)
     if(hash_is_good)
       message(VERBOSE "File already exists and hash match (skip download):
-  file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip'
+  file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip'
   MD5='a1279c6fb5bf7d4a5e0d0b2a4adb39ac'"
       )
       return()
     else()
       message(VERBOSE "File already exists but hash mismatch. Removing...")
-      file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip")
+      file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip")
     endif()
   else()
     message(VERBOSE "File already exists but no hash specified (use URL_HASH):
-  file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip'
+  file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip'
 Old file will be removed and new file downloaded from URL."
     )
-    file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip")
+    file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip")
   endif()
 endif()
 
 set(retry_number 5)
 
 message(VERBOSE "Downloading...
-   dst='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip'
+   dst='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip'
    timeout='none'
    inactivity timeout='none'"
 )
@@ -119,7 +119,7 @@ foreach(i RANGE ${retry_number})
 
       file(
         DOWNLOAD
-        "${url}" "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip"
+        "${url}" "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip"
         SHOW_PROGRESS
         # no TIMEOUT
         # no INACTIVITY_TIMEOUT
@@ -136,7 +136,7 @@ foreach(i RANGE ${retry_number})
         check_file_hash(has_hash hash_is_good)
         if(has_hash AND NOT hash_is_good)
           message(VERBOSE "Hash mismatch, removing...")
-          file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip")
+          file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/googletest-subbuild/googletest-populate-prefix/src/v1.13.0.zip")
         else()
           message(VERBOSE "Downloading... done")
           return()

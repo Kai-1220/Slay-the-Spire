@@ -3,9 +3,9 @@
 # No other meaning or use of this file is supported.
 
 method=url
-command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2-subbuild/sdl2-populate-prefix/src/sdl2-populate-stamp/download-sdl2-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2-subbuild/sdl2-populate-prefix/src/sdl2-populate-stamp/verify-sdl2-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2-subbuild/sdl2-populate-prefix/src/sdl2-populate-stamp/extract-sdl2-populate.cmake
-source_dir=C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib/sdl2
-work_dir=C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib
+command=C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2-subbuild/sdl2-populate-prefix/src/sdl2-populate-stamp/download-sdl2-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2-subbuild/sdl2-populate-prefix/src/sdl2-populate-stamp/verify-sdl2-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2-subbuild/sdl2-populate-prefix/src/sdl2-populate-stamp/extract-sdl2-populate.cmake
+source_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/sdl2
+work_dir=C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib
 url(s)=https://github.com/libsdl-org/SDL/releases/download/release-2.26.5/SDL2-2.26.5.zip
 hash=MD5=0664f3980570c4641128866e6c9f2e29
       no_extract=

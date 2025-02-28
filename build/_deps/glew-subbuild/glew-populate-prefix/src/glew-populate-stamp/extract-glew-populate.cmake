@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0.zip" ABSOLUTE)
-get_filename_component(directory "C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib/glew" ABSOLUTE)
+get_filename_component(filename "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0.zip" ABSOLUTE)
+get_filename_component(directory "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/glew" ABSOLUTE)
 
 message(VERBOSE "extracting...
      src='${filename}'

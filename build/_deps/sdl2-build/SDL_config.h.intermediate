@@ -56,7 +56,7 @@
 /* #undef HAVE_ALLOCA_H */
 #define HAVE_CTYPE_H 1
 #define HAVE_FLOAT_H 1
-#define HAVE_ICONV_H 1
+/* #undef HAVE_ICONV_H */
 #define HAVE_INTTYPES_H 1
 #define HAVE_LIMITS_H 1
 #define HAVE_MALLOC_H 1
@@ -249,7 +249,7 @@
 #define HAVE_DSOUND_H 1
 #define HAVE_DINPUT_H 1
 #define HAVE_XINPUT_H 1
-#define HAVE_WINDOWS_GAMING_INPUT_H 1
+/* #undef HAVE_WINDOWS_GAMING_INPUT_H */
 #define HAVE_DXGI_H 1
 
 #define HAVE_MMDEVICEAPI_H 1
@@ -334,7 +334,7 @@
 /* #undef SDL_INPUT_FBSDKBIO */
 /* #undef SDL_JOYSTICK_ANDROID */
 /* #undef SDL_JOYSTICK_HAIKU */
-#define SDL_JOYSTICK_WGI 1
+/* #undef SDL_JOYSTICK_WGI */
 #define SDL_JOYSTICK_DINPUT 1
 #define SDL_JOYSTICK_XINPUT 1
 /* #undef SDL_JOYSTICK_DUMMY */

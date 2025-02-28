@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_mixer-subbuild/sdl2_mixer-populate-prefix/src/SDL2_mixer-2.6.3.zip" ABSOLUTE)
-get_filename_component(directory "C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD/lib/sdl2_mixer" ABSOLUTE)
+get_filename_component(filename "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_mixer-subbuild/sdl2_mixer-populate-prefix/src/SDL2_mixer-2.6.3.zip" ABSOLUTE)
+get_filename_component(directory "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/PTSD/lib/sdl2_mixer" ABSOLUTE)
 
 message(VERBOSE "extracting...
      src='${filename}'

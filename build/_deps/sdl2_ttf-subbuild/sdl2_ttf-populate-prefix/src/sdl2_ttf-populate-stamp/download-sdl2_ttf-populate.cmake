@@ -22,14 +22,14 @@ function(check_file_hash has_hash hash_is_good)
   set("${has_hash}" TRUE PARENT_SCOPE)
 
   message(VERBOSE "verifying file...
-       file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip'")
+       file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip'")
 
-  file("MD5" "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip" actual_value)
+  file("MD5" "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip" actual_value)
 
   if(NOT "${actual_value}" STREQUAL "7258258fdb2a4adb0072d337f94305f9")
     set("${hash_is_good}" FALSE PARENT_SCOPE)
     message(VERBOSE "MD5 hash of
-    C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip
+    C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip
   does not match expected value
     expected: '7258258fdb2a4adb0072d337f94305f9'
       actual: '${actual_value}'")
@@ -71,32 +71,32 @@ function(sleep_before_download attempt)
   execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep "${sleep_seconds}")
 endfunction()
 
-if(EXISTS "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip")
+if(EXISTS "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip")
   check_file_hash(has_hash hash_is_good)
   if(has_hash)
     if(hash_is_good)
       message(VERBOSE "File already exists and hash match (skip download):
-  file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip'
+  file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip'
   MD5='7258258fdb2a4adb0072d337f94305f9'"
       )
       return()
     else()
       message(VERBOSE "File already exists but hash mismatch. Removing...")
-      file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip")
+      file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip")
     endif()
   else()
     message(VERBOSE "File already exists but no hash specified (use URL_HASH):
-  file='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip'
+  file='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip'
 Old file will be removed and new file downloaded from URL."
     )
-    file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip")
+    file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip")
   endif()
 endif()
 
 set(retry_number 5)
 
 message(VERBOSE "Downloading...
-   dst='C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip'
+   dst='C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip'
    timeout='none'
    inactivity timeout='none'"
 )
@@ -119,7 +119,7 @@ foreach(i RANGE ${retry_number})
 
       file(
         DOWNLOAD
-        "${url}" "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip"
+        "${url}" "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip"
         SHOW_PROGRESS
         # no TIMEOUT
         # no INACTIVITY_TIMEOUT
@@ -136,7 +136,7 @@ foreach(i RANGE ${retry_number})
         check_file_hash(has_hash hash_is_good)
         if(has_hash AND NOT hash_is_good)
           message(VERBOSE "Hash mismatch, removing...")
-          file(REMOVE "C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip")
+          file(REMOVE "C:/Users/Billy/Desktop/oop_project/Slay-the-Spire/build/_deps/sdl2_ttf-subbuild/sdl2_ttf-populate-prefix/src/SDL2_ttf-2.20.2.zip")
         else()
           message(VERBOSE "Downloading... done")
           return()
