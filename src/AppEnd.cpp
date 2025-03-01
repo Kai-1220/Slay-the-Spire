@@ -2,5 +2,6 @@
 #include"Util/Logger.hpp"
 
 void App::End() { // NOLINT(this method will mutate members in the future)
-    LOG_TRACE("End");
+    LOG_TRACE("End"); 
+    
 }
