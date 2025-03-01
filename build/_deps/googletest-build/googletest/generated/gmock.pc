@@ -1,5 +1,5 @@
-libdir=C:/Program Files (x86)/REPLACE_WITH_YOUR_PROJECT_NAME/lib
-includedir=C:/Program Files (x86)/REPLACE_WITH_YOUR_PROJECT_NAME/include
+libdir=C:/Program Files (x86)/Slay/lib
+includedir=C:/Program Files (x86)/Slay/include
 
 Name: gmock
 Description: GoogleMock (without main() function)

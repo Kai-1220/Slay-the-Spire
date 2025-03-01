@@ -157,7 +157,7 @@ CMAKE_INSTALL_MANDIR:PATH=
 CMAKE_INSTALL_OLDINCLUDEDIR:PATH=/usr/include
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/REPLACE_WITH_YOUR_PROJECT_NAME
+CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/Slay
 
 //Run-time variable data (LOCALSTATEDIR/run)
 CMAKE_INSTALL_RUNSTATEDIR:PATH=
@@ -216,7 +216,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=REPLACE_WITH_YOUR_PROJECT_NAME
+CMAKE_PROJECT_NAME:STATIC=SlayTheSpire
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=2.6.3
@@ -461,15 +461,6 @@ PracticalToolsForSimpleDesign_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
 PracticalToolsForSimpleDesign_SOURCE_DIR:STATIC=C:/Users/qsqss/Downloads/Slay-the-Spire/PTSD
-
-//Value Computed by CMake
-REPLACE_WITH_YOUR_PROJECT_NAME_BINARY_DIR:STATIC=C:/Users/qsqss/Downloads/Slay-the-Spire/build
-
-//Value Computed by CMake
-REPLACE_WITH_YOUR_PROJECT_NAME_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-REPLACE_WITH_YOUR_PROJECT_NAME_SOURCE_DIR:STATIC=C:/Users/qsqss/Downloads/Slay-the-Spire
 
 //Dependencies for the target
 SDL2-static_LIB_DEPENDS:STATIC=general;m;general;user32;general;gdi32;general;winmm;general;imm32;general;ole32;general;oleaut32;general;version;general;uuid;general;advapi32;general;setupapi;general;shell32;general;dinput8;
@@ -955,6 +946,15 @@ SPDLOG_WCHAR_FILENAMES:BOOL=OFF
 
 //Support wchar api
 SPDLOG_WCHAR_SUPPORT:BOOL=OFF
+
+//Value Computed by CMake
+SlayTheSpire_BINARY_DIR:STATIC=C:/Users/qsqss/Downloads/Slay-the-Spire/build
+
+//Value Computed by CMake
+SlayTheSpire_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+SlayTheSpire_SOURCE_DIR:STATIC=C:/Users/qsqss/Downloads/Slay-the-Spire
 
 //Value Computed by CMake
 Slay_BINARY_DIR:STATIC=C:/Users/qsqss/Downloads/Slay-the-Spire/build
@@ -1673,7 +1673,7 @@ _CMAKE_C_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
-_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/REPLACE_WITH_YOUR_PROJECT_NAME
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/Slay
 //Compiler reason failure
 _Python_Compiler_REASON_FAILURE:INTERNAL=
 //Development reason failure

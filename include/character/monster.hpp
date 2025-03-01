@@ -7,11 +7,11 @@
 
 class Monster : public Character {
 public:
-    void Attack(Character& target);
+    void Attack(std::shared_ptr<Character> target);
 
 private:
     unsigned int m_Damage;
     std::string m_Name;
-    
+    int ActionProbability;
 };
 #endif

@@ -1,5 +1,5 @@
 
-#include "character.hpp"
+#include "Character.hpp"
 Character::GetImagePath() const { return m_ImagePath; }
 
 Character::GetPosition() const { return m_Transform.translation; }

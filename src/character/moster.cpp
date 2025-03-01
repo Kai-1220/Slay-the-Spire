@@ -1,4 +1,4 @@
-#include "monster.hpp"
-Monster::target.takeDamage(m_Damage){
-    target.takeDamage(m_Damage);
+#include "Monster.hpp"
+Monster::Attack(std::shared_ptr<Character> target){
+    target->TakeDamage(m_Damage);
 }

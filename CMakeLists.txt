@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(Slay the Spire)
+project(SlayTheSpire)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -25,6 +25,7 @@ FetchContent_MakeAvailable(ptsd)
 include(files.cmake)
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
+set(IMAGE_RESOURCE_DIR ${CMAKE_SOURCE_DIR}/Resources)
 list(TRANSFORM SRC_FILES PREPEND ${SRC_DIR}/)
 list(TRANSFORM INCLUDE_FILES PREPEND ${INCLUDE_DIR}/)
 
@@ -35,7 +36,10 @@ add_executable(${PROJECT_NAME}
     ${SRC_DIR}
     ${SRC_FILES}
     ${HEADER_FILES}
+    ${IMAGE_RESOURCE_DIR}/resource.rc
 )
+
+
 
 if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /W4)
@@ -59,3 +63,4 @@ target_link_libraries(${PROJECT_NAME}
     SDL2::SDL2main
     PTSD 
 )
+
