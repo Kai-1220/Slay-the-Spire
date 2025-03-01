@@ -11,9 +11,9 @@ InitScreen::InitScreen() {
 
 }
 void InitScreen::CreateLogo(){
-    std::shared_ptr<RUtil::Image_magic> Logo=std::make_shared<RUtil::Image_magic>(RESOURCE_DIR"/Image/Start_screen/title6.png");
-    Logo->Set_small_Pos(glm::vec2{2, 61});
-    Logo->Set_small_Size(glm::vec2{639, 550});
+    std::shared_ptr<RUtil::Image_magic> Logo=std::make_shared<RUtil::Image_magic>(RESOURCE_DIR"/Image/Start_screen/title6.png",glm::vec2{2, 61},glm::vec2{639, 550});
+    // Logo->Set_small_Pos(glm::vec2{2, 61});
+    // Logo->Set_small_Size(glm::vec2{639, 550});
     Core::Matrices LogoMaterices=Util::ConvertToUniformBufferData(Util::Transform(), Logo->Get_small_Size(), 0);
     LogoMaterices.m_Model = glm::scale(LogoMaterices.m_Model, glm::vec3{glm::vec2{680.0f*WindowMultwidth*0.8,550.0f*WindowMultheight*0.8}/Logo->Get_small_Size(), 1});
     LogoMaterices.m_Model = glm::translate(LogoMaterices.m_Model, glm::vec3(0.0f, 0.0f, -1.0f));

@@ -20,12 +20,13 @@ public:
     
 private:
     void InitProgram();
+    void Init_Card_Textures();
     void InitVertexArray();
     static constexpr int UNIFORM_SURFACE_LOCATION = 0;
     static std::unique_ptr<Core::Program> s_Program;
     static std::unique_ptr<Core::VertexArray> s_VertexArray;
     std::unique_ptr<Core::UniformBuffer<Core::Matrices>> m_UniformBuffer;
-    static std::unique_ptr<std::vector<Core::Texture>> m_Card_Textures = nullptr;
+    static std::vector<std::unique_ptr<Core::Texture>> s_Card_Textures;
 };
 }
 #endif
