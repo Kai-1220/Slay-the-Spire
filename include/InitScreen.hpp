@@ -31,13 +31,14 @@ public:
     void CreateBackground();
     void CreateTower();
     void Create();
+    void draw();
     State GetCurrentState() const { return m_CurrentState; }
 
 private:
     State m_CurrentState = State::INIT;
 
-    std::vector <std::shared_ptr<RUtil::Image_magic>> StartScreenImg;
-    std::vector <std::shared_ptr<Core::Matrices>> StartScreenMatrices;
+    std::vector <std::shared_ptr<RUtil::Image_magic>> InitScreenImg;
+    std::vector <std::shared_ptr<Core::Matrices>> InitScreenMatrices;
 };
 
 #endif
