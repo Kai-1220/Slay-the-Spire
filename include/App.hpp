@@ -12,6 +12,10 @@
 #include "Util/TransformUtils.hpp"
 
 #include "RUtil/Image_magic.hpp"
+
+#include <SDL.h>
+#include <memory>
+
 class App {
 public:
     enum class State {
@@ -22,6 +26,7 @@ public:
 
     State GetCurrentState() const { return m_CurrentState; }
 
+
     void Start();
 
     void Update();
@@ -30,7 +35,7 @@ public:
 
 private:
     void ValidTask();
-
+    SDL_Window* m_Window = nullptr;
 private:
 
 
@@ -39,7 +44,8 @@ private:
     //----
     std::shared_ptr<Util::Image>test;
     std::shared_ptr<RUtil::Image_magic>test2;
-    Core::Matrices data,data2;
+    std::shared_ptr<RUtil::Image_magic>test3;
+    Core::Matrices data,data2,data3;
     //----
 };
 

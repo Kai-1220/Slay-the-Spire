@@ -17,19 +17,37 @@ public:
 
     Character& operator=(Character&&) = delete;
 
-    const std::string& GetImagePath() const { return m_ImagePath; }
+    const std::string& GetImagePath() const;
 
-    const glm::vec2& GetPosition() const { return m_Transform.translation; }
+    const glm::vec2& GetPosition() const;
 
-    bool GetVisibility() const { return m_Visible; }
+    bool GetVisibility() const;
 
     void SetImage(const std::string& ImagePath);
 
-    void SetPosition(const glm::vec2& Position) { m_Transform.translation = Position; }
+    void SetPosition(const glm::vec2& Position);
 
+    void SetPosition(const glm::vec2& Position);
+
+    void SetHP(unsigned int HP);
+
+    void SetDefense(unsigned int Defense);
+
+    void MotifyHP(int HP);
+
+    void MotifyDefense(int Defense);
+
+    void GetHP();
+
+    void GetDefense();
+
+    void TakeDamage(unsigned int Damage);
 private:
     void ResetPosition() { m_Transform.translation = {0, 0}; }
     std::string m_ImagePath;
+
+protected:
+    bool m_Visible = true;
     unsigned int HP,Defense;
     
 };

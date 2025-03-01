@@ -1,9 +1,13 @@
 #include "App.hpp"
 
+#include <SDL_image.h>
+#include <iostream>
+
 #include "Core/Context.hpp"
 
 int main(int, char**) {
     auto context = Core::Context::GetInstance();
+    context->SetWindowIcon(RESOURCE_DIR"/Image/assets/icon.png");
     App app;
     while (!context->GetExit()) {
         switch (app.GetCurrentState()) {

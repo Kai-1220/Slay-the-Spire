@@ -1,4 +1,4 @@
-prefix=C:/Program Files (x86)/REPLACE_WITH_YOUR_PROJECT_NAME
+prefix=C:/Program Files (x86)/Slay
 exec_prefix=${prefix}
 libdir=${prefix}/lib
 includedir=${prefix}/include
