@@ -5,12 +5,15 @@ set(SRC_FILES
     main.cpp
     draw_test.cpp
     Image_magic.cpp
+    Initscreen.cpp
 )
 
 set(INCLUDE_FILES
     App.hpp
     draw_test.hpp
     Image_magic.hpp
+    WindowSize.hpp
+    Initscreen.hpp
 )
 
 set(TEST_FILES

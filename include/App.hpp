@@ -15,7 +15,8 @@
 
 #include <SDL.h>
 #include <memory>
-
+#include <vector>
+#include <iostream>
 class App {
 public:
     enum class State {
@@ -41,12 +42,15 @@ private:
 
     State m_CurrentState = State::START;
     Util::Renderer m_Root;
-    //----
-    std::shared_ptr<Util::Image>test;
-    std::shared_ptr<RUtil::Image_magic>test2;
-    std::shared_ptr<RUtil::Image_magic>test3;
-    Core::Matrices data,data2,data3;
-    //----
+    // std::shared_ptr<Util::Image>test;
+    // std::shared_ptr<RUtil::Image_magic>test2;
+    // std::shared_ptr<RUtil::Image_magic>test3;
+    // Core::Matrices data,data2,data3;
+
+
+    // std::shared_ptr<RUtil::Image_magic>Logo; 
+    // Core::Matrices LogoMaterices;
+    // std::vector <std::shared_ptr<RUtil::Image_magic>> StartScreen;
 };
 
 #endif
