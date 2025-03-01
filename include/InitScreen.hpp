@@ -30,6 +30,7 @@ public:
     void CreateLogo();
     void CreateBackground();
     void CreateTower();
+    void CreateTopCloud1();
     void Create();
     void draw();
     State GetCurrentState() const { return m_CurrentState; }
