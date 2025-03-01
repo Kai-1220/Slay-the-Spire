@@ -1,3 +1,0 @@
-C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_mixer-subbuild/CMakeFiles/sdl2_mixer-populate.dir
-C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_mixer-subbuild/CMakeFiles/edit_cache.dir
-C:/Users/qsqss/Downloads/Slay-the-Spire/build/_deps/sdl2_mixer-subbuild/CMakeFiles/rebuild_cache.dir
