@@ -6,6 +6,7 @@ set(SRC_FILES
     draw_test.cpp
     RUtil/Image_magic.cpp
     RUtil/Cards_Image.cpp
+    Initscreen.cpp
 )
 
 set(INCLUDE_FILES
@@ -13,6 +14,8 @@ set(INCLUDE_FILES
     draw_test.hpp
     RUtil/Image_magic.hpp
     RUtil/Cards_Image.hpp
+    WindowSize.hpp
+    Initscreen.hpp
 )
 
 set(TEST_FILES
