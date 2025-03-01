@@ -59,8 +59,9 @@ Image_magic::Image_magic(const std::string &filepath,const glm::vec2& small_Pos,
         
     this->small_Pos=small_Pos;
     this->small_Size=small_Size;
-    if(small_Pos.x<0||small_Pos.y<0||small_Size.x<0||small_Size.y<0||small_Pos.x+small_Size.x>m_Size.x||small_Pos.y+small_Size.y>m_Size.y){
-        auto surface = s_Store.Get(filepath);
+    auto surface = s_Store.Get(filepath);
+    m_Size = {surface->w, surface->h};
+    if(small_Pos.x<0||small_Pos.y<0||small_Size.x<0||small_Size.y<0||small_Pos.x+small_Size.x>m_Size.x||small_Pos.y+small_Size.y>m_Size.y){    
         m_Texture = std::make_unique<Core::Texture>(
             Core::SdlFormatToGlFormat(surface->format->format), surface->w,
             surface->h, surface->pixels);
@@ -85,7 +86,7 @@ void Image_magic::Reload_texture(){
     auto surface = s_Store.Get(m_Path);
     auto sub_surface=std::shared_ptr<SDL_Surface>(SDL_CreateRGBSurface(0, small_Size[0], small_Size[1], surface->format->BitsPerPixel,
         surface->format->Rmask, surface->format->Gmask,
-        surface->format->Bmask, surface->format->Amask));
+        surface->format->Bmask, surface->format->Amask),SDL_FreeSurface);
     if (!sub_surface) {
         LOG_ERROR("SDL could not create surface!");
         LOG_ERROR("{}", SDL_GetError());
