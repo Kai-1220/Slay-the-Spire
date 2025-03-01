@@ -88,7 +88,6 @@ public:
 private:
     void InitProgram();
     void InitVertexArray();
-    void InitUniformBuffer();
     
     void Reload_texture();
 
