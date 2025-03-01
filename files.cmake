@@ -4,13 +4,15 @@ set(SRC_FILES
     AppStart.cpp
     main.cpp
     draw_test.cpp
-    Image_magic.cpp
+    RUtil/Image_magic.cpp
+    RUtil/Cards_Image.cpp
 )
 
 set(INCLUDE_FILES
     App.hpp
     draw_test.hpp
-    Image_magic.hpp
+    RUtil/Image_magic.hpp
+    RUtil/Cards_Image.hpp
 )
 
 set(TEST_FILES

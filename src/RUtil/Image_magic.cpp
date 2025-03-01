@@ -47,17 +47,18 @@ Image_magic::Image_magic(const std::string &filepath)
     small_Pos={0,0};
 }
 Image_magic::Image_magic(const std::string &filepath,const glm::vec2& small_Pos,const glm::vec2& small_Size):
-    m_Path(filepath),small_Pos(small_Pos),small_Size(small_Size){
+    m_Path(filepath){
     if (s_Program == nullptr) {
         InitProgram();
     }
     if (s_VertexArray == nullptr) {
         InitVertexArray();
     }
-
     m_UniformBuffer = std::make_unique<Core::UniformBuffer<Core::Matrices>>(
         *s_Program, "Matrices", 0);
-    
+        
+    this->small_Pos=small_Pos;
+    this->small_Size=small_Size;
     if(small_Pos.x<0||small_Pos.y<0||small_Size.x<0||small_Size.y<0||small_Pos.x+small_Size.x>m_Size.x||small_Pos.y+small_Size.y>m_Size.y){
         auto surface = s_Store.Get(filepath);
         m_Texture = std::make_unique<Core::Texture>(
