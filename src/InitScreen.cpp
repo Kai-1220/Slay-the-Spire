@@ -16,7 +16,7 @@ void InitScreen::CreateLogo(){
     // Logo->Set_small_Pos(glm::vec2{2, 61});
     // Logo->Set_small_Size(glm::vec2{639, 550});
     Core::Matrices Matrices=Util::ConvertToUniformBufferData(Util::Transform(), Logo->Get_small_Size(), 0);
-    Matrices.m_Model = glm::scale(Matrices.m_Model, glm::vec3{glm::vec2{680.0f*WindowMultwidth*0.8,550.0f*WindowMultheight*0.85}/Logo->Get_small_Size(), 1});
+    Matrices.m_Model = glm::scale(Matrices.m_Model, glm::vec3{glm::vec2{680.0f*SCALE*0.8,550.0f*SCALE*0.85}/Logo->Get_small_Size(), 1});
     Matrices.m_Model = glm::translate(Matrices.m_Model, glm::vec3(0.0f, 0.0f, -1.0f));
     LogoImg=Logo;
     LogoMatrices=std::make_shared<Core::Matrices>(Matrices);
@@ -27,7 +27,7 @@ void InitScreen::CreateBackground(){
     Background->Set_small_Pos(glm::vec2{2, 2});
     Background->Set_small_Size(glm::vec2{1920, 1469});
     Core::Matrices Matrices=Util::ConvertToUniformBufferData(Util::Transform(), Background->Get_small_Size(), 0);
-    Matrices.m_Model = glm::scale(Matrices.m_Model, glm::vec3{glm::vec2{1920.0f*WindowMultwidth,1469.0f*WindowMultheight*0.8}/Background->Get_small_Size(), 1});
+    Matrices.m_Model = glm::scale(Matrices.m_Model, glm::vec3{glm::vec2{1920.0f*SCALE,1469.0f*SCALE*0.8}/Background->Get_small_Size(), 1});
     Matrices.m_Model = glm::translate(Matrices.m_Model, glm::vec3(0.0f, 0.0f, -5.0f));
     InitBackgroundImg.push_back(Background);
     InitBackgroundMatrices.push_back(std::make_shared<Core::Matrices>(Matrices));
@@ -40,7 +40,7 @@ void InitScreen::CreateTower(){
     Tower->Set_small_Pos(glm::vec2{2, 860});
     Tower->Set_small_Size(glm::vec2{1920, 856});
     Core::Matrices Matrices=Util::ConvertToUniformBufferData(Util::Transform(), Tower->Get_small_Size(), 0);
-    Matrices.m_Model = glm::scale(Matrices.m_Model, glm::vec3{glm::vec2{1920.0f*WindowMultwidth,1266.0f*WindowMultheight*0.85}/Tower->Get_small_Size(), 1});
+    Matrices.m_Model = glm::scale(Matrices.m_Model, glm::vec3{glm::vec2{1920.0f*SCALE,1266.0f*SCALE*0.85}/Tower->Get_small_Size(), 1});
     Matrices.m_Model = glm::translate(Matrices.m_Model, glm::vec3(0.0f, 0.0f, -4.0f));
     InitBackgroundImg.push_back(Tower);
     InitBackgroundMatrices.push_back(std::make_shared<Core::Matrices>(Matrices));
@@ -52,7 +52,7 @@ void InitScreen::CreateBlackCloud(int i){
     BlackCloud->Set_small_Pos(BlackCloudPos[i]);
     BlackCloud->Set_small_Size(BlackCloudSize[i]);
     Core::Matrices BlackCloudMaterices=Util::ConvertToUniformBufferData(Util::Transform(), BlackCloud->Get_small_Size(), 0);
-    BlackCloudMaterices.m_Model = glm::scale(BlackCloudMaterices.m_Model, glm::vec3{BlackCloudorigScale*glm::vec2{WindowMultwidth,WindowMultheight}*glm::vec2{0.3,0.3}/BlackCloud->Get_small_Size(), 1});
+    BlackCloudMaterices.m_Model = glm::scale(BlackCloudMaterices.m_Model, glm::vec3{BlackCloudorigScale*glm::vec2{SCALE,SCALE}*glm::vec2{0.3,0.3}/BlackCloud->Get_small_Size(), 1});
     BlackCloudMaterices.m_Model = glm::translate(BlackCloudMaterices.m_Model, glm::vec3(-2.25f, -rand()%18/10.0f, -3.0f));
     BlackCloudImg.push_back(BlackCloud);
     BlackCloudMatrices.push_back(std::make_shared<Core::Matrices>(BlackCloudMaterices));
@@ -65,7 +65,7 @@ void InitScreen::CreateWhiteCloud(int i){
     WhiteCloud->Set_small_Pos(WhiteCloudPos[i]);
     WhiteCloud->Set_small_Size(WhiteCloudSize[i]);
     Core::Matrices WhiteCloudMaterices=Util::ConvertToUniformBufferData(Util::Transform(), WhiteCloud->Get_small_Size(), 0);
-    WhiteCloudMaterices.m_Model = glm::scale(WhiteCloudMaterices.m_Model, glm::vec3{WhiteCloudorigScale*glm::vec2{WindowMultwidth,WindowMultheight}*glm::vec2{0.3,0.3}/WhiteCloud->Get_small_Size(), 1});
+    WhiteCloudMaterices.m_Model = glm::scale(WhiteCloudMaterices.m_Model, glm::vec3{WhiteCloudorigScale*glm::vec2{SCALE,SCALE}*glm::vec2{0.3,0.3}/WhiteCloud->Get_small_Size(), 1});
     WhiteCloudMaterices.m_Model = glm::translate(WhiteCloudMaterices.m_Model, glm::vec3(2.25f, -rand()%18/10.0f, -2.0f));
     WhiteCloudImg.push_back(WhiteCloud);
     WhiteCloudMatrices.push_back(std::make_shared<Core::Matrices>(WhiteCloudMaterices));
@@ -126,9 +126,9 @@ void InitScreen::draw(){
         }
     }
     
-    // LogoImg->Draw(*LogoMatrices);
+    LogoImg->Draw(*LogoMatrices);
 
-    Core::Matrices WhiteCloudMaterices=Util::ConvertToUniformBufferData(Util::Transform(), glm::vec2{150*WindowMultwidth, 50*WindowMultheight}, 0);
+    Core::Matrices WhiteCloudMaterices=Util::ConvertToUniformBufferData(Util::Transform(), glm::vec2{150*SCALE, 50*SCALE}, 0);
     WhiteCloudMaterices.m_Model = glm::translate(WhiteCloudMaterices.m_Model, glm::vec3(-5.15f,-4.4f, -1.0f));
     m_Text->Draw(WhiteCloudMaterices);
     

@@ -2,7 +2,7 @@
 #define WINDOW_SIZE_H
 
 #include "config.hpp"
-#define WindowMultwidth 0.66666666666666666666666666666667
-#define WindowMultheight 0.66666666666666666666666666666667
+#define SCALE ((float)WINDOW_WIDTH / 1920.0F)
+
 
 #endif
