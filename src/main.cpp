@@ -2,7 +2,6 @@
 #include "InitScreen.hpp"
 #include <SDL_image.h>
 #include <iostream>
-
 #include "Core/Context.hpp"
 
 int main(int, char**) {
