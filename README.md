@@ -26,9 +26,9 @@ http://youtube.com/watch?v=R62O9LWOsvg&t=2891s
 # Development timeline
 
 - Week 1：準備素材
-  - [V] 蒐集遊戲的素材
+  - [x] 蒐集遊戲的素材
 - Week 2：處理遊戲的封面
-  - [V] 處理遊戲封面的素材
+  - [x] 處理遊戲封面的素材
   - [ ] 進行遊戲封面的設計
 - Week 3：遊戲的爬塔路徑(至第一隻boss為止)
   - [ ] 處理爬塔路徑的素材
