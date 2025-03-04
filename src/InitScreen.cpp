@@ -70,19 +70,27 @@ void InitScreen::CreateWhiteCloud(int i){
     WhiteCloudImg.push_back(WhiteCloud);
     WhiteCloudMatrices.push_back(std::make_shared<Core::Matrices>(WhiteCloudMaterices));
     WhiteCloudCount.push_back(0);
-
-
 }
+void InitScreen::CreateText(int i){
+    std::shared_ptr<Util::Text> Text=std::make_shared<Util::Text>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf", m_Size, m_Text[i],
+        Util::Color::FromRGB(255, 255, 255));
+    Core::Matrices Matrices=Util::ConvertToUniformBufferData(Util::Transform(), TextScale[i]*SCALE, 0);
+    Matrices.m_Model = glm::translate(Matrices.m_Model, m_TextPos[i]);
+    TextMatrices.push_back(std::make_shared<Core::Matrices>(Matrices));
+    TextObj.push_back(Text);
+}
+
 void InitScreen::Create(){
     CreateBackground();
     CreateTower();
     CreateLogo();
-
-    m_Text = std::make_unique<Util::Text>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf", 50, "開始遊戲",
-        Util::Color::FromRGB(255, 255, 255));
-
+    for (int i = 0; i < m_Text.size(); i++) {
+        CreateText(i);
+    }
 }
 void InitScreen::draw(){
+    // std::cout<<Util::Input::GetCursorPosition().x<<" "<<Util::Input::GetCursorPosition().y<<std::endl;
+    // std::cout<<GetTextScreenPosition(3).x<<" "<<GetTextScreenPosition(3).y<<std::endl;
     for (int i = 0; i < InitBackgroundImg.size(); i++) {
         InitBackgroundImg[i]->Draw(*InitBackgroundMatrices[i]);
     }
@@ -128,11 +136,45 @@ void InitScreen::draw(){
     
     LogoImg->Draw(*LogoMatrices);
 
-    Core::Matrices WhiteCloudMaterices=Util::ConvertToUniformBufferData(Util::Transform(), glm::vec2{150*SCALE, 50*SCALE}, 0);
-    WhiteCloudMaterices.m_Model = glm::translate(WhiteCloudMaterices.m_Model, glm::vec3(-5.15f,-4.4f, -1.0f));
-    m_Text->Draw(WhiteCloudMaterices);
+    for(int i=0;i<TextObj.size();i++){
+        TextObj[i]->Draw(*TextMatrices[i]);
+        if(Util::Input::GetCursorPosition().x<GetTextScreenPosition(i).x-TextScale[i].x/2.0f || 
+            Util::Input::GetCursorPosition().x>GetTextScreenPosition(i).x+TextScale[i].x/2.0f || 
+            Util::Input::GetCursorPosition().y<GetTextScreenPosition(i).y-TextScale[i].y/2.0f+15 || 
+            Util::Input::GetCursorPosition().y>GetTextScreenPosition(i).y+TextScale[i].y/2.0f-15){
+            TextObj[i]->SetColor(Util::Color::FromRGB(255, 255, 255));
+        }
+        else{
+            TextObj[i]->SetColor(Util::Color::FromRGB(255, 0, 0));
+        }
+    }
     
     if (Util::Input::IsKeyPressed(Util::Keycode::ESCAPE) || Util::Input::IfExit()) {
         m_CurrentState = State::END;
     }
+}
+
+
+// 在 InitScreen.hpp 中添加此方法
+glm::vec2 InitScreen::GetTextScreenPosition(int index) {
+    if (index < 0 || index >= TextMatrices.size()) {
+        return glm::vec2(0.0f);
+    }
+    
+    // 使用存儲在文字矩陣中的模型矩陣
+    glm::mat4 model = TextMatrices[index]->m_Model;
+    
+    // 從模型矩陣第四列提取平移部分
+    glm::vec3 worldPos = glm::vec3(model[3]);
+    
+    // 根據實際測量計算轉換係數
+    // 比較 (-329600, -40800) 和 (-520, -115) 的比例關係
+    float scaleFactorX = 634.0f*2;
+    float scaleFactorY = 355.0f*2;
+    
+    // 直接從世界座標轉換到螢幕座標
+    float screenX = worldPos.x / scaleFactorX * WINDOW_WIDTH;
+    float screenY = worldPos.y / scaleFactorY * WINDOW_HEIGHT;
+    
+    return glm::vec2(screenX, screenY);
 }
