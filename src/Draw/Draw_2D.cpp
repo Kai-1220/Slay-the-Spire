@@ -1,5 +1,7 @@
 #include "Draw/Draw_2D.hpp"
 #include "Util/Logger.hpp"
+#include <glm/gtc/type_ptr.hpp>
+
 namespace Draw {
     Draw_2D::Draw_2D(const int size,const std::shared_ptr<Core::Program> &program){
         int len;
@@ -16,6 +18,11 @@ namespace Draw {
         //Init member
         NowProgram=program==nullptr?DefaultProgram:program;
         SetColor(Util::Colors::WHITE);
+        m_Projection=m_Transform=u_Combine=glm::mat4(1.0F);
+        NowProgram->Bind();//test if not bind
+        CombineMatrixPos=glGetUniformLocation(NowProgram->GetId(),"u_projTrans");//Note:Here should be wrapped, if have time.
+        Sampler2DPos=glGetUniformLocation(NowProgram->GetId(),"u_texture");
+        vertices.reserve(max_len);
         //set idx
         std::vector<GLushort> Indices(len);
         GLushort j=0;
@@ -52,6 +59,8 @@ namespace Draw {
         //set uv
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(sizeof(GLfloat)*3));
         glEnableVertexAttribArray(2);
+        //unbind vao
+        glBindVertexArray(0);
     }
     Draw_2D::~Draw_2D(){
         glDeleteVertexArrays(1, &m_ArrayId);
@@ -63,5 +72,49 @@ namespace Draw {
     void Draw_2D::SetColor(Util::Colors color){SetColor(Uint32(color)<<8||255);}
     void Draw_2D::SetColor(Uint32 color){
         memcpy(&this->color,&color,sizeof(Uint32));
+    }
+    void Draw_2D::SetProjection(const glm::mat4&projection){
+        this->m_Projection=projection;
+        SetCombine();
+    }
+    void Draw_2D::SetTransform(const glm::mat4&transform){
+        this->m_Transform=transform;
+        SetCombine();
+    }
+
+    void Draw_2D::begin(){
+        if(drawing){
+            LOG_ERROR("end must be called before begin");
+        }else{
+            drawing=true;
+            SetCombine();
+        }
+    }
+    void Draw_2D::end(){
+        if(!drawing){
+            LOG_ERROR("begin must be called before end");
+        }else{
+            if(idx>0) this->flush();
+            drawing=false;
+            NowProgram->Unbind();
+        }
+    }
+    void Draw_2D::SetCombine(){
+        this->u_Combine=m_Projection*m_Transform;
+        this->NowProgram->Bind();
+        glUniformMatrix4fv(CombineMatrixPos,1,GL_FALSE,glm::value_ptr(u_Combine));
+        glUniform1i(Sampler2DPos,SLOTPOS);//slot 0
+        glActiveTexture(GL_TEXTURE0);//set now using slot
+    }
+    void Draw_2D::flush(){
+        int IndicesLen=idx/20*6;
+        LastTexture->Bind();//flush is private, make sure here is not nullptr
+        glBindBuffer(GL_ARRAY_BUFFER,m_VBO_BufferId);
+        glBufferData(GL_ARRAY_BUFFER,static_cast<GLsizeiptr>(idx * sizeof(GLfloat)),vertices.data(),GL_DYNAMIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO_BufferId);
+        glBindVertexArray(m_ArrayId);
+        glDrawElements(GL_TRIANGLES, IndicesLen, GL_UNSIGNED_SHORT, 0);
+        glBindVertexArray(0);
+        idx=0;
     }
 }

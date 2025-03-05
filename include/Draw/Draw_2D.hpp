@@ -3,6 +3,7 @@
 #include "pch.hpp"
 #include "Core\Program.hpp"
 #include "Util\Color.hpp"
+#include "Draw\ReTexture.hpp"
 namespace Draw {
 // 
 /**
@@ -28,9 +29,13 @@ public:
     void SetColor(int r,int g,int b,int a=255);
     void SetColor(Util::Colors color);
     void SetColor(Uint32 color);
-
-    // void begin();
+    void SetProjection(const glm::mat4&projection);
+    void SetTransform(const glm::mat4&transform);
+    void begin();
+    void end();
 private:
+    void flush();
+    void SetCombine();
     GLuint  m_EBO_BufferId,//only have one EBO. 
             m_ArrayId,//one VAO.
             m_VBO_BufferId;//one VBO.
@@ -40,12 +45,14 @@ private:
                                                 RESOURCE_DIR "/shader/java/default/default.frag");
     std::shared_ptr<Core::Program> NowProgram;
     
-    GLuint LastTexture=0;
+    std::shared_ptr<ReTexture> LastTexture=nullptr;
     int idx=0,max_len;
+    std::vector<GLfloat> vertices;
     GLfloat color;
-    // glm::mat4 m_Projection(1.0F),m_Transform(1.0F),u_Combine(1.0F);
+    glm::mat4 m_Projection,m_Transform,u_Combine;
     bool drawing=false;
-
+    GLint CombineMatrixPos,Sampler2DPos;
+    static constexpr GLint SLOTPOS=0;
 };
 }
 #endif

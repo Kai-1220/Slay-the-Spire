@@ -8,6 +8,7 @@ set(SRC_FILES
     RUtil/Cards_Image.cpp
     Draw/Draw_2D.cpp
     Draw/Image_Region.cpp
+    Draw/ReTexture.cpp
     Initscreen.cpp
 )
 
@@ -18,6 +19,7 @@ set(INCLUDE_FILES
     RUtil/Cards_Image.hpp
     Draw/Draw_2D.hpp
     Draw/Image_Region.hpp
+    Draw/ReTexture.hpp
     WindowSize.hpp
     Initscreen.hpp
 )

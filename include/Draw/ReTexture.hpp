@@ -24,7 +24,7 @@ public:
     GLuint GetReTextureId() const { return m_TextureId; }
     int GetWidth() const {return w;}
     int GetHeight() const {return h;}
-    void Bind() const;//I think one slot is enough for 2D game.
+    void Bind() const;
 private:
     GLuint m_TextureId;
     int w,h;
