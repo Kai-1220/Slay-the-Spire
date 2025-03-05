@@ -33,6 +33,15 @@ public:
     void SetTransform(const glm::mat4&transform);
     void begin();
     void end();
+    /**
+     * @brief Draw the texture on the window.
+     * @param x the pos.x of the texture on window(0 is on the left)
+     * @param y the pos.y of the texture on window(0 is on the up)
+     * @param w the width of the texture on window
+    */
+    void draw(  const std::shared_ptr<ReTexture> &texture, 
+                const float x,const float y,
+                const float w,const float h);
 private:
     void flush();
     void SetCombine();

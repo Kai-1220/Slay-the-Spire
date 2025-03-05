@@ -117,4 +117,44 @@ namespace Draw {
         glBindVertexArray(0);
         idx=0;
     }
+    //ここからはdrawの関数です
+    void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
+                const float x,const float y,
+                const float w,const float h){
+        if(!drawing){
+            LOG_ERROR("Please call begin() before draw()");
+        }else{
+            if(idx==max_len) flush();
+            //texture switch
+            //x y color u v
+            //now using:
+            //(0,0) (1,0)
+            //(0,1) (1,1)
+            //opengl using:
+            //(0,1) (1,1)
+            //(0,0) (1,0)
+            //u=1-u;
+            vertices[idx]=x;
+            vertices[idx+1]=y;
+            vertices[idx+2]=color;
+            vertices[idx+3]=0.0F;
+            vertices[idx+4]=1.0F;
+            vertices[idx+5]=x;
+            vertices[idx+6]=y+h;
+            vertices[idx+7]=color;
+            vertices[idx+8]=0.0F;
+            vertices[idx+9]=0.0F;
+            vertices[idx+10]=x+w;
+            vertices[idx+11]=y+h;
+            vertices[idx+12]=color;
+            vertices[idx+13]=1.0F;
+            vertices[idx+14]=0.0F;
+            vertices[idx+15]=x+w;
+            vertices[idx+16]=y;
+            vertices[idx+17]=color;
+            vertices[idx+18]=1.0F;
+            vertices[idx+19]=1.0F;
+            idx+=20;
+        }
+    }
 }
