@@ -1,7 +1,7 @@
 #include "Draw/Draw_2D.hpp"
 #include "Util/Logger.hpp"
 #include <glm/gtc/type_ptr.hpp>
-
+#include "config.hpp"
 namespace Draw {
     Draw_2D::Draw_2D(const int size,const std::shared_ptr<Core::Program> &program){
         int len;
@@ -18,7 +18,8 @@ namespace Draw {
         //Init member
         NowProgram=program==nullptr?DefaultProgram:program;
         SetColor(Util::Colors::WHITE);
-        m_Projection=m_Transform=u_Combine=glm::mat4(1.0F);
+        m_Transform=u_Combine=glm::mat4(1.0F);
+        m_Projection=glm::ortho<float>(0.0F,(float)WINDOW_WIDTH,0.0F,(float)WINDOW_HEIGHT,0.0F,1.0F);
         NowProgram->Bind();//test if not bind
         CombineMatrixPos=glGetUniformLocation(NowProgram->GetId(),"u_projTrans");//Note:Here should be wrapped, if have time.
         Sampler2DPos=glGetUniformLocation(NowProgram->GetId(),"u_texture");
@@ -47,6 +48,8 @@ namespace Draw {
         //set indices
         //just need set once
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(Indices.size() * sizeof(GLushort)), Indices.data(), GL_STATIC_DRAW);
+        //set vbo size
+        glBufferData(GL_ARRAY_BUFFER,max_len*sizeof(GLfloat),NULL,GL_DYNAMIC_DRAW);
         //set vao, also jsut need once
         // x(float) y(float) color(float) u(float) v(float)
         //set pos
@@ -69,7 +72,7 @@ namespace Draw {
     }
 
     void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(r<<24|g<<16|b<<8|a));}
-    void Draw_2D::SetColor(Util::Colors color){SetColor(Uint32(color)<<8||255);}
+    void Draw_2D::SetColor(Util::Colors color){SetColor(Uint32(color)<<8|255);}
     void Draw_2D::SetColor(Uint32 color){
         memcpy(&this->color,&color,sizeof(Uint32));
     }
@@ -107,25 +110,34 @@ namespace Draw {
         glActiveTexture(GL_TEXTURE0);//set now using slot
     }
     void Draw_2D::flush(){
-        int IndicesLen=idx/20*6;
-        LastTexture->Bind();//flush is private, make sure here is not nullptr
-        glBindBuffer(GL_ARRAY_BUFFER,m_VBO_BufferId);
-        glBufferData(GL_ARRAY_BUFFER,static_cast<GLsizeiptr>(idx * sizeof(GLfloat)),vertices.data(),GL_DYNAMIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO_BufferId);
-        glBindVertexArray(m_ArrayId);
-        glDrawElements(GL_TRIANGLES, IndicesLen, GL_UNSIGNED_SHORT, 0);
-        glBindVertexArray(0);
-        idx=0;
+        if(idx>0){
+            int IndicesLen=idx/20*6;
+            LastTexture->Bind();//flush is private, make sure here is not nullptr
+            glBindBuffer(GL_ARRAY_BUFFER,m_VBO_BufferId);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(idx * sizeof(GLfloat)), vertices.data());
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO_BufferId);
+            glBindVertexArray(m_ArrayId);
+            glDrawElements(GL_TRIANGLES, IndicesLen, GL_UNSIGNED_SHORT, 0);
+            glBindVertexArray(0);
+            idx=0;
+        }
     }
-    //ここからはdrawの関数です
+    void Draw_2D::SwitchTexture(const std::shared_ptr<ReTexture> &texture){
+        flush();
+        this->LastTexture=texture;
+    }
+    /*ここからはdrawの関数です*/
     void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y,
                 const float w,const float h){
         if(!drawing){
             LOG_ERROR("Please call begin() before draw()");
         }else{
-            if(idx==max_len) flush();
-            //texture switch
+            if(texture!=LastTexture)
+                SwitchTexture(texture);
+            else if(idx==max_len) 
+                flush();
+            
             //x y color u v
             //now using:
             //(0,0) (1,0)

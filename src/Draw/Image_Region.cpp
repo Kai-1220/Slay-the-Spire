@@ -1,11 +1,11 @@
 #include "Draw/Image_Region.hpp"
 namespace Draw{
     Image_Region::Image_Region(const std::shared_ptr<ReTexture> &texture,
-        const int width, const int height,
-        const int x, const int y):texture(texture){
-        SetRegion(width,height,x,y);
+        const int x, const int y,
+        const int width, const int height):texture(texture){
+        SetRegion(x,y,width,height);
     }
-    void Image_Region::SetRegion(const int width,const int height,const int x,const int y){
+    void Image_Region::SetRegion(const int x,const int y,const int width,const int height){
         region_w=width==-1?texture->GetWidth():abs(width);
         region_h=height==-1?texture->GetHeight():abs(height);
         float unit_w=1.0F/(float)texture->GetWidth(),

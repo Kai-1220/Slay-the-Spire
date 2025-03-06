@@ -24,9 +24,9 @@ public:
      * @param y The vertical position of image(from the top), default is 0.
      */
     Image_Region(const std::shared_ptr<ReTexture> &ReTexture,
-        const int width = -1, const int height = -1,
-        const int x = 0, const int y = 0);
-    void SetRegion(const int width,const int height,const int x=0,const int y=0);
+        const int x = 0, const int y = 0,
+        const int width = -1, const int height = -1);
+    void SetRegion(const int x=0,const int y=0,const int width=-1,const int height=-1);
     void SetTexture(const std::shared_ptr<ReTexture> &ReTexture);
     std::shared_ptr<ReTexture> GetTexture()const{return texture;}
     int GetRegionWidth()const{return region_w;}

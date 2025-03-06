@@ -4,6 +4,7 @@
 #include "Core\Program.hpp"
 #include "Util\Color.hpp"
 #include "Draw\ReTexture.hpp"
+#include "Draw\Image_Region.hpp"
 namespace Draw {
 // 
 /**
@@ -43,6 +44,7 @@ public:
                 const float x,const float y,
                 const float w,const float h);
 private:
+    void SwitchTexture(const std::shared_ptr<ReTexture> &texture);
     void flush();
     void SetCombine();
     GLuint  m_EBO_BufferId,//only have one EBO. 
@@ -50,8 +52,8 @@ private:
             m_VBO_BufferId;//one VBO.
             //VAO VBO EBO will die after draw_2d die.
     std::shared_ptr<Core::Program> DefaultProgram=std::make_shared<Core::Program>(
-                                                RESOURCE_DIR "/shader/java/default/default.vert",
-                                                RESOURCE_DIR "/shader/java/default/default.frag");
+                                                RESOURCE_DIR "/shader/default/default.vert",
+                                                RESOURCE_DIR "/shader/default/default.frag");
     std::shared_ptr<Core::Program> NowProgram;
     
     std::shared_ptr<ReTexture> LastTexture=nullptr;

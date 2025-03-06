@@ -18,7 +18,11 @@ namespace Draw {
         glBindTexture(GL_TEXTURE_2D,m_TextureId);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D,0,Core::SdlFormatToGlFormat(temp_surface->format->format),w,h,0,temp_surface->format->format,GL_UNSIGNED_BYTE,temp_surface->pixels);
+        glTexImage2D(GL_TEXTURE_2D,0,Core::GlFormatToGlInternalFormat(Core::SdlFormatToGlFormat(temp_surface->format->format)),this->w,this->h,0,Core::SdlFormatToGlFormat(temp_surface->format->format),GL_UNSIGNED_BYTE,temp_surface->pixels);
+        GLenum error = glGetError();
+        if (error != GL_NO_ERROR) {
+            LOG_ERROR("OpenGL Error: {}", error);
+        }
         SDL_FreeSurface(temp_surface);
     }
     ReTexture::~ReTexture(){
