@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Core/Context.hpp"
 #include "Draw/Draw_2D.hpp"//test_Draw_2D
+#include "draw_test.hpp"
 #include "Util/Input.hpp"
 int main(int, char**) {
     auto context = Core::Context::GetInstance();
@@ -46,7 +47,7 @@ int main(int, char**) {
     // draw_test(test_image->GetReTextureId(),context);
     while (!context->GetExit()) {
         // the_test.begin();
-        // the_test.draw(test_image,0,WINDOW_HEIGHT-100,100,100);
+        // the_test.draw(test_region,0.0F,0.0F,680.0F*((float)WINDOW_WIDTH / 1920.0F),550.0F*((float)WINDOW_WIDTH / 1920.0F));
         // the_test.end();
         
         

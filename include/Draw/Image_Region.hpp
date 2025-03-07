@@ -31,6 +31,10 @@ public:
     std::shared_ptr<ReTexture> GetTexture()const{return texture;}
     int GetRegionWidth()const{return region_w;}
     int GetRegionHeight()const{return region_h;}
+    float GetU()const{return u;}
+    float GetU2()const{return u2;}
+    float GetV()const{return v;}
+    float GetV2()const{return v2;}
     ~Image_Region() = default;
 private:
     void SetRegion(const float u,const float v,const float u2,const float v2);

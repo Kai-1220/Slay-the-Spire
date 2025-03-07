@@ -159,7 +159,7 @@ void Image_magic::InitVertexArray() {
             1.0F, 0.0F, //
         },
         2));
-
+    
     // Index
     s_VertexArray->SetIndexBuffer(
         std::make_unique<Core::IndexBuffer>(std::vector<unsigned int>{
