@@ -127,6 +127,48 @@ namespace Draw {
         this->LastTexture=texture;
     }
     /*ここからはdrawの関数です*/
+    void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
+                const float x,const float y){
+        draw(RegionTexture,x,y,RegionTexture->GetRegionWidth(),RegionTexture->GetRegionHeight());
+    }
+    void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
+        const float x,const float y,
+        const float w,const float h){
+        if(!drawing){
+            LOG_ERROR("Please call begin() before draw()");
+        }else{
+            auto texture=RegionTexture->GetTexture();
+            if(texture!=LastTexture)
+                SwitchTexture(texture);
+            else if(idx==max_len) 
+                flush();
+            float u=RegionTexture->GetU(),
+                    u2=RegionTexture->GetU2(),
+                    v=RegionTexture->GetV(),
+                    v2=RegionTexture->GetV2();
+            vertices[idx]=x;
+            vertices[idx+1]=y;
+            vertices[idx+2]=color;
+            vertices[idx+3]=u;
+            vertices[idx+4]=v2;
+            vertices[idx+5]=x;
+            vertices[idx+6]=y+h;
+            vertices[idx+7]=color;
+            vertices[idx+8]=u;
+            vertices[idx+9]=v;
+            vertices[idx+10]=x+w;
+            vertices[idx+11]=y+h;
+            vertices[idx+12]=color;
+            vertices[idx+13]=u2;
+            vertices[idx+14]=v;
+            vertices[idx+15]=x+w;
+            vertices[idx+16]=y;
+            vertices[idx+17]=color;
+            vertices[idx+18]=u2;
+            vertices[idx+19]=v2;
+            idx+=20;
+        }               
+    }
     void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y,
                 const float w,const float h){
