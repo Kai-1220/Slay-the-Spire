@@ -7,6 +7,7 @@
 #include "Draw/Draw_2D.hpp"//test_Draw_2D
 #include "draw_test.hpp"
 #include "Draw/ReText.hpp"
+#include "RUtil/Image_book.hpp"
 #include "Util/Input.hpp"
 int main(int, char**) {
     auto context = Core::Context::GetInstance();
@@ -39,7 +40,12 @@ int main(int, char**) {
 
     std::shared_ptr<Draw::Draw_2D> Draw2D =std::make_shared<Draw::Draw_2D>() ;
     
-    // std::shared_ptr<Draw::ReTexture> test_image=std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/Start_screen/title6.png");
+    auto book=RUtil::Image_book::GetBook();
+    // std::shared_ptr<Draw::ReTexture> test_image=book->GetTexture(RESOURCE_DIR"/Image/Start_screen/title6.png");
+    // std::shared_ptr<Draw::ReTexture> same_image=book->GetTexture(RESOURCE_DIR"/Image/Start_screen/title6.png");
+    // std::shared_ptr<Draw::ReTexture> same_image_two=book->GetTexture(RESOURCE_DIR"/Image/Start_screen/title5.png");
+    // std::shared_ptr<Draw::ReTexture> same2_image=book->GetTexture(RESOURCE_DIR"/Image/Start_screen/title6.png");
+    // std::shared_ptr<Draw::ReTexture> same_image_two2=book->GetTexture(RESOURCE_DIR"/Image/Start_screen/title5.png");
     //Draw::Image_Region test_region(test_image,2,61,639,550);
     // std::shared_ptr<Draw::ReTexture> test_image=std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/cards/cards2.png");
     // std::shared_ptr<Draw::ReText> text_test=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",23,"HELLO WORLD");
@@ -67,6 +73,8 @@ int main(int, char**) {
         // Draw2D->SetColor(Util::Colors::BLUE);
         // Draw2D->draw(text_test,0.0F,(float)text_test->GetHeight(),text_test2->GetWidth(),text_test2->GetHeight());
         // Draw2D->draw(text_test2,text_test2->GetWidth(),(float)text_test->GetHeight());
+        //測試book
+        // Draw2D->draw(same2_image,0,0);
         Draw2D->end();
         context->Update();     
         if(initScreen.GetCurrentState()==InitScreen::State::END){

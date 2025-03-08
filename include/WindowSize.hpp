@@ -3,7 +3,7 @@
 
 #include "config.hpp"
 namespace Setting{
-    const float SCALE =(float)WINDOW_WIDTH / 1920.0F;
+    constexpr float SCALE =(float)WINDOW_WIDTH / 1920.0F;
     
 }
 #endif

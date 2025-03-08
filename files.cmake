@@ -6,11 +6,12 @@ set(SRC_FILES
     draw_test.cpp
     RUtil/Image_magic.cpp
     RUtil/Cards_Image.cpp
+    RUtil/Image_book.cpp
     Draw/Draw_2D.cpp
     Draw/Image_Region.cpp
     Draw/ReTexture.cpp
     Draw/ReText.cpp
-    game_object/Dungeon_map.cpp
+    Game_object/Dungeon_map.cpp
     Initscreen.cpp
 )
 
@@ -19,11 +20,12 @@ set(INCLUDE_FILES
     draw_test.hpp
     RUtil/Image_magic.hpp
     RUtil/Cards_Image.hpp
+    RUtil/Image_book.hpp
     Draw/Draw_2D.hpp
     Draw/Image_Region.hpp
     Draw/ReTexture.hpp
     Draw/ReText.hpp
-    game_object/Dungeon_map.hpp
+    Game_object/Dungeon_map.hpp
     WindowSize.hpp
     Initscreen.hpp
 )
