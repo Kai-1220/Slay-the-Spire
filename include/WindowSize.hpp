@@ -2,7 +2,8 @@
 #define WINDOW_SIZE_H
 
 #include "config.hpp"
-#define SCALE ((float)WINDOW_WIDTH / 1920.0F)
-
-
+namespace Setting{
+    const float SCALE =(float)WINDOW_WIDTH / 1920.0F;
+    
+}
 #endif
