@@ -2,6 +2,7 @@
 #include "WindowSize.hpp"
 #include "Util/Input.hpp"
 #include "Util/Keycode.hpp"
+#include "Draw\ReTexture.hpp"
 #include <iostream>
 #include <vector>
 
@@ -88,7 +89,7 @@ void InitScreen::Create(){
         CreateText(i);
     }
 }
-void InitScreen::draw(){
+void InitScreen::draw(std::shared_ptr<Draw::Draw_2D> Draw2D){
     // std::cout<<Util::Input::GetCursorPosition().x<<" "<<Util::Input::GetCursorPosition().y<<std::endl;
     // std::cout<<GetTextScreenPosition(3).x<<" "<<GetTextScreenPosition(3).y<<std::endl;
     for (int i = 0; i < InitBackgroundImg.size(); i++) {
@@ -146,12 +147,18 @@ void InitScreen::draw(){
         }
         else{
             TextObj[i]->SetColor(Util::Color::FromRGB(255, 0, 0));
+            if(Util::Input::IsKeyPressed(Util::Keycode::MOUSE_LB)){
+                m_CurrentState=State(i+1);
+            }
         }
     }
     
     if (Util::Input::IsKeyPressed(Util::Keycode::ESCAPE) || Util::Input::IfExit()) {
         m_CurrentState = State::END;
     }
+    
+
+    // std::cout<<Util::Input::GetCursorPosition().x<<","<<Util::Input::GetCursorPosition().y<<std::endl;
 }
 
 

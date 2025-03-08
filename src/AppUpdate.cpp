@@ -10,5 +10,4 @@ void App::Update() {
     if (Util::Input::IsKeyPressed(Util::Keycode::ESCAPE) || Util::Input::IfExit()) {
         m_CurrentState = State::END;
     }
-    
 }

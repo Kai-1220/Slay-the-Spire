@@ -10,6 +10,7 @@
 #include "Util/GameObject.hpp"
 #include "Util/Transform.hpp"
 #include "Util/TransformUtils.hpp"
+#include "Draw/Draw_2D.hpp"
 
 #include "RUtil/Image_magic.hpp"
 
@@ -21,6 +22,11 @@ class InitScreen {
 public:
     enum class State {
         INIT,
+        STSRT_GAME,
+        ENCYCLOPEDIA,
+        STATISTICS,
+        SETTINGS,
+        UPDATE_CONTENT_LIST,
         END
     };
     
@@ -34,10 +40,11 @@ public:
     void CreateWhiteCloud(int i);
     void CreateText(int i);
     void Create();
-    void draw();
+    void draw(std::shared_ptr<Draw::Draw_2D> Draw2D);
     State GetCurrentState() const { return m_CurrentState; }
 
     glm::vec2 GetTextScreenPosition(int index);
+
 
 private:
     State m_CurrentState = State::INIT;

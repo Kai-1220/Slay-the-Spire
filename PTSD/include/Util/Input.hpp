@@ -96,6 +96,8 @@ public:
      * @return  A bool value representing the current state of the mouse
      * wheel.
      */
+    
+
     static bool IfScroll();
 
     /**
@@ -127,7 +129,6 @@ public:
      * already.
      */
     static void Update();
-
 private:
     static void UpdateKeyState(const SDL_Event *event);
 

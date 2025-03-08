@@ -53,7 +53,6 @@ bool Input::IfScroll() {
 bool Input::IfExit() {
     return s_Exit;
 }
-
 glm::vec2 Input::GetScrollDistance() {
 
     return s_ScrollDistance;
@@ -124,5 +123,4 @@ void Input::SetCursorPosition(const glm::vec2 &pos) {
     SDL_WarpMouseInWindow(nullptr, static_cast<int>(pos.x),
                           static_cast<int>(pos.y));
 }
-
 } // namespace Util
