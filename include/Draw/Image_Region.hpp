@@ -18,10 +18,11 @@ public:
      * By default, the position will be set to (0, 0) in the top-left corner
      * 
      * @param texture sub_image base.
-     * @param width The width of the image region. Default is the full width of the texture.
-     * @param height The height of the image region. Default is the full height of the texture.
      * @param x The horizontal position of image(from the left), default is 0.
      * @param y The vertical position of image(from the top), default is 0.
+     * @param width The width of the image region. Default is the full width of the texture.
+     * @param height The height of the image region. Default is the full height of the texture.
+     * 
      */
     Image_Region(const std::shared_ptr<ReTexture> &ReTexture,
         const int x = 0, const int y = 0,

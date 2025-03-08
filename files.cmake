@@ -9,6 +9,8 @@ set(SRC_FILES
     Draw/Draw_2D.cpp
     Draw/Image_Region.cpp
     Draw/ReTexture.cpp
+    Draw/ReText.cpp
+    game_object/Dungeon_map.cpp
     Initscreen.cpp
 )
 
@@ -20,6 +22,8 @@ set(INCLUDE_FILES
     Draw/Draw_2D.hpp
     Draw/Image_Region.hpp
     Draw/ReTexture.hpp
+    Draw/ReText.hpp
+    game_object/Dungeon_map.hpp
     WindowSize.hpp
     Initscreen.hpp
 )

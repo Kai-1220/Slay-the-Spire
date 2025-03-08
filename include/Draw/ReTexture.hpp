@@ -25,6 +25,10 @@ public:
     int GetWidth() const {return w;}
     int GetHeight() const {return h;}
     void Bind() const;
+protected:
+    //for Retext class
+    void SetReTexture(const GLuint m_TextureId,const int w,const int h){this->m_TextureId=m_TextureId;this->w=w;this->h=h;}
+    ReTexture(){m_TextureId=w=h=0;}
 private:
     GLuint m_TextureId;
     int w,h;

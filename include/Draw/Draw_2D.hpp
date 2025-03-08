@@ -42,6 +42,8 @@ public:
      * @param h the height of the texture on window
     */
     void draw(  const std::shared_ptr<ReTexture> &texture, 
+                const float x,const float y);
+    void draw(  const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y,
                 const float w,const float h);
     
