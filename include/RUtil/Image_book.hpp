@@ -8,17 +8,15 @@ namespace RUtil{
 class Image_book
 {
 public:
-    Image_book(){};
-    ~Image_book()=default;
+    Image_book()=delete;
+    ~Image_book()=delete;
     Image_book(const Image_book &) = delete;
     Image_book(Image_book &&) = delete;
     Image_book &operator=(const Image_book &) = delete;
     Image_book &operator=(Image_book &&) = delete;
-    static std::shared_ptr<Image_book> GetBook();
-    std::shared_ptr<Draw::ReTexture> GetTexture(const std::string &path);
+
+    static std::shared_ptr<Draw::ReTexture> GetTexture(const std::string &path);
 private:
-    
-    static std::shared_ptr<Image_book> s_Book;
     static Util::AssetStore<std::shared_ptr<Draw::ReTexture>> s_Store;
 };
 }

@@ -71,8 +71,11 @@ namespace Draw {
         glDeleteBuffers(1, &m_VBO_BufferId);
     }
 
+    void Draw_2D::SetColor(float r,float g,float b,float a){SetColor(Uint32(r*255.0F)<<24|Uint32(g*255.0F)<<16|Uint32(b*255.0F)<<8|Uint32(a*255.0F));}
     void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(r<<24|g<<16|b<<8|a));}
     void Draw_2D::SetColor(Util::Colors color){SetColor(Uint32(color)<<8|255);}
+    void Draw_2D::SetColor(Util::Colors color,int a){SetColor(Uint32(color)<<8|a);}
+    void Draw_2D::SetColor(Util::Colors color,float a){SetColor(Uint32(color)<<8|Uint32(a*255.0F));}
     void Draw_2D::SetColor(Uint32 color){
         //I have no idea why color is inverse...???
         Uint32 inv_color=0;
@@ -95,6 +98,7 @@ namespace Draw {
         if(drawing){
             LOG_ERROR("end must be called before begin");
         }else{
+            glDepthMask(false);
             drawing=true;
             SetCombine();
         }
@@ -105,6 +109,7 @@ namespace Draw {
         }else{
             if(idx>0) this->flush();
             drawing=false;
+            glDepthMask(true);
             NowProgram->Unbind();
         }
     }
