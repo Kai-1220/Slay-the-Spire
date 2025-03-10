@@ -32,7 +32,7 @@ void App::Start() {
     // Logo->Set_small_Pos(glm::vec2{2, 61});
     // Logo->Set_small_Size(glm::vec2{639, 550});
     // LogoMaterices=Util::ConvertToUniformBufferData(Util::Transform(), Logo->Get_small_Size(), 0);
-    // LogoMaterices.m_Model = glm::scale(LogoMaterices.m_Model, glm::vec3{glm::vec2{680*SCALE,550*SCALE}/Logo->Get_small_Size(), 0});
+    // LogoMaterices.m_Model = glm::scale(LogoMaterices.m_Model, glm::vec3{glm::vec2{680*Setting::SCALE,550*Setting::SCALE}/Logo->Get_small_Size(), 0});
     // Logo->Draw(LogoMaterices);
 
     // vector <std::shared_ptr<RUtil::Image_magic>> StartScreen;

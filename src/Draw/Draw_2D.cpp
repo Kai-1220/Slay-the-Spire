@@ -71,10 +71,19 @@ namespace Draw {
         glDeleteBuffers(1, &m_VBO_BufferId);
     }
 
+    void Draw_2D::SetColor(float r,float g,float b,float a){SetColor(Uint32(r*255.0F)<<24|Uint32(g*255.0F)<<16|Uint32(b*255.0F)<<8|Uint32(a*255.0F));}
     void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(r<<24|g<<16|b<<8|a));}
     void Draw_2D::SetColor(Util::Colors color){SetColor(Uint32(color)<<8|255);}
+    void Draw_2D::SetColor(Util::Colors color,int a){SetColor(Uint32(color)<<8|a);}
+    void Draw_2D::SetColor(Util::Colors color,float a){SetColor(Uint32(color)<<8|Uint32(a*255.0F));}
     void Draw_2D::SetColor(Uint32 color){
-        memcpy(&this->color,&color,sizeof(Uint32));
+        //I have no idea why color is inverse...???
+        Uint32 inv_color=0;
+        for(int i=0;i<32;i++){
+            inv_color<<=1;
+            inv_color|=color>>i&1;
+        }
+        memcpy(&this->color,&inv_color,sizeof(Uint32));
     }
     void Draw_2D::SetProjection(const glm::mat4&projection){
         this->m_Projection=projection;
@@ -89,6 +98,7 @@ namespace Draw {
         if(drawing){
             LOG_ERROR("end must be called before begin");
         }else{
+            glDepthMask(false);
             drawing=true;
             SetCombine();
         }
@@ -99,6 +109,7 @@ namespace Draw {
         }else{
             if(idx>0) this->flush();
             drawing=false;
+            glDepthMask(true);
             NowProgram->Unbind();
         }
     }
@@ -127,6 +138,7 @@ namespace Draw {
         this->LastTexture=texture;
     }
     /*ここからはdrawの関数です*/
+    
     void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
                 const float x,const float y){
         draw(RegionTexture,x,y,RegionTexture->GetRegionWidth(),RegionTexture->GetRegionHeight());
@@ -168,6 +180,10 @@ namespace Draw {
             vertices[idx+19]=v2;
             idx+=20;
         }               
+    }
+    void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
+                const float x,const float y){
+        draw(texture,x,y,texture->GetWidth(),texture->GetHeight());
     }
     void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y,

@@ -27,8 +27,11 @@ public:
     Draw_2D &operator=(const Draw_2D &) = delete;
     Draw_2D &operator=(Draw_2D &&)=delete;
 
+    void SetColor(float r,float g,float b,float a=1.0F);
     void SetColor(int r,int g,int b,int a=255);
     void SetColor(Util::Colors color);
+    void SetColor(Util::Colors color,int a);
+    void SetColor(Util::Colors color,float a);
     void SetColor(Uint32 color);
     void SetProjection(const glm::mat4&projection);
     void SetTransform(const glm::mat4&transform);
@@ -41,6 +44,8 @@ public:
      * @param w the width of the texture on window
      * @param h the height of the texture on window
     */
+    void draw(  const std::shared_ptr<ReTexture> &texture, 
+                const float x,const float y);
     void draw(  const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y,
                 const float w,const float h);

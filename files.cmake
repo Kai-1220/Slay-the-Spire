@@ -6,9 +6,16 @@ set(SRC_FILES
     draw_test.cpp
     RUtil/Image_magic.cpp
     RUtil/Cards_Image.cpp
+    RUtil/Image_book.cpp
+    RUtil/Some_Math.cpp
+    RUtil/Game_Input.cpp
     Draw/Draw_2D.cpp
     Draw/Image_Region.cpp
     Draw/ReTexture.cpp
+    Draw/ReText.cpp
+    Game_object/dungeon/Dungeon_map.cpp
+    Game_object/dungeon/Dungeon_screen.cpp
+    Game_object/dungeon/Dungeon_manager.cpp
     Initscreen.cpp
     Cursor.cpp
 )
@@ -18,9 +25,17 @@ set(INCLUDE_FILES
     draw_test.hpp
     RUtil/Image_magic.hpp
     RUtil/Cards_Image.hpp
+    RUtil/Image_book.hpp
+    RUtil/Some_Math.hpp
+    RUtil/Game_Input.hpp
     Draw/Draw_2D.hpp
     Draw/Image_Region.hpp
     Draw/ReTexture.hpp
+    Draw/ReText.hpp
+    Game_object/dungeon/Dungeon_map.hpp
+    Game_object/dungeon/Dungeon_screen.hpp
+    Game_object/dungeon/Dungeon_manager.hpp
+    Game_object/interface/Is_screen.hpp
     WindowSize.hpp
     Initscreen.hpp
     Cursor.hpp
