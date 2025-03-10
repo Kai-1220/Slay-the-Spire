@@ -7,15 +7,15 @@ namespace RUtil{
         else if(x<0) x=0;
         if(y>(int)WINDOW_HEIGHT) y=(int)WINDOW_HEIGHT;
         else if(y<1) y=1;
-        isMouseDown=Util::Input::IsKeyPressed(Util::Keycode::MOUSE_LB);
-        isMouseDown_R=Util::Input::IsKeyPressed(Util::Keycode::MOUSE_RB);
-        justMouseClicked=Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB);
-        justMouseClicked_R=Util::Input::IsKeyDown(Util::Keycode::MOUSE_RB);
-        justMouseReleased=Util::Input::IsKeyUp(Util::Keycode::MOUSE_LB);
-        justMouseReleased_R=Util::Input::IsKeyUp(Util::Keycode::MOUSE_RB);
+        MS.isMouseDown=Util::Input::IsKeyPressed(Util::Keycode::MOUSE_LB);
+        MS.isMouseDown_R=Util::Input::IsKeyPressed(Util::Keycode::MOUSE_RB);
+        MS.justMouseClicked=Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB);
+        MS.justMouseClicked_R=Util::Input::IsKeyDown(Util::Keycode::MOUSE_RB);
+        MS.justMouseReleased=Util::Input::IsKeyUp(Util::Keycode::MOUSE_LB);
+        MS.justMouseReleased_R=Util::Input::IsKeyUp(Util::Keycode::MOUSE_RB);
+        MS.isScrollDown=Util::Input::GetScrollDistance().y<0;
+        MS.isScrollUp=Util::Input::GetScrollDistance().y>0;
     }
     int Game_Input::x=0,Game_Input::y=0;
-    bool Game_Input::isMouseDown=false,Game_Input::isMouseDown_R=false,
-    Game_Input::justMouseClicked=false,Game_Input::justMouseClicked_R=false,
-    Game_Input::justMouseReleased=false,Game_Input::justMouseReleased_R=false;
+    Game_Input::MouseState Game_Input::MS;
 }

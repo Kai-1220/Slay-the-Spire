@@ -11,4 +11,11 @@ namespace RUtil{
         }
         return start;
     }
+    float Math::scrolllerp(float start,float target){
+        if(start!=target){
+            start=lerp(start,target,Util::Time::GetDeltaTimeMs()*10.0F);
+            if(std::abs(start-target)<SNAP_THRESHOLD||start>target) start=target;
+        }
+        return start;
+    }
 }

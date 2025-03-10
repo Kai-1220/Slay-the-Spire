@@ -1,6 +1,7 @@
 #ifndef RUTIL_SOME_MATH_HPP
 #define RUTIL_SOME_MATH_HPP
 #include "Util/Time.hpp"
+#include "WindowSize.hpp"
 //if template not good for using,
 //it will change to float.
 namespace RUtil{
@@ -16,6 +17,9 @@ public:
     static T lerp(T a, T b, T t);
 
     static float fadelerp(float start,float target);
+    static float scrolllerp(float start,float target);
+private:
+    static constexpr float SNAP_THRESHOLD=1.0F*Setting::SCALE;
 };
 }
 #endif

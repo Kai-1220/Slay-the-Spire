@@ -10,7 +10,7 @@
 #include "Draw/ReText.hpp"
 #include "RUtil/Image_book.hpp"
 #include "Util/Input.hpp"
-#include "Game_object/dungeon/Dungeon_screen.hpp"
+#include "Game_object/dungeon/Dungeon_manager.hpp"
 int main(int, char**) {
     auto context = Core::Context::GetInstance();
     context->SetWindowIcon(RESOURCE_DIR"/Image/assets/icon.png");
@@ -51,7 +51,7 @@ int main(int, char**) {
     // std::shared_ptr<Draw::ReTexture> test_image=std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/cards/cards2.png");
     // std::shared_ptr<Draw::ReText> text_test=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",23,"HELLO WORLD");
     // std::shared_ptr<Draw::ReText> text_test2=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",64,"HELLO WORLD",Util::Color(255,255,255));
-    auto ttt=std::make_shared<Object::Dungeon_screen>();
+    auto ttt=std::make_shared<Object::Dungeon_manager>();
     printf("OK");
     
 
@@ -63,6 +63,7 @@ int main(int, char**) {
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
         initScreen.draw(Draw2D);
+        // ttt->update();
         Draw2D->begin();
         // Draw2D->SetColor(Util::Colors::WHITE);
         // 字體縮小測試&顏色測試
@@ -75,11 +76,11 @@ int main(int, char**) {
         // Draw2D->draw(text_test2,text_test2->GetWidth(),(float)text_test->GetHeight());
         //測試book
         // Draw2D->draw(same2_image,0,0);
-        ttt->render(Draw2D);
+        // ttt->render(Draw2D);
         Draw2D->draw(std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/cursor/gold2.png"),
                 Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2-25,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-25,50,50);
         Draw2D->end();
-        context->Update();     
+        context->Update();
         if(initScreen.GetCurrentState()==InitScreen::State::END){
             context->SetExit(true);
         } 
