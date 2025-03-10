@@ -6,7 +6,6 @@
 #include "Util/Renderer.hpp"
 #include "Util/Text.hpp"
 #include "Util/Logger.hpp"
-#include "Util/Image.hpp"
 #include "Util/GameObject.hpp"
 #include "Util/Transform.hpp"
 #include "Util/TransformUtils.hpp"

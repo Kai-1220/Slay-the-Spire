@@ -8,7 +8,7 @@
 
 
 InitScreen::InitScreen() {
-    // LOG_TRACE("InitScreen");
+    LOG_TRACE("InitScreen");
     Create();
 
 }
@@ -152,13 +152,11 @@ void InitScreen::draw(std::shared_ptr<Draw::Draw_2D> Draw2D){
             }
         }
     }
+
     
     if (Util::Input::IsKeyPressed(Util::Keycode::ESCAPE) || Util::Input::IfExit()) {
         m_CurrentState = State::END;
     }
-    
-
-    // std::cout<<Util::Input::GetCursorPosition().x<<","<<Util::Input::GetCursorPosition().y<<std::endl;
 }
 
 

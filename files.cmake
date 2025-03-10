@@ -10,6 +10,7 @@ set(SRC_FILES
     Draw/Image_Region.cpp
     Draw/ReTexture.cpp
     Initscreen.cpp
+    Cursor.cpp
 )
 
 set(INCLUDE_FILES
@@ -22,6 +23,7 @@ set(INCLUDE_FILES
     Draw/ReTexture.hpp
     WindowSize.hpp
     Initscreen.hpp
+    Cursor.hpp
 )
 
 set(TEST_FILES
