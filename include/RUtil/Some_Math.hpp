@@ -15,9 +15,10 @@ public:
 
     template <typename T>
     static T lerp(T a, T b, T t);
-
+    static float interpolation_exp(float v, float p, float a);
     static float fadelerp(float start,float target);
     static float scrolllerp(float start,float target);
+    static float interpolation_exp10(float start,float target,float a);
 private:
     static constexpr float SNAP_THRESHOLD=1.0F*Setting::SCALE;
 };

@@ -23,6 +23,7 @@ public:
     static bool is_scroll_up(){return MS.isScrollUp;}
     static bool just_clicked(){return MS.justMouseClicked;}
     static bool just_clicked_R(){return MS.justMouseClicked_R;}
+    static float delta_time(){return delta_time_s;}
 private:
     struct MouseState {
         bool isMouseDown = false;
@@ -36,6 +37,7 @@ private:
     };
     static int x,y;
     static MouseState MS;
+    static float delta_time_s;// I don't know if it's good to put it here
 };
 }
 #endif

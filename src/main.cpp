@@ -63,7 +63,7 @@ int main(int, char**) {
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
         initScreen.draw(Draw2D);
-        // ttt->update();
+        ttt->update();
         Draw2D->begin();
         // Draw2D->SetColor(Util::Colors::WHITE);
         // 字體縮小測試&顏色測試
@@ -76,7 +76,7 @@ int main(int, char**) {
         // Draw2D->draw(text_test2,text_test2->GetWidth(),(float)text_test->GetHeight());
         //測試book
         // Draw2D->draw(same2_image,0,0);
-        // ttt->render(Draw2D);
+        ttt->render(Draw2D);
         Draw2D->draw(std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/cursor/gold2.png"),
                 Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2-25,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-25,50,50);
         Draw2D->end();
