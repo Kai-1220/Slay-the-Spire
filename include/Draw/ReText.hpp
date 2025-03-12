@@ -3,6 +3,7 @@
 #include "pch.hpp"
 #include "Util/Color.hpp"
 #include "Draw/ReTexture.hpp"
+#include <functional>
 namespace Draw {
 class ReText:public ReTexture{
 public:
