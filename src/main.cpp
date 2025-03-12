@@ -50,21 +50,20 @@ int main(int, char**) {
     //Draw::Image_Region test_region(test_image,2,61,639,550);
     // std::shared_ptr<Draw::ReTexture> test_image=std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/cards/cards2.png");
     // std::shared_ptr<Draw::ReText> text_test=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",23,"HELLO WORLD");
-    // std::shared_ptr<Draw::ReText> text_test2=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",64,"HELLO WORLD",Util::Color(255,255,255));
+    // std::shared_ptr<Draw::ReText> text_test2=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",64,"龍鳳世測五",Util::Color(255,255,255));
     auto ttt=std::make_shared<Object::Dungeon_manager>();
     printf("OK");
     
 
-    InitScreen initScreen;
+    // InitScreen initScreen;
     // draw_test(test_image->GetReTextureId(),context);
-    // printf("\n(%d,%d),(%d,%d)\n",text_test->GetWidth(),text_test->GetHeight(),text_test2->GetWidth(),text_test2->GetHeight());
-    //(180,35),(476,95)
-
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
-        initScreen.draw(Draw2D);
+        // initScreen.draw(Draw2D);
         ttt->update();
         Draw2D->begin();
+        // Draw2D->draw(rr[idx++],0,0);
+        // if(idx>=rr.size()) idx=0;
         // Draw2D->SetColor(Util::Colors::WHITE);
         // 字體縮小測試&顏色測試
         // Draw2D->SetColor(Util::Colors::RED);
@@ -73,7 +72,6 @@ int main(int, char**) {
         // 字體放大測試
         // Draw2D->SetColor(Util::Colors::BLUE);
         // Draw2D->draw(text_test,0.0F,(float)text_test->GetHeight(),text_test2->GetWidth(),text_test2->GetHeight());
-        // Draw2D->draw(text_test2,text_test2->GetWidth(),(float)text_test->GetHeight());
         //測試book
         // Draw2D->draw(same2_image,0,0);
         ttt->render(Draw2D);
@@ -81,9 +79,9 @@ int main(int, char**) {
                 Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2-25,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-25,50,50);
         Draw2D->end();
         context->Update();
-        if(initScreen.GetCurrentState()==InitScreen::State::END){
-            context->SetExit(true);
-        } 
+        // if(initScreen.GetCurrentState()==InitScreen::State::END){
+        //     context->SetExit(true);
+        // } 
     }
     
 

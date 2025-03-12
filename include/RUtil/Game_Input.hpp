@@ -17,6 +17,7 @@ public:
     static void update();
     static int getX(){return x;}
     static int getY(){return y;}
+    static int getYv(){return WINDOW_HEIGHT-y;}
     static bool is_down(){return MS.isMouseDown;}
     static bool is_down_R(){return MS.isMouseDown_R;}
     static bool is_scroll_down(){return MS.isScrollDown;}
