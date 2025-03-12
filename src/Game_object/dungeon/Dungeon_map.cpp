@@ -7,8 +7,8 @@ namespace Object{
         map_bottom=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapBot.png");
         map_blend=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapBlend.png");
         map_a=1.0F;
-        map_offsetY=0;
-
+        map_mid_pos = MAP_Y * 16.0F - 1380.0F * Setting::SCALE;
+        map_offsetY = map_mid_pos - 120.0F * Setting::SCALE;
     }
     void Dungeon_map::render(std::shared_ptr<Draw::Draw_2D> r2,float screen_offsetY){
         r2->SetColor(Util::Colors::WHITE,map_a);

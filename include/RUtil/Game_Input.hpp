@@ -17,12 +17,14 @@ public:
     static void update();
     static int getX(){return x;}
     static int getY(){return y;}
+    static int getYv(){return WINDOW_HEIGHT-y;}
     static bool is_down(){return MS.isMouseDown;}
     static bool is_down_R(){return MS.isMouseDown_R;}
     static bool is_scroll_down(){return MS.isScrollDown;}
     static bool is_scroll_up(){return MS.isScrollUp;}
     static bool just_clicked(){return MS.justMouseClicked;}
     static bool just_clicked_R(){return MS.justMouseClicked_R;}
+    static float delta_time(){return delta_time_s;}
 private:
     struct MouseState {
         bool isMouseDown = false;
@@ -36,6 +38,7 @@ private:
     };
     static int x,y;
     static MouseState MS;
+    static float delta_time_s;// I don't know if it's good to put it here
 };
 }
 #endif

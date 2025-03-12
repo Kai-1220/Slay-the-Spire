@@ -21,17 +21,17 @@ namespace Object
     void Dungeon_screen::updateOffsetY(){
         if(grabbed){
             if(RUtil::Game_Input::is_down())
-                target_offsetY=(float)RUtil::Game_Input::getY()-grab_startY;
+                target_offsetY=(float)RUtil::Game_Input::getYv()-grab_startY;
             else
                 grabbed=false;
         }else if(scroll_wait_timer<0.0F){
-            if(RUtil::Game_Input::is_scroll_up())
+            if(RUtil::Game_Input::is_scroll_down())
                 target_offsetY+=this->SCROLL_SPEED;
-            else if(RUtil::Game_Input::is_scroll_down())
+            else if(RUtil::Game_Input::is_scroll_up())
                 target_offsetY-=this->SCROLL_SPEED;
             if (RUtil::Game_Input::just_clicked()) {
                 grabbed = true;
-                grab_startY = (float)RUtil::Game_Input::getY() - target_offsetY;
+                grab_startY = (float)RUtil::Game_Input::getYv() - target_offsetY;
             }
         }
         reset_scroll();
@@ -45,12 +45,11 @@ namespace Object
     }
     void Dungeon_screen::update_animation(){
         if(scroll_wait_timer>-10.0F)//prevent overflow,although I think it's impossible.
-            scroll_wait_timer-=Util::Time::GetDeltaTimeMs();
+            scroll_wait_timer-=RUtil::Game_Input::delta_time();
         if(scroll_wait_timer<0.0F)
             offsetY=RUtil::Math::fadelerp(offsetY,target_offsetY);
         else if(scroll_wait_timer<3.0F)
-            printf("working");
-            //offsetY = Interpolation.exp10.apply(MAP_SCROLL_LOWER, this.mapScrollUpperLimit, this.scrollWaitTimer / 3.0F);
+            offsetY = RUtil::Math::interpolation_exp10(MAP_SCROLL_LOWER,MAP_UPPER_SCROLL_NORMAL, scroll_wait_timer / 3.0F);
     }
     Interface::Screen Dungeon_screen::Where_want_to_go(){
         return Interface::Screen::On_map;

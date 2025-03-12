@@ -1,5 +1,6 @@
 #include "RUtil/Game_Input.hpp"
 #include "Util/Input.hpp"
+#include "Util/Time.hpp"
 namespace RUtil{
     void Game_Input::update(){
         SDL_GetMouseState(&x, &y);
@@ -13,9 +14,11 @@ namespace RUtil{
         MS.justMouseClicked_R=Util::Input::IsKeyDown(Util::Keycode::MOUSE_RB);
         MS.justMouseReleased=Util::Input::IsKeyUp(Util::Keycode::MOUSE_LB);
         MS.justMouseReleased_R=Util::Input::IsKeyUp(Util::Keycode::MOUSE_RB);
-        MS.isScrollDown=Util::Input::GetScrollDistance().y<0;
-        MS.isScrollUp=Util::Input::GetScrollDistance().y>0;
+        MS.isScrollDown=Util::Input::IfScroll()&&Util::Input::GetScrollDistance().y<0;
+        MS.isScrollUp=Util::Input::IfScroll()&&Util::Input::GetScrollDistance().y>0;
+        delta_time_s=Util::Time::GetDeltaTimeMs()/1000;
     }
     int Game_Input::x=0,Game_Input::y=0;
     Game_Input::MouseState Game_Input::MS;
+    float Game_Input::delta_time_s=0.0F;
 }
