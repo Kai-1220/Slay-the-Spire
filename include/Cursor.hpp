@@ -9,6 +9,7 @@
 #include "Util/Renderer.hpp"
 #include "Util/Input.hpp"
 #include "WindowSize.hpp"
+#include "RUtil/Image_book.hpp"
 
 class Cursor{
 public:
@@ -18,6 +19,7 @@ public:
     glm::vec2 GetPosition();
     int GetWidth();
     int GetHeight();
+    void Draw(std::shared_ptr<Draw::Draw_2D> Draw2D);
 private:
     std::shared_ptr<Draw::ReTexture> Texture;
     const int width=50,height=50;

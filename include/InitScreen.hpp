@@ -10,6 +10,7 @@
 #include "Util/Transform.hpp"
 #include "Util/TransformUtils.hpp"
 #include "Draw/Draw_2D.hpp"
+#include "Draw/ReText.hpp"
 
 #include "RUtil/Image_magic.hpp"
 
@@ -57,8 +58,7 @@ private:
     std::vector <glm::vec2> BlackCloudPos;
     std::vector <int> BlackCloudCount;
 
-    // std::vector <std::shared_ptr<Util::Text>> TextObj;
-    // std::vector <std::shared_ptr<Core::Matrices>> TextMatrices;
+    std::vector <std::shared_ptr<Draw::ReText>> TextObj;
 
     std::vector <std::shared_ptr<Draw::Image_Region>> WhiteCloudImg;
     std::vector <glm::vec2> WhiteCloudPos;
@@ -82,12 +82,11 @@ private:
                 {635, 341},{856, 216},{775, 203},{642, 179},{272, 57},{911, 186}};
     glm::vec2 WhiteCloudorigScale={1920.0f,1266.0f};
 
-    int m_Size=50;
+    int m_Size=35;
     std::vector <std::string> m_Text={"開始遊戲","百科大全","統計內容","設定","更新內容清單","退出"};
-    // std::vector <glm::vec3> m_TextPos={{-5.15f,-3.4f, -1.0f},{-5.15f,-4.4f, -1.0f},{-5.15f,-5.4f, -1.0f},{-10.8f,-6.4f, -1.0f},
-    //                                     {-3.275f,-7.4f, -1.0f},{-10.8f,-8.4f, -1.0f}};
+    std::vector <glm::vec2> m_TextPos={{100,275},{100,240},{100,205},{100,170},{100,135},{100,100}};
                                       
-    // std::vector <glm::vec2> TextScale={{150.0f,50.0f},{150.0f,50.0f},{150.0f,50.0f},{75.0f,50.0f},{225.0f,50.0f},{75.0f,50.0f}};
+    std::vector <glm::vec2> TextScale={{105.0f,35.0f},{105.0f,35.0f},{105.0f,35.0f},{52.5f,35.0f},{157.5f,35.0f},{52.5f,35.0f}};
 
 
 };
