@@ -26,20 +26,20 @@ int main(int, char**) {
     // std::shared_ptr<Draw::ReTexture> same_image_two2=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/Start_screen/title5.png");
     //Draw::Image_Region test_region(test_image,2,61,639,550);
     // std::shared_ptr<Draw::ReTexture> test_image=std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/cards/cards2.png");
-    std::shared_ptr<Draw::ReText> text_test=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",23,"HELLO WORLD");
-    std::shared_ptr<Draw::ReText> text_test2=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",64,"龍鳳世測五",Util::Color(255,255,255));
-    auto ttt=std::make_shared<Object::Dungeon_manager>();
+    // std::shared_ptr<Draw::ReText> text_test=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",23,"HELLO WORLD");
+    // std::shared_ptr<Draw::ReText> text_test2=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf",64,"龍鳳世測五",Util::Color(255,255,255));
+    // auto ttt=std::make_shared<Object::Dungeon_manager>();
     printf("OK");
     
 
-    // InitScreen initScreen;
+    InitScreen initScreen;
     Cursor cursor;
     // draw_test(test_image->GetReTextureId(),context);
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
         Draw2D->begin();
-        // initScreen.draw(Draw2D);
-        ttt->update();
+        initScreen.draw(Draw2D);
+        // ttt->update();
         // Draw2D->begin();
         // Draw2D->draw(rr[idx++],0,0);
         // if(idx>=rr.size()) idx=0;
@@ -54,7 +54,7 @@ int main(int, char**) {
         
         //測試book
         // Draw2D->draw(same2_image,0,0);
-        ttt->render(Draw2D);
+        // ttt->render(Draw2D);
         Draw2D->draw(std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/cursor/gold2.png"),
                 Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2-25,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-25,50,50);
         Draw2D->end();

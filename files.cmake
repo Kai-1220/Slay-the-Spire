@@ -15,6 +15,7 @@ set(SRC_FILES
     Draw/ReTexture.cpp
     Draw/ReText.cpp
     Draw/Text_layout.cpp
+    Draw/Atlas_Region.cpp
     Game_object/dungeon/Dungeon_map.cpp
     Game_object/dungeon/Dungeon_screen.cpp
     Game_object/dungeon/Dungeon_manager.cpp
@@ -35,6 +36,7 @@ set(INCLUDE_FILES
     Draw/Image_Region.hpp
     Draw/ReTexture.hpp
     Draw/ReText.hpp
+    Draw/Atlas_Region.hpp
     Draw/Text_layout.hpp
     Game_object/dungeon/Dungeon_map.hpp
     Game_object/dungeon/Dungeon_screen.hpp
