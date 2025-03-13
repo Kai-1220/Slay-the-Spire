@@ -22,7 +22,7 @@ namespace RUtil{
     float Math::scrolllerp(float start,float target){
         if(start!=target){
             start=lerp(start,target,RUtil::Game_Input::delta_time()*10.0F);
-            if(std::abs(start-target)<SNAP_THRESHOLD||start>target) start=target;
+            if(std::abs(start-target)<SNAP_THRESHOLD) start=target; //||start>target
         }
         return start;
     }
