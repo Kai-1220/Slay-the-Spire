@@ -59,9 +59,9 @@ int main(int, char**) {
                 Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2-25,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-25,50,50);
         Draw2D->end();
         context->Update();
-        // if(initScreen.GetCurrentState()==InitScreen::State::END){
-        //     context->SetExit(true);
-        // } 
+        if(initScreen.GetCurrentState()==InitScreen::State::END){
+            context->SetExit(true);
+        } 
     }
     
 

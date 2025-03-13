@@ -2,7 +2,7 @@
 #include "WindowSize.hpp"
 #include "Util/Input.hpp"
 #include "Util/Keycode.hpp"
-#include "Draw\ReTexture.hpp"
+#include "RUtil/Image_book.hpp"
 #include <iostream>
 #include <vector>
 
@@ -23,33 +23,33 @@ void InitScreen::CreateLogo(){
     // LogoMatrices=std::make_shared<Core::Matrices>(Matrices);
     
     // Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2-25,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-25,50,50);
-    LogoImg=(std::make_shared<Draw::Image_Region>(std::make_shared<Draw::ReTexture>
+    LogoImg=(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture
         (RESOURCE_DIR"/Image/Start_screen/title6.png"),2,61,639,550));
     LogoSize=glm::vec2{680*Setting::SCALE*0.8,550*Setting::SCALE*0.8};
     LogoPos=glm::vec2{(WINDOW_WIDTH-680*Setting::SCALE*0.8)/2,(WINDOW_HEIGHT-550*Setting::SCALE*0.8)/2};
 }
 
 void InitScreen::CreateBackground(){
-    InitBackgroundImg.push_back(std::make_shared<Draw::Image_Region>(std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/Start_screen/title.jpg"),2,2,1920,1469));  
+    InitBackgroundImg.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/Start_screen/title.jpg"),2,2,1920,1469));  
     ShowSize.push_back(glm::vec2{WINDOW_WIDTH,WINDOW_HEIGHT});
     ShowPos.push_back(glm::vec2{0,0});
 }   
 
 void InitScreen::CreateTower(){
 
-    InitBackgroundImg.push_back(std::make_shared<Draw::Image_Region>(std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/Start_screen/title2.png"),2,860,1920,1140));
+    InitBackgroundImg.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/Start_screen/title2.png"),2,860,1920,1140));
     ShowSize.push_back(glm::vec2{WINDOW_WIDTH,WINDOW_HEIGHT});
     ShowPos.push_back(glm::vec2{0,0});
 }
 void InitScreen::CreateBlackCloud(int i){
-    BlackCloudImg.push_back(std::make_shared<Draw::Image_Region>(std::make_shared<Draw::ReTexture>
+    BlackCloudImg.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture
         (RESOURCE_DIR"/Image/Start_screen/title"+ std::to_string(BlackCloudImgNum[i]) +".png"),BlackCloudSourcePos[i].x,BlackCloudSourcePos[i].y,BlackCloudSize[i].x,BlackCloudSize[i].y));
     BlackCloudPos.push_back(glm::vec2{-BlackCloudSize[i].x-5, rand()%(WINDOW_HEIGHT-180)});
     BlackCloudCount.push_back(i);
 }
 void InitScreen::CreateWhiteCloud(int i){
 
-    WhiteCloudImg.push_back(std::make_shared<Draw::Image_Region>(std::make_shared<Draw::ReTexture>
+    WhiteCloudImg.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture
         (RESOURCE_DIR"/Image/Start_screen/title"+ std::to_string(WhiteCloudImgNum[i]) +".png"),WhiteCloudSourcePos[i].x,WhiteCloudSourcePos[i].y,WhiteCloudSize[i].x,WhiteCloudSize[i].y));
     WhiteCloudPos.push_back(glm::vec2{WINDOW_WIDTH+WhiteCloudSize[i].x+5, rand()%(WINDOW_HEIGHT-180)});
     WhiteCloudCount.push_back(i);
