@@ -9,6 +9,7 @@ set(SRC_FILES
     RUtil/Image_book.cpp
     RUtil/Some_Math.cpp
     RUtil/Game_Input.cpp
+    RUtil/Atlas_Reader.cpp
     Draw/Draw_2D.cpp
     Draw/Image_Region.cpp
     Draw/ReTexture.cpp
@@ -28,6 +29,7 @@ set(INCLUDE_FILES
     RUtil/Image_book.hpp
     RUtil/Some_Math.hpp
     RUtil/Game_Input.hpp
+    RUtil/Atlas_Reader.hpp
     Draw/Draw_2D.hpp
     Draw/Image_Region.hpp
     Draw/ReTexture.hpp

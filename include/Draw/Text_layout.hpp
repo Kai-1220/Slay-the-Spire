@@ -2,7 +2,7 @@
 #define DRAW_TEXT_LAYOUT_HPP
 #include "pch.hpp"
 #include "Util/Color.hpp"
-#include "Draw/Image_Region.hpp"
+#include "Draw/Atlas_Region.hpp"
 namespace Draw{
 class Text_layout
 {
@@ -31,10 +31,11 @@ private:
         Uint32 c;
     };
     static void pos_update();
+    static void init_orbs();
     static language s_language;
     static std::string s_lan_pos;
     static font_weight s_font_weight;
-    static std::shared_ptr<Draw::Image_Region>orb_red,orb_green,orb_blue,orb_purple,orb_card,orb_potion,orb_relic,orb_special;
+    static std::shared_ptr<Draw::Atlas_Region>orb_red,orb_green,orb_blue,orb_purple,orb_card,orb_potion,orb_relic,orb_special;
     static constexpr Uint32 GOLD_COLOR=-272084481,
                             RED_TEXT_COLOR = -10132481,
                             GREEN_TEXT_COLOR = 2147418367,

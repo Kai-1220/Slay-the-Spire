@@ -29,4 +29,13 @@ namespace RUtil{
     float Math::interpolation_exp10(float start,float target,float a){
         return start+(target-start)*interpolation_exp(2.0F,10.0F,a);
     }
+    int Math::StrToInt(const std::string &str){
+        int re=0;
+        for(const char &c:str)
+            if('0'<=c&&c<='9'){
+                re=(re<<1)+(re<<3);
+                re+=c^48;
+            }
+        return re;
+    }
 }

@@ -1,5 +1,6 @@
 #include "Draw/Text_layout.hpp"
 #include "Util/Logger.hpp"
+#include "RUtil/Atlas_Reader.hpp"
 namespace Draw
 {
     Text_layout::Text_layout(const std::string &text_string,int fontsize){
@@ -7,14 +8,18 @@ namespace Draw
         //!D!:damage !B!:block !M!:vars
         //[R]:orb_red [G]:orb_green [B]:orb_blue [W]:orb_purple [C]:orb_card 
         //[P]:orb_potion [T]:orb_relic [S]:orb_special
-        TTF_Font* m_font = TTF_OpenFont(s_lan_pos.c_str(), 64);
         
+        if(orb_red==nullptr){
+            this->init_orbs();
+        }
+        TTF_Font* m_font = TTF_OpenFont(s_lan_pos.c_str(), 64);
+
         TTF_CloseFont(m_font);
     }
     Text_layout::language Text_layout::s_language=Text_layout::language::zht;
     std::string Text_layout::s_lan_pos=RESOURCE_DIR"/font/zht/NotoSansCJKtc-Regular.otf";
     Text_layout::font_weight Text_layout::s_font_weight=Text_layout::font_weight::regular;
-    std::shared_ptr<Draw::Image_Region> Text_layout::orb_red=nullptr,Text_layout::orb_blue=nullptr,
+    std::shared_ptr<Draw::Atlas_Region> Text_layout::orb_red=nullptr,Text_layout::orb_blue=nullptr,
                                         Text_layout::orb_green=nullptr,Text_layout::orb_purple=nullptr,
                                         Text_layout::orb_card=nullptr,Text_layout::orb_potion=nullptr,
                                         Text_layout::orb_relic=nullptr,Text_layout::orb_special=nullptr;
@@ -79,5 +84,15 @@ namespace Draw
             }
         }
     }
-
+    void Text_layout::init_orbs(){
+        RUtil::Atlas_Reader orb_atlas(RESOURCE_DIR"Image/orbs/orb.atlas");
+        orb_red=orb_atlas.Find_Atlas_Region("red");
+        orb_blue=orb_atlas.Find_Atlas_Region("blue");
+        orb_card=orb_atlas.Find_Atlas_Region("card");
+        orb_green=orb_atlas.Find_Atlas_Region("green");
+        orb_potion=orb_atlas.Find_Atlas_Region("potion");
+        orb_purple=orb_atlas.Find_Atlas_Region("purple");
+        orb_relic=orb_atlas.Find_Atlas_Region("relic");
+        orb_special=orb_atlas.Find_Atlas_Region("special");
+    }
 } // namespace Draw

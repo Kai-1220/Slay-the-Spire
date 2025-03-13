@@ -19,6 +19,7 @@ public:
     static float fadelerp(float start,float target);
     static float scrolllerp(float start,float target);
     static float interpolation_exp10(float start,float target,float a);
+    static int StrToInt(const std::string &str);
 private:
     static constexpr float SNAP_THRESHOLD=1.0F*Setting::SCALE;
 };

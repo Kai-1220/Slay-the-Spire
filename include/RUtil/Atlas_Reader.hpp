@@ -1,0 +1,17 @@
+#ifndef RUTIL_ATLAS_READER_HPP
+#define RUTIL_ATLAS_READER_HPP
+#include "pch.hpp"
+#include"Draw/Atlas_Region.hpp"
+namespace RUtil{
+class Atlas_Reader
+{
+public:
+    Atlas_Reader(const std::string &atlas_path);
+    std::shared_ptr<Draw::Atlas_Region> Find_Atlas_Region(const std::string& region_name);
+    ~Atlas_Reader()=default;
+private:
+    std::unordered_map<std::string,std::shared_ptr<Draw::Atlas_Region>> reg_map;
+
+};
+}
+#endif
