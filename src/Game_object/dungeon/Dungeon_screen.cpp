@@ -1,6 +1,7 @@
 #include "RUtil/Game_Input.hpp"
 #include "Game_object/dungeon/Dungeon_screen.hpp"
 #include "RUtil/Some_Math.hpp"
+#include <iostream>
 namespace Object
 {
     Dungeon_screen::Dungeon_screen(){
@@ -20,15 +21,25 @@ namespace Object
     }
     void Dungeon_screen::updateOffsetY(){
         if(grabbed){
-            if(RUtil::Game_Input::is_down())
+            if(RUtil::Game_Input::is_down()){
                 target_offsetY=(float)RUtil::Game_Input::getYv()-grab_startY;
-            else
+            }
+
+            else{
                 grabbed=false;
+            }
+                
         }else if(scroll_wait_timer<0.0F){
-            if(RUtil::Game_Input::is_scroll_down())
+            if(RUtil::Game_Input::is_scroll_down()){
+                // printf("down");
                 target_offsetY+=this->SCROLL_SPEED;
-            else if(RUtil::Game_Input::is_scroll_up())
+            }
+            
+            else if(RUtil::Game_Input::is_scroll_up()){
+                // printf("up");
                 target_offsetY-=this->SCROLL_SPEED;
+
+            }
             if (RUtil::Game_Input::just_clicked()) {
                 grabbed = true;
                 grab_startY = (float)RUtil::Game_Input::getYv() - target_offsetY;

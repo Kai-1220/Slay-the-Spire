@@ -39,8 +39,7 @@ int main(int, char**) {
         // Draw2D->SetColor(Util::Colors::WHITE);
         test_layout->render(Draw2D,0,0);
         ttt->render(Draw2D);
-        Draw2D->draw(std::make_shared<Draw::ReTexture>(RESOURCE_DIR"/Image/cursor/gold2.png"),
-                Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2-25,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-25,50,50);
+        cursor.Draw(Draw2D);
         Draw2D->end();
         context->Update();
         if(initScreen.GetCurrentState()==InitScreen::State::END){
