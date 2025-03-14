@@ -16,7 +16,7 @@ private:
     //read-only first,if something goes wrong it will be change.
     const std::string name;
     const float offsetX,offsetY;
-    const int packed_width,packed_height;
+    const int original_width,original_height;
     const bool rotate;
 };
 }

@@ -21,7 +21,7 @@ int main(int, char**) {
     
     
     auto ttt=std::make_shared<Object::Dungeon_manager>();
-    auto test_layout=std::make_shared<Draw::Text_layout>("1234[R]1323Test[R][G][B][W][C][P][T][S]");
+    auto test_layout=std::make_shared<Draw::Text_layout>("1234[C]1323Test#neee[G]12#y31gg");
     printf("OK");
     
 
@@ -37,7 +37,7 @@ int main(int, char**) {
         // Draw2D->draw(rr[idx++],0,0);
         // if(idx>=rr.size()) idx=0;
         // Draw2D->SetColor(Util::Colors::WHITE);
-        test_layout->render(Draw2D,0,0);
+        test_layout->render(Draw2D,0,50);
         ttt->render(Draw2D);
         cursor.Draw(Draw2D);
         Draw2D->end();

@@ -164,7 +164,7 @@ namespace Draw
                     strs.emplace_back(text_string.substr(sub_st,sub_len));
                     sub_st+=sub_len;
                     sub_len=0;
-                    if(tail) sub_len--;
+                    if(tail) {sub_len--;tail=false;}
                 }
             }
             sub_len++;
@@ -268,7 +268,7 @@ namespace Draw
                 this->regs.emplace_back(std::make_shared<Draw::Image_Region>(t_retext,now_x,now_y,n_w,n_h));
                 now_x+=n_w;
             }
-            this->m_regs_info.back().y=now_y;
+            this->m_regs_info.back().y=-now_y;
         }
         TTF_CloseFont(m_Font);
         //文字以外の部分の高さと幅を設定する
@@ -279,10 +279,8 @@ namespace Draw
                 if(it.is_var){
                     it.w=(float)n_h/num_h*num_w;
                 }else{
-                    it.w=n_h*Setting::SCALE;
-                    it.h=n_h*Setting::SCALE;
-                    it.x+=(n_h-it.w)/2.0F;
-                    it.y+=(n_h-it.w)/2.0F;
+                    it.w=n_h;
+                    it.h=n_h;
                 }
             }
         }

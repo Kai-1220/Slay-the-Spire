@@ -8,7 +8,7 @@ Atlas_Region::Atlas_Region( const std::string &name,int x,int y,
                 int original_width,int original_height,
                 bool rotate):
                 offsetX(offsetX),offsetY(offsetY),
-                packed_width(packed_width),packed_height(packed_height),
-                rotate(rotate),name(name),
-                Image_Region(texture,x,y,original_width,original_height){}                          
+                original_width(original_width),original_height(original_height),
+                name(name),rotate(rotate),
+                Image_Region(texture,x,y,packed_width,packed_height){}                          
 } // namespace Draw
