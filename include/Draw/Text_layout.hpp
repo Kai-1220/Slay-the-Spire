@@ -3,6 +3,8 @@
 #include "pch.hpp"
 #include "Util/Color.hpp"
 #include "Draw/Atlas_Region.hpp"
+#include "Draw/ReText.hpp"
+#include "Draw/Draw_2D.hpp"
 namespace Draw{
 class Text_layout
 {
@@ -22,29 +24,45 @@ public:
     //[R]:orb_red [G]:orb_green [B]:orb_blue [W]:orb_purple [C]:orb_card 
     //[P]:orb_potion [T]:orb_relic [S]:orb_special
     Text_layout(const std::string &text_string,int fontsize);
+    Text_layout(const std::string &text_string);
     ~Text_layout()=default;
     static void SetLanguage(language lan);
     static void SetFontWeight(font_weight fw);
+    void set_middle();
+    void set_left();
+    //フォントサイズかえること書いてるだけと、32以上とぼやけるかも。
+    void set_fontsize(int fontsize);
+    void render(std::shared_ptr<Draw::Draw_2D> r2,float x,float y);
+    static void split_text(std::vector<std::string> &strs,const std::string &text_string);
 private:
     struct regs_info{
+        bool is_var=false;
         float x,y,w,h;
-        Uint32 c;
+        Uint32 c=-1;
     };
     static void pos_update();
     static void init_orbs();
+    static void init_nums();
+    void set_texture_pos(const std::shared_ptr<Draw::ReText> &t_retext,const std::vector<std::string> &strs);
     static language s_language;
     static std::string s_lan_pos;
     static font_weight s_font_weight;
     static std::shared_ptr<Draw::Atlas_Region>orb_red,orb_green,orb_blue,orb_purple,orb_card,orb_potion,orb_relic,orb_special;
+    static std::shared_ptr<Draw::Image_Region> nums[10];
     static constexpr Uint32 GOLD_COLOR=-272084481,
                             RED_TEXT_COLOR = -10132481,
                             GREEN_TEXT_COLOR = 2147418367,
                             BLUE_TEXT_COLOR = -2016482305,
                             PURPLE_COLOR = -293409025,
                             WHITE=-1;
+    static constexpr int BIGGIST_SIZE=32;//temp max 32 if there is a bigger font ,adjust this.
     std::vector<std::shared_ptr<Draw::Image_Region>> regs;
     std::vector<regs_info> m_regs_info;
     
+    int damage_pos=-1,block_pos=-1,damage=0,block=0;
+    std::vector<std::pair<int,int>> pos_and_vars;
+
+    int m_fontsize;
 };
 }
 #endif
