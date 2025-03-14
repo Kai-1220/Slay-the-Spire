@@ -1,11 +1,19 @@
 #include"Game_object/dungeon/Dungeon_map.hpp"
 #include "RUtil/Some_Math.hpp"
+#include <iostream>
 namespace Object{
     Dungeon_map::Dungeon_map(){
         map_top=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapTop.png");
         map_mid=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapMid.png");
         map_bottom=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapBot.png");
         map_blend=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapBlend.png");
+        map_legend=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/legend2.png");
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/event.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/shop.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/chest.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/rest.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/monster.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/elite.png"));
         map_a=1.0F;
         map_mid_pos = MAP_Y * 16.0F - 1380.0F * Setting::SCALE;
         map_offsetY = map_mid_pos - 120.0F * Setting::SCALE;
@@ -17,6 +25,12 @@ namespace Object{
         r2->draw(map_bottom, 0.0F, -map_mid_pos +screen_offsetY + map_offsetY + 1.0F, (float)WINDOW_WIDTH, 1080.0F * Setting::SCALE);
         r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY + 800.0F * Setting::SCALE, (float)WINDOW_WIDTH, BLEND_H);
         r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY - 220.0F * Setting::SCALE, (float)WINDOW_WIDTH, BLEND_H);
+        
+        r2->draw(map_legend, legend_pos.x, legend_pos.y, 512*Setting::SCALE, 800*Setting::SCALE);
+        r2->SetColor(Util::Colors::BLACK);
+        for (int i = 0; i < map_legends_items.size(); i++) {
+            r2->draw(map_legends_items[i], legend_pos.x+legend_item_offset, legend_pos.y+legend_item_offset+legend_item_offset/2*(map_legends_items.size()-i), legend_item_size.x, legend_item_size.y);
+        }
     }
     void Dungeon_map::show() {
         map_target_a = 1.0F;

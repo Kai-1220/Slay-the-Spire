@@ -76,6 +76,7 @@ void InitScreen::draw(std::shared_ptr<Draw::Draw_2D> Draw2D){
         }
         
     }
+    Draw2D->SetColor(Util::Colors::WHITE);
     for(int i=0;i<InitBackgroundImg.size();i++){
         Draw2D->draw(InitBackgroundImg[i],
             ShowPos[i].x,ShowPos[i].y,
