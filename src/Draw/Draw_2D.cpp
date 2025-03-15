@@ -1,6 +1,7 @@
 #include "Draw/Draw_2D.hpp"
 #include "Util/Logger.hpp"
 #include <glm/gtc/type_ptr.hpp>
+#include <math.h>
 #include "config.hpp"
 namespace Draw {
     Draw_2D::Draw_2D(const int size,const std::shared_ptr<Core::Program> &program){
@@ -144,13 +145,12 @@ namespace Draw {
     }
     /*ここからはdrawの関数です*/
     
-    void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
-                const float x,const float y){
+    void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture,const float x,const float y){
         draw(RegionTexture,x,y,RegionTexture->GetRegionWidth(),RegionTexture->GetRegionHeight());
     }
     void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
-        const float x,const float y,
-        const float w,const float h){
+            const float x,const float y,
+            const float w,const float h){
         if(!drawing){
             LOG_ERROR("Please call begin() before draw()");
         }else{
@@ -159,32 +159,67 @@ namespace Draw {
                 SwitchTexture(texture);
             else if(idx==max_len) 
                 flush();
-            float u=RegionTexture->GetU(),
-                    u2=RegionTexture->GetU2(),
-                    v=RegionTexture->GetV(),
-                    v2=RegionTexture->GetV2();
-            vertices[idx]=x;
-            vertices[idx+1]=y;
-            vertices[idx+2]=color;
-            vertices[idx+3]=u;
-            vertices[idx+4]=v2;
-            vertices[idx+5]=x;
-            vertices[idx+6]=y+h;
-            vertices[idx+7]=color;
-            vertices[idx+8]=u;
-            vertices[idx+9]=v;
-            vertices[idx+10]=x+w;
-            vertices[idx+11]=y+h;
-            vertices[idx+12]=color;
-            vertices[idx+13]=u2;
-            vertices[idx+14]=v;
-            vertices[idx+15]=x+w;
-            vertices[idx+16]=y;
-            vertices[idx+17]=color;
-            vertices[idx+18]=u2;
-            vertices[idx+19]=v2;
-            idx+=20;
+            SetVert(x,y,x+w,y+h,RegionTexture->GetU(),RegionTexture->GetV(),RegionTexture->GetU2(),RegionTexture->GetV2());
         }               
+    }
+
+    void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
+                const float x,const float y,
+                const float w,const float h,
+                const float rotate,const float origin_x,const float origin_y,
+                const float scale_x,const float scale_y){
+        if(!drawing){
+            LOG_ERROR("Please call begin() before draw()");
+        }else{
+             if(texture!=LastTexture)
+                SwitchTexture(texture);
+            else if(idx==max_len) 
+                flush();
+            float w_x=x+origin_x, w_y=y+origin_y,
+                  v_x=-origin_x,  v_y=-origin_y,
+                  v_x2=w-origin_x, v_y2=h-origin_y;
+            if (scale_x != 1.0F || scale_y != 1.0F) {
+                v_x *= scale_x;
+                v_y *= scale_y;
+                v_x2 *= scale_x;
+                v_y2 *= scale_y;
+            }
+            float red=rotate*DEG_TO_RAD,
+                  a=cos(red),b=sin(red);
+            //cos -sin
+            //sin cos
+            float x1=a*v_x-b*v_y,
+                  y1=b*v_x+a*v_y,
+                  x2=a*v_x-b*v_y2,
+                  y2=b*v_x+a*v_y2,
+                  x3=a*v_x2-b*v_y2,
+                  y3=b*v_x2+a*v_y2,
+                  x4=x3+x1-x2,
+                  y4=y3+y1-y2;
+            //2 3   23+21=24 -> (3-2)+(1-2)=(4-2) -> 4=3+1-2
+            //1 4 
+            vertices[idx]=x1+w_x;
+            vertices[idx+1]=y1+w_y;
+            vertices[idx+2]=color;
+            vertices[idx+3]=0.0F;
+            vertices[idx+4]=1.0F;
+            vertices[idx+5]=x2+w_x;
+            vertices[idx+6]=y2+w_y;
+            vertices[idx+7]=color;
+            vertices[idx+8]=0.0F;
+            vertices[idx+9]=0.0F;
+            vertices[idx+10]=x3+w_x;
+            vertices[idx+11]=y3+w_y;
+            vertices[idx+12]=color;
+            vertices[idx+13]=1.0F;
+            vertices[idx+14]=0.0F;
+            vertices[idx+15]=x4+w_x;
+            vertices[idx+16]=y4+w_y;
+            vertices[idx+17]=color;
+            vertices[idx+18]=1.0F;
+            vertices[idx+19]=1.0F;
+            idx+=20;             
+        }
     }
     void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y){
@@ -200,36 +235,39 @@ namespace Draw {
                 SwitchTexture(texture);
             else if(idx==max_len) 
                 flush();
-            
-            //x y color u v
-            //now using:
-            //(0,0) (1,0)
-            //(0,1) (1,1)
-            //opengl using:
-            //(0,1) (1,1)
-            //(0,0) (1,0)
-            //u=1-u;
-            vertices[idx]=x;
-            vertices[idx+1]=y;
-            vertices[idx+2]=color;
-            vertices[idx+3]=0.0F;
-            vertices[idx+4]=1.0F;
-            vertices[idx+5]=x;
-            vertices[idx+6]=y+h;
-            vertices[idx+7]=color;
-            vertices[idx+8]=0.0F;
-            vertices[idx+9]=0.0F;
-            vertices[idx+10]=x+w;
-            vertices[idx+11]=y+h;
-            vertices[idx+12]=color;
-            vertices[idx+13]=1.0F;
-            vertices[idx+14]=0.0F;
-            vertices[idx+15]=x+w;
-            vertices[idx+16]=y;
-            vertices[idx+17]=color;
-            vertices[idx+18]=1.0F;
-            vertices[idx+19]=1.0F;
-            idx+=20;
+            SetVert(x,y,x+w,y+h,0.0F,0.0F,1.0F,1.0F);
         }
+    }
+    //only work to rotate==0.0F
+    void Draw_2D::SetVert(float x,float y,float x2,float y2,
+                          float u,float v,float u2,float v2){
+        //x y color u v
+        //now using:
+        //(0,0) (1,0)
+        //(0,1) (1,1)
+        //opengl using:
+        //(0,1) (1,1)
+        //(0,0) (1,0)
+        vertices[idx]=x;
+        vertices[idx+1]=y;
+        vertices[idx+2]=color;
+        vertices[idx+3]=u;
+        vertices[idx+4]=v2;
+        vertices[idx+5]=x;
+        vertices[idx+6]=y2;
+        vertices[idx+7]=color;
+        vertices[idx+8]=u;
+        vertices[idx+9]=v;
+        vertices[idx+10]=x2;
+        vertices[idx+11]=y2;
+        vertices[idx+12]=color;
+        vertices[idx+13]=u2;
+        vertices[idx+14]=v;
+        vertices[idx+15]=x2;
+        vertices[idx+16]=y;
+        vertices[idx+17]=color;
+        vertices[idx+18]=u2;
+        vertices[idx+19]=v2;
+        idx+=20;      
     }
 }

@@ -35,7 +35,7 @@ public:
     void set_damage(int value);
     void set_block(int value);
     void set_vars(int value,int pos);
-    void render(std::shared_ptr<Draw::Draw_2D> r2,float x,float y);
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float x,float y);
     static void split_text(std::vector<std::string> &strs,const std::string &text_string);
 private:
     struct regs_info{

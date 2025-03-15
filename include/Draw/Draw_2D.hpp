@@ -50,6 +50,11 @@ public:
     void draw(  const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y,
                 const float w,const float h);
+    void draw(  const std::shared_ptr<ReTexture> &texture, 
+        const float x,const float y,
+        const float w,const float h,
+        const float rotate,const float origin_x,const float origin_y,
+        const float scale_x,const float scale_y);
     
     void draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
         const float x,const float y);
@@ -60,6 +65,8 @@ private:
     void SwitchTexture(const std::shared_ptr<ReTexture> &texture);
     void flush();
     void SetCombine();
+    void SetVert(float x,float y,float x2,float y2,
+                 float u,float v,float u2,float v2);
     GLuint  m_EBO_BufferId,//only have one EBO. 
             m_ArrayId,//one VAO.
             m_VBO_BufferId;//one VBO.
@@ -77,6 +84,7 @@ private:
     bool drawing=false;
     GLint CombineMatrixPos,Sampler2DPos;
     static constexpr GLint SLOTPOS=0;
+    static constexpr float DEG_TO_RAD=static_cast<float>(3.14159265358979323846/180.0);
 };
 }
 #endif

@@ -21,6 +21,7 @@ public:
     static float interpolation_exp10(float start,float target,float a);
     static int StrToInt(const std::string &str);
     static int GetIntLength(int x);
+    static float GetRandomFloat(float min,float max);
 private:
     static constexpr float SNAP_THRESHOLD=1.0F*Setting::SCALE;
 };

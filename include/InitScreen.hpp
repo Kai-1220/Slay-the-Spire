@@ -12,7 +12,6 @@
 #include "Draw/Draw_2D.hpp"
 #include "Draw/ReText.hpp"
 
-#include "RUtil/Image_magic.hpp"
 
 #include <SDL.h>
 #include <memory>

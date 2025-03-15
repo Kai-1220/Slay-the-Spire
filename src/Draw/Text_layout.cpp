@@ -394,7 +394,7 @@ namespace Draw
                 m_regs_info[i].x+=dis;
         }
     }
-    void Text_layout::render(std::shared_ptr<Draw::Draw_2D> r2,float x,float y){
+    void Text_layout::render(const std::shared_ptr<Draw::Draw_2D> &r2,float x,float y){
         for(int i=0,j=0;i<(int)m_regs_info.size();i++){
             r2->SetColor_inv(m_regs_info[i].c);
             if(m_regs_info[i].is_var){
