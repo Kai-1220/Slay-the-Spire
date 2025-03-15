@@ -71,19 +71,24 @@ namespace Draw {
         glDeleteBuffers(1, &m_VBO_BufferId);
     }
 
-    void Draw_2D::SetColor(float r,float g,float b,float a){SetColor(Uint32(r*255.0F)<<24|Uint32(g*255.0F)<<16|Uint32(b*255.0F)<<8|Uint32(a*255.0F));}
-    void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(r<<24|g<<16|b<<8|a));}
-    void Draw_2D::SetColor(Util::Colors color){SetColor(Uint32(color)<<8|255);}
-    void Draw_2D::SetColor(Util::Colors color,int a){SetColor(Uint32(color)<<8|a);}
-    void Draw_2D::SetColor(Util::Colors color,float a){SetColor(Uint32(color)<<8|Uint32(a*255.0F));}
-    void Draw_2D::SetColor(Uint32 color){
+    void Draw_2D::SetColor(float r,float g,float b,float a){SetColor(Uint32(a*255.0F)<<24|Uint32(b*255.0F)<<16|Uint32(g*255.0F)<<8|Uint32(r*255.0F));}
+    void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(a<<24|b<<16|g<<8|r));}
+    void Draw_2D::SetColor(Util::Colors color){SetColor_inv(Uint32(color)<<8|255);}
+    void Draw_2D::SetColor(Util::Colors color,int a){SetColor_inv(Uint32(color)<<8|a);}
+    void Draw_2D::SetColor(Util::Colors color,float a){SetColor_inv(Uint32(color)<<8|Uint32(a*255.0F));}
+    //rgba
+    void Draw_2D::SetColor_inv(Uint32 color){
         //I have no idea why color is inverse...???
         Uint32 inv_color=0;
-        for(int i=0;i<32;i++){
-            inv_color<<=1;
-            inv_color|=color>>i&1;
+        for(int i=0;i<4;i++){
+            inv_color<<=8;
+            inv_color|=color>>(i<<3)&0xFF;
         }
-        memcpy(&this->color,&inv_color,sizeof(Uint32));
+        SetColor(inv_color);
+    }
+    //agbr
+    void Draw_2D::SetColor(Uint32 color){        
+        memcpy(&this->color,&color,sizeof(Uint32));
     }
     void Draw_2D::SetProjection(const glm::mat4&projection){
         this->m_Projection=projection;

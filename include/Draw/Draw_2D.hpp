@@ -33,6 +33,7 @@ public:
     void SetColor(Util::Colors color,int a);
     void SetColor(Util::Colors color,float a);
     void SetColor(Uint32 color);
+    void SetColor_inv(Uint32 color);
     void SetProjection(const glm::mat4&projection);
     void SetTransform(const glm::mat4&transform);
     void begin();
