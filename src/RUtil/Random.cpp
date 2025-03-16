@@ -8,6 +8,9 @@ namespace RUtil{
         SetState(seed);
         for(int i=0;i<counter;i++) NextLong();
     }
+    int Random::NextInt(int min,int max){
+        return min+NextInt(max-min);
+    }
     int Random::NextInt(int range){
         return NextInt()%range;//分布が偏るだろうが、それは問題ないと思う。
     }

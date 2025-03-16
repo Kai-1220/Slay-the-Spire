@@ -8,6 +8,7 @@ public:
     ~Random()=default;
     int NextInt();
     int NextInt(int range);
+    int NextInt(int min,int max);
     bool Nextboolean();
     int GetCounter()const{return counter;}
 private:

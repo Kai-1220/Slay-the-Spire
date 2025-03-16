@@ -11,7 +11,7 @@ namespace Map{
             this->x=x;this->y=y;this->rotation=rotation;
         }
     }
-    void Map_dot::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset){
+    void Map_dot::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const{
         r2->draw(dot_texture,this->x-8.0F,this->y-8.0F+screen_offset+OFFSET_Y,
                 16.0F,16.0F,this->rotation,8.0F,8.0F,Setting::SCALE,Setting::SCALE);
     }

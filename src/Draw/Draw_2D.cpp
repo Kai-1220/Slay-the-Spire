@@ -74,11 +74,11 @@ namespace Draw {
 
     void Draw_2D::SetColor(float r,float g,float b,float a){SetColor(Uint32(a*255.0F)<<24|Uint32(b*255.0F)<<16|Uint32(g*255.0F)<<8|Uint32(r*255.0F));}
     void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(a<<24|b<<16|g<<8|r));}
-    void Draw_2D::SetColor(Util::Colors color){SetColor_inv(Uint32(color)<<8|255);}
-    void Draw_2D::SetColor(Util::Colors color,int a){SetColor_inv(Uint32(color)<<8|a);}
-    void Draw_2D::SetColor(Util::Colors color,float a){SetColor_inv(Uint32(color)<<8|Uint32(a*255.0F));}
+    void Draw_2D::SetColor(Util::Colors color){SetColor_RGBA(Uint32(color)<<8|255);}
+    void Draw_2D::SetColor(Util::Colors color,int a){SetColor_RGBA(Uint32(color)<<8|a);}
+    void Draw_2D::SetColor(Util::Colors color,float a){SetColor_RGBA(Uint32(color)<<8|Uint32(a*255.0F));}
     //rgba
-    void Draw_2D::SetColor_inv(Uint32 color){
+    void Draw_2D::SetColor_RGBA(Uint32 color){
         //I have no idea why color is inverse...???
         Uint32 inv_color=0;
         for(int i=0;i<4;i++){
@@ -184,7 +184,7 @@ namespace Draw {
                 v_x2 *= scale_x;
                 v_y2 *= scale_y;
             }
-            float red=rotate*DEG_TO_RAD,
+            float red=glm::radians(rotate),
                   a=cos(red),b=sin(red);
             //cos -sin
             //sin cos

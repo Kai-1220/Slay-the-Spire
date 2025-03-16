@@ -33,7 +33,7 @@ public:
     void SetColor(Util::Colors color,int a);
     void SetColor(Util::Colors color,float a);
     void SetColor(Uint32 color);
-    void SetColor_inv(Uint32 color);
+    void SetColor_RGBA(Uint32 color);
     void SetProjection(const glm::mat4&projection);
     void SetTransform(const glm::mat4&transform);
     void begin();
@@ -84,7 +84,6 @@ private:
     bool drawing=false;
     GLint CombineMatrixPos,Sampler2DPos;
     static constexpr GLint SLOTPOS=0;
-    static constexpr float DEG_TO_RAD=static_cast<float>(3.14159265358979323846/180.0);
 };
 }
 #endif

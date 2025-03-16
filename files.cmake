@@ -19,6 +19,8 @@ set(SRC_FILES
     Game_object/map/Dungeon_map.cpp
     Game_object/map/Map_node.cpp
     Game_object/map/Map_dot.cpp
+    Game_object/map/Map_generator.cpp
+    Game_object/map/Map_edge.cpp
     Game_object/dungeon/Dungeon_screen.cpp
     Game_object/dungeon/Dungeon_manager.cpp
     Initscreen.cpp
@@ -43,6 +45,8 @@ set(INCLUDE_FILES
     Game_object/map/Dungeon_map.hpp
     Game_object/map/Map_node.hpp
     Game_object/map/Map_dot.hpp
+    Game_object/map/Map_generator.hpp
+    Game_object/map/Map_edge.hpp
     Game_object/dungeon/Dungeon_screen.hpp
     Game_object/dungeon/Dungeon_manager.hpp
     Game_object/interface/Is_screen.hpp
