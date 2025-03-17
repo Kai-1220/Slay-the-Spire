@@ -8,7 +8,7 @@ class Dungeon_screen:public Interface::Is_screen
 public:
     Dungeon_screen();
     ~Dungeon_screen()=default;
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2) override;
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2)const override;
     void update(Interface::Screen Now_screen) override;
     Interface::Screen Where_want_to_go() override;
 private:

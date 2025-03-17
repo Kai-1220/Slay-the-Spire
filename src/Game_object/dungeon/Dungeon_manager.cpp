@@ -15,7 +15,7 @@ namespace Object{
                 break;
         }
     }
-    void Dungeon_manager::render(const std::shared_ptr<Draw::Draw_2D> &r2){
+    void Dungeon_manager::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         switch (Current_screen) {
             case Interface::Screen::On_map:
                 m_dungeon_screen->render(r2);

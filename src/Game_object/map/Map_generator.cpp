@@ -1,15 +1,9 @@
 #include "Game_object/map/Map_generator.hpp"
 #include "Util/Logger.hpp"
 namespace Map{
-std::vector<std::vector<Map_node>> Map_generator::Get_Map(int height,int width,int density,const std::shared_ptr<RUtil::Random> &rng){
-    std::vector<std::vector<Map_node>> map(height);
-    for(int i=0;i<height;i++)
-        for(int j=0;j<width;j++)
-            map[i].emplace_back(Map_node(j,i));
-    Path_create(map,height,width,density,rng);
-    return map;
-}
-void Map_generator::Path_create(std::vector<std::vector<Map_node>>&map,int height,int width,int density,const std::shared_ptr<RUtil::Random> &rng){
+std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int height,int width,int density,const std::shared_ptr<RUtil::Random> &rng){
+    std::vector<std::vector<std::shared_ptr<Map_node>>> map(height,std::vector<std::shared_ptr<Map_node>>(width));
+    
     int first_node=-1;
     for(int i=0;i<density;i++){//try create density times
         int start_node=rng->NextInt(width);
@@ -20,6 +14,7 @@ void Map_generator::Path_create(std::vector<std::vector<Map_node>>&map,int heigh
         int now_node_y=0,now_node_x=start_node,
             next_node_y,next_node_x;
         while(now_node_y+1<height){
+            if(map[now_node_y][now_node_x]==nullptr)map[now_node_y][now_node_x]=std::make_shared<Map::Map_node>(now_node_x,now_node_y);
             next_node_x=now_node_x+rng->NextInt(now_node_x==0?0:-1,now_node_x==width-1?0:1);
             next_node_y=now_node_y+1;
 
@@ -30,38 +25,38 @@ void Map_generator::Path_create(std::vector<std::vector<Map_node>>&map,int heigh
             //a  now
             //check a to b edge
             if(now_node_x!=0){
-                if(map[now_node_y][now_node_x-1].CanMoveRight()&&next_node_x==now_node_x-1){
+                if(map[now_node_y][now_node_x-1]->CanMoveRight()&&next_node_x==now_node_x-1){
                     next_node_x=now_node_x;
                 }
             }
             //b to
             //now a
             if(now_node_x!=width-1){
-                if(map[now_node_y][now_node_x+1].CanMoveLeft()&&next_node_x==now_node_x+1){
+                if(map[now_node_y][now_node_x+1]->CanMoveLeft()&&next_node_x==now_node_x+1){
                     next_node_x=now_node_x;
                 }
             }
             
             //this is so long.... but I think it's ok.
-            std::shared_ptr<Map_edge> Next_edge=std::make_shared<Map_edge>(map[now_node_y][now_node_x].GetX(),map[now_node_y][now_node_x].GetY(),map[next_node_y][next_node_x].GetX(),map[next_node_y][next_node_x].GetY(),
-                                                            map[now_node_y][now_node_x].GetOffsetX(),map[now_node_y][now_node_x].GetOffsetY(),map[next_node_y][next_node_x].GetOffsetX(),map[next_node_y][next_node_x].GetOffsetY(),false);
+            std::shared_ptr<Map_edge> Next_edge=std::make_shared<Map_edge>(map[now_node_y][now_node_x]->GetX(),map[now_node_y][now_node_x]->GetY(),map[next_node_y][next_node_x]->GetX(),map[next_node_y][next_node_x]->GetY(),
+                                                            map[now_node_y][now_node_x]->GetOffsetX(),map[now_node_y][now_node_x]->GetOffsetY(),map[next_node_y][next_node_x]->GetOffsetX(),map[next_node_y][next_node_x]->GetOffsetY(),false);
             switch(next_node_x-now_node_x){
                 case 1:
-                    if(!map[now_node_y][now_node_x].CanMoveRight()){
-                        map[now_node_y][now_node_x].SetRight(true);
-                        map[now_node_y][now_node_x].add_edge(Next_edge);
+                    if(!map[now_node_y][now_node_x]->CanMoveRight()){
+                        map[now_node_y][now_node_x]->SetRight(true);
+                        map[now_node_y][now_node_x]->add_edge(Next_edge);
                     }
                     break;
                 case 0:
-                    if(!map[now_node_y][now_node_x].CanMoveMiddle()){
-                        map[now_node_y][now_node_x].SetMiddle(true);
-                        map[now_node_y][now_node_x].add_edge(Next_edge);
+                    if(!map[now_node_y][now_node_x]->CanMoveMiddle()){
+                        map[now_node_y][now_node_x]->SetMiddle(true);
+                        map[now_node_y][now_node_x]->add_edge(Next_edge);
                     }
                     break;
                 case -1:
-                    if(!map[now_node_y][now_node_x].CanMoveLeft()){
-                        map[now_node_y][now_node_x].SetLeft(true);
-                        map[now_node_y][now_node_x].add_edge(Next_edge);
+                    if(!map[now_node_y][now_node_x]->CanMoveLeft()){
+                        map[now_node_y][now_node_x]->SetLeft(true);
+                        map[now_node_y][now_node_x]->add_edge(Next_edge);
                     }
                     break;
                 default:
@@ -71,10 +66,14 @@ void Map_generator::Path_create(std::vector<std::vector<Map_node>>&map,int heigh
             now_node_y=next_node_y;
             now_node_x=next_node_x;
         }
-        if(!map[now_node_y][now_node_x].CanToBoss()){
-            map[now_node_y][now_node_x].SetToBoss(true);
-            map[now_node_y][now_node_x].add_edge(std::make_shared<Map_edge>(map[now_node_y][now_node_x].GetX(),map[now_node_y][now_node_x].GetY(), 3, now_node_y+2, map[now_node_y][now_node_x].GetOffsetX(),map[now_node_y][now_node_x].GetOffsetY(),0.0F,0.0F,true));//あたまおかしくなってる
+        if(!map[now_node_y][now_node_x]->CanToBoss()){
+            map[now_node_y][now_node_x]->SetToBoss(true);
+            map[now_node_y][now_node_x]->add_edge(std::make_shared<Map_edge>(map[now_node_y][now_node_x]->GetX(),map[now_node_y][now_node_x]->GetY(), 3, now_node_y+2, map[now_node_y][now_node_x]->GetOffsetX(),map[now_node_y][now_node_x]->GetOffsetY(),0.0F,0.0F,true));//あたまおかしくなってる
         }
     }
+    
+    
+    return map;
 }
+
 }

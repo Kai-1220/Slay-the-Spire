@@ -10,6 +10,7 @@ set(SRC_FILES
     RUtil/Game_Input.cpp
     RUtil/Atlas_Reader.cpp
     RUtil/Random.cpp
+    RUtil/Hitbox.cpp
     Draw/Draw_2D.cpp
     Draw/Image_Region.cpp
     Draw/ReTexture.cpp
@@ -21,6 +22,7 @@ set(SRC_FILES
     Game_object/map/Map_dot.cpp
     Game_object/map/Map_generator.cpp
     Game_object/map/Map_edge.cpp
+    Game_object/room/Monster_room.cpp
     Game_object/dungeon/Dungeon_screen.cpp
     Game_object/dungeon/Dungeon_manager.cpp
     Initscreen.cpp
@@ -36,6 +38,7 @@ set(INCLUDE_FILES
     RUtil/Game_Input.hpp
     RUtil/Atlas_Reader.hpp
     RUtil/Random.hpp
+    RUtil/Hitbox.hpp
     Draw/Draw_2D.hpp
     Draw/Image_Region.hpp
     Draw/ReTexture.hpp
@@ -47,6 +50,8 @@ set(INCLUDE_FILES
     Game_object/map/Map_dot.hpp
     Game_object/map/Map_generator.hpp
     Game_object/map/Map_edge.hpp
+    Game_object/room/Monster_room.hpp
+    Game_object/room/Rooms.hpp
     Game_object/dungeon/Dungeon_screen.hpp
     Game_object/dungeon/Dungeon_manager.hpp
     Game_object/interface/Is_screen.hpp

@@ -10,7 +10,7 @@ class Dungeon_map
 public:
     Dungeon_map();
     ~Dungeon_map()=default;
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offsetY);
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offsetY)const;
     void show();
     void hide();
     void update();

@@ -23,7 +23,7 @@ public:
     //!D!:damage !B!:block !M!:vars
     //[R]:orb_red [G]:orb_green [B]:orb_blue [W]:orb_purple [C]:orb_card 
     //[P]:orb_potion [T]:orb_relic [S]:orb_special
-    Text_layout(const std::string &text_string,int fontsize);
+    // Text_layout(const std::string &text_string,int fontsize);
     Text_layout(const std::string &text_string);
     ~Text_layout()=default;
     static void SetLanguage(language lan);
@@ -35,7 +35,7 @@ public:
     void set_damage(int value);
     void set_block(int value);
     void set_vars(int value,int pos);
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float x,float y);
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float x,float y)const;
     static void split_text(std::vector<std::string> &strs,const std::string &text_string);
 private:
     struct regs_info{

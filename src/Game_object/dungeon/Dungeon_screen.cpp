@@ -11,7 +11,7 @@ namespace Object
         scroll_wait_timer=0.0F;
         grabbed=false;
     }
-    void Dungeon_screen::render(const std::shared_ptr<Draw::Draw_2D> &r2){
+    void Dungeon_screen::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         the_map->render(r2,offsetY);
     }
     void Dungeon_screen::update(Interface::Screen Now_screen){

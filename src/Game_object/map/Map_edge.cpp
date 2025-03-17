@@ -9,8 +9,8 @@ Map_edge::Map_edge(int from_x,int from_y,int to_x,int to_y,
     color=DISABLED_COLOR;
     float src_x=(float)from_x * SPACE_X + Map_node::OFFSET_X +from_offset_x,
             dst_x=(float)to_x   * SPACE_X + Map_node::OFFSET_X +to_offset_x,
-            src_y=(float)from_y * MAP_DST_Y + from_offset_y,
-            dst_y=(float)to_y   * MAP_DST_Y + to_offset_y;
+            src_y=(float)from_y * Map_node::MAP_DST_Y + from_offset_y,
+            dst_y=(float)to_y   * Map_node::MAP_DST_Y + to_offset_y;
     glm::vec2 line_vec(dst_x-src_x,dst_y-src_y);
     float line_length=glm::length(line_vec),
             line_rotate_red=glm::acos(glm::dot(glm::normalize(line_vec),glm::vec2(1.0F,0.0F))),
@@ -25,7 +25,7 @@ Map_edge::Map_edge(int from_x,int from_y,int to_x,int to_y,
         this->dots.emplace_back(Map_dot(src_x + i*glm::cos(line_rotate_red),src_y + i*glm::sin(line_rotate_red),line_rotate_deg,is_jitter));
     }
 }
-void Map_edge::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset){
+void Map_edge::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const{
     r2->SetColor_RGBA(color);
     for(const Map_dot &it:dots){
         it.render(r2,screen_offset);

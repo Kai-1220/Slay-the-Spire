@@ -1,7 +1,6 @@
 #include "Draw/Draw_2D.hpp"
 #include "Util/Logger.hpp"
 #include <glm/gtc/type_ptr.hpp>
-#include <math.h>
 #include "config.hpp"
 namespace Draw {
     Draw_2D::Draw_2D(const int size,const std::shared_ptr<Core::Program> &program){
@@ -162,8 +161,7 @@ namespace Draw {
             SetVert(x,y,x+w,y+h,RegionTexture->GetU(),RegionTexture->GetV(),RegionTexture->GetU2(),RegionTexture->GetV2());
         }               
     }
-
-    void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
+    void Draw_2D::draw(const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y,
                 const float w,const float h,
                 const float rotate,const float origin_x,const float origin_y,
@@ -171,7 +169,7 @@ namespace Draw {
         if(!drawing){
             LOG_ERROR("Please call begin() before draw()");
         }else{
-             if(texture!=LastTexture)
+            if(texture!=LastTexture)
                 SwitchTexture(texture);
             else if(idx==max_len) 
                 flush();
@@ -184,41 +182,44 @@ namespace Draw {
                 v_x2 *= scale_x;
                 v_y2 *= scale_y;
             }
-            float red=glm::radians(rotate),
-                  a=cos(red),b=sin(red);
-            //cos -sin
-            //sin cos
-            float x1=a*v_x-b*v_y,
-                  y1=b*v_x+a*v_y,
-                  x2=a*v_x-b*v_y2,
-                  y2=b*v_x+a*v_y2,
-                  x3=a*v_x2-b*v_y2,
-                  y3=b*v_x2+a*v_y2,
-                  x4=x3+x1-x2,
-                  y4=y3+y1-y2;
-            //2 3   23+21=24 -> (3-2)+(1-2)=(4-2) -> 4=3+1-2
-            //1 4 
-            vertices[idx]=x1+w_x;
-            vertices[idx+1]=y1+w_y;
-            vertices[idx+2]=color;
-            vertices[idx+3]=0.0F;
-            vertices[idx+4]=1.0F;
-            vertices[idx+5]=x2+w_x;
-            vertices[idx+6]=y2+w_y;
-            vertices[idx+7]=color;
-            vertices[idx+8]=0.0F;
-            vertices[idx+9]=0.0F;
-            vertices[idx+10]=x3+w_x;
-            vertices[idx+11]=y3+w_y;
-            vertices[idx+12]=color;
-            vertices[idx+13]=1.0F;
-            vertices[idx+14]=0.0F;
-            vertices[idx+15]=x4+w_x;
-            vertices[idx+16]=y4+w_y;
-            vertices[idx+17]=color;
-            vertices[idx+18]=1.0F;
-            vertices[idx+19]=1.0F;
-            idx+=20;             
+            if(rotate==0.0F)SetVert(v_x+w_x,v_y+w_y,v_x2+w_x,v_y2+w_y,0.0F,0.0F,1.0F,1.0F);
+            else{
+                float red=glm::radians(rotate),
+                    a=glm::cos(red),b=glm::sin(red);
+                //cos -sin
+                //sin cos
+                float x1=a*v_x-b*v_y,
+                    y1=b*v_x+a*v_y,
+                    x2=a*v_x-b*v_y2,
+                    y2=b*v_x+a*v_y2,
+                    x3=a*v_x2-b*v_y2,
+                    y3=b*v_x2+a*v_y2,
+                    x4=x3+x1-x2,
+                    y4=y3+y1-y2;
+                //2 3   23+21=24 -> (3-2)+(1-2)=(4-2) -> 4=3+1-2
+                //1 4 
+                vertices[idx]=x1+w_x;
+                vertices[idx+1]=y1+w_y;
+                vertices[idx+2]=color;
+                vertices[idx+3]=0.0F;
+                vertices[idx+4]=1.0F;
+                vertices[idx+5]=x2+w_x;
+                vertices[idx+6]=y2+w_y;
+                vertices[idx+7]=color;
+                vertices[idx+8]=0.0F;
+                vertices[idx+9]=0.0F;
+                vertices[idx+10]=x3+w_x;
+                vertices[idx+11]=y3+w_y;
+                vertices[idx+12]=color;
+                vertices[idx+13]=1.0F;
+                vertices[idx+14]=0.0F;
+                vertices[idx+15]=x4+w_x;
+                vertices[idx+16]=y4+w_y;
+                vertices[idx+17]=color;
+                vertices[idx+18]=1.0F;
+                vertices[idx+19]=1.0F;
+                idx+=20;
+            }             
         }
     }
     void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 

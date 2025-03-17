@@ -8,7 +8,7 @@ public:
             float from_offset_x,float from_offset_y,
             float to_offset_x,float to_offset_y,bool is_boss);
     ~Map_edge()=default;
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset);
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const;
     void MarkAsTaken();
 private:
     int from_x,from_y,to_x,to_y;
@@ -18,8 +18,8 @@ private:
     static constexpr float SPACE_X=128.0F*Setting::SCALE,
                            SPACING=17.0F*Setting::SCALE,
                            ICON_SRC_RADIUS = 29.0F * Setting::SCALE,
-                           ICON_DST_RADIUS = 20.0F * Setting::SCALE,
-                           MAP_DST_Y = 150.0F * Setting::SCALE;
+                           ICON_DST_RADIUS = 20.0F * Setting::SCALE;
+                           
 };
 }
 #endif
