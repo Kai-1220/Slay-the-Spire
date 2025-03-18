@@ -4,7 +4,6 @@ set(SRC_FILES
     AppStart.cpp
     main.cpp
     draw_test.cpp
-    RUtil/Cards_Image.cpp
     RUtil/Image_book.cpp
     RUtil/Some_Math.cpp
     RUtil/Game_Input.cpp
@@ -25,6 +24,7 @@ set(SRC_FILES
     Game_object/room/Monster_room.cpp
     Game_object/dungeon/Dungeon_screen.cpp
     Game_object/dungeon/Dungeon_manager.cpp
+    Game_object/card/Cards.cpp
     Initscreen.cpp
     Cursor.cpp
 )
@@ -32,7 +32,6 @@ set(SRC_FILES
 set(INCLUDE_FILES
     App.hpp
     draw_test.hpp
-    RUtil/Cards_Image.hpp
     RUtil/Image_book.hpp
     RUtil/Some_Math.hpp
     RUtil/Game_Input.hpp
@@ -54,6 +53,7 @@ set(INCLUDE_FILES
     Game_object/room/Rooms.hpp
     Game_object/dungeon/Dungeon_screen.hpp
     Game_object/dungeon/Dungeon_manager.hpp
+    Game_object/card/Cards.hpp
     Game_object/interface/Is_screen.hpp
     WindowSize.hpp
     Initscreen.hpp

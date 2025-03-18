@@ -8,7 +8,7 @@
 #include "Draw/Draw_2D.hpp"//test_Draw_2D
 #include "draw_test.hpp"
 #include "Draw/Text_layout.hpp"
-#include "RUtil/Image_book.hpp"
+#include "RUtil/Atlas_Reader.hpp"
 #include "Util/Input.hpp"
 #include "Game_object/dungeon/Dungeon_manager.hpp"
 #include "Cursor.hpp"
@@ -29,7 +29,8 @@ int main(int, char**) {
     test_layout->set_fontsize(32);
     printf("OK");
     auto rotate_test=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf", 32,"我我龍");
-
+    auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
+    auto tty=tye_draw.Find_Atlas_Region("512/bg_power_silhouette");
     InitScreen initScreen;
     Cursor cursor;
     // draw_test(test_image->GetReTextureId(),context);
@@ -48,6 +49,7 @@ int main(int, char**) {
         // Draw2D->SetColor(Util::Colors::WHITE);
         test_layout->render(Draw2D,500,WINDOW_HEIGHT);
         // ttt->render(Draw2D);
+        Draw2D->draw(tty,0,0);
         cursor.Draw(Draw2D);
         Draw2D->end();
         context->Update();

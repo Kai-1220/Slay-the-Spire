@@ -3,17 +3,17 @@
 #include <iostream>
 namespace Map{
     Dungeon_map::Dungeon_map(){
-        map_top=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapTop.png");
-        map_mid=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapMid.png");
-        map_bottom=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapBot.png");
-        map_blend=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/mapBlend.png");
-        map_legend=RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/legend2.png");
-        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/event.png"));
-        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/shop.png"));
-        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/chest.png"));
-        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/rest.png"));
-        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/monster.png"));
-        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/image/map/elite.png"));
+        map_top=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/mapTop.png");
+        map_mid=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/mapMid.png");
+        map_bottom=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/mapBot.png");
+        map_blend=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/mapBlend.png");
+        map_legend=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/legend2.png");
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/event.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/shop.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/chest.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/rest.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/monster.png"));
+        map_legends_items.push_back(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/elite.png"));
         map_a=1.0F;
         map_mid_pos = MAP_Y * 16.0F - 1380.0F * Setting::SCALE;
         map_offsetY = map_mid_pos - 120.0F * Setting::SCALE;

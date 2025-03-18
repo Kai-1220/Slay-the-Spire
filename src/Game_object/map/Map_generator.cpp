@@ -1,5 +1,7 @@
 #include "Game_object/map/Map_generator.hpp"
 #include "Util/Logger.hpp"
+#include "RUtil/Some_Math.hpp"
+#include "Game_object/room/Monster_room.hpp"
 namespace Map{
 std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int height,int width,int density,const std::shared_ptr<RUtil::Random> &rng){
     std::vector<std::vector<std::shared_ptr<Map_node>>> map(height,std::vector<std::shared_ptr<Map_node>>(width));
@@ -72,8 +74,31 @@ std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int h
         }
     }
     
-    
+    AssignRoom(map);
     return map;
 }
-
+void Map_generator::AssignRoom(const std::vector<std::vector<std::shared_ptr<Map_node>>>&map){
+    float nor_monster=s_monster_chance;
+    RUtil::Math::Normalize(nor_monster);
+    int available_room=0;
+    for(const auto &it1:map) for(const auto &it2:it1) if(it2!=nullptr) available_room++;
+    //room multiply some other chance, and 残ったのはモンスターのへやだ
+    int remain_room=available_room;
+    //...
+    int monster_room=remain_room;
+    //shuffle
+    //...
+    for(const auto &it1:map) for(const auto &it2:it1)if(it2!=nullptr) it2->SetRoom(std::make_shared<Room::Monster_room>());
+}
+void Map_generator::SetChance(float value,Room::Room_type type){
+    switch(type){
+        case Room::Room_type::Monster:
+            s_monster_chance=value;
+            break;
+        default:
+            LOG_ERROR("Map_generator:Type doesn't exist.");
+            break;
+    }
+}
+float Map_generator::s_monster_chance=1.0F;
 }

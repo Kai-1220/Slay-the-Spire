@@ -4,7 +4,7 @@
 #include <type_traits>
 namespace Room{
 enum class Room_type{
-    Moster
+    Monster
 };
 
 class Rooms{
