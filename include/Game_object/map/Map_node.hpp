@@ -38,7 +38,7 @@ private:
     static constexpr float JITTER_X=27.0F * Setting::SCALE,
                            JITTER_Y=37.0F * Setting::SCALE,
                            OFFSET_Y = 180.0F * Setting::SCALE,
-                           SPACING_X =(float)IMG_WIDTH * 2.0F;;
+                           SPACING_X =(float)IMG_WIDTH * 2.0F;
     static constexpr Uint32 OUTLINE_COLOR=0x8c8c80ff;
     static std::shared_ptr<Draw::ReTexture> s_circle;
 

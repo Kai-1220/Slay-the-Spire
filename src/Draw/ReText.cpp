@@ -20,16 +20,14 @@ namespace Draw {
             surface = GetMissingTextureSDLSurface();
             the_w=surface->w,
             the_h=surface->h;
-            glTexImage2D(GL_TEXTURE_2D,0,Core::GlFormatToGlInternalFormat(Core::SdlFormatToGlFormat(surface->format->format)),the_w,the_h,0,Core::SdlFormatToGlFormat(surface->format->format),GL_UNSIGNED_BYTE,surface->pixels);
-            GLenum error = glGetError();
-            if (error != GL_NO_ERROR) {
-                LOG_ERROR("OpenGL Error: {}", error);
-            }
         }else{
             the_w=surface->pitch / surface->format->BytesPerPixel;
             the_h=surface->h;
-            glTexImage2D(GL_TEXTURE_2D, 0, Core::GlFormatToGlInternalFormat(Core::SdlFormatToGlFormat(surface->format->format)), the_w,
-                 the_h, 0, Core::SdlFormatToGlFormat(surface->format->format), GL_UNSIGNED_BYTE, surface->pixels);
+        }
+        glTexImage2D(GL_TEXTURE_2D,0,Core::GlFormatToGlInternalFormat(Core::SdlFormatToGlFormat(surface->format->format)),the_w,the_h,0,Core::SdlFormatToGlFormat(surface->format->format),GL_UNSIGNED_BYTE,surface->pixels);
+        GLenum error = glGetError();
+        if (error != GL_NO_ERROR) {
+            LOG_ERROR("OpenGL Error: {}", error);
         }
         SetReTexture(textureID,the_w,the_h);
         SDL_FreeSurface(surface);

@@ -23,15 +23,18 @@ int main(int, char**) {
     
     
     auto ttt=std::make_shared<Object::Dungeon_manager>();
+    
     auto test_layout=std::make_shared<Draw::Text_layout>("TTT!M!GG#nG!D!T#nT!B!TT");
     test_layout->set_damage(123);
-    test_layout->set_fontsize(10);
+    test_layout->set_fontsize(17);
     test_layout->set_middle();
     test_layout->set_fontsize(32);
+    printf("%f %f\n",test_layout->GetWidth(),test_layout->GetHeight());
+    
     printf("OK");
-    auto rotate_test=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf", 32,"我我龍");
     auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
     auto tty=tye_draw.Find_Atlas_Region("512/bg_power_silhouette");
+
     InitScreen initScreen;
     Object::Dungeon_BottomScene BottomScene;
     Cursor cursor;
@@ -45,26 +48,13 @@ int main(int, char**) {
         // Draw2D->begin();
         // Draw2D->SetColor(Util::Colors::RED);
         
-        // Draw2D->draw(rotate_test,(float)WINDOW_WIDTH/2.0F,(float)WINDOW_HEIGHT/2.0F,rotate_test->GetWidth(),rotate_test->GetHeight(),rot,0.0F,0.0F,Setting::SCALE,Setting::SCALE);
-        // Draw2D->SetColor(-1);
-        // if(idx>=rr.size()) idx=0;
-        // Draw2D->SetColor(Util::Colors::WHITE);
-        // 字體縮小測試&顏色測試
-        // Draw2D->SetColor(Util::Colors::RED);
-        // Draw2D->draw(text_test,0.0F,0.0F);
-        // Draw2D->draw(text_test2,text_test->GetWidth(),0.0F,text_test->GetWidth(),text_test->GetHeight());
-        // 字體放大測試
-        // Draw2D->SetColor(Util::Colors::BLUE);
-        // Draw2D->draw(text_test,0.0F,(float)text_test->GetHeight(),text_test2->GetWidth(),text_test2->GetHeight());
         
-        //測試book
-        // Draw2D->draw(same2_image,0,0);
         // ttt->render(Draw2D);
 
         //test BottomScene;
         BottomScene.render(Draw2D);
 
-        // test_layout->render(Draw2D,500,WINDOW_HEIGHT);
+        test_layout->render(Draw2D,500,WINDOW_HEIGHT);
         // ttt->render(Draw2D);
         // Draw2D->draw(tty,0,0);
         cursor.Draw(Draw2D);

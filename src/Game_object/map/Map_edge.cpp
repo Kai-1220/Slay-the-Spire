@@ -22,7 +22,7 @@ Map_edge::Map_edge(int from_x,int from_y,int to_x,int to_y,
         bool is_jitter=true;
         if(i!=START+ICON_SRC_RADIUS&&i<=line_length-ICON_DST_RADIUS-SPACING)//check not first and not last
             is_jitter=false;
-        this->dots.emplace_back(Map_dot(src_x + i*glm::cos(line_rotate_red),src_y + i*glm::sin(line_rotate_red),line_rotate_deg,is_jitter));
+        this->dots.emplace_back(src_x + i*glm::cos(line_rotate_red),src_y + i*glm::sin(line_rotate_red),line_rotate_deg,is_jitter);
     }
 }
 void Map_edge::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const{

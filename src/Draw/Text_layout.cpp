@@ -16,7 +16,7 @@ namespace Draw
         //[R]:orb_red [G]:orb_green [B]:orb_blue [W]:orb_purple [C]:orb_card 
         //[P]:orb_potion [T]:orb_relic [S]:orb_special
         std::vector<std::string> strs;
-        split_text(strs,text_string); 
+        split_text(strs,text_string);
         //get total str
         std::string total_str="";
         for(const std::string &it:strs){
@@ -173,12 +173,13 @@ namespace Draw
             strs.emplace_back(text_string.substr(sub_st,sub_len));
     }
     void Text_layout::set_texture_pos(const std::shared_ptr<Draw::ReText> &t_retext,const std::vector<std::string> &strs){
+        width=height=0.0F;
         //goal:set the correct pos in texture & set where vars is.
         //and set w,h
         TTF_Font* m_Font=TTF_OpenFont(s_lan_pos.c_str(), BIGGIST_SIZE);
         int now_x=0,now_y=0,n_w=0,n_h=0;
         for(const std::string &it:strs){
-            this->m_regs_info.emplace_back(Text_layout::regs_info());
+            this->m_regs_info.emplace_back();
             if(it[0]=='['){
                 switch (it[1])
                 {
@@ -225,7 +226,7 @@ namespace Draw
                     this->block_pos=(int)m_regs_info.size()-1;
                     break;
                 case 'M':
-                    this->pos_and_vars.emplace_back(std::pair{(int)m_regs_info.size()-1,0});
+                    this->pos_and_vars.emplace_back((int)m_regs_info.size()-1,0);
                     break;
                 default:
                     LOG_ERROR("The var ID:\"{}\" dosen't exist.",it[1]);
@@ -271,9 +272,11 @@ namespace Draw
             this->m_regs_info.back().y=(float)(-now_y);
         }
         TTF_CloseFont(m_Font);
+        height=(float)(now_y+n_h);//set height
+        
         //文字以外の部分の高さと幅を設定する
-        float num_h=(float)nums[0]->GetRegionHeight(),
-              num_w=(float)nums[0]->GetRegionWidth();
+        const float num_h=(float)nums[0]->GetRegionHeight(),
+                    num_w=(float)nums[0]->GetRegionWidth();
         for(auto &it:this->m_regs_info){
             it.y-=n_h;
             if(it.w==-1){
@@ -286,6 +289,20 @@ namespace Draw
                 }
             }
         }
+        fix_width();
+    }
+    void Text_layout::fix_width(){
+        float temp_width=0.0F,//for store longest width
+              temp_now_y=0.0F;
+        for(const auto &it:this->m_regs_info){
+            if(temp_now_y>it.y){
+                temp_now_y=it.y;
+                if(temp_width>width)width=temp_width;
+                temp_width=0.0F;
+            }
+            temp_width+=it.w;
+        }
+        if(temp_width>width)width=temp_width;
     }
     void Text_layout::set_middle(){
         if(!middle_mode){
@@ -340,6 +357,8 @@ namespace Draw
               y_move=this->m_regs_info[0].h-(float)font_h,//old-new
               y_now=0;
         int line_cnt=0;
+        width*=font_scale;
+        height*=font_scale;
         for(auto &it:this->m_regs_info){
             it.w*=font_scale;
             it.h*=font_scale;
@@ -376,13 +395,14 @@ namespace Draw
                 float n_w=m_regs_info[info_pos].w*((float)n_l/(float)o_l);
                 adjust_pos(info_pos,n_w-m_regs_info[info_pos].w);
                 m_regs_info[info_pos].w=n_w;
+                fix_width();
             }else
                 LOG_ERROR("Info_pos are outside the range.");
         }else
             LOG_ERROR("value can't be negative");
     }
     void Text_layout::adjust_pos(int info_pos,float dis){
-        float n_y=this->m_regs_info[info_pos].y;
+        const float n_y=this->m_regs_info[info_pos].y;
         if(this->middle_mode){
             dis/=2.0F;
             for(int i=info_pos+1;i<(int)m_regs_info.size()&&n_y<=m_regs_info[i].y;i++)//y check

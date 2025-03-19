@@ -36,6 +36,8 @@ public:
     void set_block(int value);
     void set_vars(int value,int pos);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,float x,float y)const;
+    float GetWidth()const{return width;}
+    float GetHeight()const{return height;}
     static void split_text(std::vector<std::string> &strs,const std::string &text_string);
 private:
     struct regs_info{
@@ -49,6 +51,7 @@ private:
     void set_texture_pos(const std::shared_ptr<Draw::ReText> &t_retext,const std::vector<std::string> &strs);
     void adjust_pos(int info_pos,float dis);
     void set_things(int info_pos,int value,int old_value);
+    void fix_width();
     static language s_language;
     static std::string s_lan_pos;
     static font_weight s_font_weight;
@@ -68,6 +71,7 @@ private:
     std::vector<std::pair<int,int>> pos_and_vars;
 
     int m_fontsize;
+    float width,height;
     bool middle_mode;
 };
 }
