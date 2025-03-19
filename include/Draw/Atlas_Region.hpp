@@ -12,6 +12,10 @@ public:
                  int original_width,int original_height,
                  bool rotate);
     ~Atlas_Region()=default;
+    float GetOffsetX()const{return offsetX;}
+    float GetOffsetY()const{return offsetY;}
+    int GetOrigWidth()const{return original_width;}
+    int GetOrigHeight()const{return original_height;}
 private:
     //read-only first,if something goes wrong it will be change.
     const std::string name;

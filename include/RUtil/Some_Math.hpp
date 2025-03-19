@@ -12,12 +12,10 @@ public:
     Math(Math &&) = delete;
     ~Math() = delete;
     Math &operator=(const Math &) = delete;
-    template <typename T, typename... Args>
-    static void Normalize(T& t, Args&... args){
-        T Sum = t;
-        std::initializer_list<int>{(Sum+=(args),0)...};
-        t/=Sum;
-        std::initializer_list<int>{((args)/=Sum,0)...};
+    template <typename... Args>
+    static void Normalize(Args&... args){
+        const auto Sum=(args+...);
+        ((args/=Sum),...);
     }
     template <typename T>
     static T lerp(T a, T b, T t);
@@ -28,6 +26,7 @@ public:
     static int StrToInt(const std::string &str);
     static int GetIntLength(int x);
     static float GetRandomFloat(float min,float max);
+    static constexpr Uint32 GetColorUint32_RGB(int r,int g,int b){return r<<16|g<<8|b;};
 private:
     static constexpr float SNAP_THRESHOLD=1.0F*Setting::SCALE;
 };

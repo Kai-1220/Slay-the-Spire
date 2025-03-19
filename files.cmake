@@ -25,6 +25,7 @@ set(SRC_FILES
     Game_object/dungeon/Dungeon_screen.cpp
     Game_object/dungeon/Dungeon_manager.cpp
     Game_object/card/Cards.cpp
+    Game_object/card/Card_image_box.cpp
     Initscreen.cpp
     Cursor.cpp
 )
@@ -54,6 +55,7 @@ set(INCLUDE_FILES
     Game_object/dungeon/Dungeon_screen.hpp
     Game_object/dungeon/Dungeon_manager.hpp
     Game_object/card/Cards.hpp
+    Game_object/card/Card_image_box.hpp
     Game_object/interface/Is_screen.hpp
     WindowSize.hpp
     Initscreen.hpp

@@ -32,6 +32,7 @@ public:
     void SetColor(Util::Colors color);
     void SetColor(Util::Colors color,int a);
     void SetColor(Util::Colors color,float a);
+    void SetColor(Uint32 color,float a);
     void SetColor(Uint32 color);
     void SetColor_RGBA(Uint32 color);
     void SetProjection(const glm::mat4&projection);
@@ -61,12 +62,17 @@ public:
     void draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
         const float x,const float y,
         const float w,const float h);
+    void draw(const std::shared_ptr<Image_Region> &RegionTexture, 
+        const float x,const float y,
+        const float w,const float h,
+        const float rotate,const float origin_x,const float origin_y,
+        const float scale_x,const float scale_y);
 private:
     void SwitchTexture(const std::shared_ptr<ReTexture> &texture);
     void flush();
     void SetCombine();
-    void SetVert(float x,float y,float x2,float y2,
-                 float u,float v,float u2,float v2);
+    void SetVert(const float x,const float y,const float x2,const float y2,
+                 const float u,const float v,const float u2,const float v2);
     GLuint  m_EBO_BufferId,//only have one EBO. 
             m_ArrayId,//one VAO.
             m_VBO_BufferId;//one VBO.
