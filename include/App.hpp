@@ -11,7 +11,6 @@
 #include "Util/Transform.hpp"
 #include "Util/TransformUtils.hpp"
 
-#include "RUtil/Image_magic.hpp"
 
 #include <SDL.h>
 #include <memory>

@@ -5,13 +5,13 @@
 namespace Object
 {
     Dungeon_screen::Dungeon_screen(){
-        the_map=std::make_shared<Dungeon_map>();
+        the_map=std::make_shared<Map::Dungeon_map>();
         offsetY = -100.0F * Setting::SCALE;
         target_offsetY=offsetY;
         scroll_wait_timer=0.0F;
         grabbed=false;
     }
-    void Dungeon_screen::render(std::shared_ptr<Draw::Draw_2D> r2){
+    void Dungeon_screen::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         the_map->render(r2,offsetY);
     }
     void Dungeon_screen::update(Interface::Screen Now_screen){

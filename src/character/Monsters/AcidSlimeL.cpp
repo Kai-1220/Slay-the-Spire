@@ -13,7 +13,6 @@ AcidSlimeL::getAction() const{
     return m_Action;
 }
 AcidSlimeL::RandomSetAction(){
-    srand(time(NULL));
     int action = rand() % 100;
     if(action)
 }

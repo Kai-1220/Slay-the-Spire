@@ -1,16 +1,16 @@
-#ifndef GAME_OBJECT_DUNGEON_DUNGEON_MAP
-#define GAME_OBJECT_DUNGEON_DUNGEON_MAP
+#ifndef GAME_OBJECT_MAP_DUNGEON_MAP
+#define GAME_OBJECT_MAP_DUNGEON_MAP
 #include "pch.hpp"
 #include "WindowSize.hpp"
 #include "RUtil/Image_book.hpp"
 #include "Draw/Draw_2D.hpp"
-namespace Object{
+namespace Map{
 class Dungeon_map
 {
 public:
     Dungeon_map();
     ~Dungeon_map()=default;
-    void render(std::shared_ptr<Draw::Draw_2D> r2,float screen_offsetY);
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offsetY)const;
     void show();
     void hide();
     void update();

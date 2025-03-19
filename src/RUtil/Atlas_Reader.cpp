@@ -7,7 +7,7 @@ namespace RUtil{
     Atlas_Reader::Atlas_Reader(const std::string &atlas_path){
         std::ifstream inputFile(atlas_path);
         if(!inputFile){
-            LOG_ERROR("The atlas_path doesn't exist");
+            LOG_ERROR("The atlas_path:{} doesn't exist",atlas_path);
         }else{
             const std::string atlas_dir=atlas_path.substr(0,atlas_path.rfind('/')==std::string::npos?0:atlas_path.rfind('/')+1);
             std::string line;
@@ -31,6 +31,7 @@ namespace RUtil{
                         if(change_path){
                             texture_path=atlas_dir+line;
                             texture=RUtil::Image_book::GetTexture(texture_path);
+                            change_path=false;
                         }else{
                             change_path=true;
                             is_texture=false;
@@ -39,6 +40,7 @@ namespace RUtil{
                     }
                 }else{
                     //ignore "index"
+                    if(line.compare(2,5,"index")==0) continue;
                     if(line.compare(2,6,"rotate")==0){
                         region_rotate=line.find("false")==std::string::npos;
                     }else if(line.compare(2,2,"xy")==0){
@@ -54,9 +56,13 @@ namespace RUtil{
                     }else if(line.compare(2,6,"offset")==0){
                         offset_x=RUtil::Math::StrToInt(line.substr(0,line.find(',')));
                         offset_y=RUtil::Math::StrToInt(line.substr(line.find(',')+1));
+                    }else{
+                        this->reg_map[region_name]=std::make_shared<Draw::Atlas_Region>(region_name,region_x,region_y,texture,offset_x,offset_y,size_x,size_y,orig_x,orig_y,region_rotate);
+                        region_name=line;
                     }
                 }
             }
+            this->reg_map[region_name]=std::make_shared<Draw::Atlas_Region>(region_name,region_x,region_y,texture,offset_x,offset_y,size_x,size_y,orig_x,orig_y,region_rotate);
             inputFile.close();
         }
     }

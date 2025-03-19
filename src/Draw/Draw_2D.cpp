@@ -71,19 +71,25 @@ namespace Draw {
         glDeleteBuffers(1, &m_VBO_BufferId);
     }
 
-    void Draw_2D::SetColor(float r,float g,float b,float a){SetColor(Uint32(r*255.0F)<<24|Uint32(g*255.0F)<<16|Uint32(b*255.0F)<<8|Uint32(a*255.0F));}
-    void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(r<<24|g<<16|b<<8|a));}
-    void Draw_2D::SetColor(Util::Colors color){SetColor(Uint32(color)<<8|255);}
-    void Draw_2D::SetColor(Util::Colors color,int a){SetColor(Uint32(color)<<8|a);}
-    void Draw_2D::SetColor(Util::Colors color,float a){SetColor(Uint32(color)<<8|Uint32(a*255.0F));}
-    void Draw_2D::SetColor(Uint32 color){
+    void Draw_2D::SetColor(float r,float g,float b,float a){SetColor(Uint32(a*255.0F)<<24|Uint32(b*255.0F)<<16|Uint32(g*255.0F)<<8|Uint32(r*255.0F));}
+    void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(a<<24|b<<16|g<<8|r));}
+    void Draw_2D::SetColor(Util::Colors color){SetColor_RGBA(Uint32(color)<<8|255);}
+    void Draw_2D::SetColor(Util::Colors color,int a){SetColor_RGBA(Uint32(color)<<8|a);}
+    void Draw_2D::SetColor(Util::Colors color,float a){SetColor_RGBA(Uint32(color)<<8|Uint32(a*255.0F));}
+    void Draw_2D::SetColor(Uint32 color,float a){SetColor_RGBA(color<<8|Uint32(a*255.0F));}
+    //rgba
+    void Draw_2D::SetColor_RGBA(Uint32 color){
         //I have no idea why color is inverse...???
         Uint32 inv_color=0;
-        for(int i=0;i<32;i++){
-            inv_color<<=1;
-            inv_color|=color>>i&1;
+        for(int i=0;i<4;i++){
+            inv_color<<=8;
+            inv_color|=color>>(i<<3)&0xFF;
         }
-        memcpy(&this->color,&inv_color,sizeof(Uint32));
+        SetColor(inv_color);
+    }
+    //agbr
+    void Draw_2D::SetColor(Uint32 color){        
+        memcpy(&this->color,&color,sizeof(Uint32));
     }
     void Draw_2D::SetProjection(const glm::mat4&projection){
         this->m_Projection=projection;
@@ -139,13 +145,12 @@ namespace Draw {
     }
     /*ここからはdrawの関数です*/
     
-    void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
-                const float x,const float y){
+    void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture,const float x,const float y){
         draw(RegionTexture,x,y,RegionTexture->GetRegionWidth(),RegionTexture->GetRegionHeight());
     }
     void Draw_2D::draw(  const std::shared_ptr<Image_Region> &RegionTexture, 
-        const float x,const float y,
-        const float w,const float h){
+            const float x,const float y,
+            const float w,const float h){
         if(!drawing){
             LOG_ERROR("Please call begin() before draw()");
         }else{
@@ -154,32 +159,132 @@ namespace Draw {
                 SwitchTexture(texture);
             else if(idx==max_len) 
                 flush();
-            float u=RegionTexture->GetU(),
-                    u2=RegionTexture->GetU2(),
-                    v=RegionTexture->GetV(),
-                    v2=RegionTexture->GetV2();
-            vertices[idx]=x;
-            vertices[idx+1]=y;
-            vertices[idx+2]=color;
-            vertices[idx+3]=u;
-            vertices[idx+4]=v2;
-            vertices[idx+5]=x;
-            vertices[idx+6]=y+h;
-            vertices[idx+7]=color;
-            vertices[idx+8]=u;
-            vertices[idx+9]=v;
-            vertices[idx+10]=x+w;
-            vertices[idx+11]=y+h;
-            vertices[idx+12]=color;
-            vertices[idx+13]=u2;
-            vertices[idx+14]=v;
-            vertices[idx+15]=x+w;
-            vertices[idx+16]=y;
-            vertices[idx+17]=color;
-            vertices[idx+18]=u2;
-            vertices[idx+19]=v2;
-            idx+=20;
+            SetVert(x,y,x+w,y+h,RegionTexture->GetU(),RegionTexture->GetV(),RegionTexture->GetU2(),RegionTexture->GetV2());
         }               
+    }
+    void Draw_2D::draw(const std::shared_ptr<Image_Region> &RegionTexture, 
+            const float x,const float y,
+            const float w,const float h,
+            const float rotate,const float origin_x,const float origin_y,
+            const float scale_x,const float scale_y){
+        if(!drawing){
+            LOG_ERROR("Please call begin() before draw()");
+        }else{
+            auto texture=RegionTexture->GetTexture();
+            if(texture!=LastTexture)
+                SwitchTexture(texture);
+            else if(idx==max_len) 
+                flush();
+            float w_x=x+origin_x, w_y=y+origin_y,
+                  v_x=-origin_x,  v_y=-origin_y,
+                  v_x2=w-origin_x, v_y2=h-origin_y;
+            if (scale_x != 1.0F || scale_y != 1.0F) {
+                v_x *= scale_x;
+                v_y *= scale_y;
+                v_x2 *= scale_x;
+                v_y2 *= scale_y;
+            }
+            if(rotate==0.0F)SetVert(x,y,x+w,y+h,RegionTexture->GetU(),RegionTexture->GetV(),RegionTexture->GetU2(),RegionTexture->GetV2());
+            else{
+                float red=glm::radians(rotate),
+                     a=glm::cos(red),b=glm::sin(red);
+                //cos -sin
+                //sin cos
+                float x1=a*v_x-b*v_y,
+                    y1=b*v_x+a*v_y,
+                    x2=a*v_x-b*v_y2,
+                    y2=b*v_x+a*v_y2,
+                    x3=a*v_x2-b*v_y2,
+                    y3=b*v_x2+a*v_y2,
+                    x4=x3+x1-x2,
+                    y4=y3+y1-y2;
+                //2 3   23+21=24 -> (3-2)+(1-2)=(4-2) -> 4=3+1-2
+                //1 4
+                const float u=RegionTexture->GetU(),u2=RegionTexture->GetU2(),v=RegionTexture->GetV(),v2=RegionTexture->GetV2();
+                vertices[idx]=x1+w_x;
+                vertices[idx+1]=y1+w_y;
+                vertices[idx+2]=color;
+                vertices[idx+3]=u;
+                vertices[idx+4]=v2;
+                vertices[idx+5]=x2+w_x;
+                vertices[idx+6]=y2+w_y;
+                vertices[idx+7]=color;
+                vertices[idx+8]=u;
+                vertices[idx+9]=v;
+                vertices[idx+10]=x3+w_x;
+                vertices[idx+11]=y3+w_y;
+                vertices[idx+12]=color;
+                vertices[idx+13]=u2;
+                vertices[idx+14]=v;
+                vertices[idx+15]=x4+w_x;
+                vertices[idx+16]=y4+w_y;
+                vertices[idx+17]=color;
+                vertices[idx+18]=u2;
+                vertices[idx+19]=v2;
+                idx+=20;
+            }
+        }       
+    }
+    void Draw_2D::draw(const std::shared_ptr<ReTexture> &texture, 
+                const float x,const float y,
+                const float w,const float h,
+                const float rotate,const float origin_x,const float origin_y,
+                const float scale_x,const float scale_y){
+        if(!drawing){
+            LOG_ERROR("Please call begin() before draw()");
+        }else{
+            if(texture!=LastTexture)
+                SwitchTexture(texture);
+            else if(idx==max_len) 
+                flush();
+            float w_x=x+origin_x, w_y=y+origin_y,
+                  v_x=-origin_x,  v_y=-origin_y,
+                  v_x2=w-origin_x, v_y2=h-origin_y;
+            if (scale_x != 1.0F || scale_y != 1.0F) {
+                v_x *= scale_x;
+                v_y *= scale_y;
+                v_x2 *= scale_x;
+                v_y2 *= scale_y;
+            }
+            if(rotate==0.0F)SetVert(v_x+w_x,v_y+w_y,v_x2+w_x,v_y2+w_y,0.0F,0.0F,1.0F,1.0F);
+            else{
+                float red=glm::radians(rotate),
+                    a=glm::cos(red),b=glm::sin(red);
+                //cos -sin
+                //sin cos
+                float x1=a*v_x-b*v_y,
+                    y1=b*v_x+a*v_y,
+                    x2=a*v_x-b*v_y2,
+                    y2=b*v_x+a*v_y2,
+                    x3=a*v_x2-b*v_y2,
+                    y3=b*v_x2+a*v_y2,
+                    x4=x3+x1-x2,
+                    y4=y3+y1-y2;
+                //2 3   23+21=24 -> (3-2)+(1-2)=(4-2) -> 4=3+1-2
+                //1 4 
+                vertices[idx]=x1+w_x;
+                vertices[idx+1]=y1+w_y;
+                vertices[idx+2]=color;
+                vertices[idx+3]=0.0F;
+                vertices[idx+4]=1.0F;
+                vertices[idx+5]=x2+w_x;
+                vertices[idx+6]=y2+w_y;
+                vertices[idx+7]=color;
+                vertices[idx+8]=0.0F;
+                vertices[idx+9]=0.0F;
+                vertices[idx+10]=x3+w_x;
+                vertices[idx+11]=y3+w_y;
+                vertices[idx+12]=color;
+                vertices[idx+13]=1.0F;
+                vertices[idx+14]=0.0F;
+                vertices[idx+15]=x4+w_x;
+                vertices[idx+16]=y4+w_y;
+                vertices[idx+17]=color;
+                vertices[idx+18]=1.0F;
+                vertices[idx+19]=1.0F;
+                idx+=20;
+            }             
+        }
     }
     void Draw_2D::draw(  const std::shared_ptr<ReTexture> &texture, 
                 const float x,const float y){
@@ -195,36 +300,39 @@ namespace Draw {
                 SwitchTexture(texture);
             else if(idx==max_len) 
                 flush();
-            
-            //x y color u v
-            //now using:
-            //(0,0) (1,0)
-            //(0,1) (1,1)
-            //opengl using:
-            //(0,1) (1,1)
-            //(0,0) (1,0)
-            //u=1-u;
-            vertices[idx]=x;
-            vertices[idx+1]=y;
-            vertices[idx+2]=color;
-            vertices[idx+3]=0.0F;
-            vertices[idx+4]=1.0F;
-            vertices[idx+5]=x;
-            vertices[idx+6]=y+h;
-            vertices[idx+7]=color;
-            vertices[idx+8]=0.0F;
-            vertices[idx+9]=0.0F;
-            vertices[idx+10]=x+w;
-            vertices[idx+11]=y+h;
-            vertices[idx+12]=color;
-            vertices[idx+13]=1.0F;
-            vertices[idx+14]=0.0F;
-            vertices[idx+15]=x+w;
-            vertices[idx+16]=y;
-            vertices[idx+17]=color;
-            vertices[idx+18]=1.0F;
-            vertices[idx+19]=1.0F;
-            idx+=20;
+            SetVert(x,y,x+w,y+h,0.0F,0.0F,1.0F,1.0F);
         }
+    }
+    //only work to rotate==0.0F
+    void Draw_2D::SetVert(const float x,const float y,const float x2,const float y2,
+                          const float u,const float v,const float u2,const float v2){
+        //x y color u v
+        //now using:
+        //(0,0) (1,0)
+        //(0,1) (1,1)
+        //opengl using:
+        //(0,1) (1,1)
+        //(0,0) (1,0)
+        vertices[idx]=x;
+        vertices[idx+1]=y;
+        vertices[idx+2]=color;
+        vertices[idx+3]=u;
+        vertices[idx+4]=v2;
+        vertices[idx+5]=x;
+        vertices[idx+6]=y2;
+        vertices[idx+7]=color;
+        vertices[idx+8]=u;
+        vertices[idx+9]=v;
+        vertices[idx+10]=x2;
+        vertices[idx+11]=y2;
+        vertices[idx+12]=color;
+        vertices[idx+13]=u2;
+        vertices[idx+14]=v;
+        vertices[idx+15]=x2;
+        vertices[idx+16]=y;
+        vertices[idx+17]=color;
+        vertices[idx+18]=u2;
+        vertices[idx+19]=v2;
+        idx+=20;      
     }
 }

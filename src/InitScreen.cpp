@@ -54,7 +54,6 @@ void InitScreen::Create(){
     CreateBackground();
     CreateTower();
     CreateLogo();
-    srand(time(NULL));
     for (int i = 0; i < m_Text.size(); i++) {
         CreateText(i);
     }

@@ -10,7 +10,7 @@ namespace Object{
         Dungeon_manager();
         ~Dungeon_manager()=default;
         void update();
-        void render(std::shared_ptr<Draw::Draw_2D> r2);
+        void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     private:
         Interface::Screen Current_screen;
         std::shared_ptr<Object::Dungeon_screen> m_dungeon_screen;
