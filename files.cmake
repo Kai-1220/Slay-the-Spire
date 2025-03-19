@@ -19,8 +19,10 @@ set(SRC_FILES
     Game_object/dungeon/Dungeon_map.cpp
     Game_object/dungeon/Dungeon_screen.cpp
     Game_object/dungeon/Dungeon_manager.cpp
+    Game_object/dungeon/Dungeon_BottomScene.cpp
     Initscreen.cpp
     Cursor.cpp
+
 )
 
 set(INCLUDE_FILES
@@ -41,6 +43,7 @@ set(INCLUDE_FILES
     Game_object/dungeon/Dungeon_map.hpp
     Game_object/dungeon/Dungeon_screen.hpp
     Game_object/dungeon/Dungeon_manager.hpp
+    Game_object/dungeon/Dungeon_BottomScene.hpp
     Game_object/interface/Is_screen.hpp
     WindowSize.hpp
     Initscreen.hpp

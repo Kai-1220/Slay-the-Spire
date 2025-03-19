@@ -12,6 +12,7 @@
 #include "Util/Input.hpp"
 #include "Game_object/dungeon/Dungeon_manager.hpp"
 #include "Cursor.hpp"
+#include "Game_object/dungeon/Dungeon_BottomScene.hpp"
 int main(int, char**) {
     auto context = Core::Context::GetInstance();
     context->SetWindowIcon(RESOURCE_DIR"/Image/assets/icon.png");
@@ -33,13 +34,14 @@ int main(int, char**) {
     
 
     InitScreen initScreen;
+    Object::Dungeon_BottomScene BottomScene;
     Cursor cursor;
     // draw_test(test_image->GetReTextureId(),context);
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
         Draw2D->begin();
-        initScreen.draw(Draw2D);
-        ttt->update();
+        // initScreen.draw(Draw2D);
+        // ttt->update();
         // Draw2D->begin();
         // Draw2D->draw(rr[idx++],0,0);
         // if(idx>=rr.size()) idx=0;
@@ -54,14 +56,21 @@ int main(int, char**) {
         
         //測試book
         // Draw2D->draw(same2_image,0,0);
-        ttt->render(Draw2D);
+        // ttt->render(Draw2D);
+
+        //test BottomScene;
+        BottomScene.render(Draw2D);
+
         cursor.Draw(Draw2D);
         
         Draw2D->end();
         context->Update();
-        if(initScreen.GetCurrentState()==InitScreen::State::END){
+        if (Util::Input::IsKeyPressed(Util::Keycode::ESCAPE) || Util::Input::IfExit()) {
             context->SetExit(true);
-        } 
+        }
+        // if(initScreen.GetCurrentState()==InitScreen::State::END){
+        //     context->SetExit(true);
+        // } 
     }
     
 
