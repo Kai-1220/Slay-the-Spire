@@ -36,17 +36,17 @@ int main(int, char**) {
     Object::Dungeon_BottomScene BottomScene;
     Cursor cursor;
     // draw_test(test_image->GetReTextureId(),context);
-    float rot=90.0F;
+    // float rot=90.0F;
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
         Draw2D->begin();
         // initScreen.draw(Draw2D);
         // ttt->update();
         // Draw2D->begin();
-        Draw2D->SetColor(Util::Colors::RED);
+        // Draw2D->SetColor(Util::Colors::RED);
         
-        Draw2D->draw(rotate_test,(float)WINDOW_WIDTH/2.0F,(float)WINDOW_HEIGHT/2.0F,rotate_test->GetWidth(),rotate_test->GetHeight(),rot,0.0F,0.0F,Setting::SCALE,Setting::SCALE);
-        Draw2D->SetColor(-1);
+        // Draw2D->draw(rotate_test,(float)WINDOW_WIDTH/2.0F,(float)WINDOW_HEIGHT/2.0F,rotate_test->GetWidth(),rotate_test->GetHeight(),rot,0.0F,0.0F,Setting::SCALE,Setting::SCALE);
+        // Draw2D->SetColor(-1);
         // if(idx>=rr.size()) idx=0;
         // Draw2D->SetColor(Util::Colors::WHITE);
         // 字體縮小測試&顏色測試
@@ -64,9 +64,9 @@ int main(int, char**) {
         //test BottomScene;
         BottomScene.render(Draw2D);
 
-        test_layout->render(Draw2D,500,WINDOW_HEIGHT);
+        // test_layout->render(Draw2D,500,WINDOW_HEIGHT);
         // ttt->render(Draw2D);
-        Draw2D->draw(tty,0,0);
+        // Draw2D->draw(tty,0,0);
         cursor.Draw(Draw2D);
         Draw2D->end();
         context->Update();
