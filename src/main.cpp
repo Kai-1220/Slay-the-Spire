@@ -54,7 +54,7 @@ int main(int, char**) {
         //test BottomScene;
         BottomScene.render(Draw2D);
 
-        test_layout->render(Draw2D,500,WINDOW_HEIGHT);
+        // test_layout->render(Draw2D,500,WINDOW_HEIGHT);
         // ttt->render(Draw2D);
         // Draw2D->draw(tty,0,0);
         // tte->render(Draw2D);
