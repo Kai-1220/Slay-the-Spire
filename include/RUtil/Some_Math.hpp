@@ -12,6 +12,7 @@ public:
     Math(Math &&) = delete;
     ~Math() = delete;
     Math &operator=(const Math &) = delete;
+    Math &operator=(Math&&)=delete;
     template <typename... Args>
     static void Normalize(Args&... args){
         const auto Sum=(args+...);

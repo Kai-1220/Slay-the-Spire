@@ -10,6 +10,7 @@ set(SRC_FILES
     RUtil/Atlas_Reader.cpp
     RUtil/Random.cpp
     RUtil/Hitbox.cpp
+    RUtil/Text_Vector_Reader.cpp
     Draw/Draw_2D.cpp
     Draw/Image_Region.cpp
     Draw/ReTexture.cpp
@@ -41,6 +42,7 @@ set(INCLUDE_FILES
     RUtil/Atlas_Reader.hpp
     RUtil/Random.hpp
     RUtil/Hitbox.hpp
+    RUtil/Text_Vector_Reader.hpp
     Draw/Draw_2D.hpp
     Draw/Image_Region.hpp
     Draw/ReTexture.hpp

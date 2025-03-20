@@ -136,6 +136,8 @@ namespace Draw
         bool color_flag=false,color_end_flag=false,split_flag=false,
              vars_n_orb_flag=false,tail=false;
         //split text
+        int str_pos=2;//quick two step
+        const int str_len=text_string.length();
         for(const char &c:text_string){
             if(color_flag){
                 color_flag=false;
@@ -146,10 +148,10 @@ namespace Draw
                     vars_n_orb_flag=false;
                     tail=true;
                 }
-            }else if(c=='#'){
+            }else if(c=='#'&&str_pos-1<str_len&&text_string[str_pos]>'9'&&text_string[str_pos]<'0'){
                 color_flag=true;
                 split_flag=true;
-            }else if(c=='!'||c=='['){
+            }else if(str_pos<str_len&&((c=='!'&&text_string[str_pos]=='!')||(c=='['&&text_string[str_pos]==']'))){
                 split_flag=true;
                 vars_n_orb_flag=true;
             }else if(c==' '&&color_end_flag==true){
@@ -168,6 +170,7 @@ namespace Draw
                 }
             }
             sub_len++;
+            str_pos++;
         }
         if(sub_len>0)
             strs.emplace_back(text_string.substr(sub_st,sub_len));

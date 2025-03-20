@@ -184,7 +184,7 @@ namespace Draw {
                 v_x2 *= scale_x;
                 v_y2 *= scale_y;
             }
-            if(rotate==0.0F)SetVert(x,y,x+w,y+h,RegionTexture->GetU(),RegionTexture->GetV(),RegionTexture->GetU2(),RegionTexture->GetV2());
+            if(rotate==0.0F)SetVert(v_x+w_x,v_y+w_y,v_x2+w_x,v_y2+w_y,RegionTexture->GetU(),RegionTexture->GetV(),RegionTexture->GetU2(),RegionTexture->GetV2());
             else{
                 float red=glm::radians(rotate),
                      a=glm::cos(red),b=glm::sin(red);
