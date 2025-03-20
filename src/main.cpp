@@ -7,7 +7,7 @@
 //the include below this line is test
 #include "Draw/Draw_2D.hpp"//test_Draw_2D
 #include "draw_test.hpp"
-#include "Draw/Text_layout.hpp"
+#include "Game_object/card/Cards.hpp"
 #include "RUtil/Atlas_Reader.hpp"
 #include "Util/Input.hpp"
 #include "Game_object/dungeon/Dungeon_manager.hpp"
@@ -32,9 +32,9 @@ int main(int, char**) {
     printf("%f %f\n",test_layout->GetWidth(),test_layout->GetHeight());
     
     printf("OK");
-    auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
-    auto tty=tye_draw.Find_Atlas_Region("512/bg_power_silhouette");
-
+    // auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
+    // auto tty=tye_draw.Find_Atlas_Region("1024/frame_power_rare");
+    // auto tte=std::make_shared<Card::Cards>(Card::Name::anger,Card::Rarity::basic,Card::Type::attack,Card::Color::red);
     InitScreen initScreen;
     Object::Dungeon_BottomScene BottomScene;
     Cursor cursor;
@@ -57,6 +57,7 @@ int main(int, char**) {
         // test_layout->render(Draw2D,500,WINDOW_HEIGHT);
         // ttt->render(Draw2D);
         // Draw2D->draw(tty,0,0);
+        // tte->render(Draw2D);
         cursor.Draw(Draw2D);
         Draw2D->end();
         context->Update();
