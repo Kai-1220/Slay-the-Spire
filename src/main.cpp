@@ -34,7 +34,7 @@ int main(int, char**) {
     printf("OK");
     // auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
     // auto tty=tye_draw.Find_Atlas_Region("1024/frame_power_rare");
-    // auto tte=std::make_shared<Card::Cards>(Card::Name::anger,Card::Rarity::basic,Card::Type::attack,Card::Color::red);
+    // auto tte=std::make_shared<Card::Cards>(Card::Name::anger,Card::Rarity::rare,Card::Type::attack,Card::Color::red);
     InitScreen initScreen;
     Object::Dungeon_BottomScene BottomScene;
     Cursor cursor;
