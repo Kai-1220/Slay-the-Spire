@@ -16,7 +16,7 @@ namespace RUtil{
     }
     int Random::NextInt(){
         counter++;
-        return static_cast<int>(NextLong());
+        return static_cast<int>(NextLong()&0x7fffffff);
     }
     bool Random::Nextboolean(){
         counter++;

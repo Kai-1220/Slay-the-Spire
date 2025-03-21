@@ -24,7 +24,7 @@ void Object::Dungeon_BottomScene::render(std::shared_ptr<Draw::Draw_2D> r2){
     r2->draw(deckButton,50,25,110,110);
     r2->draw(discardButton,1125,25,110,110);
     r2->draw(buttonL,930,100,180,180);
-    for(int i=0;i<layersd.size();i++){
-        r2->draw(layersd[i], layerPos.x, layerPos.y, layerSize.x, layerSize.y);
+    for(int i=0;i<layers.size();i++){
+        r2->draw(layers[i], layerPos.x, layerPos.y, layerSize.x, layerSize.y);
     }
 }

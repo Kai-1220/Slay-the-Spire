@@ -2,7 +2,7 @@
 #include "RUtil/Some_Math.hpp"
 namespace Map{
     Map_dot::Map_dot(float x,float y,float rotation,bool jitter){
-        if(dot_texture==nullptr)dot_texture=RUtil::Image_book::GetTexture("image/map/dot1.png");
+        if(dot_texture==nullptr)dot_texture=RUtil::Image_book::GetTexture("Image/map/dot1.png");
         if(jitter){
             this->x=x+RUtil::Math::GetRandomFloat(-DIST_JITTER,DIST_JITTER);
             this->y=y+RUtil::Math::GetRandomFloat(-DIST_JITTER,DIST_JITTER);

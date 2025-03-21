@@ -5,7 +5,7 @@ namespace Map{
 //mikannsei
 Map_node::Map_node(int x,int y):x(x),y(y){
     if(s_circle==nullptr){
-        s_circle=RUtil::Image_book::GetTexture("image/map/circle5.png");
+        s_circle=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/circle5.png");
     }
     this->offset_x=(float)((int)RUtil::Math::GetRandomFloat(-JITTER_X, JITTER_X));
     this->offset_y=(float)((int)RUtil::Math::GetRandomFloat(-JITTER_Y, JITTER_Y));
