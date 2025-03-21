@@ -18,6 +18,13 @@ int Cursor::GetHeight(){
 }
 void Cursor::Draw(std::shared_ptr<Draw::Draw_2D> Draw2D){
     Draw2D->SetColor(Util::Colors::WHITE);
-    Draw2D->draw(Texture,
-        Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-height,width,height);
+    if(Util::Input::IsKeyPressed(Util::Keycode::MOUSE_LB)){
+        Draw2D->draw(Texture,
+            Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-height,width,height,
+            15,width/2,height/2);
+    }
+    else{
+        Draw2D->draw(Texture,
+            Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-height,width,height);
+    }
 }

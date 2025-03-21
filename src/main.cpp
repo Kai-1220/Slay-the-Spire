@@ -52,7 +52,7 @@ int main(int, char**) {
         // ttt->render(Draw2D);
 
         //test BottomScene;
-        BottomScene.render(Draw2D);
+        // BottomScene.render(Draw2D);
 
         // test_layout->render(Draw2D,500,WINDOW_HEIGHT);
         // ttt->render(Draw2D);
