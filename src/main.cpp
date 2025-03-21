@@ -31,14 +31,14 @@ int main(int, char**) {
     test_layout->set_fontsize(32);
     printf("%f %f\n",test_layout->GetWidth(),test_layout->GetHeight());
     
-    printf("OK");
+    // printf("OK");
     // auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
     // auto tty=tye_draw.Find_Atlas_Region("1024/frame_power_rare");
-    // auto tte=std::make_shared<Card::Cards>(Card::Name::anger,Card::Rarity::rare,Card::Type::attack,Card::Color::red);
+    auto tte=std::make_shared<Card::Cards>(Card::Name::anger,Card::Rarity::rare,Card::Type::attack,Card::Color::red);
     InitScreen initScreen;
-    Object::Dungeon_BottomScene BottomScene;
+    // Object::Dungeon_BottomScene BottomScene;
     Cursor cursor;
-    // draw_test(test_image->GetReTextureId(),context);
+    // testfun(context);
     // float rot=90.0F;
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
@@ -52,12 +52,12 @@ int main(int, char**) {
         // ttt->render(Draw2D);
 
         //test BottomScene;
-        BottomScene.render(Draw2D);
+        // BottomScene.render(Draw2D);
 
         // test_layout->render(Draw2D,500,WINDOW_HEIGHT);
         // ttt->render(Draw2D);
         // Draw2D->draw(tty,0,0);
-        // tte->render(Draw2D);
+        tte->render(Draw2D);
         cursor.Draw(Draw2D);
         Draw2D->end();
         context->Update();

@@ -182,7 +182,7 @@ namespace Card{
         r2->draw(img, x + img->GetOffsetX() - (float)img->GetOrigWidth() / 2.0F, y + img->GetOffsetY() - (float)img->GetOrigHeight() / 2.0F,(float)img->GetRegionWidth(), (float)img->GetRegionHeight(),this->m_angle, (float)img->GetOrigWidth() / 2.0F - img->GetOffsetX(), (float)img->GetOrigHeight() / 2.0F - img->GetOffsetY(), this->m_draw_scale * Setting::SCALE, this->m_draw_scale * Setting::SCALE);
     }
     void Cards::frame_format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x_offset,const float x_scale)const{
-        r2->draw(img, this->current_x + img->GetOffsetX() - (float)img->GetOrigWidth() / 2.0F + x_offset * this->m_draw_scale, this->current_y + img->GetOffsetY() - (float)img->GetOrigHeight() / 2.0F, (float)img->GetRegionWidth(), (float)img->GetRegionHeight(), this->m_angle, (float)img->GetOrigWidth() / 2.0F - img->GetOffsetX(), (float)img->GetOrigHeight() / 2.0F - img->GetOffsetY(),  this->m_draw_scale * Setting::SCALE * x_scale, this->m_draw_scale * Setting::SCALE);
+        r2->draw(img, this->current_x + img->GetOffsetX() - (float)img->GetOrigWidth() / 2.0F + x_offset * this->m_draw_scale, this->current_y + img->GetOffsetY() - (float)img->GetOrigHeight() / 2.0F, (float)img->GetRegionWidth(), (float)img->GetRegionHeight(), this->m_angle, (float)img->GetOrigWidth() / 2.0F - img->GetOffsetX() - x_offset * this->m_draw_scale, (float)img->GetOrigHeight() / 2.0F - img->GetOffsetY(),  this->m_draw_scale * Setting::SCALE * x_scale, this->m_draw_scale * Setting::SCALE);
     }
     void Cards::init_static_menber(){
         RUtil::Atlas_Reader temp(RESOURCE_DIR"/Image/cardui/cardui.atlas");
