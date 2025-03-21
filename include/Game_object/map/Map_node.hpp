@@ -4,6 +4,7 @@
 #include "Game_object/map/Map_edge.hpp"
 #include "WindowSize.hpp"
 #include "Game_object/room/Rooms.hpp"
+#include <iostream>
 namespace Map{
 class Map_node
 {

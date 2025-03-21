@@ -11,7 +11,7 @@ Object::Dungeon_BottomScene::Dungeon_BottomScene()
     for(int i=1;i<7;i++){
         layers.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture(std::string(RESOURCE_DIR "/Image/topPanel/red/layer") + std::to_string(i) + ".png"),2,2,128,128));
     }   
-    for(int i=0;i<6;i++){
+    for(int i=1;i<6;i++){
         layersd.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture(std::string(RESOURCE_DIR "/Image/topPanel/red/layer") + std::to_string(i) + "d.png"),2,2,128,128));
     }
     layersd.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture(RESOURCE_DIR "/Image/topPanel/red/layer6.png"),2,2,128,128));
@@ -27,5 +27,4 @@ void Object::Dungeon_BottomScene::render(std::shared_ptr<Draw::Draw_2D> r2){
     for(int i=0;i<layers.size();i++){
         r2->draw(layers[i], layerPos.x, layerPos.y, layerSize.x, layerSize.y);
     }
-    
 }

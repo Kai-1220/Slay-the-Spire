@@ -4,7 +4,7 @@
 #include "Game_object/room/Monster_room.hpp"
 namespace Map{
 std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int height,int width,int density,const std::shared_ptr<RUtil::Random> &rng){
-    std::vector<std::vector<std::shared_ptr<Map_node>>> map(height,std::vector<std::shared_ptr<Map_node>>(width));
+    std::vector<std::vector<std::shared_ptr<Map_node>>> map(height,std::vector<std::shared_ptr<Map_node>>(width,nullptr));
     
     int first_node=-1;
     for(int i=0;i<density;i++){//try create density times
@@ -15,8 +15,8 @@ std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int h
         //start creat path from start node
         int now_node_y=0,now_node_x=start_node,
             next_node_y,next_node_x;
+        map[now_node_y][now_node_x]=std::make_shared<Map::Map_node>(now_node_x,now_node_y);
         while(now_node_y+1<height){
-            if(map[now_node_y][now_node_x]==nullptr)map[now_node_y][now_node_x]=std::make_shared<Map::Map_node>(now_node_x,now_node_y);
             next_node_x=now_node_x+rng->NextInt(now_node_x==0?0:-1,now_node_x==width-1?0:1);
             next_node_y=now_node_y+1;
 
@@ -27,19 +27,20 @@ std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int h
             //a  now
             //check a to b edge
             if(now_node_x!=0){
-                if(map[now_node_y][now_node_x-1]->CanMoveRight()&&next_node_x==now_node_x-1){
+                if(map[now_node_y][now_node_x-1]!=nullptr&&map[now_node_y][now_node_x-1]->CanMoveRight()&&next_node_x==now_node_x-1){
                     next_node_x=now_node_x;
                 }
             }
             //b to
             //now a
             if(now_node_x!=width-1){
-                if(map[now_node_y][now_node_x+1]->CanMoveLeft()&&next_node_x==now_node_x+1){
+                if(map[now_node_y][now_node_x+1]!=nullptr&&map[now_node_y][now_node_x+1]->CanMoveLeft()&&next_node_x==now_node_x+1){
                     next_node_x=now_node_x;
                 }
             }
             
             //this is so long.... but I think it's ok.
+            if(map[next_node_y][next_node_x]==nullptr)map[next_node_y][next_node_x]=std::make_shared<Map::Map_node>(next_node_x,next_node_y);
             std::shared_ptr<Map_edge> Next_edge=std::make_shared<Map_edge>(map[now_node_y][now_node_x]->GetX(),map[now_node_y][now_node_x]->GetY(),map[next_node_y][next_node_x]->GetX(),map[next_node_y][next_node_x]->GetY(),
                                                             map[now_node_y][now_node_x]->GetOffsetX(),map[now_node_y][now_node_x]->GetOffsetY(),map[next_node_y][next_node_x]->GetOffsetX(),map[next_node_y][next_node_x]->GetOffsetY(),false);
             switch(next_node_x-now_node_x){
