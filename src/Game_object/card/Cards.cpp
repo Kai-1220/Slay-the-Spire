@@ -115,22 +115,27 @@ namespace Card{
             case Type::attack:
                 m_type_offset=s_type_offset_attack;
                 m_type_width=s_type_width_attack;
+                m_text_pos=0;
                 break;
             case Type::skill:
                 m_type_offset=s_type_offset_skill;
                 m_type_width=s_type_width_skill;
+                m_text_pos=1;
                 break;
             case Type::power:
                 m_type_offset=s_type_offset_power;
                 m_type_width=s_type_width_power;
+                m_text_pos=2;
                 break;
             case Type::curse:
                 m_type_offset=s_type_offset_curse;
                 m_type_width=s_type_width_curse;
+                m_text_pos=3;
                 break;
             case Type::status:
                 m_type_offset=s_type_offset_status;
                 m_type_width=s_type_width_status;
+                m_text_pos=7;
                 break;
             default:
                 LOG_ERROR("The type doesn't exist");
@@ -159,8 +164,8 @@ namespace Card{
         current_x=600;
         current_y=250;
         m_color_a=1.0F;
-        m_draw_scale=1.0F;
-        m_angle=30.0F;
+        m_draw_scale=2.0F;
+        m_angle=60.0F;
     }
     void Cards::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         //image
@@ -172,11 +177,16 @@ namespace Card{
         this->format_render(r2,m_card_bg,this->current_x,this->current_y);
 
         this->format_render(r2,m_card_frame,this->current_x,this->current_y);
-        this->frame_format_render(r2,m_card_mid_frame,0.0F,m_type_width);
-        this->frame_format_render(r2,m_card_left_frame,-m_type_offset,1.0F);
-        this->frame_format_render(r2,m_card_right_frame,m_type_offset,1.0F);
+
+        if(m_type_width>1.1F){//only need if text too long.
+            this->frame_format_render(r2,m_card_mid_frame,0.0F,m_type_width);
+            this->frame_format_render(r2,m_card_left_frame,-m_type_offset,1.0F);
+            this->frame_format_render(r2,m_card_right_frame,m_type_offset,1.0F);
+        }
         this->format_render(r2,m_card_banner,this->current_x,this->current_y);
         
+        r2->SetColor(TYPE_COLOR,this->m_color_a);
+        s_ui_vec->at(this->m_text_pos).render_without_format_word(r2,this->current_x,this->current_y-22.0F*this->m_draw_scale*Setting::SCALE,this->m_angle,this->m_draw_scale,0.0F,22.0F*this->m_draw_scale*Setting::SCALE);
     }
     void Cards::format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,float x,float y)const{
         r2->draw(img, x + img->GetOffsetX() - (float)img->GetOrigWidth() / 2.0F, y + img->GetOffsetY() - (float)img->GetOrigHeight() / 2.0F,(float)img->GetRegionWidth(), (float)img->GetRegionHeight(),this->m_angle, (float)img->GetOrigWidth() / 2.0F - img->GetOffsetX(), (float)img->GetOrigHeight() / 2.0F - img->GetOffsetY(), this->m_draw_scale * Setting::SCALE, this->m_draw_scale * Setting::SCALE);
@@ -227,20 +237,26 @@ namespace Card{
         s_card_banner_uncommon = temp.Find_Atlas_Region("512/banner_uncommon");
         s_card_banner_rare = temp.Find_Atlas_Region("512/banner_rare");
         s_ui_vec=RUtil::Text_Vector_Reader::GetTextVector(RUtil::Text_ID::SingleCardViewPopup);
-        float jitai_width=s_ui_vec->at(0).GetWidth();
+        s_ui_vec->at(0).set_fontsize(CARD_FONT_SIZE);
+        const float padding=10.0F*Setting::SCALE;
+        float jitai_width=s_ui_vec->at(0).GetWidth()+padding;
         constexpr float mid_frame_width=48.0F*Setting::SCALE;
         s_type_offset_attack=(jitai_width-mid_frame_width)/2.0F;
         s_type_width_attack=(jitai_width/mid_frame_width-1.0F)*2.0F+1.0F;//let the space have twice as large
-        jitai_width=s_ui_vec->at(1).GetWidth();
+        s_ui_vec->at(1).set_fontsize(CARD_FONT_SIZE);
+        jitai_width=s_ui_vec->at(1).GetWidth()+padding;
         s_type_offset_skill=(jitai_width-mid_frame_width)/2.0F;
         s_type_width_skill=(jitai_width/mid_frame_width-1.0F)*2.0F+1.0F;
-        jitai_width=s_ui_vec->at(2).GetWidth();
+        s_ui_vec->at(2).set_fontsize(CARD_FONT_SIZE);
+        jitai_width=s_ui_vec->at(2).GetWidth()+padding;
         s_type_offset_power=(jitai_width-mid_frame_width)/2.0F;
         s_type_width_power=(jitai_width/mid_frame_width-1.0F)*2.0F+1.0F;
-        jitai_width=s_ui_vec->at(3).GetWidth();
+        s_ui_vec->at(3).set_fontsize(CARD_FONT_SIZE);
+        jitai_width=s_ui_vec->at(3).GetWidth()+padding;
         s_type_offset_curse=(jitai_width-mid_frame_width)/2.0F;
         s_type_width_curse=(jitai_width/mid_frame_width-1.0F)*2.0F+1.0F;
-        jitai_width=s_ui_vec->at(7).GetWidth();
+        s_ui_vec->at(7).set_fontsize(CARD_FONT_SIZE);
+        jitai_width=s_ui_vec->at(7).GetWidth()+padding;
         s_type_offset_status=(jitai_width-mid_frame_width)/2.0F;
         s_type_width_status=(jitai_width/mid_frame_width-1.0F)*2.0F+1.0F;
     }

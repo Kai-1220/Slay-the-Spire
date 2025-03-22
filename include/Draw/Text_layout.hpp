@@ -23,7 +23,7 @@ public:
     //!D!:damage !B!:block !M!:vars
     //[R]:orb_red [G]:orb_green [B]:orb_blue [W]:orb_purple [C]:orb_card 
     //[P]:orb_potion [T]:orb_relic [S]:orb_special
-    // Text_layout(const std::string &text_string,int fontsize);
+    //This class is affected by Setting::SCALE
     Text_layout(const std::string &text_string);
     ~Text_layout()=default;
     static void SetLanguage(language lan);
@@ -35,7 +35,8 @@ public:
     void set_damage(int value);
     void set_block(int value);
     void set_vars(int value,int pos);
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float x,float y)const;
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float a=1.0F)const;
+    void render_without_format_word(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float angle,const float scale,const float offset_origin_x,const float offset_origin_y)const;
     float GetWidth()const{return width;}
     float GetHeight()const{return height;}
     static void split_text(std::vector<std::string> &strs,const std::string &text_string);
@@ -52,6 +53,7 @@ private:
     void adjust_pos(int info_pos,float dis);
     void set_things(int info_pos,int value,int old_value);
     void fix_width();
+    void scale_all_pos(const float scale);
     static language s_language;
     static std::string s_lan_pos;
     static font_weight s_font_weight;

@@ -66,7 +66,7 @@ public:
         const float x,const float y,
         const float w,const float h,
         const float rotate,const float origin_x,const float origin_y,
-        const float scale_x,const float scale_y);
+        const float scale_x=1.0F,const float scale_y=1.0F);
 private:
     void SwitchTexture(const std::shared_ptr<ReTexture> &texture);
     void flush();

@@ -43,9 +43,9 @@ int main(int, char**) {
     Cursor cursor;
     // testfun(context);
     // float rot=90.0F;
-    auto random_generator = std::make_shared<RUtil::Random>(rand());
-    auto map_nodes = Map::Map_generator::Get_Map(720, 500, 6, random_generator);
-    auto dungeon_map = std::make_shared<Map::Dungeon_map>();
+    // auto random_generator = std::make_shared<RUtil::Random>(rand());
+    // auto map_nodes = Map::Map_generator::Get_Map(720, 500, 6, random_generator);
+    // auto dungeon_map = std::make_shared<Map::Dungeon_map>();
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
         Draw2D->begin();
@@ -58,7 +58,7 @@ int main(int, char**) {
         // 建立地圖 - 參數為: 高度、寬度、密度、隨機數生成器
         
         
-        dungeon_map->render(Draw2D, 0);
+        // dungeon_map->render(Draw2D, 0);
         // ttt->render(Draw2D);
 
         //test BottomScene;

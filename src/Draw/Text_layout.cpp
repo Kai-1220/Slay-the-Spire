@@ -32,6 +32,7 @@ namespace Draw
         set_texture_pos(t_retext,strs);
         middle_mode=true;//it will be changed to false later
         set_left();//default left
+        this->scale_all_pos(Setting::SCALE);
     }
     Text_layout::language Text_layout::s_language=Text_layout::language::zht;
     std::string Text_layout::s_lan_pos=RESOURCE_DIR"/font/zht/NotoSansCJKtc-Regular.otf";
@@ -279,9 +280,11 @@ namespace Draw
         
         //文字以外の部分の高さと幅を設定する
         const float num_h=(float)nums[0]->GetRegionHeight(),
-                    num_w=(float)nums[0]->GetRegionWidth();
+                    num_w=(float)nums[0]->GetRegionWidth(),
+                    half_height=height/2.0F;
         for(auto &it:this->m_regs_info){
             it.y-=n_h;
+            it.y+=half_height;//fix y to center
             if(it.w==-1){
                 if(it.is_var){
                     it.w=(float)n_h/num_h*num_w;
@@ -309,7 +312,7 @@ namespace Draw
     }
     void Text_layout::set_middle(){
         if(!middle_mode){
-            //middle mode: x&y are top center
+            //middle mode: x&y are center
             float n_y=0,st_x,total_w;
             int t_len=(int)m_regs_info.size(),l_st=0,l_len=0;
             for(int i=0;i<=t_len;i++){
@@ -333,7 +336,7 @@ namespace Draw
     }
     void Text_layout::set_left(){
         if(middle_mode){
-            //x&y are top-left
+            //x are left
             //set x
             //y w h c is_var ok
             float n_x=0,n_y=0;
@@ -346,35 +349,24 @@ namespace Draw
                 n_x+=it.w;
             }
             middle_mode=false;
+            //fix x to center
+            const float half_w=width/2.0F;
+            for(auto &it:this->m_regs_info){
+                it.x-=half_w;
+            }
         }
     }
     void Text_layout::set_fontsize(int fontsize){
         //It just scales the size, but it won't truly change to the fontsize.
         //It might look a bit strange, but I think it is fine.
-        m_fontsize=fontsize;
-        TTF_Font* m_Font=TTF_OpenFont(s_lan_pos.c_str(), m_fontsize);
-        int font_w,font_h;
-        TTF_SizeUTF8(m_Font,"A",&font_w,&font_h);
-        TTF_CloseFont(m_Font);
-        float font_scale=(float)font_h/this->m_regs_info[0].h,
-              y_move=this->m_regs_info[0].h-(float)font_h,//old-new
-              y_now=0;
-        int line_cnt=0;
-        width*=font_scale;
-        height*=font_scale;
-        for(auto &it:this->m_regs_info){
-            it.w*=font_scale;
-            it.h*=font_scale;
-            if(y_now>it.y){
-                y_now=it.y;
-                line_cnt++;
-            }
-            it.y+=y_move*(float)line_cnt;
-        }
-        if(middle_mode){
-            middle_mode=false;set_middle();
-        }else{
-            middle_mode=true;set_left();
+        if(m_fontsize!=fontsize){
+            m_fontsize=fontsize;
+            TTF_Font* m_Font=TTF_OpenFont(s_lan_pos.c_str(), m_fontsize);
+            int font_w,font_h;
+            TTF_SizeUTF8(m_Font,"A",&font_w,&font_h);
+            TTF_CloseFont(m_Font);
+            const float font_scale=(float)font_h/this->m_regs_info[0].h;
+            this->scale_all_pos(font_scale);
         }
     }
     void Text_layout::set_damage(int value){
@@ -417,9 +409,22 @@ namespace Draw
                 m_regs_info[i].x+=dis;
         }
     }
-    void Text_layout::render(const std::shared_ptr<Draw::Draw_2D> &r2,float x,float y)const{
+    void Text_layout::scale_all_pos(const float scale){
+        if(scale!=1.0F){
+            //The center is (0,0), so just simply multiply x&y by the scale.
+            for(auto&it:this->m_regs_info){
+                it.x*=scale;
+                it.y*=scale;
+                it.w*=scale;
+                it.h*=scale;
+            }
+            width*=scale;
+            height*=scale;
+        }
+    }
+    void Text_layout::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float a)const{
         for(int i=0,j=0;i<(int)m_regs_info.size();i++){
-            r2->SetColor_RGBA(m_regs_info[i].c);
+            r2->SetColor(m_regs_info[i].c,a);
             if(m_regs_info[i].is_var){
                 int need_draw_num=-1;
                 if(damage_pos==i)need_draw_num=damage;
@@ -428,21 +433,28 @@ namespace Draw
                     for(const auto &var_it:pos_and_vars){
                         if(var_it.first==i){
                             need_draw_num=var_it.second;
+                            break;
                         }
                     }
                 }
                 if(need_draw_num==-1) LOG_ERROR("ERROR when try to draw dynamic number on text");
                 else{
-                    int num_len=RUtil::Math::GetIntLength(need_draw_num);
-                    float unit_w=m_regs_info[i].w/(float)num_len;
+                    const int num_len=RUtil::Math::GetIntLength(need_draw_num);
+                    const float unit_w=m_regs_info[i].w/(float)num_len;
                     for(int drawing_pos=1;drawing_pos<=num_len;drawing_pos++){
-                        r2->draw(nums[need_draw_num%10], m_regs_info[i].x+x+unit_w*(num_len-drawing_pos), m_regs_info[i].y+y, unit_w, m_regs_info[i].h);
+                        r2->draw(nums[need_draw_num%10], m_regs_info[i].x + center_x + unit_w*(num_len-drawing_pos), m_regs_info[i].y+center_y, unit_w, m_regs_info[i].h);
                         need_draw_num/=10;
-                    };
+                    }
                 }
             }else{
-                r2->draw(this->regs[j++],m_regs_info[i].x+x,m_regs_info[i].y+y,m_regs_info[i].w,m_regs_info[i].h);
+                r2->draw(this->regs[j++],m_regs_info[i].x+center_x,m_regs_info[i].y+center_y,m_regs_info[i].w,m_regs_info[i].h);
             }
+        }
+    }
+    void Text_layout::render_without_format_word(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float angle,const float scale,const float offset_origin_x,const float offset_origin_y)const{
+        const int info_len=(int)m_regs_info.size();
+        for(int i=0;i<info_len;i++){
+            r2->draw(this->regs[i], m_regs_info[i].x*scale + center_x, m_regs_info[i].y*scale + center_y, m_regs_info[i].w*scale, m_regs_info[i].h*scale, angle, this->width*scale/2.0F+offset_origin_x, this->height*scale/2.0F+offset_origin_y);
         }
     }
 } // namespace Draw

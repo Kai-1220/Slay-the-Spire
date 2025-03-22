@@ -76,7 +76,7 @@ namespace Draw {
     void Draw_2D::SetColor(Util::Colors color){SetColor_RGBA(Uint32(color)<<8|255);}
     void Draw_2D::SetColor(Util::Colors color,int a){SetColor_RGBA(Uint32(color)<<8|a);}
     void Draw_2D::SetColor(Util::Colors color,float a){SetColor_RGBA(Uint32(color)<<8|Uint32(a*255.0F));}
-    void Draw_2D::SetColor(Uint32 color,float a){SetColor_RGBA(color<<8|Uint32(a*255.0F));}
+    void Draw_2D::SetColor(Uint32 color,float a){SetColor_RGBA((color&0xffffff00)|Uint32(a*255.0F));}
     //rgba
     void Draw_2D::SetColor_RGBA(Uint32 color){
         //I have no idea why color is inverse...???

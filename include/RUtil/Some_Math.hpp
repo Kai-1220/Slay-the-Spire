@@ -27,7 +27,8 @@ public:
     static int StrToInt(const std::string &str);
     static int GetIntLength(int x);
     static float GetRandomFloat(float min,float max);
-    static constexpr Uint32 GetColorUint32_RGB(int r,int g,int b){return r<<16|g<<8|b;};
+    static constexpr Uint32 GetColorUint32_RGB(int r,int g,int b){return r<<24|g<<16|b<<8;};
+    static constexpr Uint32 GetColorUint32_RGB(float r,float g,float b){return static_cast<Uint32>(r*255.0F)<<24|static_cast<Uint32>(g*255.0F)<<16|static_cast<Uint32>(b*255.0F)<<8;};
 private:
     static constexpr float SNAP_THRESHOLD=1.0F*Setting::SCALE;
 };
