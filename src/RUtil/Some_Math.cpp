@@ -33,6 +33,16 @@ namespace RUtil{
         //from gdx
         return start+(target-start)*std::clamp(a * a * a * (a * (a * 6.0F - 15.0F) + 10.0F),0.0F,1.0F);
     }
+    //t is[0,1)
+    glm::vec2 Math::CatmullRomSpline(const std::vector<glm::vec2> &controls,const float t,const int vec_start_pos){
+        const int len=controls.size();
+        float u=t*(len-3);
+        int i=(t>=1.0F?(len-4):(int)u);//because the Catmull-Rom curve is defined by four points, so -3.
+        u-=i;
+        i+=vec_start_pos;
+        const float u2=u*u,u3=u2*u;
+        return controls[i<len?i:i-len]*(-0.5F*u3+u2-0.5F*u)+controls[i+1<len?i+1:i+1-len]*(1.5F*u3-2.5F*u2+1.0F)+controls[i+2<len?i+2:i+2-len]*(-1.5F*u3+2.0F*u2+0.5F*u)+controls[i+3<len?i+3:i+3-len]*(0.5F*u3-0.5F*u2);
+    }
     int Math::StrToInt(const std::string &str){
         int re=0;
         for(const char &c:str)

@@ -15,6 +15,8 @@ private:
     bool is_flying,stop_rotate,is_clockwise,is_done;
     float rotate_rate,end_x,end_y,current_speed,vfx_timer;
     static constexpr float HOME_IN_THRESHOLD=72.0F*Setting::SCALE,VELOCITY_RAMP_RATE=3000.0F*Setting::SCALE, MAX_VELOCITY=6000.0F*Setting::SCALE, DST_THRESHOLD=36.0F*Setting::SCALE;
+    std::vector<glm::vec2> control_points;
+    int control_idx;
 };
 }
 #endif
