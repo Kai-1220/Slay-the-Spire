@@ -33,7 +33,6 @@ int main(int, char**) {
     test_layout->set_middle();
     test_layout->set_fontsize(32);
     printf("%f %f\n",test_layout->GetWidth(),test_layout->GetHeight());
-    
     // printf("OK");
     // auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
     // auto tty=tye_draw.Find_Atlas_Region("1024/frame_power_rare");
@@ -49,7 +48,7 @@ int main(int, char**) {
     while (!context->GetExit()) {
         RUtil::Game_Input::update();
         Draw2D->begin();
-        // initScreen.draw(Draw2D);
+        initScreen.draw(Draw2D);
         // ttt->update();
         // Draw2D->begin();
         // Draw2D->SetColor(Util::Colors::RED);

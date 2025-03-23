@@ -24,9 +24,11 @@ public:
     static float fadelerp(float start,float target);
     static float scrolllerp(float start,float target);
     static float interpolation_exp10(float start,float target,float a);
+    static float interpolation_fade(float start,float target,float a);
     static int StrToInt(const std::string &str);
     static int GetIntLength(int x);
     static float GetRandomFloat(float min,float max);
+    static float GetRadian(const glm::vec2 &v);
     static constexpr Uint32 GetColorUint32_RGB(int r,int g,int b){return r<<24|g<<16|b<<8;};
     static constexpr Uint32 GetColorUint32_RGB(float r,float g,float b){return static_cast<Uint32>(r*255.0F)<<24|static_cast<Uint32>(g*255.0F)<<16|static_cast<Uint32>(b*255.0F)<<8;};
 private:

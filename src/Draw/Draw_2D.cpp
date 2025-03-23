@@ -24,6 +24,9 @@ namespace Draw {
         CombineMatrixPos=glGetUniformLocation(NowProgram->GetId(),"u_projTrans");//Note:Here should be wrapped, if have time.
         Sampler2DPos=glGetUniformLocation(NowProgram->GetId(),"u_texture");
         vertices.reserve(max_len);
+        blending_diabled=drawing=false;
+        blendSrc=GL_SRC_ALPHA;
+        blendDst=GL_ONE_MINUS_SRC_ALPHA;
         //set idx
         std::vector<GLushort> Indices(len);
         GLushort j=0;
@@ -99,7 +102,25 @@ namespace Draw {
         this->m_Transform=transform;
         SetCombine();
     }
-
+    void Draw_2D::DisableBlending(){
+        if(!this->blending_diabled){
+            flush();
+            blending_diabled=true;
+        }
+    }
+    void Draw_2D::EnableBlending(){
+        if(this->blending_diabled){
+            flush();
+            blending_diabled=false;
+        }
+    }
+    void Draw_2D::SetBlendFunc(int src,int dst){
+        if(this->blendSrc!=src||this->blendDst!=dst){
+            flush();
+            this->blendSrc=src;
+            this->blendDst=dst;
+        }
+    }
     void Draw_2D::begin(){
         if(drawing){
             LOG_ERROR("end must be called before begin");
@@ -130,6 +151,11 @@ namespace Draw {
         if(idx>0){
             int IndicesLen=idx/20*6;
             LastTexture->Bind();//flush is private, make sure here is not nullptr
+            if(this->blending_diabled) glDisable(GL_BLEND);
+            else{
+                glEnable(GL_BLEND);
+                glBlendFunc(this->blendSrc,this->blendDst);
+            }
             glBindBuffer(GL_ARRAY_BUFFER,m_VBO_BufferId);
             glBufferSubData(GL_ARRAY_BUFFER, 0, static_cast<GLsizeiptr>(idx * sizeof(GLfloat)), vertices.data());
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO_BufferId);

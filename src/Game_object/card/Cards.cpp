@@ -163,7 +163,8 @@ namespace Card{
         }
         current_x=600;
         current_y=250;
-        m_color_a=1.0F;
+        m_color_a=0.5F;
+        m_tint_a=0.0F;
         m_draw_scale=2.0F;
         m_angle=60.0F;
     }
@@ -184,9 +185,14 @@ namespace Card{
             this->frame_format_render(r2,m_card_right_frame,m_type_offset,1.0F);
         }
         this->format_render(r2,m_card_banner,this->current_x,this->current_y);
-        
+
+        //type
         r2->SetColor(TYPE_COLOR,this->m_color_a);
         s_ui_vec->at(this->m_text_pos).render_without_format_word(r2,this->current_x,this->current_y-22.0F*this->m_draw_scale*Setting::SCALE,this->m_angle,this->m_draw_scale,0.0F,22.0F*this->m_draw_scale*Setting::SCALE);
+    
+        //tint
+        r2->SetColor(TINT_COLOR,this->m_tint_a);
+        this->format_render(r2, m_card_bg_silhouette, this->current_x, this->current_y);
     }
     void Cards::format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,float x,float y)const{
         r2->draw(img, x + img->GetOffsetX() - (float)img->GetOrigWidth() / 2.0F, y + img->GetOffsetY() - (float)img->GetOrigHeight() / 2.0F,(float)img->GetRegionWidth(), (float)img->GetRegionHeight(),this->m_angle, (float)img->GetOrigWidth() / 2.0F - img->GetOffsetX(), (float)img->GetOrigHeight() / 2.0F - img->GetOffsetY(), this->m_draw_scale * Setting::SCALE, this->m_draw_scale * Setting::SCALE);
@@ -238,7 +244,7 @@ namespace Card{
         s_card_banner_rare = temp.Find_Atlas_Region("512/banner_rare");
         s_ui_vec=RUtil::Text_Vector_Reader::GetTextVector(RUtil::Text_ID::SingleCardViewPopup);
         s_ui_vec->at(0).set_fontsize(CARD_FONT_SIZE);
-        const float padding=10.0F*Setting::SCALE;
+        constexpr float padding=10.0F*Setting::SCALE;
         float jitai_width=s_ui_vec->at(0).GetWidth()+padding;
         constexpr float mid_frame_width=48.0F*Setting::SCALE;
         s_type_offset_attack=(jitai_width-mid_frame_width)/2.0F;

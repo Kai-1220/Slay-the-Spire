@@ -36,7 +36,7 @@ public:
     void set_block(int value);
     void set_vars(int value,int pos);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float a=1.0F)const;
-    void render_without_format_word(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float angle,const float scale,const float offset_origin_x,const float offset_origin_y)const;
+    void render_without_format_word(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float angle,const float scale,const float origin_x,const float origin_y)const;
     float GetWidth()const{return width;}
     float GetHeight()const{return height;}
     static void split_text(std::vector<std::string> &strs,const std::string &text_string);

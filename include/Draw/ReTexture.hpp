@@ -16,7 +16,7 @@ public:
     ReTexture(const ReTexture &) = delete;
     ReTexture(ReTexture &&) = delete;
 
-    ~ReTexture();
+    virtual ~ReTexture();
 
     ReTexture &operator=(const ReTexture &) = delete;
     ReTexture &operator=(ReTexture &&)=delete;

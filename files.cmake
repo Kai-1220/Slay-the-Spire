@@ -11,6 +11,7 @@ set(SRC_FILES
     RUtil/Random.cpp
     RUtil/Hitbox.cpp
     RUtil/Text_Vector_Reader.cpp
+    RUtil/Atlas_shared.cpp
     Draw/Draw_2D.cpp
     Draw/Image_Region.cpp
     Draw/ReTexture.cpp
@@ -28,6 +29,10 @@ set(SRC_FILES
     Game_object/dungeon/Dungeon_BottomScene.cpp
     Game_object/card/Cards.cpp
     Game_object/card/Card_image_box.cpp
+    Game_object/card/Card_group.cpp
+    Game_object/card/Card_soul.cpp
+    Game_object/effect/Effect_group.cpp
+    Game_object/effect/Card_trail_effect.cpp
     Initscreen.cpp
     Cursor.cpp
 
@@ -43,6 +48,7 @@ set(INCLUDE_FILES
     RUtil/Random.hpp
     RUtil/Hitbox.hpp
     RUtil/Text_Vector_Reader.hpp
+    RUtil/Atlas_shared.hpp
     Draw/Draw_2D.hpp
     Draw/Image_Region.hpp
     Draw/ReTexture.hpp
@@ -61,6 +67,11 @@ set(INCLUDE_FILES
     Game_object/dungeon/Dungeon_BottomScene.hpp
     Game_object/card/Cards.hpp
     Game_object/card/Card_image_box.hpp
+    Game_object/card/Card_group.hpp
+    Game_object/card/Card_soul.hpp
+    Game_object/effect/Effects.hpp
+    Game_object/effect/Effect_group.hpp
+    Game_object/effect/Card_trail_effect.hpp
     Game_object/interface/Is_screen.hpp
     WindowSize.hpp
     Initscreen.hpp

@@ -37,6 +37,9 @@ public:
     void SetColor_RGBA(Uint32 color);
     void SetProjection(const glm::mat4&projection);
     void SetTransform(const glm::mat4&transform);
+    void DisableBlending();
+    void EnableBlending();
+    void SetBlendFunc(int src,int dst);
     void begin();
     void end();
     /**
@@ -87,9 +90,11 @@ private:
     std::vector<GLfloat> vertices;
     GLfloat color;
     glm::mat4 m_Projection,m_Transform,u_Combine;
-    bool drawing=false;
+    bool drawing;
     GLint CombineMatrixPos,Sampler2DPos;
     static constexpr GLint SLOTPOS=0;
+    bool blending_diabled;
+    int blendSrc,blendDst;
 };
 }
 #endif

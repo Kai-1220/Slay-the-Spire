@@ -11,9 +11,9 @@ Map_edge::Map_edge(int from_x,int from_y,int to_x,int to_y,
             dst_x=(float)to_x   * SPACE_X + Map_node::OFFSET_X +to_offset_x,
             src_y=(float)from_y * Map_node::MAP_DST_Y + from_offset_y,
             dst_y=(float)to_y   * Map_node::MAP_DST_Y + to_offset_y;
-    glm::vec2 line_vec(dst_x-src_x,dst_y-src_y);
+    glm::vec2 line_vec{dst_x-src_x,dst_y-src_y};
     float line_length=glm::length(line_vec),
-            line_rotate_red=glm::acos(glm::dot(glm::normalize(line_vec),glm::vec2(1.0F,0.0F))),
+            line_rotate_red=RUtil::Math::GetRadian(line_vec),
             line_rotate_deg=glm::degrees(line_rotate_red),
             START=SPACING * RUtil::Math::GetRandomFloat(0.0F,1.0F) / 2.0F,
             end_r=ICON_DST_RADIUS;

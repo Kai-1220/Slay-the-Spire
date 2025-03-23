@@ -29,6 +29,10 @@ namespace RUtil{
     float Math::interpolation_exp10(float start,float target,float a){
         return start+(target-start)*interpolation_exp(2.0F,10.0F,a);
     }
+    float Math::interpolation_fade(float start,float target,float a){
+        //from gdx
+        return start+(target-start)*std::clamp(a * a * a * (a * (a * 6.0F - 15.0F) + 10.0F),0.0F,1.0F);
+    }
     int Math::StrToInt(const std::string &str){
         int re=0;
         for(const char &c:str)
@@ -45,4 +49,8 @@ namespace RUtil{
     float Math::GetRandomFloat(float min,float max){
         return min + static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * (max - min);
     }
+    float Math::GetRadian(const glm::vec2 &v){
+        return glm::acos(glm::dot(glm::normalize(v),glm::vec2(1.0F,0.0F)));
+    }
+
 }

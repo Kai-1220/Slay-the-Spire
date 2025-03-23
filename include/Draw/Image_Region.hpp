@@ -36,7 +36,7 @@ public:
     float GetU2()const{return u2;}
     float GetV()const{return v;}
     float GetV2()const{return v2;}
-    ~Image_Region() = default;
+    virtual ~Image_Region() = default;
 private:
     void SetRegion(const float u,const float v,const float u2,const float v2);
     std::shared_ptr<ReTexture> texture;//ptr to texture

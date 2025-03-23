@@ -451,10 +451,10 @@ namespace Draw
             }
         }
     }
-    void Text_layout::render_without_format_word(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float angle,const float scale,const float offset_origin_x,const float offset_origin_y)const{
+    void Text_layout::render_without_format_word(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float angle,const float scale,const float origin_x,const float origin_y)const{
         const int info_len=(int)m_regs_info.size();
         for(int i=0;i<info_len;i++){
-            r2->draw(this->regs[i], m_regs_info[i].x*scale + center_x, m_regs_info[i].y*scale + center_y, m_regs_info[i].w*scale, m_regs_info[i].h*scale, angle, this->width*scale/2.0F+offset_origin_x, this->height*scale/2.0F+offset_origin_y);
+            r2->draw(this->regs[i], m_regs_info[i].x*scale + center_x, m_regs_info[i].y*scale + center_y, m_regs_info[i].w*scale, m_regs_info[i].h*scale, angle, this->width*scale/2.0F+origin_x, this->height*scale/2.0F+origin_y);
         }
     }
 } // namespace Draw

@@ -20,7 +20,7 @@ public:
     ReText(const ReText &) = delete;
     ReText(ReText &&) = delete;
 
-    ~ReText()=default;
+    ~ReText() override=default;
 
     ReText &operator=(const ReText &) = delete;
     ReText &operator=(ReText &&)=delete;
