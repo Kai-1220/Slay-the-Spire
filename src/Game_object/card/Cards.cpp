@@ -168,6 +168,17 @@ namespace Card{
         m_draw_scale=2.0F;
         m_angle=60.0F;
     }
+    void Cards::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
+        this->update_flying(effs,PlayerColor_RGB);
+        if(!this->is_fly()){
+            current_x=RUtil::Math::varlerp(current_x,target_x,6.0F,CARD_SNAP_THRESHOLD);
+            current_y=RUtil::Math::varlerp(current_y,target_y,6.0F,CARD_SNAP_THRESHOLD);
+        }
+        if(this->m_angle!=this->target_angle){
+            this->m_angle=RUtil::Math::varlerp(this->m_angle,target_angle,12.0F,0.003F);
+        }
+        //hitbox
+    }
     void Cards::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         //image
         // //if(){

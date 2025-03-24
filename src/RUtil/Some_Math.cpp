@@ -2,11 +2,6 @@
 #include <math.h>
 #include "RUtil/Game_Input.hpp"
 namespace RUtil{
-    template <typename T>
-    T Math::lerp(T a, T b, T t) {
-        return a + t * (b - a);
-    }
-
     float Math::interpolation_exp(float v, float p, float a){
         float m=(float)std::pow((double)v,(double)(-p)),
               s=1.0F/(1.0F-m);
@@ -16,6 +11,13 @@ namespace RUtil{
         if(start!=target){
             start=lerp(start,target,RUtil::Game_Input::delta_time()*12.0F);
             if(std::abs(start-target)<0.01F||start>target) start=target;
+        }
+        return start;
+    }
+    float Math::varlerp(float start,const float target,const float speed,const float threshold){
+        if(start!=target){
+            start=lerp(start,target,RUtil::Game_Input::delta_time()*speed);
+            if(std::abs(start-target)<threshold||start>target) start=target;
         }
         return start;
     }
@@ -34,14 +36,13 @@ namespace RUtil{
         return start+(target-start)*std::clamp(a * a * a * (a * (a * 6.0F - 15.0F) + 10.0F),0.0F,1.0F);
     }
     //t is[0,1)
-    glm::vec2 Math::CatmullRomSpline(const std::vector<glm::vec2> &controls,const float t,const int vec_start_pos){
-        const int len=controls.size();
+    glm::vec2 Math::CatmullRomSpline(const std::vector<glm::vec2> &controls,const float t,const int len,const int vec_start_pos){
         float u=t*(len-3);
         int i=(t>=1.0F?(len-4):(int)u);//because the Catmull-Rom curve is defined by four points, so -3.
         u-=i;
         i+=vec_start_pos;
         const float u2=u*u,u3=u2*u;
-        return controls[i<len?i:i-len]*(-0.5F*u3+u2-0.5F*u)+controls[i+1<len?i+1:i+1-len]*(1.5F*u3-2.5F*u2+1.0F)+controls[i+2<len?i+2:i+2-len]*(-1.5F*u3+2.0F*u2+0.5F*u)+controls[i+3<len?i+3:i+3-len]*(0.5F*u3-0.5F*u2);
+        return controls[SimpleRangeChange(i,len)]*(-0.5F*u3+u2-0.5F*u)+controls[SimpleRangeChange(i+1,len)]*(1.5F*u3-2.5F*u2+1.0F)+controls[SimpleRangeChange(i+2,len)]*(-1.5F*u3+2.0F*u2+0.5F*u)+controls[SimpleRangeChange(i+3,len)]*(0.5F*u3-0.5F*u2);
     }
     int Math::StrToInt(const std::string &str){
         int re=0;
