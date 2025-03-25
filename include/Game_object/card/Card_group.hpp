@@ -9,7 +9,10 @@ public:
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
     ~Card_group()=default;
-
+    int Size()const{return static_cast<int>(card_box.size());}
+    const std::shared_ptr<Cards>&operator[](size_t idx)const{return card_box[idx];}
+    auto begin()const{return card_box.begin();}
+    auto end()const{return card_box.end();}
 private:
     std::vector<std::shared_ptr<Cards>> card_box;
 };
