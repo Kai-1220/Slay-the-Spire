@@ -13,4 +13,12 @@ namespace Card{
             it->update(effs,PlayerColor_RGB);
         }
     }
+    void Card_group::SortByRarity(const bool ascending){
+        if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->rarity<bb->rarity;});
+        else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->rarity<aa->rarity;});
+    }
+    void Card_group::SortByType(const bool ascending){
+        if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->type<bb->type;});
+        else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->type<aa->type;});
+    }
 }

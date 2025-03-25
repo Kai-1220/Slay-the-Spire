@@ -7,7 +7,7 @@
 //the include below this line is test
 #include "Draw/Draw_2D.hpp"//test_Draw_2D
 #include "draw_test.hpp"
-#include "Game_object/card/Cards.hpp"
+#include "Game_object/card/Red/Strike_red.hpp"
 #include "RUtil/Atlas_Reader.hpp"
 #include "Util/Input.hpp"
 #include "Game_object/dungeon/Dungeon_manager.hpp"
@@ -36,7 +36,7 @@ int main(int, char**) {
     // printf("OK");
     // auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
     // auto tty=tye_draw.Find_Atlas_Region("1024/frame_power_rare");
-    auto tte=std::make_shared<Card::Cards>(Card::Name::anger,Card::Rarity::rare,Card::Type::attack,Card::Color::red);
+    auto tte=std::make_shared<Card::Red::Strike_red>();
     InitScreen initScreen;
     // Object::Dungeon_BottomScene BottomScene;
     Cursor cursor;

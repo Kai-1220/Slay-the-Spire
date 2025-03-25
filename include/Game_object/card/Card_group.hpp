@@ -6,8 +6,14 @@ class Card_group
 {
 public:
     Card_group();
+    Card_group(const Card_group&) = delete;
+    Card_group(Card_group&&) = delete;
+    Card_group& operator=(const Card_group&) = delete;
+    Card_group& operator=(Card_group&&) = delete;
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
+    void SortByRarity(const bool ascending);
+    void SortByType(const bool ascending);
     ~Card_group()=default;
     int Size()const{return static_cast<int>(card_box.size());}
     const std::shared_ptr<Cards>&operator[](size_t idx)const{return card_box[idx];}

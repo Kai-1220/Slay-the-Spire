@@ -32,6 +32,8 @@ set(SRC_FILES
     Game_object/card/Card_group.cpp
     Game_object/card/Card_soul.cpp
     Game_object/card/Card_group_handler.cpp
+    Game_object/card/red/Anger.cpp
+    Game_object/card/red/Strike_red.cpp
     Game_object/effect/Effect_group.cpp
     Game_object/effect/Card_trail_effect.cpp
     Initscreen.cpp
@@ -71,6 +73,8 @@ set(INCLUDE_FILES
     Game_object/card/Card_group.hpp
     Game_object/card/Card_soul.hpp
     Game_object/card/Card_group_handler.hpp
+    Game_object/card/red/Anger.hpp
+    Game_object/card/red/Strike_red.hpp
     Game_object/effect/Effects.hpp
     Game_object/effect/Effect_group.hpp
     Game_object/effect/Card_trail_effect.hpp

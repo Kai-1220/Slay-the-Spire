@@ -33,7 +33,7 @@ enum class Color{
 //control render logic
 class Cards:public Card_soul{
 public:
-    Cards(Name card_name,Rarity rarity,Type type,Color color);
+    Cards(Name card_name,Rarity rarity,Type type,Color color,int cost);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
     void SetTargetY(const float value);
@@ -44,8 +44,12 @@ public:
     void MoveTargetX(const float value);
     void MoveTargetAngle(const float value);
     virtual ~Cards() =default;
+    const Name card_name;
+    const Rarity rarity;
+    const Type type;
+    const Color color;
 private:
-    int m_text_pos;
+    int m_text_pos,cost;
     float m_color_a,m_draw_scale,m_angle,m_type_width,m_type_offset,m_tint_a,m_target_draw_scale;
     std::shared_ptr<Draw::Atlas_Region> m_card_bg_silhouette,m_card_bg,m_card,m_card_frame,m_card_left_frame,m_card_mid_frame,m_card_right_frame,m_card_banner;
     void init_static_menber();
@@ -66,5 +70,11 @@ public:
                             IMG_HEIGHT_S = 420.0F * Setting::SCALE * 0.7F;
 
 };
+inline bool operator<(Rarity lhs, Rarity rhs) {
+    return static_cast<int>(lhs) < static_cast<int>(rhs);
+}
+inline bool operator<(Type lhs, Type rhs) {
+    return static_cast<int>(lhs) < static_cast<int>(rhs);
+}
 }
 #endif

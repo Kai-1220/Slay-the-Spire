@@ -1,7 +1,7 @@
 #include "Game_object/card/Cards.hpp"
 #include "Util/Logger.hpp"
 namespace Card{
-    Cards::Cards(Name card_name,Rarity rarity,Type type,Color color){
+    Cards::Cards(Name card_name,Rarity rarity,Type type,Color color,int cost):card_name(card_name),rarity(rarity),type(type),color(color),cost(cost){
         if(s_card_attack_bg_silhouette==nullptr){
             init_static_menber();
         }
@@ -165,7 +165,7 @@ namespace Card{
         current_y=250;
         m_color_a=0.5F;
         m_tint_a=0.0F;
-        m_draw_scale=2.0F;
+        m_draw_scale=1.0F;
         m_angle=60.0F;
     }
     void Cards::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
@@ -206,10 +206,10 @@ namespace Card{
         this->format_render(r2, m_card_bg_silhouette, this->current_x, this->current_y);
     }
     void Cards::format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,float x,float y)const{
-        r2->draw(img, x + img->GetOffsetX() - (float)img->GetOrigWidth() / 2.0F, y + img->GetOffsetY() - (float)img->GetOrigHeight() / 2.0F,(float)img->GetRegionWidth(), (float)img->GetRegionHeight(),this->m_angle, (float)img->GetOrigWidth() / 2.0F - img->GetOffsetX(), (float)img->GetOrigHeight() / 2.0F - img->GetOffsetY(), this->m_draw_scale * Setting::SCALE, this->m_draw_scale * Setting::SCALE);
+        r2->draw(img, x + img->offsetX - (float)img->original_width / 2.0F, y + img->offsetY - (float)img->original_height / 2.0F,(float)img->GetRegionWidth(), (float)img->GetRegionHeight(),this->m_angle, (float)img->original_width / 2.0F - img->offsetX, (float)img->original_height / 2.0F - img->offsetY, this->m_draw_scale * Setting::SCALE, this->m_draw_scale * Setting::SCALE);
     }
     void Cards::frame_format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x_offset,const float x_scale)const{
-        r2->draw(img, this->current_x + img->GetOffsetX() - (float)img->GetOrigWidth() / 2.0F + x_offset * this->m_draw_scale, this->current_y + img->GetOffsetY() - (float)img->GetOrigHeight() / 2.0F, (float)img->GetRegionWidth(), (float)img->GetRegionHeight(), this->m_angle, (float)img->GetOrigWidth() / 2.0F - img->GetOffsetX() - x_offset * this->m_draw_scale, (float)img->GetOrigHeight() / 2.0F - img->GetOffsetY(),  this->m_draw_scale * Setting::SCALE * x_scale, this->m_draw_scale * Setting::SCALE);
+        r2->draw(img, this->current_x + img->offsetX - (float)img->original_width / 2.0F + x_offset * this->m_draw_scale, this->current_y + img->offsetY - (float)img->original_height / 2.0F, (float)img->GetRegionWidth(), (float)img->GetRegionHeight(), this->m_angle, (float)img->original_width / 2.0F - img->offsetX - x_offset * this->m_draw_scale, (float)img->original_height / 2.0F - img->offsetY,  this->m_draw_scale * Setting::SCALE * x_scale, this->m_draw_scale * Setting::SCALE);
     }
     void Cards::SetTargetY(const float value){target_y=value;}
     void Cards::SetTargetX(const float value){target_x=value;}
