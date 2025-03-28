@@ -15,16 +15,18 @@ public:
     Game_Input &operator=(const Game_Input &) = delete;
     Game_Input &operator=(Game_Input &&) = delete;
     static void update();
-    static int getX(){return x;}
-    static int getY(){return y;}
+    static const int& getX(){return x;}
+    static const int& getY(){return y;}
     static int getYv(){return WINDOW_HEIGHT-y;}
-    static bool is_down(){return MS.isMouseDown;}
-    static bool is_down_R(){return MS.isMouseDown_R;}
+    static const bool &is_down(){return MS.isMouseDown;}
+    static const bool &is_down_R(){return MS.isMouseDown_R;}
     static bool is_scroll_down(){return MS.isScrollDown;}
     static bool is_scroll_up(){return MS.isScrollUp;}
-    static bool just_clicked(){return MS.justMouseClicked;}
-    static bool just_clicked_R(){return MS.justMouseClicked_R;}
-    static float delta_time(){return delta_time_s;}
+    static const bool &just_clicked(){return MS.justMouseClicked;}
+    static const bool &just_clicked_R(){return MS.justMouseClicked_R;}
+    static const bool &just_released(){return MS.justMouseReleased;}
+    static const bool &just_released_R(){return MS.justMouseReleased_R;}
+    static const float &delta_time(){return delta_time_s;}
 private:
     struct MouseState {
         bool isMouseDown = false;

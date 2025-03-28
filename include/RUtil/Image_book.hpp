@@ -1,10 +1,9 @@
 #ifndef RUTIL_IMAGE_BOOK_HPP
 #define RUTIL_IMAGE_BOOK_HPP
 #include"pch.hpp"
-#include "Util/AssetStore.hpp"
 #include "Draw/ReTexture.hpp"
 namespace RUtil{
-// Store Texture
+// Store Texture//Don't need to worry that texture is not exist.
 class Image_book
 {
 public:
@@ -14,10 +13,18 @@ public:
     Image_book(Image_book &&) = delete;
     Image_book &operator=(const Image_book &) = delete;
     Image_book &operator=(Image_book &&) = delete;
-
-    static std::shared_ptr<Draw::ReTexture> GetTexture(const std::string &path);
+    static const std::shared_ptr<Draw::ReTexture> &GetTexture(const std::string &path);
 private:
-    static Util::AssetStore<std::shared_ptr<Draw::ReTexture>> s_Store;
+    template <typename T>
+    class RStore{
+        public:
+            RStore(std::function<T(const std::string &)> loader);
+            const T &Get(const std::string &filepath);
+        private:
+            std::function<T(const std::string &)> m_Loader;
+            std::unordered_map<std::string, T> m_Map;
+    };
+    static RStore<std::shared_ptr<Draw::ReTexture>> s_Store;
 };
 }
 

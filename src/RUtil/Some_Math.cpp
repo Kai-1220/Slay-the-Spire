@@ -2,10 +2,13 @@
 #include <math.h>
 #include "RUtil/Game_Input.hpp"
 namespace RUtil{
-    float Math::interpolation_exp(float v, float p, float a){
+    inline float Math::interpolation_exp(float v, float p, float a){
         float m=(float)std::pow((double)v,(double)(-p)),
               s=1.0F/(1.0F-m);
         return a <= 0.5F ? ((float)std::pow((double)v, (double)(p * (a * 2.0F - 1.0F))) - m) * s / 2.0F : (2.0F - ((float)std::pow((double)v, (double)(-p * (a * 2.0F - 1.0F))) - m) * s) / 2.0F;
+    }
+    inline float Math::interpolation_powout(int p, float a){
+        return (float)std::pow(a-1,p)*(bool(p&1)?1:-1)+1;
     }
     float Math::fadelerp(float start,float target){
         if(start!=target){
@@ -30,6 +33,9 @@ namespace RUtil{
     }
     float Math::interpolation_exp10(float start,float target,float a){
         return start+(target-start)*interpolation_exp(2.0F,10.0F,a);
+    }
+    float Math::interpolation_powout2(float start,float target,float a){
+        return start+(target-start)*interpolation_powout(2,a);
     }
     float Math::interpolation_fade(float start,float target,float a){
         //from gdx

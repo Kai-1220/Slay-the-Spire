@@ -28,7 +28,6 @@ public:
         const int x = 0, const int y = 0,
         const int width = -1, const int height = -1);
     void SetRegion(const int x=0,const int y=0,const int width=-1,const int height=-1);
-    void SetTexture(const std::shared_ptr<ReTexture> &ReTexture);
     std::shared_ptr<ReTexture> GetTexture()const{return texture;}
     int GetRegionWidth()const{return region_w;}
     int GetRegionHeight()const{return region_h;}

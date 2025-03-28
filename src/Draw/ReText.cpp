@@ -5,8 +5,8 @@
 namespace Draw {
     ReText::ReText(const std::string &font, int fontSize, const std::string &text,
         const Util::Color &color):ReTexture(){
-        m_Font = {TTF_OpenFont(font.c_str(), fontSize), TTF_CloseFont};
-        SDL_Surface* surface = TTF_RenderUTF8_Blended_Wrapped(m_Font.get(), text.c_str(),
+        auto m_Font = TTF_OpenFont(font.c_str(), fontSize);
+        SDL_Surface* surface = TTF_RenderUTF8_Blended_Wrapped(m_Font, text.c_str(),
                             color.ToSdlColor(), 0);
         GLuint textureID;
         int the_w,the_h; 
@@ -31,5 +31,6 @@ namespace Draw {
         }
         SetReTexture(textureID,the_w,the_h);
         SDL_FreeSurface(surface);
+        TTF_CloseFont(m_Font);
     }
 }

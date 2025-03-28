@@ -11,8 +11,8 @@ public:
     ~Map_dot()=default;
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const;
 private:
+    const std::shared_ptr<Draw::ReTexture> &dot_texture=RUtil::Image_book::GetTexture("Image/map/dot1.png");
     float x,y,rotation;
-    static std::shared_ptr<Draw::ReTexture> dot_texture;
     static constexpr float DIST_JITTER = 4.0F * Setting::SCALE;
     static constexpr float OFFSET_Y = 172.0F * Setting::SCALE;
 };

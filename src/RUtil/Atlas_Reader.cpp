@@ -5,6 +5,13 @@
 #include "RUtil/Image_book.hpp"
 namespace RUtil{
     Atlas_Reader::Atlas_Reader(const std::string &atlas_path){
+        BuildMap(atlas_path);
+    }
+    void Atlas_Reader::ChangeAtlas(const std::string &atlas_path){
+        reg_map.clear();
+        BuildMap(atlas_path);
+    }
+    void Atlas_Reader::BuildMap(const std::string &atlas_path){
         std::ifstream inputFile(atlas_path);
         if(!inputFile){
             LOG_ERROR("The atlas_path:{} doesn't exist",atlas_path);
@@ -13,14 +20,13 @@ namespace RUtil{
             std::string line;
             bool is_texture=true,change_path=true;
             std::string texture_path="";
-            std::shared_ptr<Draw::ReTexture> texture=nullptr;
             std::string region_name="";
             bool region_rotate=false;
             int region_x=0,region_y=0,size_x=0,size_y=0,orig_x=0,orig_y=0,offset_x=0,offset_y=0;
             while (std::getline(inputFile, line)) {
                 if(line.empty()){
                     if(!is_texture){
-                        this->reg_map[region_name]=std::make_shared<Draw::Atlas_Region>(region_name,region_x,region_y,texture,offset_x,offset_y,size_x,size_y,orig_x,orig_y,region_rotate);
+                        this->reg_map[region_name]=std::make_shared<Draw::Atlas_Region>(region_name,region_x,region_y,RUtil::Image_book::GetTexture(texture_path),offset_x,offset_y,size_x,size_y,orig_x,orig_y,region_rotate);
                     }
                     is_texture=true;
                 }else if(is_texture){
@@ -30,7 +36,6 @@ namespace RUtil{
                     }else{
                         if(change_path){
                             texture_path=atlas_dir+line;
-                            texture=RUtil::Image_book::GetTexture(texture_path);
                             change_path=false;
                         }else{
                             change_path=true;
@@ -57,12 +62,12 @@ namespace RUtil{
                         offset_x=RUtil::Math::StrToInt(line.substr(0,line.find(',')));
                         offset_y=RUtil::Math::StrToInt(line.substr(line.find(',')+1));
                     }else{
-                        this->reg_map[region_name]=std::make_shared<Draw::Atlas_Region>(region_name,region_x,region_y,texture,offset_x,offset_y,size_x,size_y,orig_x,orig_y,region_rotate);
+                        this->reg_map[region_name]=std::make_shared<Draw::Atlas_Region>(region_name,region_x,region_y,RUtil::Image_book::GetTexture(texture_path),offset_x,offset_y,size_x,size_y,orig_x,orig_y,region_rotate);
                         region_name=line;
                     }
                 }
             }
-            this->reg_map[region_name]=std::make_shared<Draw::Atlas_Region>(region_name,region_x,region_y,texture,offset_x,offset_y,size_x,size_y,orig_x,orig_y,region_rotate);
+            this->reg_map[region_name]=std::make_shared<Draw::Atlas_Region>(region_name,region_x,region_y,RUtil::Image_book::GetTexture(texture_path),offset_x,offset_y,size_x,size_y,orig_x,orig_y,region_rotate);
             inputFile.close();
         }
     }

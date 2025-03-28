@@ -27,6 +27,7 @@ namespace Draw {
     }
     ReTexture::~ReTexture(){
         glDeleteTextures(1, &m_TextureId);
+        // LOG_DEBUG("Texture Dead");
     }
     void ReTexture::Bind() const {
         glBindTexture(GL_TEXTURE_2D, m_TextureId);

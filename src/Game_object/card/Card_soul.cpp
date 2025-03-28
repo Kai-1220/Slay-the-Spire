@@ -1,5 +1,4 @@
 #include "Game_object/card/Card_soul.hpp"
-#include "RUtil/Game_Input.hpp"
 #include "RUtil/Some_Math.hpp"
 #include "Game_object/effect/Card_trail_effect.hpp"
 namespace Card
@@ -36,7 +35,6 @@ void Card_soul::prepare_to_fly(){
 }
 void Card_soul::update_flying(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
     if(is_flying){
-        const float DT=RUtil::Game_Input::delta_time();
         if(start_wait_timer>0.0F) start_wait_timer-=DT;
         else{
             const glm::vec2 dir_vec{end_x-current_x,end_y-current_y};

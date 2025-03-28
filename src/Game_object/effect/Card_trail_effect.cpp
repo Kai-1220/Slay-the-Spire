@@ -3,12 +3,10 @@
 #include "RUtil/Some_Math.hpp"
 namespace Effect
 {
-    Card_trail_effect::Card_trail_effect(glm::vec2 pos,Uint32 RGB_color):pos(pos-6.0F),color(RGB_color){
-        if(IMG==nullptr) IMG=RUtil::Atlas_shared::GetRegion(RESOURCE_DIR"/Image/vfx/vfx.atlas","combat/blurDot2");
+    Card_trail_effect::Card_trail_effect(glm::vec2 pos,Uint32 RGB_color):Effects(RGB_color),pos(pos-6.0F){
         duration=0.5F;
         scale=0.01F;
         is_done=false;
-        color_a=1.0F;
     }
     void Card_trail_effect::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         r2->SetBlendFunc(GL_SRC_ALPHA,GL_ONE);
@@ -28,5 +26,4 @@ namespace Effect
             color_a=RUtil::Math::interpolation_fade(0.0F,0.18F,duration*2.0F);
         }
     }
-    std::shared_ptr<Draw::Atlas_Region> Card_trail_effect::IMG=nullptr;
 } // namespace Effect

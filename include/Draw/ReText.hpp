@@ -27,7 +27,6 @@ public:
 private:
     // constexpr int size=64;
     
-    std::unique_ptr<TTF_Font, std::function<void(TTF_Font *)>> m_Font;
 };
 } // namespace Core
     

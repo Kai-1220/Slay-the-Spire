@@ -16,9 +16,11 @@
 
 #include "Game_object/map/Map_generator.hpp"
 #include "Game_object/map/Map_node.hpp"
+#include "RUtil/All_Image.hpp"
 int main(int, char**) {
     srand(static_cast<unsigned int>(time(0)));//set the rand seed,it will affect the entire program.
     auto context = Core::Context::GetInstance();
+    RUtil::All_Image::InitImage();
     context->SetWindowIcon(RESOURCE_DIR"/Image/assets/icon.png");
     SDL_ShowCursor(SDL_DISABLE);
 
@@ -27,12 +29,6 @@ int main(int, char**) {
     
     auto ttt=std::make_shared<Object::Dungeon_manager>();
     
-    auto test_layout=std::make_shared<Draw::Text_layout>("TTT!M!GG#nG!D!T#nT!B!TT");
-    test_layout->set_damage(123);
-    test_layout->set_fontsize(17);
-    test_layout->set_middle();
-    test_layout->set_fontsize(32);
-    printf("%f %f\n",test_layout->GetWidth(),test_layout->GetHeight());
     // printf("OK");
     // auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
     // auto tty=tye_draw.Find_Atlas_Region("1024/frame_power_rare");
@@ -63,7 +59,6 @@ int main(int, char**) {
         //test BottomScene;
         // BottomScene.render(Draw2D);
 
-        // test_layout->render(Draw2D,500,WINDOW_HEIGHT);
         // ttt->render(Draw2D);
         // Draw2D->draw(tty,0,0);
         tte->render(Draw2D);

@@ -1,5 +1,5 @@
 #include "RUtil/Hitbox.hpp"
-#include "RUtil/Game_Input.hpp"
+
 namespace RUtil{
 Hitbox::Hitbox(float x,float y,float height,float width)
                     :x(x),y(y),height(height),width(width){
@@ -8,12 +8,20 @@ Hitbox::Hitbox(float x,float y,float height,float width)
     this->just_hovered=this->click_stared=this->clicked=this->hovered=false;
 }
 void Hitbox::update(){
+    //hover check
     just_hovered=false;
-    float n_x=(float)RUtil::Game_Input::getX(),n_y=(float)RUtil::Game_Input::getY();
     if(!hovered) just_hovered=true;
-    hovered=x<=n_x&&n_x<=x+width&&y<=n_y&&n_y<=y+height;
+    hovered = x<=nx&&nx<=x+width&&y<=ny&&ny<=y+height;
     if(!hovered) just_hovered=false;
-
+    //click check
+    if(hovered&&just_clicked)
+        this->click_stared=true;
+    else if(clicked){
+        clicked=false;
+    }else if(click_stared&&just_released){
+        click_stared=false;
+        if(hovered) clicked=true;
+    }
 }
 void Hitbox::move(float center_x,float center_y){
     this->cx=center_x;

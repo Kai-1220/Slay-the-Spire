@@ -19,15 +19,17 @@ public:
         ((args/=Sum),...);
     }
     template <typename T>
-    static constexpr const T lerp(const T a,const T b,const T t){
+    static constexpr T lerp(const T a,const T b,const T t){
         return a + t * (b - a);
     }
     static float interpolation_exp(float v, float p, float a);
+    static float interpolation_powout(int p, float a);
     static float fadelerp(float start,float target);
     static float scrolllerp(float start,float target);
     static float varlerp(float start,const float target,const float speed,const float threshold);
     static float interpolation_exp10(float start,float target,float a);
     static float interpolation_fade(float start,float target,float a);
+    static float interpolation_powout2(float start,float target,float a);
     static int StrToInt(const std::string &str);
     static int GetIntLength(int x);
     static float GetRandomFloat(float min,float max);

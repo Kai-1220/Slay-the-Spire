@@ -13,6 +13,10 @@ namespace Card{
             it->update(effs,PlayerColor_RGB);
         }
     }
+    void Card_group::MoveAllCardTo(Card_group &group){
+        group.card_box.insert(group.card_box.end(), std::make_move_iterator(this->card_box.begin()), std::make_move_iterator(this->card_box.end()));
+        this->card_box.clear();
+    }
     void Card_group::SortByRarity(const bool ascending){
         if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->rarity<bb->rarity;});
         else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->rarity<aa->rarity;});
@@ -20,5 +24,9 @@ namespace Card{
     void Card_group::SortByType(const bool ascending){
         if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->type<bb->type;});
         else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->type<aa->type;});
+    }
+    void Card_group::SortByCost(const bool ascending){
+        if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->GetCost()<bb->GetCost();});
+        else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->GetCost()<aa->GetCost();});
     }
 }

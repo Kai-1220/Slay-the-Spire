@@ -14,6 +14,8 @@ public:
     void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
     void SortByRarity(const bool ascending);
     void SortByType(const bool ascending);
+    void SortByCost(const bool ascending);
+    void MoveAllCardTo(Card_group &group);
     ~Card_group()=default;
     int Size()const{return static_cast<int>(card_box.size());}
     const std::shared_ptr<Cards>&operator[](size_t idx)const{return card_box[idx];}

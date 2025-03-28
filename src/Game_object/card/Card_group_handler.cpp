@@ -3,6 +3,14 @@ namespace Card{
     Card_group_handler::Card_group_handler(){
 
     }
+    void Card_group_handler::discard_all(){
+        for(const auto&it:hand_cards){
+            it->Shrink();
+            it->Darken();//false
+            it->discard();
+        }
+        hand_cards.MoveAllCardTo(m_discard);
+    }
     void Card_group_handler::refresh_hand_layout(){
         const int len=hand_cards.Size();
         if(len==0) return;

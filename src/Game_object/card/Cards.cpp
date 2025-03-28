@@ -1,116 +1,25 @@
 #include "Game_object/card/Cards.hpp"
 #include "Util/Logger.hpp"
+#include "RUtil/Game_Input.hpp"
+#include "RUtil/All_Image.hpp"
+#include "Game_object/effect/Card_glow_border.hpp"
 namespace Card{
-    Cards::Cards(Name card_name,Rarity rarity,Type type,Color color,int cost):card_name(card_name),rarity(rarity),type(type),color(color),cost(cost){
-        if(s_card_attack_bg_silhouette==nullptr){
+    static const std::shared_ptr<Draw::Atlas_Region> &BgSilhouette(Type type);
+    static const std::shared_ptr<Draw::Atlas_Region> &CardBg(Type type,Color color);
+    static const std::shared_ptr<Draw::Atlas_Region> &CardFrame(Type type,Rarity rarity);
+    static const std::shared_ptr<Draw::Atlas_Region> &CardLeftFrame(Rarity rarity);
+    static const std::shared_ptr<Draw::Atlas_Region> &CardMidFrame(Rarity rarity);
+    static const std::shared_ptr<Draw::Atlas_Region> &CardRightFrame(Rarity rarity);
+    static const std::shared_ptr<Draw::Atlas_Region> &CardBanner(Rarity rarity);
+    Cards::Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,int cost):
+                        card_name(card_name),rarity(rarity),type(type),color(color),cost(cost),
+                        m_card_bg_silhouette(BgSilhouette(type)),m_card_bg(CardBg(type,color)),m_card_frame(CardFrame(type,rarity)),
+                        m_card_left_frame(CardLeftFrame(rarity)),m_card_mid_frame(CardMidFrame(rarity)),m_card_right_frame(CardRightFrame(rarity)),
+                        m_card_banner(CardBanner(rarity)),m_card_portrait(RUtil::All_Image::GetAtlasRegion(card_name))
+    {
+        if(s_type_width_attack==0.0F){
             init_static_menber();
         }
-        //attack, power and other
-        switch(type){
-            case Type::attack:
-                m_card_bg_silhouette=s_card_attack_bg_silhouette;
-                switch(color){
-                    case Color::red:
-                        m_card_bg=s_card_attack_bg_red;
-                        break;
-                    case Color::green:
-                        m_card_bg=s_card_attack_bg_green;
-                        break;
-                    case Color::blue:
-                        m_card_bg=s_card_attack_bg_blue;
-                        break;
-                    case Color::purple:
-                        m_card_bg=s_card_attack_bg_purple;
-                        break;
-                    case Color::colorless:
-                        m_card_bg=s_card_attack_bg_gray;
-                        break;
-                    default:
-                        m_card_bg=s_card_skill_bg_black;
-                        break;
-                }
-                switch(rarity){
-                    case Rarity::rare:
-                        m_card_frame=s_card_frame_attack_rare;
-                        break;
-                    case Rarity::uncommon:
-                        m_card_frame=s_card_frame_attack_uncommon;
-                        break;
-                    default:
-                        m_card_frame=s_card_frame_attack_common;
-                        break;
-                }
-                break;
-            case Type::power:
-                m_card_bg_silhouette=s_card_power_bg_silhouette;
-                switch(color){
-                    case Color::red:
-                        m_card_bg=s_card_power_bg_red;
-                        break;
-                    case Color::green:
-                        m_card_bg=s_card_power_bg_green;
-                        break;
-                    case Color::blue:
-                        m_card_bg=s_card_power_bg_blue;
-                        break;
-                    case Color::purple:
-                        m_card_bg=s_card_power_bg_purple;
-                        break;
-                    case Color::colorless:
-                        m_card_bg=s_card_power_bg_gray;
-                        break;
-                    default:
-                        m_card_bg=s_card_skill_bg_black;
-                        break;
-                }
-                switch(rarity){
-                    case Rarity::rare:
-                        m_card_frame=s_card_frame_power_rare;
-                        break;
-                    case Rarity::uncommon:
-                        m_card_frame=s_card_frame_power_uncommon;
-                        break;
-                    default:
-                        m_card_frame=s_card_frame_power_common;
-                        break;
-                }
-                break;
-            default:
-                m_card_bg_silhouette=s_card_skill_bg_silhouette;
-                switch(color){
-                    case Color::red:
-                        m_card_bg=s_card_skill_bg_red;
-                        break;
-                    case Color::green:
-                        m_card_bg=s_card_skill_bg_green;
-                        break;
-                    case Color::blue:
-                        m_card_bg=s_card_skill_bg_blue;
-                        break;
-                    case Color::purple:
-                        m_card_bg=s_card_skill_bg_purple;
-                        break;
-                    case Color::colorless:
-                        m_card_bg=s_card_skill_bg_gray;
-                        break;
-                    default:
-                        m_card_bg=s_card_skill_bg_black;
-                        break;
-                }
-                switch(rarity){
-                    case Rarity::rare:
-                        m_card_frame=s_card_frame_skill_rare;
-                        break;
-                    case Rarity::uncommon:
-                        m_card_frame=s_card_frame_skill_uncommon;
-                        break;
-                    default:
-                        m_card_frame=s_card_frame_skill_common;
-                        break;
-                }
-                break;
-        }
-        //all type
         switch(type){
             case Type::attack:
                 m_type_offset=s_type_offset_attack;
@@ -141,26 +50,8 @@ namespace Card{
                 LOG_ERROR("The type doesn't exist");
                 break;
         }
-        switch(rarity){
-            case Rarity::rare:
-                m_card_mid_frame=s_card_rare_frame_mid;
-                m_card_left_frame=s_card_rare_frame_left;
-                m_card_right_frame=s_card_rare_frame_right;
-                m_card_banner=s_card_banner_rare;
-                break;
-            case Rarity::uncommon:
-                m_card_mid_frame=s_card_uncommon_frame_mid;
-                m_card_left_frame=s_card_uncommon_frame_left;
-                m_card_right_frame=s_card_uncommon_frame_right;
-                m_card_banner=s_card_banner_uncommon;
-                break;
-            default:
-                m_card_mid_frame=s_card_common_frame_mid;
-                m_card_left_frame=s_card_common_frame_left;
-                m_card_right_frame=s_card_common_frame_right;
-                m_card_banner=s_card_banner_common;
-                break;
-        }
+        darken=false;
+        m_dard_timer=0.0F;
         current_x=600;
         current_y=250;
         m_color_a=0.5F;
@@ -169,6 +60,7 @@ namespace Card{
         m_angle=60.0F;
     }
     void Cards::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
+        const float DT=RUtil::Game_Input::delta_time();
         this->update_flying(effs,PlayerColor_RGB);
         if(!this->is_fly()){
             current_x=RUtil::Math::varlerp(current_x,target_x,6.0F,CARD_SNAP_THRESHOLD);
@@ -178,23 +70,44 @@ namespace Card{
             this->m_angle=RUtil::Math::varlerp(this->m_angle,target_angle,12.0F,0.003F);
         }
         //hitbox
+        //color
+        if(m_dard_timer!=0.0F){
+            m_dard_timer-=DT;
+            if(m_dard_timer<0.0F)m_dard_timer=0.0F;
+            m_tint_a=darken?(1-m_dard_timer/0.3F):m_dard_timer/0.3F;
+        }
+        //glow
+        if(is_glowing){
+            m_glow_timer-=DT;
+            if(m_glow_timer<0.0F){
+                glowgroup.AddEffect(std::make_shared<Effect::Card_glow_border>(m_card_bg_silhouette,this->current_x,this->current_y,this->m_angle,this->m_draw_scale));
+                m_glow_timer=0.3F;
+            }
+        }
+        glowgroup.update();
     }
     void Cards::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
+        //glow
+        glowgroup.render(r2);
         //image
-        // //if(){
-            r2->SetColor(FRAME_SHADOW_COLOR,this->m_color_a/4.0F);
-            this->format_render(r2, m_card_bg_silhouette, this->current_x + SHADOW_OFFSET_X * this->m_draw_scale, this->current_y - SHADOW_OFFSET_Y * this->m_draw_scale);
-        //}
+        //shadow
+        r2->SetColor(FRAME_SHADOW_COLOR,this->m_color_a/4.0F);
+        this->format_render(r2, m_card_bg_silhouette, this->current_x + SHADOW_OFFSET_X * this->m_draw_scale, this->current_y - SHADOW_OFFSET_Y * this->m_draw_scale);
+        //bg
         r2->SetColor(DEFAULT_COLOR,this->m_color_a);
         this->format_render(r2,m_card_bg,this->current_x,this->current_y);
-
+        //portrait
+        const float p_rw=(float)m_card_portrait->GetRegionWidth(),
+                    p_rh=(float)m_card_portrait->GetRegionHeight();
+        r2->draw(m_card_portrait, this->current_x-p_rw/2.0F, this->current_y-p_rh/2.0F+72.0F, p_rw, p_rh, this->m_angle, p_rw/2.0F, p_rh/2.0F-72.0F, this->m_draw_scale*Setting::SCALE, this->m_draw_scale*Setting::SCALE);
+        //frame
         this->format_render(r2,m_card_frame,this->current_x,this->current_y);
-
         if(m_type_width>1.1F){//only need if text too long.
             this->frame_format_render(r2,m_card_mid_frame,0.0F,m_type_width);
             this->frame_format_render(r2,m_card_left_frame,-m_type_offset,1.0F);
             this->frame_format_render(r2,m_card_right_frame,m_type_offset,1.0F);
         }
+        //banner
         this->format_render(r2,m_card_banner,this->current_x,this->current_y);
 
         //type
@@ -211,6 +124,18 @@ namespace Card{
     void Cards::frame_format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x_offset,const float x_scale)const{
         r2->draw(img, this->current_x + img->offsetX - (float)img->original_width / 2.0F + x_offset * this->m_draw_scale, this->current_y + img->offsetY - (float)img->original_height / 2.0F, (float)img->GetRegionWidth(), (float)img->GetRegionHeight(), this->m_angle, (float)img->original_width / 2.0F - img->offsetX - x_offset * this->m_draw_scale, (float)img->original_height / 2.0F - img->offsetY,  this->m_draw_scale * Setting::SCALE * x_scale, this->m_draw_scale * Setting::SCALE);
     }
+    void Cards::Shrink(){m_target_draw_scale=0.12F;}
+    void Cards::Darken(){
+        darken=true;
+        m_dard_timer=0.3F;
+    };
+    void Cards::start_glow(){
+        is_glowing=true;
+    }
+    void Cards::stop_glow(){
+        is_glowing=false;
+        for(const auto&it:glowgroup)it->QuickDisappear(5.0F);
+    }
     void Cards::SetTargetY(const float value){target_y=value;}
     void Cards::SetTargetX(const float value){target_x=value;}
     void Cards::SetTargetAngle(const float value){target_angle=value;}
@@ -219,47 +144,6 @@ namespace Card{
     void Cards::MoveTargetX(const float value){target_x+=value;}
     void Cards::MoveTargetAngle(const float value){target_angle+=value;}
     void Cards::init_static_menber(){
-        RUtil::Atlas_Reader temp(RESOURCE_DIR"/Image/cardui/cardui.atlas");
-        s_card_attack_bg_silhouette=temp.Find_Atlas_Region("512/bg_attack_silhouette");
-        s_card_skill_bg_silhouette=temp.Find_Atlas_Region("512/bg_skill_silhouette");
-        s_card_power_bg_silhouette=temp.Find_Atlas_Region("512/bg_power_silhouette");
-        s_card_attack_bg_red=temp.Find_Atlas_Region("512/bg_attack_red");
-        s_card_attack_bg_green=temp.Find_Atlas_Region("512/bg_attack_green");
-        s_card_attack_bg_blue=temp.Find_Atlas_Region("512/bg_attack_blue");
-        s_card_attack_bg_purple=temp.Find_Atlas_Region("512/bg_attack_purple");
-        s_card_attack_bg_gray=temp.Find_Atlas_Region("512/bg_attack_gray");
-        s_card_skill_bg_red=temp.Find_Atlas_Region("512/bg_skill_red");
-        s_card_skill_bg_green=temp.Find_Atlas_Region("512/bg_skill_green");
-        s_card_skill_bg_blue=temp.Find_Atlas_Region("512/bg_skill_blue");
-        s_card_skill_bg_purple=temp.Find_Atlas_Region("512/bg_skill_purple");
-        s_card_skill_bg_gray=temp.Find_Atlas_Region("512/bg_skill_gray");
-        s_card_skill_bg_black=temp.Find_Atlas_Region("512/bg_skill_black");
-        s_card_power_bg_red=temp.Find_Atlas_Region("512/bg_power_red");
-        s_card_power_bg_green=temp.Find_Atlas_Region("512/bg_power_green");
-        s_card_power_bg_blue=temp.Find_Atlas_Region("512/bg_power_blue");
-        s_card_power_bg_purple=temp.Find_Atlas_Region("512/bg_power_purple");
-        s_card_power_bg_gray=temp.Find_Atlas_Region("512/bg_power_gray"); 
-        s_card_frame_attack_common = temp.Find_Atlas_Region("512/frame_attack_common");
-        s_card_frame_attack_uncommon = temp.Find_Atlas_Region("512/frame_attack_uncommon");
-        s_card_frame_attack_rare = temp.Find_Atlas_Region("512/frame_attack_rare");
-        s_card_frame_skill_common = temp.Find_Atlas_Region("512/frame_skill_common");
-        s_card_frame_skill_uncommon = temp.Find_Atlas_Region("512/frame_skill_uncommon");
-        s_card_frame_skill_rare = temp.Find_Atlas_Region("512/frame_skill_rare");
-        s_card_frame_power_common = temp.Find_Atlas_Region("512/frame_power_common");
-        s_card_frame_power_uncommon = temp.Find_Atlas_Region("512/frame_power_uncommon");
-        s_card_frame_power_rare = temp.Find_Atlas_Region("512/frame_power_rare");
-        s_card_common_frame_left = temp.Find_Atlas_Region("512/common_left");
-        s_card_common_frame_mid = temp.Find_Atlas_Region("512/common_center");
-        s_card_common_frame_right = temp.Find_Atlas_Region("512/common_right");
-        s_card_uncommon_frame_left = temp.Find_Atlas_Region("512/uncommon_left");
-        s_card_uncommon_frame_mid = temp.Find_Atlas_Region("512/uncommon_center");
-        s_card_uncommon_frame_right = temp.Find_Atlas_Region("512/uncommon_right");
-        s_card_rare_frame_left = temp.Find_Atlas_Region("512/rare_left");
-        s_card_rare_frame_mid = temp.Find_Atlas_Region("512/rare_center");
-        s_card_rare_frame_right = temp.Find_Atlas_Region("512/rare_right");
-        s_card_banner_common = temp.Find_Atlas_Region("512/banner_common");
-        s_card_banner_uncommon = temp.Find_Atlas_Region("512/banner_uncommon");
-        s_card_banner_rare = temp.Find_Atlas_Region("512/banner_rare");
         s_ui_vec=RUtil::Text_Vector_Reader::GetTextVector(RUtil::Text_ID::SingleCardViewPopup);
         s_ui_vec->at(0).set_fontsize(CARD_FONT_SIZE);
         constexpr float padding=10.0F*Setting::SCALE;
@@ -284,7 +168,123 @@ namespace Card{
         s_type_offset_status=(jitai_width-mid_frame_width)/2.0F;
         s_type_width_status=(jitai_width/mid_frame_width-1.0F)*2.0F+1.0F;
     }
-    std::shared_ptr<Draw::Atlas_Region>Cards::s_card_attack_bg_silhouette=nullptr,Cards::s_card_skill_bg_silhouette=nullptr,Cards::s_card_power_bg_silhouette=nullptr,Cards::s_card_attack_bg_red=nullptr,Cards::s_card_attack_bg_green=nullptr,Cards::s_card_attack_bg_blue=nullptr,Cards::s_card_attack_bg_purple=nullptr,Cards::s_card_attack_bg_gray=nullptr,Cards::s_card_skill_bg_red=nullptr,Cards::s_card_skill_bg_green=nullptr,Cards::s_card_skill_bg_blue=nullptr,Cards::s_card_skill_bg_purple=nullptr,Cards::s_card_skill_bg_gray=nullptr,Cards::s_card_skill_bg_black=nullptr,Cards::s_card_power_bg_red=nullptr,Cards::s_card_power_bg_green=nullptr,Cards::s_card_power_bg_blue=nullptr,Cards::s_card_power_bg_purple=nullptr,Cards::s_card_power_bg_gray=nullptr,Cards::s_card_frame_attack_common=nullptr,Cards::s_card_frame_attack_uncommon=nullptr,Cards::s_card_frame_attack_rare=nullptr,Cards::s_card_frame_skill_common=nullptr,Cards::s_card_frame_skill_uncommon=nullptr,Cards::s_card_frame_skill_rare=nullptr,Cards::s_card_frame_power_common=nullptr,Cards::s_card_frame_power_uncommon=nullptr,Cards::s_card_frame_power_rare=nullptr,Cards::s_card_common_frame_left=nullptr,Cards::s_card_common_frame_mid=nullptr,Cards::s_card_common_frame_right=nullptr,Cards::s_card_uncommon_frame_left=nullptr,Cards::s_card_uncommon_frame_mid=nullptr,Cards::s_card_uncommon_frame_right=nullptr,Cards::s_card_rare_frame_left=nullptr,Cards::s_card_rare_frame_mid=nullptr,Cards::s_card_rare_frame_right=nullptr,Cards::s_card_banner_common=nullptr,Cards::s_card_banner_uncommon=nullptr,Cards::s_card_banner_rare=nullptr;
     std::shared_ptr<std::vector<Draw::Text_layout>> Cards::s_ui_vec=nullptr;
     float Cards::s_type_offset_attack=0.0F,Cards::s_type_offset_skill=0.0F,Cards::s_type_offset_power=0.0F,Cards::s_type_offset_status=0.0F,Cards::s_type_offset_curse=0.0F,Cards::s_type_width_attack=0.0F,Cards::s_type_width_skill=0.0F,Cards::s_type_width_power=0.0F,Cards::s_type_width_status=0.0F,Cards::s_type_width_curse=0.0F;
+    
+    using namespace RUtil;
+    static const std::shared_ptr<Draw::Atlas_Region> &BgSilhouette(Type type){
+        switch(type){
+            case Type::attack: return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_attack_silhouette);
+            case Type::power: return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_power_silhouette);
+            default: return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_silhouette);
+        }   
+    }
+    static const std::shared_ptr<Draw::Atlas_Region> &CardBg(Type type,Color color){
+        switch(type){
+            case Type::attack:
+                switch(color){
+                    case Color::red:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_attack_red);
+                    case Color::green:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_attack_green);
+                    case Color::blue:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_attack_blue);
+                    case Color::purple:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_attack_purple);
+                    case Color::colorless:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_attack_gray);
+                    default:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_black);
+                }
+            case Type::power:
+                switch(color){
+                    case Color::red:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_power_red);
+                    case Color::green:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_power_green);
+                    case Color::blue:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_power_blue);
+                    case Color::purple:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_power_purple);
+                    case Color::colorless:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_power_gray);
+                    default:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_black);
+                }
+            default:
+                switch(color){
+                    case Color::red:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_red);
+                    case Color::green:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_green);
+                    case Color::blue:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_blue);
+                    case Color::purple:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_purple);
+                    case Color::colorless:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_gray);
+                    default:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_bg_skill_black);
+                }
+        }   
+    }
+    static const std::shared_ptr<Draw::Atlas_Region> &CardFrame(Type type,Rarity rarity){
+        switch(type){
+            case Type::attack:
+                switch(rarity){
+                    case Rarity::rare:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_attack_rare);
+                    case Rarity::uncommon:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_attack_uncommon);
+                    default:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_attack_common);
+                }
+            case Type::power:
+                switch(rarity){
+                    case Rarity::rare:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_power_rare);
+                    case Rarity::uncommon:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_power_uncommon);
+                    default:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_power_common);
+                }
+            default:
+                switch(rarity){
+                    case Rarity::rare:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_skill_rare);
+                    case Rarity::uncommon:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_skill_uncommon);
+                    default:
+                        return All_Image::GetAtlasRegion(AtlasRegionID::_512_frame_skill_common);
+                }
+        }   
+    }
+    static const std::shared_ptr<Draw::Atlas_Region> &CardLeftFrame(Rarity rarity){
+        switch(rarity){
+            case Rarity::rare: return All_Image::GetAtlasRegion(AtlasRegionID::_512_rare_left);
+            case Rarity::uncommon: return All_Image::GetAtlasRegion(AtlasRegionID::_512_uncommon_left);
+            default: return All_Image::GetAtlasRegion(AtlasRegionID::_512_common_left);
+        }
+    }
+    static const std::shared_ptr<Draw::Atlas_Region> &CardMidFrame(Rarity rarity){
+        switch(rarity){
+            case Rarity::rare: return All_Image::GetAtlasRegion(AtlasRegionID::_512_rare_center);
+            case Rarity::uncommon: return All_Image::GetAtlasRegion(AtlasRegionID::_512_uncommon_center);
+            default: return All_Image::GetAtlasRegion(AtlasRegionID::_512_common_center);
+        }
+    }
+    static const std::shared_ptr<Draw::Atlas_Region> &CardRightFrame(Rarity rarity){
+        switch(rarity){
+            case Rarity::rare: return All_Image::GetAtlasRegion(AtlasRegionID::_512_rare_right);
+            case Rarity::uncommon: return All_Image::GetAtlasRegion(AtlasRegionID::_512_uncommon_right);
+            default: return All_Image::GetAtlasRegion(AtlasRegionID::_512_common_right);
+        }
+    }
+    static const std::shared_ptr<Draw::Atlas_Region> &CardBanner(Rarity rarity){
+        switch(rarity){
+            case Rarity::rare: return All_Image::GetAtlasRegion(AtlasRegionID::_512_banner_rare);
+            case Rarity::uncommon: return All_Image::GetAtlasRegion(AtlasRegionID::_512_banner_uncommon);
+            default: return All_Image::GetAtlasRegion(AtlasRegionID::_512_banner_common);
+        }
+    }
 }

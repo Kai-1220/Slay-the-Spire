@@ -2,6 +2,7 @@
 #define GAME_OBJECT_CARD_CARD_SOUL
 #include "WindowSize.hpp"
 #include "Game_object/effect/Effect_group.hpp"
+#include "RUtil/Game_Input.hpp"
 namespace Card{
 //control group flying logic
 class Card_soul
@@ -16,6 +17,7 @@ protected:
     Card_soul();
     float current_x,current_y,target_x,target_y,target_angle,start_wait_timer,end_timer;
 private:
+    const float & DT=RUtil::Game_Input::delta_time();
     void prepare_to_fly();
     bool is_flying,stop_rotate,is_clockwise,is_done;
     float rotate_rate,end_x,end_y,current_speed,vfx_timer;

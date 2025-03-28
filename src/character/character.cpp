@@ -1,27 +1,27 @@
 
-#include "Character.hpp"
-Character::GetImagePath() const { return m_ImagePath; }
+// #include "character/character.hpp"
+// Character::GetImagePath() const { return m_ImagePath; }
 
-Character::GetPosition() const { return m_Transform.translation; }
+// Character::GetPosition() const { return m_Transform.translation; }
 
-Character::GetVisibility() const { return m_Visible; }
+// Character::GetVisibility() const { return m_Visible; }
 
-Character::SetImage(const std::string& ImagePath);
+// Character::SetImage(const std::string& ImagePath);
 
-Character::SetPosition(const glm::vec2& Position) { m_Transform.translation = Position; }
+// Character::SetPosition(const glm::vec2& Position) { m_Transform.translation = Position; }
 
-Character::SetPosition(const glm::vec2& Position) { m_Transform.translation = Position; }
+// Character::SetPosition(const glm::vec2& Position) { m_Transform.translation = Position; }
 
-Character::SetHP(unsigned int HP) { this->HP = HP; }
+// Character::SetHP(unsigned int HP) { this->HP = HP; }
 
-Character::SetDefense(unsigned int Defense) { this->Defense = Defense; }
+// Character::SetDefense(unsigned int Defense) { this->Defense = Defense; }
 
-Character::MotifyHP(int HP){ this->HP += HP; }
+// Character::MotifyHP(int HP){ this->HP += HP; }
 
-Character::MotifyDefense(int Defense){ this->Defense += Defense; }
+// Character::MotifyDefense(int Defense){ this->Defense += Defense; }
 
-Character::GetHP(){ return HP; }
+// Character::GetHP(){ return HP; }
 
-Character::GetDefense(){ return Defense; }
+// Character::GetDefense(){ return Defense; }
 
-Character::TakeDamage(unsigned int Damage){ HP -= Damage; }
+// Character::TakeDamage(unsigned int Damage){ HP -= Damage; }

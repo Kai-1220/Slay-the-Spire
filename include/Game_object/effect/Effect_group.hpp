@@ -13,6 +13,8 @@ public:
     void AddEffect(const std::shared_ptr<Effects> &eff);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update();
+    auto begin()const{return box.begin();}
+    auto end()const{return box.end();}
 private:
     std::list<std::shared_ptr<Effects>> box;
 };

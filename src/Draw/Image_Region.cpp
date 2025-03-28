@@ -33,7 +33,4 @@ namespace Draw{
             this->v2-=adj_y;
         }
     }
-    void Image_Region::SetTexture(const std::shared_ptr<ReTexture> &ReTexture){
-        texture=ReTexture;
-    }
 }
