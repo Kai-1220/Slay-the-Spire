@@ -117,8 +117,8 @@ namespace Card{
         r2->SetColor(TINT_COLOR,this->m_tint_a);
         this->format_render(r2, m_card_bg_silhouette, this->current_x, this->current_y);
     }
-    void Cards::format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,float x,float y)const{
-        r2->draw(img, x + img->offsetX - (float)img->original_width / 2.0F, y + img->offsetY - (float)img->original_height / 2.0F,(float)img->GetRegionWidth(), (float)img->GetRegionHeight(),this->m_angle, (float)img->original_width / 2.0F - img->offsetX, (float)img->original_height / 2.0F - img->offsetY, this->m_draw_scale * Setting::SCALE, this->m_draw_scale * Setting::SCALE);
+    void Cards::format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,float x,float y,float scale)const{
+        r2->draw(img, x + img->offsetX - (float)img->original_width / 2.0F, y + img->offsetY - (float)img->original_height / 2.0F,(float)img->GetRegionWidth(), (float)img->GetRegionHeight(),this->m_angle, (float)img->original_width / 2.0F - img->offsetX, (float)img->original_height / 2.0F - img->offsetY, this->m_draw_scale * Setting::SCALE*scale, this->m_draw_scale * Setting::SCALE*scale);
     }
     void Cards::frame_format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x_offset,const float x_scale)const{
         r2->draw(img, this->current_x + img->offsetX - (float)img->original_width / 2.0F + x_offset * this->m_draw_scale, this->current_y + img->offsetY - (float)img->original_height / 2.0F, (float)img->GetRegionWidth(), (float)img->GetRegionHeight(), this->m_angle, (float)img->original_width / 2.0F - img->offsetX - x_offset * this->m_draw_scale, (float)img->original_height / 2.0F - img->offsetY,  this->m_draw_scale * Setting::SCALE * x_scale, this->m_draw_scale * Setting::SCALE);
@@ -144,6 +144,10 @@ namespace Card{
     void Cards::MoveTargetY(const float value){target_y+=value;}
     void Cards::MoveTargetX(const float value){target_x+=value;}
     void Cards::MoveTargetAngle(const float value){target_angle+=value;}
+    void Cards::render_hovered_shadow(const std::shared_ptr<Draw::Draw_2D> &r2)const{
+        r2->SetColor(0,0.66F);
+        this->format_render(r2,RUtil::All_Image::GetAtlasRegion(RUtil::AtlasRegionID::_512_card_super_shadow),this->current_x,this->current_y,1.15F);
+    }
     void Cards::init_static_menber(){
         s_ui_vec=RUtil::Text_Vector_Reader::GetTextVector(RUtil::Text_ID::SingleCardViewPopup);
         s_ui_vec->at(0).set_fontsize(CARD_FONT_SIZE);

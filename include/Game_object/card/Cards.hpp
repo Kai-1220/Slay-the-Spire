@@ -35,6 +35,7 @@ class Cards:public Card_soul{
 public:
     Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,int cost);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
+    void render_hovered_shadow(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
     void SetTargetY(const float value);
     void SetTargetX(const float value);
@@ -64,7 +65,7 @@ private:
     float m_color_a,m_draw_scale,m_angle,m_type_width,m_type_offset,m_tint_a,m_target_draw_scale,m_dard_timer,m_glow_timer;
     const std::shared_ptr<Draw::Atlas_Region> &m_card_bg_silhouette,&m_card_bg,&m_card_frame,&m_card_left_frame,&m_card_mid_frame,&m_card_right_frame,&m_card_banner,&m_card_portrait;
     Effect::Effect_group glowgroup;
-    void format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x,const float y)const;
+    void format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x,const float y,const float scale=1.0F)const;
     void frame_format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x_offset,const float x_scale)const;
     static void init_static_menber();
     static constexpr Uint32 FRAME_SHADOW_COLOR=0,DEFAULT_COLOR=RUtil::Math::GetColorUint32_RGB(255,255,255),TYPE_COLOR=RUtil::Math::GetColorUint32_RGB(0.35F,0.35F,0.35F),TINT_COLOR=RUtil::Math::GetColorUint32_RGB(43,37,65);

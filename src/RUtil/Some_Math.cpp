@@ -50,6 +50,10 @@ namespace RUtil{
         const float u2=u*u,u3=u2*u;
         return controls[SimpleRangeChange(i,len)]*(-0.5F*u3+u2-0.5F*u)+controls[SimpleRangeChange(i+1,len)]*(1.5F*u3-2.5F*u2+1.0F)+controls[SimpleRangeChange(i+2,len)]*(-1.5F*u3+2.0F*u2+0.5F*u)+controls[SimpleRangeChange(i+3,len)]*(0.5F*u3-0.5F*u2);
     }
+    glm::vec2 Math::BezierQuadratic(const glm::vec2 p0,const glm::vec2 p1,const glm::vec2 p2,const float t){
+        const float tt=1.0F-t;
+        return p0*tt*tt+p1*2.0F*tt*t+p2*t*t;
+    }
     int Math::StrToInt(const std::string &str){
         int re=0;
         for(const char &c:str)
@@ -69,5 +73,7 @@ namespace RUtil{
     float Math::GetRadian(const glm::vec2 &v){
         return glm::acos(glm::dot(glm::normalize(v),glm::vec2(1.0F,0.0F)));
     }
-
+    float Math::GetDegress(const glm::vec2 &v){
+        return glm::degrees(glm::acos(glm::dot(glm::normalize(v),glm::vec2(1.0F,0.0F))));
+    }
 }

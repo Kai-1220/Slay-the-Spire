@@ -1,7 +1,10 @@
 #ifndef GAME_OBJECT_ACTION_GROUP
 #define GAME_OBJECT_ACTION_GROUP
 #include <list>
-#include "Game_object/action/Actions.hpp"
+#include<memory>
+namespace Card{
+class Card_group_handler;
+}
 namespace Action{
 class Actions;
 class Action_group

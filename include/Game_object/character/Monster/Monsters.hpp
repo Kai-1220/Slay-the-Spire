@@ -11,7 +11,7 @@ class Monsters:public Character::Characters
 {
 public:
     virtual ~Monsters()=default;
-    virtual void apply(const std::shared_ptr<Action::Action_group> &action_group)const=0;
+    // virtual void apply(const std::shared_ptr<Action::Action_group> &action_group)const=0;
     void damage(int num)override;
 protected:
     int m_damage;

@@ -1,5 +1,6 @@
 #include "Game_object/card/Card_group_handler.hpp"
 #include "Util/Logger.hpp"
+#include "Cursor.hpp"
 namespace Card{
     Card_group_handler::Card_group_handler(){
         single_target=in_drop_zone=false;
@@ -24,8 +25,12 @@ namespace Card{
     void Card_group_handler::release_card(){
         single_target=false;
         in_drop_zone=false;
+        if(hovered_card!=nullptr){
+            //unhover//untip//hovertimer
+        }
         hovered_card=nullptr;
         refresh_hand_layout();
+        
     }
     void Card_group_handler::refresh_hand_layout(){
         const int len=hand_cards.Size();
@@ -171,12 +176,59 @@ namespace Card{
         //...
     }
     void Card_group_handler::update(){
+
         if(single_target){
             arrowX=RUtil::Math::varlerp(arrowX,(float)input_x,20.0F,UI_THRESHOLD);
             arrowY=RUtil::Math::varlerp(arrowY,(float)input_y,20.0F,UI_THRESHOLD);
         }
     }
+    void Card_group_handler::render_hand(const std::shared_ptr<Draw::Draw_2D> &r2)const{
+        if(hovered_card!=nullptr){
+            hovered_card->render_hovered_shadow(r2);
+        }
+        hand_cards.render(r2);
+        if(single_target)
+            render_targeting(r2);
+    }
     void Card_group_handler::render_targeting(const std::shared_ptr<Draw::Draw_2D> &r2)const{
-        
+        if(hovered_monster==nullptr){
+            r2->SetColor(-1);
+        }else{
+            r2->SetColor(ARROW_COLOR,1.0F);
+        }
+        //control point
+        const float cp_x=hovered_card->GetX()-(arrowX-hovered_card->GetX())/4.0F,
+                    cp_y=arrowY+(arrowY-hovered_card->GetY())/2.0F;
+        const glm::vec2 ctr_pt{cp_x,cp_y};
+        //hover -> arrow
+        const glm::vec2 start{hovered_card->GetX(),hovered_card->GetY()},end{arrowX,arrowY};
+        float rad=7.0F*Setting::SCALE;
+        glm::vec2 last_pt{ctr_pt},now_pt;
+        for(int i=0;i<19;i++){//draw block
+            rad+=0.4F*Setting::SCALE;
+            now_pt=RUtil::Math::BezierQuadratic(start,ctr_pt,end,(float)i/20.0F);
+            r2->draw(reticleBlock_img, now_pt.x-64.0F, now_pt.y-64.0F, 128.0F, 128.0F, RUtil::Math::GetDegress(now_pt-last_pt)-90.0F, 64.0F, 64.0F, rad/18.0F, rad/18.0F);
+        }
+        //draw arrow
+        r2->draw(reticleArrow_img, arrowX-128.0F, arrowY-128.0F, 256.0F, 256.0F, RUtil::Math::GetDegress(now_pt-last_pt)-90.0F, 128.0F, 128.0F);
+    }
+    void Card_group_handler::update_targeting(){
+        hovered_monster=nullptr;
+        //monster check
+        //for(monst:monster_group)....
+        if(!just_r&&(float)input_y>50.0F*Setting::SCALE&&(float)input_y>hover_start_line - 400.0F*Setting::SCALE){//check if height is in range, release if not.
+            if(just_l){
+                if(hovered_monster!=nullptr){
+                    single_target=false;
+                    Cursor::SetVisible(true);
+                    hovered_monster=nullptr;
+                }
+            }
+        }else{
+            release_card();
+            single_target=false;
+            Cursor::SetVisible(true);
+            hovered_monster=nullptr;
+        }
     }
 }

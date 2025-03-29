@@ -1,4 +1,5 @@
 #include "Game_object/action/Action_group.hpp"
+#include "Game_object/action/Actions.hpp"
 namespace Action
 {
     void Action_group::AddTop(std::shared_ptr<Actions>&&action){box.emplace_back(std::move(action));}

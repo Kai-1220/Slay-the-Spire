@@ -1,28 +1,26 @@
 #ifndef CURSOR_HPP
 #define CURSOR_HPP
 
-#include "pch.hpp" // IWYU pragma: export
-
-#include "Util/Renderer.hpp"
-#include "Util/Image.hpp"
 #include "Draw/Draw_2D.hpp"
-#include "Util/Renderer.hpp"
-#include "Util/Input.hpp"
 #include "WindowSize.hpp"
 #include "RUtil/Image_book.hpp"
-
+#include "RUtil/Game_Input.hpp"
 class Cursor{
 public:
-    Cursor();
-    ~Cursor()=default;
-    std::shared_ptr<Draw::ReTexture> GetTexture();
-    glm::vec2 GetPosition();
-    int GetWidth();
-    int GetHeight();
-    void Draw(std::shared_ptr<Draw::Draw_2D> Draw2D);
+    Cursor()=delete;~Cursor()=delete;Cursor(const Cursor &) = delete;Cursor(Cursor &&) = delete;Cursor &operator=(const Cursor &) = delete;Cursor &operator=(Cursor &&) = delete;
+    
+    static const std::shared_ptr<Draw::ReTexture> &GetTexture(){return Texture;}
+    
+    // int GetWidth()const{return width;}
+    // int GetHeight()const{return height;}
+    static void Draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D);
+    static void SetVisible(bool is_visible);
+    static void SetIMG(const std::shared_ptr<Draw::ReTexture> IMG);
 private:
-    std::shared_ptr<Draw::ReTexture> Texture;
-    const int width=50,height=50;
+    static const int&input_x,&input_y;
+    static std::shared_ptr<Draw::ReTexture> Texture;
+    // const int width=50,height=50;
+    static bool is_visible;
 };
 
 #endif

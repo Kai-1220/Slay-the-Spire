@@ -2,7 +2,6 @@
 #define GAME_OBJECT_ACTION_ACTIONS
 #include "Game_object/card/Card_group_handler.hpp"
 #include "Game_object/character/Characters.hpp"
-#include "Game_object/action/Action_group.hpp"
 namespace Action{
 class Action_group;
 class Actions

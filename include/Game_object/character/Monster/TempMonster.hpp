@@ -7,7 +7,7 @@ class TempMonster final:public Monsters
 public:
     TempMonster();
     ~TempMonster()override=default;
-    void apply(const std::shared_ptr<Action::Action_group> &action_group)const override;
+    // void apply(const std::shared_ptr<Action::Action_group> &action_group)const override;
 private:
 
 };

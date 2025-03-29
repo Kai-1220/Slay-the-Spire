@@ -35,7 +35,6 @@ int main(int, char**) {
     // auto tte=std::make_shared<Card::Red::Strike_red>();
     InitScreen initScreen;
     // Object::Dungeon_BottomScene BottomScene;
-    Cursor cursor;
     // testfun(context);
     // float rot=90.0F;
     // auto random_generator = std::make_shared<RUtil::Random>(rand());
@@ -57,7 +56,7 @@ int main(int, char**) {
         // ttt->render(Draw2D);
         // Draw2D->draw(tty,0,0);
         // tte->render(Draw2D);
-        cursor.Draw(Draw2D);
+        Cursor::Draw(Draw2D);
         Draw2D->end();
         context->Update();
         if (Util::Input::IsKeyPressed(Util::Keycode::ESCAPE) || Util::Input::IfExit()) {
