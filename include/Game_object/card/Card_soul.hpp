@@ -24,6 +24,7 @@ private:
     static constexpr float HOME_IN_THRESHOLD=72.0F*Setting::SCALE,VELOCITY_RAMP_RATE=3000.0F*Setting::SCALE, MAX_VELOCITY=6000.0F*Setting::SCALE, DST_THRESHOLD=36.0F*Setting::SCALE,ROTATION_RATE = 150.0F * Setting::SCALE,START_VELOCITY = 200.0F * Setting::SCALE;
     std::vector<glm::vec2> ctl_pts;
     int ctl_idx,ctl_len;
+public:
     static constexpr float  DISCARD_X = (float)WINDOW_WIDTH * 0.96F,
                             DISCARD_Y = (float)WINDOW_HEIGHT * 0.06F,
                             DRAW_PILE_X = (float)WINDOW_WIDTH * 0.04F,

@@ -11,6 +11,7 @@ class Characters
 public:
     Characters();
     virtual ~Characters()=default;
+    virtual void damage(int num)=0;
 protected:
     int max_HP,current_HP,current_Block;
     void render_HP(const std::shared_ptr<Draw::Draw_2D> &r2)const;

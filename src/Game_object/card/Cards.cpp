@@ -50,14 +50,13 @@ namespace Card{
                 LOG_ERROR("The type doesn't exist");
                 break;
         }
-        darken=false;
-        m_dard_timer=0.0F;
-        current_x=600;
-        current_y=250;
-        m_color_a=0.5F;
+        is_glowing=darken=false;
+        m_dard_timer=m_glow_timer=0.0F;
+        m_draw_scale=m_target_draw_scale=0.7F;
         m_tint_a=0.0F;
-        m_draw_scale=1.0F;
-        m_angle=60.0F;
+        m_color_a=1.0F;
+        
+        //x,y,angle not set
     }
     void Cards::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
         const float DT=RUtil::Game_Input::delta_time();
@@ -138,6 +137,8 @@ namespace Card{
     }
     void Cards::SetTargetY(const float value){target_y=value;}
     void Cards::SetTargetX(const float value){target_x=value;}
+    void Cards::SetY(const float value){current_y=value;}
+    void Cards::SetX(const float value){current_x=value;}
     void Cards::SetTargetAngle(const float value){target_angle=value;}
     void Cards::SetTargetDrawScale(const float value){m_target_draw_scale=value;}
     void Cards::MoveTargetY(const float value){target_y+=value;}

@@ -1,7 +1,17 @@
 #include "Game_object/card/Card_group_handler.hpp"
+#include "Util/Logger.hpp"
 namespace Card{
     Card_group_handler::Card_group_handler(){
-
+        single_target=in_drop_zone=false;
+    }
+    void Card_group_handler::draw(int n){
+        for(int i=0;i<n;i++){
+            if(drawPile.empty()){
+                LOG_DEBUG("drawpile empty but draw.");
+            }else{
+                LOG_DEBUG("Draw{}",n);
+            }
+        }
     }
     void Card_group_handler::discard_all(){
         for(const auto&it:hand_cards){
@@ -10,6 +20,12 @@ namespace Card{
             it->discard();
         }
         hand_cards.MoveAllCardTo(m_discard);
+    }
+    void Card_group_handler::release_card(){
+        single_target=false;
+        in_drop_zone=false;
+        hovered_card=nullptr;
+        refresh_hand_layout();
     }
     void Card_group_handler::refresh_hand_layout(){
         const int len=hand_cards.Size();
@@ -153,5 +169,14 @@ namespace Card{
             for(const auto&it:hand_cards) it->SetTargetDrawScale(0.75F);
         }
         //...
+    }
+    void Card_group_handler::update(){
+        if(single_target){
+            arrowX=RUtil::Math::varlerp(arrowX,(float)input_x,20.0F,UI_THRESHOLD);
+            arrowY=RUtil::Math::varlerp(arrowY,(float)input_y,20.0F,UI_THRESHOLD);
+        }
+    }
+    void Card_group_handler::render_targeting(const std::shared_ptr<Draw::Draw_2D> &r2)const{
+        
     }
 }

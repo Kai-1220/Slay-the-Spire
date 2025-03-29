@@ -38,6 +38,8 @@ public:
     void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
     void SetTargetY(const float value);
     void SetTargetX(const float value);
+    void SetY(const float value);
+    void SetX(const float value);
     void SetTargetAngle(const float value);
     void SetTargetDrawScale(const float value);
     void MoveTargetY(const float value);
@@ -47,7 +49,10 @@ public:
     void Darken();
     void start_glow();
     void stop_glow();
+    bool CanUse()const{return true;}
     int GetCost()const{return cost;}
+    float GetX()const{return current_x;}
+    float GetY()const{return current_y;}
     virtual ~Cards() =default;
     const RUtil::AtlasRegionID card_name;
     const Rarity rarity;

@@ -14,8 +14,14 @@ namespace Card{
         }
     }
     void Card_group::MoveAllCardTo(Card_group &group){
-        group.card_box.insert(group.card_box.end(), std::make_move_iterator(this->card_box.begin()), std::make_move_iterator(this->card_box.end()));
+        group.card_box.insert(group.card_box.end(), std::make_move_iterator(this->card_box.rbegin()), std::make_move_iterator(this->card_box.rend()));
         this->card_box.clear();
+    }
+    void Card_group::RemoveTop(){
+        card_box.pop_back();
+    }
+    void Card_group::AddTop(const std::shared_ptr<Cards>&card){
+        card_box.emplace_back(card);
     }
     void Card_group::SortByRarity(const bool ascending){
         if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->rarity<bb->rarity;});

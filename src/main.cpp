@@ -32,7 +32,7 @@ int main(int, char**) {
     // printf("OK");
     // auto tye_draw=RUtil::Atlas_Reader(RESOURCE_DIR"/Image/cardui/cardui.atlas");
     // auto tty=tye_draw.Find_Atlas_Region("1024/frame_power_rare");
-    auto tte=std::make_shared<Card::Red::Strike_red>();
+    // auto tte=std::make_shared<Card::Red::Strike_red>();
     InitScreen initScreen;
     // Object::Dungeon_BottomScene BottomScene;
     Cursor cursor;
@@ -48,11 +48,6 @@ int main(int, char**) {
         // ttt->update();
         // Draw2D->begin();
         // Draw2D->SetColor(Util::Colors::RED);
-        
-        
-        // 建立地圖 - 參數為: 高度、寬度、密度、隨機數生成器
-        
-        
         // dungeon_map->render(Draw2D, 0);
         // ttt->render(Draw2D);
 
@@ -61,7 +56,7 @@ int main(int, char**) {
 
         // ttt->render(Draw2D);
         // Draw2D->draw(tty,0,0);
-        tte->render(Draw2D);
+        // tte->render(Draw2D);
         cursor.Draw(Draw2D);
         Draw2D->end();
         context->Update();
