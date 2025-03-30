@@ -35,6 +35,9 @@ public:
     static float GetRandomFloat(float min,float max);
     static float GetRadian(const glm::vec2 &v);
     static float GetDegress(const glm::vec2 &v);
+    static float BounceOut(float t);
+    static float BounceIn(float t);
+    static constexpr float Apply(float start,float target,float t){return start+(target-start)*t;}
     static glm::vec2 BezierQuadratic(const glm::vec2 p0,const glm::vec2 p1,const glm::vec2 p2,const float t);
     static glm::vec2 CatmullRomSpline(const std::vector<glm::vec2> &controls,float t,const int len,const int vec_start_pos=0);
     static constexpr Uint32 GetColorUint32_RGB(int r,int g,int b){return r<<24|g<<16|b<<8;};

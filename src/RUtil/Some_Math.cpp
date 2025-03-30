@@ -76,4 +76,19 @@ namespace RUtil{
     float Math::GetDegress(const glm::vec2 &v){
         return glm::degrees(glm::acos(glm::dot(glm::normalize(v),glm::vec2(1.0F,0.0F))));
     }
+    float Math::BounceOut(float t){
+        if (t < 0.36363637F) {
+            return 7.5625F * t * t;
+        } else if (t < 0.72727275F) {
+            t -= 0.54545456F;
+            return 7.5625F * t * t + 0.75F;
+        } else if (t < 0.90909094F) {
+            t -= 0.8181818F;
+            return 7.5625F * t * t + 0.9375F;
+        } else {
+            t -= 0.95454544F;
+            return 7.5625F * t * t + 0.984375F;
+        }
+    }
+    float Math::BounceIn(float t){return 1.0F-BounceOut(t);}
 }

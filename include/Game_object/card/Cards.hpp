@@ -6,6 +6,7 @@
 #include "RUtil/Some_Math.hpp"
 #include "RUtil/Text_Vector_Reader.hpp"
 #include "Game_object/card/Card_soul.hpp"
+#include "Game_object/effect/Card_flash.hpp"
 namespace Card{
 enum class Rarity{
     basic,
@@ -69,6 +70,7 @@ private:
     float m_color_a,m_draw_scale,m_angle,m_type_width,m_type_offset,m_tint_a,m_target_draw_scale,m_dard_timer,m_glow_timer,m_hover_timer;
     const std::shared_ptr<Draw::Atlas_Region> &m_card_bg_silhouette,&m_card_bg,&m_card_frame,&m_card_left_frame,&m_card_mid_frame,&m_card_right_frame,&m_card_banner,&m_card_portrait;
     Effect::Effect_group glowgroup;
+    Effect::Card_flash m_card_flash;//fix
     void format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x,const float y,const float scale=1.0F)const;
     void frame_format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x_offset,const float x_scale)const;
     static void init_static_menber();

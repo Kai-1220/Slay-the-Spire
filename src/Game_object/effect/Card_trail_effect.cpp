@@ -14,16 +14,13 @@ namespace Effect
         r2->draw(IMG,pos.x,pos.y,12.0F,12.0F,0.0F,6.0F,6.0F,scale,scale);
     }
     void Card_trail_effect::update(){
-        duration-=RUtil::Game_Input::delta_time();        
+        this->TimeGo();        
         if(duration<0.25F){
             scale=duration*SCALE_MULTI;
         }else{
             scale=(duration-0.25F)*SCALE_MULTI;
         }
-        if(duration<0.0F){
-            is_done=true;
-        }else{
+        if(!is_done)
             color_a=RUtil::Math::interpolation_fade(0.0F,0.18F,duration*2.0F);
-        }
     }
 } // namespace Effect

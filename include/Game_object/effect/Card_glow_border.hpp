@@ -12,9 +12,9 @@ public:
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const override;
     void update() override;
 private:
-    const std::shared_ptr<Draw::Atlas_Region> &img;
     const int&card_x,&card_y;
     const float&card_angle,&card_scale;
+    const std::shared_ptr<Draw::Atlas_Region> &img;
     static constexpr Uint32 DFAULT_COLOR=0x30c8dc00;
 };
 }

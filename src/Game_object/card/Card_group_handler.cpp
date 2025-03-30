@@ -5,8 +5,12 @@
 namespace Card{
     static constexpr float LOW_LOW_LINE=50.0F*Setting::SCALE;
     static constexpr float HOVER_CARD_Y_POSITION=210.0F*Setting::SCALE;
+    static constexpr float START_LINE_OFFSET=140.0F*Setting::SCALE;
+    static constexpr float CARD_DROP_END_Y=static_cast<float>(WINDOW_HEIGHT)*0.81F;
+    static constexpr float CARD_DROP_START_Y=350.0F*Setting::SCALE;
     Card_group_handler::Card_group_handler(){
         single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
+        
     }
     void Card_group_handler::draw(int n){
         for(int i=0;i<n;i++){
@@ -184,6 +188,10 @@ namespace Card{
         if(single_target){
             update_targeting();
         }else{
+            if(in_drop_zone&(in_drop_zone=CARD_DROP_START_Y<(float)input_y&&(float)input_y<CARD_DROP_END_Y)){
+                //just in drop zone
+                //card flash;
+            }
             if(is_dragging_card&&in_drop_zone){
                 pass_hesitation_line=true;
             }
@@ -191,6 +199,7 @@ namespace Card{
                 pass_hesitation_line=false;
                 this->release_card();
             }
+            //check hover card
             if(hovered_card==nullptr){
                 hovered_card=hand_cards.GetHoveredCard();
                 if(hovered_card!=nullptr){
@@ -202,6 +211,14 @@ namespace Card{
                     hand_card_push();
                 }
             }
+            //check if start to drag card
+            if(just_l&&hovered_card!=nullptr&&!is_dragging_card){
+                hover_start_line=(float)input_y*START_LINE_OFFSET;
+                is_dragging_card=true;
+                pass_hesitation_line=false;
+                hovered_card->SetTargetDrawScale(0.7F);
+            }
+            //[not just_l or not hover or dragging card]
             
         }
     }
