@@ -18,8 +18,8 @@ private:
     bool is_waiting_player;
     std::shared_ptr<Monster::Monsters> m_monster=nullptr;
     Monster::MonsterID m_monster_id=Monster::MonsterID::None;
-    const std::shared_ptr<Draw::ReTexture> &IMG=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/map/monster.png");
-    const std::shared_ptr<Draw::ReTexture> &IMG_O=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/map/monsterOutline.png");
+    static const std::shared_ptr<Draw::ReTexture> &IMG;
+    static const std::shared_ptr<Draw::ReTexture> &IMG_O;
 };
 }
 #endif

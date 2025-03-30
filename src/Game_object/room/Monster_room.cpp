@@ -19,4 +19,6 @@ void Monster_room::update(const std::shared_ptr<Action::Action_group> action_gro
 
     }
 }
+const std::shared_ptr<Draw::ReTexture> &Monster_room::IMG=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/map/monster.png"),
+                                       &Monster_room::IMG_O=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/map/monsterOutline.png");
 }

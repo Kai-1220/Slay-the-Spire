@@ -51,7 +51,7 @@ namespace Card{
                 break;
         }
         is_glowing=darken=false;
-        m_dard_timer=m_glow_timer=0.0F;
+        m_dard_timer=m_glow_timer=m_hover_timer=0.0F;
         m_draw_scale=m_target_draw_scale=0.7F;
         m_tint_a=0.0F;
         m_color_a=1.0F;
@@ -59,7 +59,6 @@ namespace Card{
         //x,y,angle not set
     }
     void Cards::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
-        const float DT=RUtil::Game_Input::delta_time();
         this->update_flying(effs,PlayerColor_RGB);
         if(!this->is_fly()){
             current_x=RUtil::Math::varlerp(current_x,target_x,6.0F,CARD_SNAP_THRESHOLD);
@@ -140,10 +139,18 @@ namespace Card{
     void Cards::SetY(const float value){current_y=value;}
     void Cards::SetX(const float value){current_x=value;}
     void Cards::SetTargetAngle(const float value){target_angle=value;}
+    void Cards::SetAngle(const float value){m_angle=value;}
     void Cards::SetTargetDrawScale(const float value){m_target_draw_scale=value;}
+    void Cards::SetDrawScale(const float value){m_draw_scale=value;}
     void Cards::MoveTargetY(const float value){target_y+=value;}
     void Cards::MoveTargetX(const float value){target_x+=value;}
     void Cards::MoveTargetAngle(const float value){target_angle+=value;}
+    bool Cards::IsHoveredInHand(const float scale)const{
+        if(m_hover_timer>0.0F) return false;
+        const float x=(float)RUtil::Game_Input::getX(),y=(float)RUtil::Game_Input::getY(),
+                    hw=IMG_WIDTH*scale/2.0F,hh=IMG_HEIGHT*scale/2.0F;
+        return current_x-hw<x && x<current_x+hw && current_y-hh<y && y<current_y+hh;
+    }
     void Cards::render_hovered_shadow(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         r2->SetColor(0,0.66F);
         this->format_render(r2,RUtil::All_Image::GetAtlasRegion(RUtil::AtlasRegionID::_512_card_super_shadow),this->current_x,this->current_y,1.15F);

@@ -35,4 +35,17 @@ namespace Card{
         if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->GetCost()<bb->GetCost();});
         else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->GetCost()<aa->GetCost();});
     }
+    std::shared_ptr<Cards> Card_group::GetHoveredCard()const{
+        for(const auto&it:card_box){
+            if(it->IsHoveredInHand(0.7F)){
+                return it;
+            }
+        }
+        return nullptr;
+    }
+    int Card_group::GetCardPos(const std::shared_ptr<Cards> &card)const{
+        const int len=static_cast<int>(card_box.size());
+        for(int i=0;i<len;i++) if(card_box[i]==card) return i;
+        return -1;
+    }
 }

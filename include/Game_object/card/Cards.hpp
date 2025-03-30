@@ -42,7 +42,9 @@ public:
     void SetY(const float value);
     void SetX(const float value);
     void SetTargetAngle(const float value);
+    void SetAngle(const float value);
     void SetTargetDrawScale(const float value);
+    void SetDrawScale(const float value);
     void MoveTargetY(const float value);
     void MoveTargetX(const float value);
     void MoveTargetAngle(const float value);
@@ -54,15 +56,17 @@ public:
     int GetCost()const{return cost;}
     float GetX()const{return current_x;}
     float GetY()const{return current_y;}
+    bool IsHoveredInHand(const float scale)const;
     virtual ~Cards() =default;
     const RUtil::AtlasRegionID card_name;
     const Rarity rarity;
     const Type type;
     const Color color;
 private:
+    const float &DT=RUtil::Game_Input::delta_time();
     int m_text_pos,cost;
     bool darken,is_glowing;
-    float m_color_a,m_draw_scale,m_angle,m_type_width,m_type_offset,m_tint_a,m_target_draw_scale,m_dard_timer,m_glow_timer;
+    float m_color_a,m_draw_scale,m_angle,m_type_width,m_type_offset,m_tint_a,m_target_draw_scale,m_dard_timer,m_glow_timer,m_hover_timer;
     const std::shared_ptr<Draw::Atlas_Region> &m_card_bg_silhouette,&m_card_bg,&m_card_frame,&m_card_left_frame,&m_card_mid_frame,&m_card_right_frame,&m_card_banner,&m_card_portrait;
     Effect::Effect_group glowgroup;
     void format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x,const float y,const float scale=1.0F)const;

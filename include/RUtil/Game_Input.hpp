@@ -17,7 +17,7 @@ public:
     static void update();
     static const int& getX(){return x;}
     static const int& getY(){return y;}
-    static int getYv(){return WINDOW_HEIGHT-y;}
+    static const int& getYv(){return vy;}
     static const bool &is_down(){return MS.isMouseDown;}
     static const bool &is_down_R(){return MS.isMouseDown_R;}
     static bool is_scroll_down(){return MS.isScrollDown;}
@@ -38,7 +38,7 @@ private:
         bool isScrollUp = false;
         bool isScrollDown = false;
     };
-    static int x,y;
+    static int x,y,vy;
     static MouseState MS;
     static float delta_time_s;// I don't know if it's good to put it here
 };

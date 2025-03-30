@@ -41,7 +41,7 @@ private:
                            OFFSET_Y = 180.0F * Setting::SCALE,
                            SPACING_X =(float)IMG_WIDTH * 2.0F;
     static constexpr Uint32 OUTLINE_COLOR=0x8c8c80ff;
-    static std::shared_ptr<Draw::ReTexture> s_circle;
+    static const std::shared_ptr<Draw::ReTexture> &s_circle;
 
 public:
     static constexpr float OFFSET_X= 560.0F * Setting::SCALE,

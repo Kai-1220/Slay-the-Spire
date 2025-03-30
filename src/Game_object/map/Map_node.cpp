@@ -4,9 +4,6 @@
 namespace Map{
 //mikannsei
 Map_node::Map_node(int x,int y):x(x),y(y){
-    if(s_circle==nullptr){
-        s_circle=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/circle5.png");
-    }
     this->offset_x=(float)((int)RUtil::Math::GetRandomFloat(-JITTER_X, JITTER_X));
     this->offset_y=(float)((int)RUtil::Math::GetRandomFloat(-JITTER_Y, JITTER_Y));
     color=NOT_TAKEN_COLOR;
@@ -37,5 +34,5 @@ void Map_node::SetLeft(bool x){left=x;}
 void Map_node::SetMiddle(bool x){middle=x;}
 void Map_node::SetToBoss(bool x){to_boss=x;}
 void Map_node::SetRoom(const std::shared_ptr<Room::Rooms> &room){this->m_room=room;}
-std::shared_ptr<Draw::ReTexture> Map_node::s_circle=nullptr;
+const std::shared_ptr<Draw::ReTexture> &Map_node::s_circle=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/circle5.png");
 }

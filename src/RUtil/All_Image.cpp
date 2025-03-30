@@ -1,10 +1,9 @@
 #include "RUtil/All_Image.hpp"
 #include "RUtil/Atlas_Reader.hpp"
-#include "Cursor.hpp"
+
 namespace RUtil{
     
     void All_Image::InitImage(){
-        Cursor::SetIMG(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/cursor/gold2.png"));//init cursor//why it here?
         AtlasRegionBox.reserve(93 + 113 + 375);
         //cardui.atlas 93
         RUtil::Atlas_Reader OH_HI(RESOURCE_DIR"/Image/cardui/cardui.atlas");

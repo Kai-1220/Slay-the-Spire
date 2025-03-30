@@ -15,10 +15,9 @@ public:
     // int GetHeight()const{return height;}
     static void Draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D);
     static void SetVisible(bool is_visible);
-    static void SetIMG(const std::shared_ptr<Draw::ReTexture> IMG);
 private:
     static const int&input_x,&input_y;
-    static std::shared_ptr<Draw::ReTexture> Texture;
+    static const std::shared_ptr<Draw::ReTexture> &Texture;
     // const int width=50,height=50;
     static bool is_visible;
 };

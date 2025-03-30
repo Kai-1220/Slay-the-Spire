@@ -14,4 +14,6 @@ namespace Map{
         r2->draw(dot_texture,this->x-8.0F,this->y-8.0F+screen_offset+OFFSET_Y,
                 16.0F,16.0F,this->rotation,8.0F,8.0F,Setting::SCALE,Setting::SCALE);
     }
+    const std::shared_ptr<Draw::ReTexture> &Map_dot::dot_texture=RUtil::Image_book::GetTexture("Image/map/dot1.png");
+    
 }

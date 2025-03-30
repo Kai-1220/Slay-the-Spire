@@ -1,9 +1,12 @@
 #include "Game_object/card/Card_group_handler.hpp"
 #include "Util/Logger.hpp"
 #include "Cursor.hpp"
+#include "Util/Logger.hpp"
 namespace Card{
+    static constexpr float LOW_LOW_LINE=50.0F*Setting::SCALE;
+    static constexpr float HOVER_CARD_Y_POSITION=210.0F*Setting::SCALE;
     Card_group_handler::Card_group_handler(){
-        single_target=in_drop_zone=false;
+        single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
     }
     void Card_group_handler::draw(int n){
         for(int i=0;i<n;i++){
@@ -25,6 +28,8 @@ namespace Card{
     void Card_group_handler::release_card(){
         single_target=false;
         in_drop_zone=false;
+        pass_hesitation_line=false;
+        is_dragging_card=false;
         if(hovered_card!=nullptr){
             //unhover//untip//hovertimer
         }
@@ -32,7 +37,7 @@ namespace Card{
         refresh_hand_layout();
         
     }
-    void Card_group_handler::refresh_hand_layout(){
+    void Card_group_handler::refresh_hand_layout()const{
         const int len=hand_cards.Size();
         if(len==0) return;
         const float angle_start=(float)len*INCREMENT_ANGLE/2.0F,
@@ -176,10 +181,28 @@ namespace Card{
         //...
     }
     void Card_group_handler::update(){
-
         if(single_target){
-            arrowX=RUtil::Math::varlerp(arrowX,(float)input_x,20.0F,UI_THRESHOLD);
-            arrowY=RUtil::Math::varlerp(arrowY,(float)input_y,20.0F,UI_THRESHOLD);
+            update_targeting();
+        }else{
+            if(is_dragging_card&&in_drop_zone){
+                pass_hesitation_line=true;
+            }
+            if(is_dragging_card&&(float)input_y<LOW_LOW_LINE&&pass_hesitation_line){
+                pass_hesitation_line=false;
+                this->release_card();
+            }
+            if(hovered_card==nullptr){
+                hovered_card=hand_cards.GetHoveredCard();
+                if(hovered_card!=nullptr){
+                    hovered_card->SetTargetY(HOVER_CARD_Y_POSITION);
+                    hovered_card->SetY(HOVER_CARD_Y_POSITION);
+                    hovered_card->SetAngle(0.0F);
+                    hovered_card->SetTargetDrawScale(1.0F);
+                    hovered_card->SetDrawScale(1.0F);
+                    hand_card_push();
+                }
+            }
+            
         }
     }
     void Card_group_handler::render_hand(const std::shared_ptr<Draw::Draw_2D> &r2)const{
@@ -216,7 +239,7 @@ namespace Card{
         hovered_monster=nullptr;
         //monster check
         //for(monst:monster_group)....
-        if(!just_r&&(float)input_y>50.0F*Setting::SCALE&&(float)input_y>hover_start_line - 400.0F*Setting::SCALE){//check if height is in range, release if not.
+        if(!just_r&&(float)input_y>LOW_LOW_LINE&&(float)input_y>hover_start_line - 400.0F*Setting::SCALE){//check if height is in range, release if not.
             if(just_l){
                 if(hovered_monster!=nullptr){
                     single_target=false;
@@ -230,5 +253,34 @@ namespace Card{
             Cursor::SetVisible(true);
             hovered_monster=nullptr;
         }
+
+        if(single_target){
+            arrowX=RUtil::Math::varlerp(arrowX,(float)input_x,20.0F,UI_THRESHOLD);
+            arrowY=RUtil::Math::varlerp(arrowY,(float)input_y,20.0F,UI_THRESHOLD);
+        }
     }
+    void Card_group_handler::hand_card_push()const{
+        const int len=hand_cards.Size();
+        if(len>1){
+            const int pos=hand_cards.GetCardPos(hovered_card);
+            if(pos!=-1){
+                const float push=len==2?0.2F:(len==3||len==4?0.27F:0.4F);
+                float j=push;
+                //right
+                for(int i=pos+1;i<len;i++){
+                    hand_cards[i]->MoveTargetX(Cards::IMG_WIDTH_S*j);
+                    j*=0.25F;
+                }
+                j=push;
+                //left
+                for(int i=pos-1;0<=i;i--){
+                    hand_cards[i]->MoveTargetX(-Cards::IMG_WIDTH_S*j);
+                    j*=0.25F;
+                }
+            }else{
+                LOG_ERROR("Hovered card not in hand, How?");
+            }
+        }
+    }
+    const std::shared_ptr<Draw::ReTexture>&Card_group_handler::reticleBlock_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/combat/reticleBlock.png"),&Card_group_handler::reticleArrow_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/combat/reticleArrow.png");
 }
