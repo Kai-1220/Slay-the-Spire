@@ -10,7 +10,10 @@ namespace Card{
     static constexpr float CARD_DROP_START_Y=350.0F*Setting::SCALE;
     Card_group_handler::Card_group_handler(){
         single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
-        
+        //in_drop_zone:(x,y) in area that can use card.
+        //in_draggin_card: dragging card,include in single_target mode
+        //single_target: targeting one enemy
+        //pass_hesitation_line: dragging card to in_drop_zone
     }
     void Card_group_handler::draw(int n){
         for(int i=0;i<n;i++){
@@ -35,11 +38,16 @@ namespace Card{
         pass_hesitation_line=false;
         is_dragging_card=false;
         if(hovered_card!=nullptr){
-            //unhover//untip//hovertimer
+            //hovertimer
+            hovered_card->SetHoverTimer(0.25F);
+            hovered_card->Unhover();
         }
         hovered_card=nullptr;
         refresh_hand_layout();
         
+    }
+    void Card_group_handler::play_card(){
+
     }
     void Card_group_handler::refresh_hand_layout()const{
         const int len=hand_cards.Size();
@@ -188,9 +196,10 @@ namespace Card{
         if(single_target){
             update_targeting();
         }else{
-            if(in_drop_zone&(in_drop_zone=CARD_DROP_START_Y<(float)input_y&&(float)input_y<CARD_DROP_END_Y)){
-                //just in drop zone
-                //card flash;
+            const bool last_in=in_drop_zone;
+            in_drop_zone=CARD_DROP_START_Y<(float)input_y&&(float)input_y<CARD_DROP_END_Y;
+            if(!last_in&&in_drop_zone&&is_dragging_card){
+                hovered_card->Flash(0x87ceeb00);//color.sky
             }
             if(is_dragging_card&&in_drop_zone){
                 pass_hesitation_line=true;
@@ -206,8 +215,7 @@ namespace Card{
                     hovered_card->SetTargetY(HOVER_CARD_Y_POSITION);
                     hovered_card->SetY(HOVER_CARD_Y_POSITION);
                     hovered_card->SetAngle(0.0F);
-                    hovered_card->SetTargetDrawScale(1.0F);
-                    hovered_card->SetDrawScale(1.0F);
+                    hovered_card->Hover();
                     hand_card_push();
                 }
             }
@@ -217,9 +225,32 @@ namespace Card{
                 is_dragging_card=true;
                 pass_hesitation_line=false;
                 hovered_card->SetTargetDrawScale(0.7F);
+            }else if(is_dragging_card){
+                if(!just_r){
+                    if(just_l){
+                        if(in_drop_zone&&hovered_card->target!=Target::enemy&&hovered_card->target!=Target::self_and_enemy){//and canuse
+                            //playcard
+                        }else{
+                            release_card();
+                        }
+                    }else{
+                        hovered_card->SetTargetX(input_x);
+                        hovered_card->SetTargetY(input_y);
+                        if(in_drop_zone&&(hovered_card->target==Target::enemy||hovered_card->target==Target::self_and_enemy)){
+                            single_target=true;
+                            arrowX=input_x;
+                            arrowY=input_y;
+                            Cursor::SetVisible(false);
+                            refresh_hand_layout();
+                            hovered_card->SetTargetX(WINDOW_WIDTH/2.0F);
+                            hovered_card->SetTargetY(Card::Cards::IMG_HEIGHT*0.75F/2.5F);
+                        }
+                    }
+                }else{
+                    release_card();
+                }
             }
-            //[not just_l or not hover or dragging card]
-            
+
         }
     }
     void Card_group_handler::render_hand(const std::shared_ptr<Draw::Draw_2D> &r2)const{
@@ -300,4 +331,7 @@ namespace Card{
         }
     }
     const std::shared_ptr<Draw::ReTexture>&Card_group_handler::reticleBlock_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/combat/reticleBlock.png"),&Card_group_handler::reticleArrow_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/combat/reticleArrow.png");
+    const int &Card_group_handler::input_x=RUtil::Game_Input::getX(),&Card_group_handler::input_y=RUtil::Game_Input::getY();
+    const bool &Card_group_handler::just_r=RUtil::Game_Input::just_clicked_R(),&Card_group_handler::just_l=RUtil::Game_Input::just_clicked();
+    
 }

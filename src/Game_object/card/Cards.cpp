@@ -11,11 +11,11 @@ namespace Card{
     static const std::shared_ptr<Draw::Atlas_Region> &CardMidFrame(Rarity rarity);
     static const std::shared_ptr<Draw::Atlas_Region> &CardRightFrame(Rarity rarity);
     static const std::shared_ptr<Draw::Atlas_Region> &CardBanner(Rarity rarity);
-    Cards::Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,int cost):
-                        card_name(card_name),rarity(rarity),type(type),color(color),cost(cost),
+    Cards::Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,Target target,int cost):
+                        card_name(card_name),rarity(rarity),type(type),color(color),cost(cost),target(target),
                         m_card_bg_silhouette(BgSilhouette(type)),m_card_bg(CardBg(type,color)),m_card_frame(CardFrame(type,rarity)),
                         m_card_left_frame(CardLeftFrame(rarity)),m_card_mid_frame(CardMidFrame(rarity)),m_card_right_frame(CardRightFrame(rarity)),
-                        m_card_banner(CardBanner(rarity)),m_card_portrait(RUtil::All_Image::GetAtlasRegion(card_name))
+                        m_card_banner(CardBanner(rarity)),m_card_portrait(RUtil::All_Image::GetAtlasRegion(card_name)),m_card_flash(m_card_bg_silhouette,this->current_x,this->current_y,this->m_angle,this->m_draw_scale,true)
     {
         if(s_type_width_attack==0.0F){
             init_static_menber();
@@ -59,6 +59,8 @@ namespace Card{
         //x,y,angle not set
     }
     void Cards::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
+        //flash update
+        if(!m_card_flash.IsDone()) m_card_flash.update();
         this->update_flying(effs,PlayerColor_RGB);
         if(!this->is_fly()){
             current_x=RUtil::Math::varlerp(current_x,target_x,6.0F,CARD_SNAP_THRESHOLD);
@@ -85,6 +87,8 @@ namespace Card{
         glowgroup.update();
     }
     void Cards::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
+        //flash
+        if(!m_card_flash.IsDone())  m_card_flash.render(r2);
         //glow
         glowgroup.render(r2);
         //image
@@ -127,12 +131,22 @@ namespace Card{
         darken=true;
         m_dard_timer=0.3F;
     };
+    void Cards::Hover(){
+        m_draw_scale=1.0F;
+        m_target_draw_scale=1.0F;
+    }
+    void Cards::Unhover(){
+        m_target_draw_scale=0.75F;
+    }
     void Cards::start_glow(){
         is_glowing=true;
     }
     void Cards::stop_glow(){
         is_glowing=false;
         for(const auto&it:glowgroup)it->QuickDisappear(5.0F);
+    }
+    void Cards::Flash(Uint32 _c){
+        m_card_flash.change_color(_c);
     }
     void Cards::SetTargetY(const float value){target_y=value;}
     void Cards::SetTargetX(const float value){target_x=value;}
@@ -142,10 +156,12 @@ namespace Card{
     void Cards::SetAngle(const float value){m_angle=value;}
     void Cards::SetTargetDrawScale(const float value){m_target_draw_scale=value;}
     void Cards::SetDrawScale(const float value){m_draw_scale=value;}
+    void Cards::SetHoverTimer(const float value){m_hover_timer=value;}
     void Cards::MoveTargetY(const float value){target_y+=value;}
     void Cards::MoveTargetX(const float value){target_x+=value;}
     void Cards::MoveTargetAngle(const float value){target_angle+=value;}
     bool Cards::IsHoveredInHand(const float scale)const{
+        //The hover detection area here will be larger than the card's hitbox.
         if(m_hover_timer>0.0F) return false;
         const float x=(float)RUtil::Game_Input::getX(),y=(float)RUtil::Game_Input::getY(),
                     hw=IMG_WIDTH*scale/2.0F,hh=IMG_HEIGHT*scale/2.0F;
@@ -182,7 +198,7 @@ namespace Card{
     }
     std::shared_ptr<std::vector<Draw::Text_layout>> Cards::s_ui_vec=nullptr;
     float Cards::s_type_offset_attack=0.0F,Cards::s_type_offset_skill=0.0F,Cards::s_type_offset_power=0.0F,Cards::s_type_offset_status=0.0F,Cards::s_type_offset_curse=0.0F,Cards::s_type_width_attack=0.0F,Cards::s_type_width_skill=0.0F,Cards::s_type_width_power=0.0F,Cards::s_type_width_status=0.0F,Cards::s_type_width_curse=0.0F;
-    
+    const float &Cards::DT=RUtil::Game_Input::delta_time();
     using namespace RUtil;
     static const std::shared_ptr<Draw::Atlas_Region> &BgSilhouette(Type type){
         switch(type){

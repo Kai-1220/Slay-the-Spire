@@ -13,11 +13,12 @@ public:
     void draw(int n);
     void update();
 private:
-    const int &input_x=RUtil::Game_Input::getX(),&input_y=RUtil::Game_Input::getY();
-    const bool &just_r=RUtil::Game_Input::just_clicked_R(),&just_l=RUtil::Game_Input::just_clicked();
+    static const int &input_x,&input_y;
+    static const bool &just_r,&just_l;
     void refresh_hand_layout()const;
     void hand_card_push()const;
     void release_card();
+    void play_card();
     void render_hand(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void render_targeting(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update_targeting();

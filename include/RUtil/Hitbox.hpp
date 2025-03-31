@@ -13,7 +13,7 @@ public:
     void update();
     void move(float center_x,float center_y);
 private:
-    const int &nx=RUtil::Game_Input::getX(),&ny=RUtil::Game_Input::getY();
+    static const int &nx,&ny;
     const bool &just_clicked=RUtil::Game_Input::just_clicked(),&just_released=RUtil::Game_Input::just_released();
     float x,y,height,width,cx,cy;
     bool just_hovered,hovered,click_stared,clicked;

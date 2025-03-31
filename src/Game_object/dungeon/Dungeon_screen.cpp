@@ -22,7 +22,7 @@ namespace Object
     void Dungeon_screen::updateOffsetY(){
         if(grabbed){
             if(RUtil::Game_Input::is_down()){
-                target_offsetY=(float)RUtil::Game_Input::getYv()-grab_startY;
+                target_offsetY=(float)RUtil::Game_Input::getY()-grab_startY;
             }
 
             else{
@@ -42,7 +42,7 @@ namespace Object
             }
             if (RUtil::Game_Input::just_clicked()) {
                 grabbed = true;
-                grab_startY = (float)RUtil::Game_Input::getYv() - target_offsetY;
+                grab_startY = (float)RUtil::Game_Input::getY() - target_offsetY;
             }
         }
         reset_scroll();

@@ -7,7 +7,7 @@ namespace Effect{
 class Card_flash final:public Effects
 {
 public:
-    Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale,const Uint32 color);
+    Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale,const bool quick_end);
     Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale);
     ~Card_flash()override=default;
     void change_color(const Uint32 color);
