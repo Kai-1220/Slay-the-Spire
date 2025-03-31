@@ -1,4 +1,5 @@
 #include "RUtil/Image_book.hpp"
+#include <functional>
 namespace RUtil{
     const std::shared_ptr<Draw::ReTexture> &Image_book::GetTexture(const std::string &path){
         return s_Store.Get(path);
