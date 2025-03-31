@@ -13,6 +13,6 @@ namespace Effect
     void Card_glow_border::update(){
         this->scale=(1.0F+RUtil::Math::interpolation_powout2(0.03F,0.11F,1.0F-this->duration))*card_scale*Setting::SCALE;
         this->color_a=this->duration/2.0F;
-        TimeGo();
+        this->TimeGo();
     }
 } // namespace Effect

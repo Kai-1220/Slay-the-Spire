@@ -1,4 +1,4 @@
-#include "Game_object/Effect/Effects.hpp"
+#include "Game_object/effect/Effects.hpp"
 #include "RUtil/Game_Input.hpp"
 namespace Effect{
     void Effects::TimeGo(){

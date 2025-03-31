@@ -19,5 +19,5 @@ void Cursor::Draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D){
     }
 }
 const std::shared_ptr<Draw::ReTexture> &Cursor::Texture=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/cursor/gold2.png");
-const int&Cursor::input_x=RUtil::Game_Input::getX(),&Cursor::input_y=RUtil::Game_Input::getYv();
+const int&Cursor::input_x=RUtil::Game_Input::getX(),&Cursor::input_y=RUtil::Game_Input::getY();
 bool Cursor::is_visible=true;

@@ -15,7 +15,12 @@ set(SRC_FILES
 	Draw/ReText.cpp
 	Draw/ReTexture.cpp
 	Draw/Text_layout.cpp
+	Game_object/action/Actions.cpp
+	Game_object/action/Action_group.cpp
+	Game_object/action/Card_use_action.cpp
+	Game_object/action/Damage_action.cpp
 	Game_object/action/Discard_action.cpp
+	Game_object/action/Discard_all_action.cpp
 	Game_object/card/Cards.cpp
 	Game_object/card/Card_group.cpp
 	Game_object/card/Card_group_handler.cpp
@@ -23,11 +28,15 @@ set(SRC_FILES
 	Game_object/card/red/Anger.cpp
 	Game_object/card/red/Strike_red.cpp
 	Game_object/character/Characters.cpp
+	Game_object/character/Monster/Monsters.cpp
+	Game_object/character/Monster/TempMonster.cpp
 	Game_object/dungeon/Dungeon_BottomScene.cpp
 	Game_object/dungeon/Dungeon_manager.cpp
 	Game_object/dungeon/Dungeon_screen.cpp
+	Game_object/effect/Card_flash.cpp
 	Game_object/effect/Card_glow_border.cpp
 	Game_object/effect/Card_trail_effect.cpp
+	Game_object/effect/Effects.cpp
 	Game_object/effect/Effect_group.cpp
 	Game_object/map/Dungeon_map.cpp
 	Game_object/map/Map_dot.cpp
@@ -62,7 +71,11 @@ set(INCLUDE_FILES
 	Draw/ReTexture.hpp
 	Draw/Text_layout.hpp
 	Game_object/action/Actions.hpp
+	Game_object/action/Action_group.hpp
+	Game_object/action/Card_use_action.hpp
+	Game_object/action/Damage_action.hpp
 	Game_object/action/Discard_action.hpp
+	Game_object/action/Discard_all_action.hpp
 	Game_object/card/Cards.hpp
 	Game_object/card/Card_group.hpp
 	Game_object/card/Card_group_handler.hpp
@@ -70,9 +83,13 @@ set(INCLUDE_FILES
 	Game_object/card/red/Anger.hpp
 	Game_object/card/red/Strike_red.hpp
 	Game_object/character/Characters.hpp
+	Game_object/character/Player.hpp
+	Game_object/character/Monster/Monsters.hpp
+	Game_object/character/Monster/TempMonster.hpp
 	Game_object/dungeon/Dungeon_BottomScene.hpp
 	Game_object/dungeon/Dungeon_manager.hpp
 	Game_object/dungeon/Dungeon_screen.hpp
+	Game_object/effect/Card_flash.hpp
 	Game_object/effect/Card_glow_border.hpp
 	Game_object/effect/Card_trail_effect.hpp
 	Game_object/effect/Effects.hpp

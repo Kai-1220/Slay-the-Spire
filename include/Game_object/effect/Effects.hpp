@@ -14,7 +14,7 @@ public:
     void TimeGo();
     void QuickDisappear(float x){duration/=x;}
 protected:
-    bool is_done;
+    bool is_done=false;
     Uint32 color;
     float duration,scale,color_a=1.0F;
     static const float &DT;

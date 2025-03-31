@@ -4,13 +4,18 @@ namespace Effect
     Card_flash::Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
         change_color(DFAULT_COLOR);
     }
-    Card_flash::Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale,const Uint32 color):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
-        change_color(color);
+    Card_flash::Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale,const bool quick_end):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
+        change_color(DFAULT_COLOR);
+        if(quick_end){
+            this->duration=0.0F;
+            this->is_done=true;
+        }
     }
     void Card_flash::change_color(const Uint32 color){
         this->color=color;
         this->scale=0.0F;
         this->duration=0.5F;
+        this->is_done=false;
     }  
     void Card_flash::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         r2->SetBlendFunc(GL_SRC_ALPHA,GL_ONE);

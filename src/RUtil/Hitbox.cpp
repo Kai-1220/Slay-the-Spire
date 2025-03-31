@@ -29,4 +29,5 @@ void Hitbox::move(float center_x,float center_y){
     this->x=this->cx-this->width/2.0F;
     this->y=this->cy-this->height/2.0F;
 }
+const int &Hitbox::nx=RUtil::Game_Input::getX(),&Hitbox::ny=RUtil::Game_Input::getY();   
 }
