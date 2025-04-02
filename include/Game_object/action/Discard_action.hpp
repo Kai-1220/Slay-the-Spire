@@ -7,7 +7,7 @@ class Discard_action final:public Actions
 public:
     Discard_action();
     ~Discard_action() override=default;
-    void update(const std::shared_ptr<Card::Card_group_handler>&c_handler,const Action_group* action_group)override;
+    void update(const std::shared_ptr<Card::Card_group_handler>&c_handler,Action_group_handler*const action_group_handler)override;
 private:
 };
 }

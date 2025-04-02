@@ -20,7 +20,6 @@
 int main(int, char**) {
     srand(static_cast<unsigned int>(time(0)));//set the rand seed,it will affect the entire program.
     auto context = Core::Context::GetInstance();
-    RUtil::All_Image::InitImage();
     context->SetWindowIcon(RESOURCE_DIR"/Image/assets/icon.png");
     SDL_ShowCursor(SDL_DISABLE);
 

@@ -12,7 +12,7 @@ namespace Card{
     static const std::shared_ptr<Draw::Atlas_Region> &CardRightFrame(Rarity rarity);
     static const std::shared_ptr<Draw::Atlas_Region> &CardBanner(Rarity rarity);
     Cards::Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,Target target,int cost):
-                        card_name(card_name),rarity(rarity),type(type),color(color),cost(cost),target(target),
+                        card_name(card_name),rarity(rarity),type(type),color(color),target(target),cost(cost),
                         m_card_bg_silhouette(BgSilhouette(type)),m_card_bg(CardBg(type,color)),m_card_frame(CardFrame(type,rarity)),
                         m_card_left_frame(CardLeftFrame(rarity)),m_card_mid_frame(CardMidFrame(rarity)),m_card_right_frame(CardRightFrame(rarity)),
                         m_card_banner(CardBanner(rarity)),m_card_portrait(RUtil::All_Image::GetAtlasRegion(card_name)),m_card_flash(m_card_bg_silhouette,this->current_x,this->current_y,this->m_angle,this->m_draw_scale,true)
@@ -61,6 +61,10 @@ namespace Card{
     void Cards::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
         //flash update
         if(!m_card_flash.IsDone()) m_card_flash.update();
+        //hover time update
+        if(m_hover_timer!=0.0F)
+            m_hover_timer=m_hover_timer<DT?0.0F:m_hover_timer-DT;
+
         this->update_flying(effs,PlayerColor_RGB);
         if(!this->is_fly()){
             current_x=RUtil::Math::varlerp(current_x,target_x,6.0F,CARD_SNAP_THRESHOLD);

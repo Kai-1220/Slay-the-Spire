@@ -47,7 +47,8 @@ namespace Card{
         
     }
     void Card_group_handler::play_card(){
-
+        hovered_card->Unhover();
+        //making
     }
     void Card_group_handler::refresh_hand_layout()const{
         const int len=hand_cards.Size();

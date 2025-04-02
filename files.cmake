@@ -17,6 +17,7 @@ set(SRC_FILES
 	Draw/Text_layout.cpp
 	Game_object/action/Actions.cpp
 	Game_object/action/Action_group.cpp
+	Game_object/action/Action_group_handler.cpp
 	Game_object/action/Card_use_action.cpp
 	Game_object/action/Damage_action.cpp
 	Game_object/action/Discard_action.cpp
@@ -72,6 +73,7 @@ set(INCLUDE_FILES
 	Draw/Text_layout.hpp
 	Game_object/action/Actions.hpp
 	Game_object/action/Action_group.hpp
+	Game_object/action/Action_group_handler.hpp
 	Game_object/action/Card_use_action.hpp
 	Game_object/action/Damage_action.hpp
 	Game_object/action/Discard_action.hpp
@@ -79,6 +81,7 @@ set(INCLUDE_FILES
 	Game_object/card/Cards.hpp
 	Game_object/card/Card_group.hpp
 	Game_object/card/Card_group_handler.hpp
+	Game_object/card/Card_item.hpp
 	Game_object/card/Card_soul.hpp
 	Game_object/card/red/Anger.hpp
 	Game_object/card/red/Strike_red.hpp

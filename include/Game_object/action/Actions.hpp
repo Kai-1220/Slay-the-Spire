@@ -1,14 +1,14 @@
 #ifndef GAME_OBJECT_ACTION_ACTIONS
 #define GAME_OBJECT_ACTION_ACTIONS
 #include "Game_object/card/Card_group_handler.hpp"
+#include "Game_object/action/Action_group_handler.hpp"
 #include "Game_object/character/Characters.hpp"
 namespace Action{
-class Action_group;
 class Actions
 {
 public:
     virtual ~Actions()=default;
-    virtual void update(const std::shared_ptr<Card::Card_group_handler>&c_handler,const Action_group* action_group)=0;
+    virtual void update(const std::shared_ptr<Card::Card_group_handler>&c_handler,Action_group_handler*const action_group_handler)=0;
     bool IsDone()const{return is_done;}
 protected:
     void TimeGo();

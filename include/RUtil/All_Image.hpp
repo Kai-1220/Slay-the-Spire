@@ -19,7 +19,6 @@ class All_Image
 {
 public:
     All_Image()=delete;~All_Image()=delete;All_Image(const All_Image &) = delete;All_Image(All_Image &&) = delete;All_Image &operator=(const All_Image &) = delete;All_Image &operator=(All_Image &&) = delete;
-    static void InitImage();
     static const auto &GetTexture(ReTextureID ID){return TextureBox[static_cast<int>(ID)];}
     static const auto &GetAtlasRegion(AtlasRegionID ID){return AtlasRegionBox[static_cast<int>(ID)];}
 private:

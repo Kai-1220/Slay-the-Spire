@@ -8,7 +8,7 @@ public:
     Damage_action(int num);
     Damage_action(int num,const std::shared_ptr<Character::Characters> &target);
     ~Damage_action() override=default;
-    void update(const std::shared_ptr<Card::Card_group_handler>&c_handler,const Action_group* action_group)override;
+    void update(const std::shared_ptr<Card::Card_group_handler>&c_handler,Action_group_handler*const action_group_handler)override;
 private:
     int num;
     std::shared_ptr<Character::Characters> target;
