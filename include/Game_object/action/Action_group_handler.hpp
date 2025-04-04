@@ -10,9 +10,11 @@ public:
     ~Action_group_handler()=default;
     void update();
 private:
+    void get_next_action();
     Action_group action_box,pre_action_box;
     std::list<Card::Card_item> card_queue;
-    
+    bool is_wating_player=false;
+    std::shared_ptr<Actions> current_action;
 };
 }
 #endif
