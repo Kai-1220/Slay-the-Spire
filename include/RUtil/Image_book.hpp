@@ -25,7 +25,6 @@ private:
             std::function<T(const std::string &)> m_Loader;
             std::unordered_map<std::string, T> m_Map;
     };
-    static RStore<std::shared_ptr<Draw::ReTexture>> s_Store;
 };
 }
 

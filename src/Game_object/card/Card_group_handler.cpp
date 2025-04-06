@@ -1,7 +1,6 @@
 #include "Game_object/card/Card_group_handler.hpp"
 #include "Util/Logger.hpp"
 #include "Cursor.hpp"
-#include "Util/Logger.hpp"
 namespace Card{
     static constexpr float LOW_LOW_LINE=50.0F*Setting::SCALE;
     static constexpr float HOVER_CARD_Y_POSITION=210.0F*Setting::SCALE;
@@ -32,6 +31,12 @@ namespace Card{
         }
         hand_cards.MoveAllCardTo(m_discard);
     }
+    void Card_group_handler::discard(const std::shared_ptr<Cards> &card){
+        card->Shrink();
+        card->Darken();
+        card->discard();
+        m_discard.AddTop(card);
+    }
     void Card_group_handler::release_card(){
         single_target=false;
         in_drop_zone=false;
@@ -46,9 +51,15 @@ namespace Card{
         refresh_hand_layout();
         
     }
-    void Card_group_handler::play_card(){
+    void Card_group_handler::play_card(const std::shared_ptr<Action::Action_group_handler> &action_group_handler){
         hovered_card->Unhover();
-        //making
+        hand_cards.RemoveCard(hovered_card);
+        if(hovered_card->target==Target::enemy||hovered_card->target==Target::self_and_enemy)
+            action_group_handler->AddCardQueue(Card_item{hovered_card,hovered_monster});
+        else
+            action_group_handler->AddCardQueue(Card_item{hovered_card,nullptr});
+        hovered_card=nullptr;
+        is_dragging_card=false;
     }
     void Card_group_handler::refresh_hand_layout()const{
         const int len=hand_cards.Size();
@@ -193,7 +204,7 @@ namespace Card{
         }
         //...
     }
-    void Card_group_handler::update(){
+    void Card_group_handler::update(const std::shared_ptr<Action::Action_group_handler> &action_group_handler){
         if(single_target){
             update_targeting();
         }else{
@@ -230,7 +241,7 @@ namespace Card{
                 if(!just_r){
                     if(just_l){
                         if(in_drop_zone&&hovered_card->target!=Target::enemy&&hovered_card->target!=Target::self_and_enemy){//and canuse
-                            //playcard
+                            play_card(action_group_handler);
                         }else{
                             release_card();
                         }
@@ -331,7 +342,7 @@ namespace Card{
             }
         }
     }
-    const std::shared_ptr<Draw::ReTexture>&Card_group_handler::reticleBlock_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/combat/reticleBlock.png"),&Card_group_handler::reticleArrow_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"Image/combat/reticleArrow.png");
+    const std::shared_ptr<Draw::ReTexture>&Card_group_handler::reticleBlock_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/reticleBlock.png"),&Card_group_handler::reticleArrow_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/reticleArrow.png");
     const int &Card_group_handler::input_x=RUtil::Game_Input::getX(),&Card_group_handler::input_y=RUtil::Game_Input::getY();
     const bool &Card_group_handler::just_r=RUtil::Game_Input::just_clicked_R(),&Card_group_handler::just_l=RUtil::Game_Input::just_clicked();
     

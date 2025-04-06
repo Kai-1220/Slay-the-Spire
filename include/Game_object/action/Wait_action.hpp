@@ -1,14 +1,13 @@
-#ifndef GAME_OBJECT_ACTION_DISCARD_ALL_ACTION
-#define GAME_OBJECT_ACTION_DISCARD_ALL_ACTION
+#ifndef GAME_OBJECT_ACTION_WAIT_ACTION
+#define GAME_OBJECT_ACTION_WAIT_ACTION
 #include "Game_object/action/Actions.hpp"
 namespace Action{
-class Discard_all_action final:public Actions
+class Wait_action final:public Actions
 {
 public:
-    Discard_all_action();
-    ~Discard_all_action()override=default;
+    Wait_action(float dur);
+    ~Wait_action()override=default;
     void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,Action_group_handler*const action_group_handler)override;
-private:
 };
 }
 #endif

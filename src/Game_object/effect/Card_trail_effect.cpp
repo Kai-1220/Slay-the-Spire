@@ -22,4 +22,5 @@ namespace Effect
         if(!is_done)
             color_a=RUtil::Math::interpolation_fade(0.0F,0.18F,duration*2.0F);
     }
+    const std::shared_ptr<Draw::Atlas_Region> &Card_trail_effect::IMG=RUtil::All_Image::GetAtlasRegion(RUtil::AtlasRegionID::_combat_blurDot2);
 } // namespace Effect

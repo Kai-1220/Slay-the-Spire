@@ -9,13 +9,13 @@ class Monster_room:public Rooms
 {
 public:
     Monster_room();
-    Room_type GetType()const{return Room_type::Monster;}
-    std::shared_ptr<Draw::ReTexture> GetTexture()const{return IMG;}
-    std::shared_ptr<Draw::ReTexture> GetOutlineTexture()const{return IMG_O;}
-    void update(const std::shared_ptr<Action::Action_group> action_group,const std::shared_ptr<Card::Card_group_handler> c_handler);
+    const std::shared_ptr<Draw::ReTexture> &GetTexture()const override{return IMG;}
+    const std::shared_ptr<Draw::ReTexture> &GetOutlineTexture()const override{return IMG_O;}
+    void update(const std::shared_ptr<Action::Action_group_handler> &action_group_handler,const std::shared_ptr<Card::Card_group_handler> &card_group_handler)override;
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2)const override;
     void init_room()override;
 private:
-    bool is_waiting_player;
+    float m_wait_timer;
     std::shared_ptr<Monster::Monsters> m_monster=nullptr;
     Monster::MonsterID m_monster_id=Monster::MonsterID::None;
     static const std::shared_ptr<Draw::ReTexture> &IMG;

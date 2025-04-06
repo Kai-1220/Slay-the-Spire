@@ -1,6 +1,5 @@
 #ifndef RUTIL_ATLAS_READER_HPP
 #define RUTIL_ATLAS_READER_HPP
-#include "pch.hpp"
 #include"Draw/Atlas_Region.hpp"
 namespace RUtil{
 class Atlas_Reader

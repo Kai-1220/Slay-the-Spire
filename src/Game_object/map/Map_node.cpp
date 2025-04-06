@@ -15,16 +15,16 @@ void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offs
     for(const std::shared_ptr<Map_edge> &it:edges){
         it->render(r2,screen_offset);
     }
-    r2->SetColor(OUTLINE_COLOR);//highlight
+    r2->SetColor_RGBA(OUTLINE_COLOR);//highlight
     r2->draw(this->m_room->GetOutlineTexture(), (float)this->x * SPACING_X + OFFSET_X - 64.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 64.0F + this->offset_y, 128.0F, 128.0F, 0.0F, 64.0F, 64.0F, this->m_scale * Setting::SCALE * 2.0F, this->m_scale * Setting::SCALE * 2.0F);
     if(this->taken)
-        r2->SetColor(AVAILABLE_COLOR);
+        r2->SetColor_RGBA(AVAILABLE_COLOR);
     else
-        r2->SetColor(this->color);
+        r2->SetColor_RGBA(this->color);
     r2->draw(this->m_room->GetTexture(), (float)this->x * SPACING_X + OFFSET_X - 64.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 64.0F + this->offset_y, 128.0F, 128.0F, 0.0F, 64.0F, 64.0F, this->m_scale * Setting::SCALE, this->m_scale * Setting::SCALE);
     
     if(taken){//need more check
-        r2->SetColor(AVAILABLE_COLOR);
+        r2->SetColor_RGBA(AVAILABLE_COLOR);
         r2->draw(s_circle, (float)this->x * SPACING_X + OFFSET_X - 96.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 96.0F + this->offset_y, 192.0F, 192.0F, this->m_angle, 96.0F, 96.0F, (this->m_scale * 0.95F + 0.2F) * Setting::SCALE, (this->m_scale * 0.95F + 0.2F) * Setting::SCALE);
     }
 }

@@ -6,7 +6,6 @@ namespace Card{
 class Card_group_handler;
 }
 namespace Action{
-class Action_group_handler;
 class Actions;
 class Action_group
 {
@@ -18,7 +17,6 @@ public:
     void AddTop(const std::shared_ptr<Action::Actions>&action);
     void AddBot(const std::shared_ptr<Action::Actions>&action);
     std::shared_ptr<Action::Actions> PopTop();
-    void update(const std::shared_ptr<Card::Card_group_handler>&c_handler,Action_group_handler*const action_group_handler);
     bool empty()const{return box.empty();}
 private:
     std::list<std::shared_ptr<Action::Actions>> box;

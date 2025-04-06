@@ -7,7 +7,7 @@
 #include "Draw/Draw_2D.hpp"
 #include "WindowSize.hpp"
 
-namespace Object{
+namespace Dungeon{
     class Dungeon_BottomScene
     {
     public:

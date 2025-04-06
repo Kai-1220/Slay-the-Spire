@@ -1,5 +1,5 @@
 #include "Game_object/dungeon/Dungeon_BottomScene.hpp"
-Object::Dungeon_BottomScene::Dungeon_BottomScene()
+Dungeon::Dungeon_BottomScene::Dungeon_BottomScene()
 {
     Background=std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/bottomScene/scene.jpg"),2,50,1920,1136-50);
     mods.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/bottomScene/scene2.png"),2,402,745,572));
@@ -16,7 +16,7 @@ Object::Dungeon_BottomScene::Dungeon_BottomScene()
     }
     layersd.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture(RESOURCE_DIR "/Image/topPanel/red/layer6.png"),2,2,128,128));
 }
-void Object::Dungeon_BottomScene::render(std::shared_ptr<Draw::Draw_2D> r2){
+void Dungeon::Dungeon_BottomScene::render(std::shared_ptr<Draw::Draw_2D> r2){
     r2->draw(Background, 0.0F, 0.0F, 1920*Setting::SCALE, 1180*Setting::SCALE);
     for(int i=0;i<mods.size();i++){
         r2->draw(mods[i], mods_pos[i].x, mods_pos[i].y, mods_size[i].x, mods_size[i].y);

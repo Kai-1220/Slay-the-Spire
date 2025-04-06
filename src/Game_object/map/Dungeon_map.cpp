@@ -19,7 +19,6 @@ namespace Map{
         map_offsetY = map_mid_pos - 120.0F * Setting::SCALE;
     }
     void Dungeon_map::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offsetY)const{
-        printf("%f\n",map_offsetY);
         r2->SetColor(Util::Colors::WHITE,map_a);
         r2->draw(map_top, 0.0F, H + screen_offsetY + map_offsetY, (float)WINDOW_WIDTH, 1080.0F * Setting::SCALE);
         r2->draw(map_mid, 0.0F, screen_offsetY + map_offsetY, (float)WINDOW_WIDTH, 1080.0F * Setting::SCALE);

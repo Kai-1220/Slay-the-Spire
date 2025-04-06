@@ -1,11 +1,9 @@
 set(SRC_FILES
-	AppEnd.cpp
-	AppStart.cpp
-	AppUpdate.cpp
 	Cursor.cpp
 	draw_test.cpp
 	InitScreen.cpp
 	main.cpp
+	TheApp.cpp
 	character/character.cpp
 	character/moster.cpp
 	character/Monsters/AcidSlimeL.cpp
@@ -22,6 +20,7 @@ set(SRC_FILES
 	Game_object/action/Damage_action.cpp
 	Game_object/action/Discard_action.cpp
 	Game_object/action/Discard_all_action.cpp
+	Game_object/action/Wait_action.cpp
 	Game_object/card/Cards.cpp
 	Game_object/card/Card_group.cpp
 	Game_object/card/Card_group_handler.cpp
@@ -31,6 +30,7 @@ set(SRC_FILES
 	Game_object/character/Characters.cpp
 	Game_object/character/Monster/Monsters.cpp
 	Game_object/character/Monster/TempMonster.cpp
+	Game_object/dungeon/Dungeons.cpp
 	Game_object/dungeon/Dungeon_BottomScene.cpp
 	Game_object/dungeon/Dungeon_manager.cpp
 	Game_object/dungeon/Dungeon_screen.cpp
@@ -45,6 +45,8 @@ set(SRC_FILES
 	Game_object/map/Map_generator.cpp
 	Game_object/map/Map_node.cpp
 	Game_object/room/Monster_room.cpp
+	Game_object/scene/Bottom_scene.cpp
+	Game_object/scene/Scenes.cpp
 	RUtil/All_Image.cpp
 	RUtil/Atlas_Reader.cpp
 	RUtil/Game_Input.cpp
@@ -56,10 +58,10 @@ set(SRC_FILES
 )
 
 set(INCLUDE_FILES
-	App.hpp
 	Cursor.hpp
 	draw_test.hpp
 	InitScreen.hpp
+	TheApp.hpp
 	WindowSize.hpp
 	character/character.hpp
 	character/monster.hpp
@@ -78,6 +80,7 @@ set(INCLUDE_FILES
 	Game_object/action/Damage_action.hpp
 	Game_object/action/Discard_action.hpp
 	Game_object/action/Discard_all_action.hpp
+	Game_object/action/Wait_action.hpp
 	Game_object/card/Cards.hpp
 	Game_object/card/Card_group.hpp
 	Game_object/card/Card_group_handler.hpp
@@ -89,6 +92,7 @@ set(INCLUDE_FILES
 	Game_object/character/Player.hpp
 	Game_object/character/Monster/Monsters.hpp
 	Game_object/character/Monster/TempMonster.hpp
+	Game_object/dungeon/Dungeons.hpp
 	Game_object/dungeon/Dungeon_BottomScene.hpp
 	Game_object/dungeon/Dungeon_manager.hpp
 	Game_object/dungeon/Dungeon_screen.hpp
@@ -105,6 +109,8 @@ set(INCLUDE_FILES
 	Game_object/map/Map_node.hpp
 	Game_object/room/Monster_room.hpp
 	Game_object/room/Rooms.hpp
+	Game_object/scene/Bottom_scene.hpp
+	Game_object/scene/Scenes.hpp
 	RUtil/All_Image.hpp
 	RUtil/Atlas_Reader.hpp
 	RUtil/Game_Input.hpp

@@ -3,6 +3,7 @@
 #include "Game_object/card/Card_group.hpp"
 #include "Game_object/character/Monster/Monsters.hpp"
 #include "RUtil/Image_book.hpp"
+#include "Game_object/action/Action_group_handler.hpp"
 namespace Card{
 class Card_group_handler
 {
@@ -10,15 +11,16 @@ public:
     Card_group_handler();
     ~Card_group_handler()=default;
     void discard_all();
+    void discard(const std::shared_ptr<Cards> &card);
     void draw(int n);
-    void update();
+    void update(const std::shared_ptr<Action::Action_group_handler> &action_group_handler);
+    void refresh_hand_layout()const;
 private:
     static const int &input_x,&input_y;
     static const bool &just_r,&just_l;
-    void refresh_hand_layout()const;
     void hand_card_push()const;
     void release_card();
-    void play_card();
+    void play_card(const std::shared_ptr<Action::Action_group_handler> &action_group_handler);
     void render_hand(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void render_targeting(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update_targeting();

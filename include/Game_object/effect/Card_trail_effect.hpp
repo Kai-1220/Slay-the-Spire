@@ -12,7 +12,7 @@ public:
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const override;
     void update() override;
 private:
-const std::shared_ptr<Draw::Atlas_Region> &IMG=RUtil::All_Image::GetAtlasRegion(RUtil::AtlasRegionID::_combat_blurDot2);
+static const std::shared_ptr<Draw::Atlas_Region> &IMG;
 const glm::vec2 pos;
 static constexpr float SCALE_MULTI = Setting::SCALE * 22.0F;
 };

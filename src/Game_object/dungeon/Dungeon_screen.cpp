@@ -2,7 +2,7 @@
 #include "Game_object/dungeon/Dungeon_screen.hpp"
 #include "RUtil/Some_Math.hpp"
 #include <iostream>
-namespace Object
+namespace Dungeon
 {
     Dungeon_screen::Dungeon_screen(){
         the_map=std::make_shared<Map::Dungeon_map>();
@@ -13,6 +13,14 @@ namespace Object
     }
     void Dungeon_screen::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         the_map->render(r2,offsetY);
+        if(display_map!=nullptr){
+            for(const auto&it:*display_map)
+                for(const auto&it2:it)
+                    if(it2!=nullptr)
+                        it2->render(r2,offsetY);
+        }else{
+            LOG_ERROR("Forget to set the dispaly_map.");
+        }
     }
     void Dungeon_screen::update(Interface::Screen Now_screen){
         // if (AbstractDungeon.screen == CurrentScreen.MAP) {
@@ -24,7 +32,6 @@ namespace Object
             if(RUtil::Game_Input::is_down()){
                 target_offsetY=(float)RUtil::Game_Input::getY()-grab_startY;
             }
-
             else{
                 grabbed=false;
             }
@@ -65,4 +72,4 @@ namespace Object
     Interface::Screen Dungeon_screen::Where_want_to_go(){
         return Interface::Screen::On_map;
     }
-} // namespace Object
+} // namespace Dungeon

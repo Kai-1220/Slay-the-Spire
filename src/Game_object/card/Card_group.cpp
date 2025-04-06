@@ -23,6 +23,13 @@ namespace Card{
     void Card_group::AddTop(const std::shared_ptr<Cards>&card){
         card_box.emplace_back(card);
     }
+    void Card_group::RemoveCard(const std::shared_ptr<Cards>&card){
+        const int pos=GetCardPos(card);
+        if(pos!=-1)
+            card_box.erase(card_box.begin()+pos);
+        else 
+            LOG_ERROR("Try to remove card that not exist in this group.");
+    }
     void Card_group::SortByRarity(const bool ascending){
         if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->rarity<bb->rarity;});
         else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->rarity<aa->rarity;});
