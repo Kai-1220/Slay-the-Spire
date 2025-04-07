@@ -1,14 +1,13 @@
 #include "Game_object/map/Map_node.hpp"
-#include "RUtil/Some_Math.hpp"
 #include "RUtil/Image_book.hpp"
 namespace Map{
 //mikannsei
 Map_node::Map_node(int x,int y):x(x),y(y){
-    this->offset_x=(float)((int)RUtil::Math::GetRandomFloat(-JITTER_X, JITTER_X));
-    this->offset_y=(float)((int)RUtil::Math::GetRandomFloat(-JITTER_Y, JITTER_Y));
+    this->offset_x=(float)((int)RUtil::Random::GetRandomFloat(-JITTER_X, JITTER_X));
+    this->offset_y=(float)((int)RUtil::Random::GetRandomFloat(-JITTER_Y, JITTER_Y));
     color=NOT_TAKEN_COLOR;
     m_scale=0.5F;
-    m_angle=RUtil::Math::GetRandomFloat(0.0F,360.0F);
+    m_angle=RUtil::Random::GetRandomFloat(0.0F,360.0F);
     taken=right=left=middle=to_boss=false;
 }
 void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const{

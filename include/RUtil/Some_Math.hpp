@@ -32,12 +32,10 @@ public:
     static float interpolation_powout2(float start,float target,float a);
     static int StrToInt(const std::string &str);
     static int GetIntLength(int x);
-    static float GetRandomFloat(float min,float max);
     static float GetRadian(const glm::vec2 &v);
     static float GetDegress(const glm::vec2 &v);
     static float BounceOut(float t);
     static float BounceIn(float t);
-    static bool GetRandomBool(){return static_cast<bool>(rand()&1);}
     static constexpr float Apply(float start,float target,float t){return start+(target-start)*t;}
     static glm::vec2 BezierQuadratic(const glm::vec2 p0,const glm::vec2 p1,const glm::vec2 p2,const float t);
     static glm::vec2 CatmullRomSpline(const std::vector<glm::vec2> &controls,float t,const int len,const int vec_start_pos=0);

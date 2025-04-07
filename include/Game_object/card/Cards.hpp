@@ -40,6 +40,7 @@ enum class Target{
     none
 };
 //control render logic
+//and normal move
 class Cards:public Card_soul{
 public:
     Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,Target target,int cost);
@@ -60,10 +61,12 @@ public:
     void MoveTargetAngle(const float value);
     void Shrink();
     void Darken();
+    void Lighten();
     void Hover();
     void Unhover();
     void start_glow();
     void stop_glow();
+    void draw();
     void Flash(Uint32 _c);
     bool CanUse()const{return true;}
     int GetCost()const{return cost;}
@@ -80,7 +83,7 @@ private:
     static const float &DT;
     int m_text_pos,cost;
     bool darken,is_glowing;
-    float m_color_a,m_draw_scale,m_angle,m_type_width,m_type_offset,m_tint_a,m_target_draw_scale,m_dard_timer,m_glow_timer,m_hover_timer;
+    float m_color_a,m_draw_scale,m_angle,m_type_width,m_type_offset,m_tint_a,m_target_draw_scale,m_dark_timer,m_glow_timer,m_hover_timer;
     const std::shared_ptr<Draw::Atlas_Region> &m_card_bg_silhouette,&m_card_bg,&m_card_frame,&m_card_left_frame,&m_card_mid_frame,&m_card_right_frame,&m_card_banner,&m_card_portrait;
     Effect::Effect_group glowgroup;
     Effect::Card_flash m_card_flash;

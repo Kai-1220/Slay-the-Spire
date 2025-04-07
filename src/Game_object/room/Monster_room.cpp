@@ -24,10 +24,13 @@ void Monster_room::update(const std::shared_ptr<Action::Action_group_handler> &a
         }else{
             action_group_handler->update(card_group_handler);
         }
-        //add somethin on turn start
+        if(m_wait_timer<0.0F){//ready to start turn
+            
+        }
     }
 
 }
+
 const std::shared_ptr<Draw::ReTexture> &Monster_room::IMG=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/monster.png"),
                                        &Monster_room::IMG_O=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/map/monsterOutline.png");
 }

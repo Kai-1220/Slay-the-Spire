@@ -14,13 +14,14 @@ namespace Card{
         //single_target: targeting one enemy
         //pass_hesitation_line: dragging card to in_drop_zone
     }
-    void Card_group_handler::draw(int n){
-        for(int i=0;i<n;i++){
-            if(drawPile.empty()){
-                LOG_DEBUG("drawpile empty but draw.");
-            }else{
-                LOG_DEBUG("Draw{}",n);
-            }
+    void Card_group_handler::draw(){
+        if(draw_pile.empty()){
+            LOG_ERROR("the draw_pile is empty but, it was drawn.");
+        }else{
+            auto card=draw_pile.PopTop();
+            card->draw();
+            card->SetHoverTimer(0.0F);
+            hand_cards.AddTop(card);
         }
     }
     void Card_group_handler::discard_all(){
@@ -195,7 +196,7 @@ namespace Card{
             for(const auto&it:hand_cards) it->SetTargetDrawScale(0.63750005F);
             break;
         default:
-            LOG_ERROR("Card is too many.");
+            LOG_ERROR("There are too many cards in hand.");
             break;
         }
         //adjust scale
@@ -264,6 +265,16 @@ namespace Card{
             }
 
         }
+    }
+    void Card_group_handler::prepare_for_battle(const std::shared_ptr<RUtil::Random> &rng){
+        this->m_discard.Clear();
+        this->hand_cards.Clear();
+        this->exhaust_pile.Clear();
+        this->draw_pile=this->master_deck;
+        draw_pile.ShuffleWithRng(rng);
+        hovered_card=nullptr;
+        single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
+        hovered_monster=nullptr;
     }
     void Card_group_handler::render_hand(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         if(hovered_card!=nullptr){
@@ -341,6 +352,9 @@ namespace Card{
                 LOG_ERROR("Hovered card not in hand, How?");
             }
         }
+    }
+    void Card_group_handler::add_to_master_deck(std::shared_ptr<Cards> &&card){
+        master_deck.AddTop(std::move(card));
     }
     const std::shared_ptr<Draw::ReTexture>&Card_group_handler::reticleBlock_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/reticleBlock.png"),&Card_group_handler::reticleArrow_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/reticleArrow.png");
     const int &Card_group_handler::input_x=RUtil::Game_Input::getX(),&Card_group_handler::input_y=RUtil::Game_Input::getY();

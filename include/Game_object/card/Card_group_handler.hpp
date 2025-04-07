@@ -12,9 +12,11 @@ public:
     ~Card_group_handler()=default;
     void discard_all();
     void discard(const std::shared_ptr<Cards> &card);
-    void draw(int n);
+    void draw();
     void update(const std::shared_ptr<Action::Action_group_handler> &action_group_handler);
     void refresh_hand_layout()const;
+    void prepare_for_battle(const std::shared_ptr<RUtil::Random> &rng);
+    void add_to_master_deck(std::shared_ptr<Cards> &&card);
 private:
     static const int &input_x,&input_y;
     static const bool &just_r,&just_l;
@@ -28,7 +30,7 @@ private:
     float arrowX,arrowY,hover_start_line;
     std::shared_ptr<Card::Cards> hovered_card=nullptr;
     std::shared_ptr<Monster::Monsters> hovered_monster=nullptr;
-    Card_group hand_cards,m_discard,drawPile;
+    Card_group hand_cards,m_discard,draw_pile,master_deck,exhaust_pile;
     static const std::shared_ptr<Draw::ReTexture>&reticleBlock_img,&reticleArrow_img;
     static constexpr float SINK_START=80.0F*Setting::SCALE,SINK_RANGE=300.0F*Setting::SCALE,INCREMENT_ANGLE=5.0F,UI_THRESHOLD=1.0F*Setting::SCALE;
     static constexpr int ARROW_COLOR=RUtil::Math::GetColorUint32_RGB(1.0F,0.2F,0.3F);

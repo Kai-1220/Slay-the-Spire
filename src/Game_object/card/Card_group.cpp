@@ -4,46 +4,40 @@ namespace Card{
 
     }
     void Card_group::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
-        for(const auto &it:card_box){
+        for(const auto &it:box){
             it->render(r2);
         }
     }
     void Card_group::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
-        for(auto &it:card_box){
+        for(auto &it:box){
             it->update(effs,PlayerColor_RGB);
         }
     }
     void Card_group::MoveAllCardTo(Card_group &group){
-        group.card_box.insert(group.card_box.end(), std::make_move_iterator(this->card_box.rbegin()), std::make_move_iterator(this->card_box.rend()));
-        this->card_box.clear();
-    }
-    void Card_group::RemoveTop(){
-        card_box.pop_back();
-    }
-    void Card_group::AddTop(const std::shared_ptr<Cards>&card){
-        card_box.emplace_back(card);
+        group.box.insert(group.box.end(), std::make_move_iterator(this->box.rbegin()), std::make_move_iterator(this->box.rend()));
+        this->box.clear();
     }
     void Card_group::RemoveCard(const std::shared_ptr<Cards>&card){
         const int pos=GetCardPos(card);
         if(pos!=-1)
-            card_box.erase(card_box.begin()+pos);
+            box.erase(box.begin()+pos);
         else 
             LOG_ERROR("Try to remove card that not exist in this group.");
     }
     void Card_group::SortByRarity(const bool ascending){
-        if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->rarity<bb->rarity;});
-        else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->rarity<aa->rarity;});
+        if(ascending)std::sort(box.begin(),box.end(),[](const auto&aa,const auto&bb){return aa->rarity<bb->rarity;});
+        else std::sort(box.begin(),box.end(),[](const auto&aa,const auto&bb){return bb->rarity<aa->rarity;});
     }
     void Card_group::SortByType(const bool ascending){
-        if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->type<bb->type;});
-        else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->type<aa->type;});
+        if(ascending)std::sort(box.begin(),box.end(),[](const auto&aa,const auto&bb){return aa->type<bb->type;});
+        else std::sort(box.begin(),box.end(),[](const auto&aa,const auto&bb){return bb->type<aa->type;});
     }
     void Card_group::SortByCost(const bool ascending){
-        if(ascending)std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return aa->GetCost()<bb->GetCost();});
-        else std::sort(card_box.begin(),card_box.end(),[](const auto&aa,const auto&bb){return bb->GetCost()<aa->GetCost();});
+        if(ascending)std::sort(box.begin(),box.end(),[](const auto&aa,const auto&bb){return aa->GetCost()<bb->GetCost();});
+        else std::sort(box.begin(),box.end(),[](const auto&aa,const auto&bb){return bb->GetCost()<aa->GetCost();});
     }
     std::shared_ptr<Cards> Card_group::GetHoveredCard()const{
-        for(const auto&it:card_box){
+        for(const auto&it:box){
             if(it->IsHoveredInHand(0.7F)){
                 return it;
             }
@@ -51,8 +45,16 @@ namespace Card{
         return nullptr;
     }
     int Card_group::GetCardPos(const std::shared_ptr<Cards> &card)const{
-        const int len=static_cast<int>(card_box.size());
-        for(int i=0;i<len;i++) if(card_box[i]==card) return i;
+        const int len=static_cast<int>(box.size());
+        for(int i=0;i<len;i++) if(box[i]==card) return i;
         return -1;
+    }
+    Card_group& Card_group::operator=(const Card_group&other){
+        box.clear();
+        for(const auto&it:other) box.emplace_back(std::make_shared<Card::Cards>(*it));
+        return *this;
+    }
+    void Card_group::ShuffleWithRng(const std::shared_ptr<RUtil::Random> &rng){
+        std::shuffle(box.begin(),box.end(),*rng);
     }
 }

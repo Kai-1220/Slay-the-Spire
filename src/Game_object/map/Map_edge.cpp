@@ -15,7 +15,7 @@ Map_edge::Map_edge(int from_x,int from_y,int to_x,int to_y,
     float line_length=glm::length(line_vec),
             line_rotate_red=RUtil::Math::GetRadian(line_vec),
             line_rotate_deg=glm::degrees(line_rotate_red),
-            START=SPACING * RUtil::Math::GetRandomFloat(0.0F,1.0F) / 2.0F,
+            START=SPACING * RUtil::Random::GetRandomFloat(0.0F,1.0F) / 2.0F,
             end_r=ICON_DST_RADIUS;
     if(is_boss)end_r=164.0F * Setting::SCALE;
     for(float i=START+ICON_SRC_RADIUS;i<line_length-end_r;i+=SPACING){

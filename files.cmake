@@ -73,6 +73,7 @@ set(INCLUDE_FILES
 	Draw/ReText.hpp
 	Draw/ReTexture.hpp
 	Draw/Text_layout.hpp
+	Game_object/Group_template.hpp
 	Game_object/action/Actions.hpp
 	Game_object/action/Action_group.hpp
 	Game_object/action/Action_group_handler.hpp

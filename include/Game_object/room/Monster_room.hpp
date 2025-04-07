@@ -15,6 +15,7 @@ public:
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const override;
     void init_room()override;
 private:
+    void prepare_to_battle();
     float m_wait_timer;
     std::shared_ptr<Monster::Monsters> m_monster=nullptr;
     Monster::MonsterID m_monster_id=Monster::MonsterID::None;

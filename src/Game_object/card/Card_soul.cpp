@@ -1,6 +1,7 @@
 #include "Game_object/card/Card_soul.hpp"
 #include "RUtil/Some_Math.hpp"
 #include "Game_object/effect/Card_trail_effect.hpp"
+#include "RUtil/Random.hpp"
 namespace Card
 {
 Card_soul::Card_soul(){
@@ -25,8 +26,8 @@ void Card_soul::shuffle(){
     prepare_to_fly();
 }
 void Card_soul::prepare_to_fly(){
-    this->rotate_rate=ROTATION_RATE*RUtil::Math::GetRandomFloat(1.0F,2.0F);
-    this->current_speed=START_VELOCITY*RUtil::Math::GetRandomFloat(0.2F,1.0F);
+    this->rotate_rate=ROTATION_RATE*RUtil::Random::GetRandomFloat(1.0F,2.0F);
+    this->current_speed=START_VELOCITY*RUtil::Random::GetRandomFloat(0.2F,1.0F);
     this->end_timer=1.5F;
     this->is_flying=true;
     this->is_done=false;
@@ -82,7 +83,7 @@ void Card_soul::update_flying(const std::shared_ptr<Effect::Effect_group> &effs,
                 }
                 if(ctl_len>3){
                     for(int i=0;i<20;i++){
-                        effs->AddEffect(std::make_shared<Effect::Card_trail_effect>(RUtil::Math::CatmullRomSpline(ctl_pts,i/19.0F,ctl_len,ctl_idx),PlayerColor_RGB));
+                        effs->AddTop(std::make_shared<Effect::Card_trail_effect>(RUtil::Math::CatmullRomSpline(ctl_pts,i/19.0F,ctl_len,ctl_idx),PlayerColor_RGB));
                     }
                 }
                 if(ctl_len>=10){

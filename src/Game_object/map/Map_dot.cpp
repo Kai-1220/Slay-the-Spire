@@ -1,11 +1,11 @@
 #include "Game_object/map/Map_dot.hpp"
-#include "RUtil/Some_Math.hpp"
+#include "RUtil/Random.hpp"
 namespace Map{
     Map_dot::Map_dot(float x,float y,float rotation,bool jitter){
         if(jitter){
-            this->x=x+RUtil::Math::GetRandomFloat(-DIST_JITTER,DIST_JITTER);
-            this->y=y+RUtil::Math::GetRandomFloat(-DIST_JITTER,DIST_JITTER);
-            this->rotation=rotation+RUtil::Math::GetRandomFloat(-20.0F,20.0F);
+            this->x=x+RUtil::Random::GetRandomFloat(-DIST_JITTER,DIST_JITTER);
+            this->y=y+RUtil::Random::GetRandomFloat(-DIST_JITTER,DIST_JITTER);
+            this->rotation=rotation+RUtil::Random::GetRandomFloat(-20.0F,20.0F);
         }else{
             this->x=x;this->y=y;this->rotation=rotation;
         }

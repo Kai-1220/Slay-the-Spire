@@ -51,7 +51,7 @@ namespace Card{
                 break;
         }
         is_glowing=darken=false;
-        m_dard_timer=m_glow_timer=m_hover_timer=0.0F;
+        m_dark_timer=m_glow_timer=m_hover_timer=0.0F;
         m_draw_scale=m_target_draw_scale=0.7F;
         m_tint_a=0.0F;
         m_color_a=1.0F;
@@ -75,16 +75,16 @@ namespace Card{
         }
         //hitbox
         //color
-        if(m_dard_timer!=0.0F){
-            m_dard_timer-=DT;
-            if(m_dard_timer<0.0F)m_dard_timer=0.0F;
-            m_tint_a=darken?(1-m_dard_timer/0.3F):m_dard_timer/0.3F;
+        if(m_dark_timer!=0.0F){
+            m_dark_timer-=DT;
+            if(m_dark_timer<0.0F)m_dark_timer=0.0F;
+            m_tint_a=darken?(1-m_dark_timer/0.3F):m_dark_timer/0.3F;
         }
         //glow
         if(is_glowing){
             m_glow_timer-=DT;
             if(m_glow_timer<0.0F){
-                glowgroup.AddEffect(std::make_shared<Effect::Card_glow_border>(m_card_bg_silhouette,this->current_x,this->current_y,this->m_angle,this->m_draw_scale));
+                glowgroup.AddTop(std::make_shared<Effect::Card_glow_border>(m_card_bg_silhouette,this->current_x,this->current_y,this->m_angle,this->m_draw_scale));
                 m_glow_timer=0.3F;
             }
         }
@@ -133,8 +133,12 @@ namespace Card{
     void Cards::Shrink(){m_target_draw_scale=0.12F;}
     void Cards::Darken(){
         darken=true;
-        m_dard_timer=0.3F;
+        m_dark_timer=0.3F;
     };
+    void Cards::Lighten(){
+        darken=false;
+        m_dark_timer=0.3F;
+    }
     void Cards::Hover(){
         m_draw_scale=1.0F;
         m_target_draw_scale=1.0F;
@@ -170,6 +174,14 @@ namespace Card{
         const float x=(float)RUtil::Game_Input::getX(),y=(float)RUtil::Game_Input::getY(),
                     hw=IMG_WIDTH*scale/2.0F,hh=IMG_HEIGHT*scale/2.0F;
         return current_x-hw<x && x<current_x+hw && current_y-hh<y && y<current_y+hh;
+    }
+    void Cards::draw(){
+        current_x=Card_soul::DRAW_PILE_X;
+        current_y=Card_soul::DRAW_PILE_Y;
+        m_angle=target_angle=0.0F;
+        Lighten();
+        m_draw_scale=0.12F;
+        m_target_draw_scale=0.75F;
     }
     void Cards::render_hovered_shadow(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         r2->SetColor(0,0.66F);

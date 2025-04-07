@@ -9,13 +9,13 @@ void Bottom_scene::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
 }
 void Bottom_scene::next_room(){
     //reset scene
-    if(RUtil::Math::GetRandomBool()){
+    if(RUtil::Random::GetRandomBoolean()){
         render_solid_mid=false;
         render_left_wall=false;
         render_hollow_mid=true;
-        if(RUtil::Math::GetRandomBool()){
+        if(RUtil::Random::GetRandomBoolean()){
             render_solid_mid=true;
-            if(RUtil::Math::GetRandomBool()){
+            if(RUtil::Random::GetRandomBoolean()){
                 render_left_wall=true;
             }
         }
@@ -23,14 +23,14 @@ void Bottom_scene::next_room(){
         render_solid_mid=true;
         render_left_wall=false;
         render_hollow_mid=false;
-        if(RUtil::Math::GetRandomBool())
+        if(RUtil::Random::GetRandomBoolean())
             render_left_wall=true;
     }
     for(int i=0;i<6;i++)
-        render_ceiling_mod[i]=RUtil::Math::GetRandomBool();
-    color.r=RUtil::Math::GetRandomFloat(0.0F,0.05F);
-    color.g=RUtil::Math::GetRandomFloat(0.0F,0.2F);
-    color.b=RUtil::Math::GetRandomFloat(0.0F,0.2F);
+        render_ceiling_mod[i]=RUtil::Random::GetRandomBoolean();
+    color.r=RUtil::Random::GetRandomFloat(0.0F,0.05F);
+    color.g=RUtil::Random::GetRandomFloat(0.0F,0.2F);
+    color.b=RUtil::Random::GetRandomFloat(0.0F,0.2F);
 }
 void Bottom_scene::render_combat_room_bg(const std::shared_ptr<Draw::Draw_2D> &r2)const{
     r2->SetColor(-1);

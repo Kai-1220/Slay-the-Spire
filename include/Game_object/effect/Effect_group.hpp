@@ -1,22 +1,17 @@
 #ifndef GAME_OBJECT_EFFECT_EFFECT_GROUP
 #define GAME_OBJECT_EFFECT_EFFECT_GROUP
 #include "Game_object/effect/Effects.hpp"
+#include "Game_object/Group_template.hpp"
 #include <list>
 namespace Effect
 {
-class Effect_group
+class Effect_group:public Template::Group_template<std::list<std::shared_ptr<Effects>>>
 {
 public:
     Effect_group()=default;
-    ~Effect_group()=default;
-    void AddEffect(std::shared_ptr<Effects> &&eff);
-    void AddEffect(const std::shared_ptr<Effects> &eff);
+    ~Effect_group()override=default;
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update();
-    auto begin()const{return box.begin();}
-    auto end()const{return box.end();}
-private:
-    std::list<std::shared_ptr<Effects>> box;
 };
 
 } // namespace Effect

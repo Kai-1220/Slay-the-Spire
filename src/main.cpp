@@ -1,5 +1,4 @@
 #include "TheApp.hpp"
-// #include <SDL_image.h>
 #include "Core/Context.hpp"
 #include "Draw/Draw_2D.hpp"
 #include "Cursor.hpp"
