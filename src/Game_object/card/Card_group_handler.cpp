@@ -14,6 +14,19 @@ namespace Card{
         //single_target: targeting one enemy
         //pass_hesitation_line: dragging card to in_drop_zone
     }
+    void Card_group_handler::shuffle(bool shuffle_invisible){
+        //remember to shuffle the order of m_discard before this function be called.
+        if(m_discard.empty()) LOG_ERROR("Try to discard card when the m_discard is empty.");
+        else{
+            auto card=m_discard.PopTop();
+            card->SetHoverTimer(0.0F);
+            card->Unhover();
+            card->Darken(true);
+            card->Shrink(true);
+            card->shuffle(shuffle_invisible);
+            draw_pile.AddTop(card);
+        }
+    }
     void Card_group_handler::draw(){
         if(draw_pile.empty()){
             LOG_ERROR("the draw_pile is empty but, it was drawn.");
@@ -22,20 +35,23 @@ namespace Card{
             card->draw();
             card->SetHoverTimer(0.0F);
             hand_cards.AddTop(card);
+            refresh_hand_layout();
         }
     }
     void Card_group_handler::discard_all(){
         for(const auto&it:hand_cards){
-            it->Shrink();
-            it->Darken();//false
+            it->Shrink(false);
+            it->Darken(false);
             it->discard();
+            it->start_glow();
         }
         hand_cards.MoveAllCardTo(m_discard);
     }
     void Card_group_handler::discard(const std::shared_ptr<Cards> &card){
-        card->Shrink();
-        card->Darken();
+        card->Shrink(false);
+        card->Darken(false);
         card->discard();
+        card->start_glow();
         m_discard.AddTop(card);
     }
     void Card_group_handler::release_card(){
@@ -276,11 +292,11 @@ namespace Card{
         single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
         hovered_monster=nullptr;
     }
-    void Card_group_handler::render_hand(const std::shared_ptr<Draw::Draw_2D> &r2)const{
+    void Card_group_handler::render_hand(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const{
         if(hovered_card!=nullptr){
             hovered_card->render_hovered_shadow(r2);
         }
-        hand_cards.render(r2);
+        hand_cards.render(r2,PlayerColor_RGB);
         if(single_target)
             render_targeting(r2);
     }

@@ -12,5 +12,5 @@ void TheApp::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
     m_dungeon->render(r2);
 }
 void TheApp::update(){
-    m_dungeon->update(card_group_handler,action_group_handler);
+    m_dungeon->update(card_group_handler,action_group_handler,random_package);
 }

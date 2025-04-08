@@ -17,13 +17,19 @@ public:
     void refresh_hand_layout()const;
     void prepare_for_battle(const std::shared_ptr<RUtil::Random> &rng);
     void add_to_master_deck(std::shared_ptr<Cards> &&card);
+    void shuffle(bool shuffle_invisible);
+    int discard_pile_size()const{return m_discard.Size();}
+    int draw_pile_size()const{return draw_pile.Size();}
+    int hand_cards_size()const{return hand_cards.Size();}
+    bool draw_pile_flying_check()const{return draw_pile.IsSomeoneFlying();}
+    void discard_pile_shuffle_with_rng(const std::shared_ptr<RUtil::Random> &rng){m_discard.ShuffleWithRng(rng);}
 private:
     static const int &input_x,&input_y;
     static const bool &just_r,&just_l;
     void hand_card_push()const;
     void release_card();
     void play_card(const std::shared_ptr<Action::Action_group_handler> &action_group_handler);
-    void render_hand(const std::shared_ptr<Draw::Draw_2D> &r2)const;
+    void render_hand(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const;
     void render_targeting(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update_targeting();
     bool single_target,in_drop_zone,pass_hesitation_line,is_dragging_card;

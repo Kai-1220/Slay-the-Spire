@@ -11,6 +11,7 @@ private:
     std::shared_ptr<Action::Action_group_handler> action_group_handler;
     std::shared_ptr<Card::Card_group_handler> card_group_handler;
     std::shared_ptr<Dungeon::Dungeons> m_dungeon;
+    RUtil::Random_package random_package;
 };
 
 #endif

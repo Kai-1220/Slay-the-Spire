@@ -2,6 +2,7 @@
 #define GAME_OBJECT_ACTION_GROUP_HANDLER
 #include "Game_object/card/Card_item.hpp"
 #include "Game_object/action/Action_group.hpp"
+#include "RUtil/Random_package.hpp"
 namespace Action{
 class Action_group_handler
 {
@@ -14,7 +15,7 @@ public:
     void AddActionBot(const std::shared_ptr<Actions>&action);
     void AddCardQueue(Card::Card_item &&card_item);
     void AddCardQueue(const Card::Card_item &card_item);
-    void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler);
+    void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const RUtil::Random_package &random_package);
     bool is_nothing_to_do()const{return this->current_action==nullptr&&action_box.empty();}
 private:
     void get_next_action(const std::shared_ptr<Card::Card_group_handler>&card_group_handler);

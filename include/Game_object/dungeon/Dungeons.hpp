@@ -11,7 +11,7 @@ class Dungeons
 public:
     Dungeons();
     virtual ~Dungeons()=default;
-    void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler);
+    void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler,const RUtil::Random_package &random_package);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
 private:
     Dungeon_manager m_dungeon_manager;

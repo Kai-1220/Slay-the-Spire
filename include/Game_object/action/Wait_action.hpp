@@ -7,7 +7,7 @@ class Wait_action final:public Actions
 public:
     Wait_action(float dur);
     ~Wait_action()override=default;
-    void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,Action_group_handler*const action_group_handler)override;
+    void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,Action_group_handler*const action_group_handler,const RUtil::Random_package &random_package)override;
 };
 }
 #endif

@@ -17,13 +17,18 @@ void Card_soul::discard(){
     this->is_clockwise=false;
     prepare_to_fly();
 }
-void Card_soul::shuffle(){
+void Card_soul::shuffle(bool shuffle_invisible){
+    this->is_shuffling=true;
+    this->shuffle_invisible=shuffle_invisible;
     this->current_x=DISCARD_X;
     this->current_y=DISCARD_Y;
     this->end_x=DRAW_PILE_X;
     this->end_y=DRAW_PILE_Y;
     this->is_clockwise=true;
     prepare_to_fly();
+    this->current_speed=START_VELOCITY*RUtil::Random::GetRandomFloat(2.0F,5.0F);
+    this->target_angle=RUtil::Random::GetRandomFloat(0.0F,360.0F);
+    this->start_wait_timer=RUtil::Random::GetRandomFloat(0.0F,0.12F);
 }
 void Card_soul::prepare_to_fly(){
     this->rotate_rate=ROTATION_RATE*RUtil::Random::GetRandomFloat(1.0F,2.0F);
@@ -100,6 +105,7 @@ void Card_soul::update_flying(const std::shared_ptr<Effect::Effect_group> &effs,
             is_flying=false;
             target_x=current_x;
             target_y=current_y;
+            is_shuffling=false;
         }
     }
 }

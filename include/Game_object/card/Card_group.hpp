@@ -11,13 +11,14 @@ public:
     Card_group(const Card_group&) = delete;
     Card_group(Card_group&&) = delete;
     Card_group& operator=(Card_group&&) = delete;
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const;
     void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
     void SortByRarity(const bool ascending);
     void SortByType(const bool ascending);
     void SortByCost(const bool ascending);
     void MoveAllCardTo(Card_group &group);
     void RemoveCard(const std::shared_ptr<Cards>&card);
+    bool IsSomeoneFlying()const;
     std::shared_ptr<Cards> GetHoveredCard()const;
     int GetCardPos(const std::shared_ptr<Cards> &card)const;
     void ShuffleWithRng(const std::shared_ptr<RUtil::Random> &rng);

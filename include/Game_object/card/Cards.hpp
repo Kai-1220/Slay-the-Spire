@@ -44,7 +44,7 @@ enum class Target{
 class Cards:public Card_soul{
 public:
     Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,Target target,int cost);
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,const Uint32 PlayerColor_RGB)const;
     void render_hovered_shadow(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
     void SetTargetY(const float value);
@@ -59,8 +59,8 @@ public:
     void MoveTargetY(const float value);
     void MoveTargetX(const float value);
     void MoveTargetAngle(const float value);
-    void Shrink();
-    void Darken();
+    void Shrink(bool immediate);
+    void Darken(bool immediate);
     void Lighten();
     void Hover();
     void Unhover();

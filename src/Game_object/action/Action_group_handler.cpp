@@ -2,12 +2,12 @@
 #include "Game_object/action/Card_use_action.hpp"
 namespace Action
 {
-    void Action_group_handler::update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler){
+    void Action_group_handler::update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const RUtil::Random_package &random_package){
         if(is_wating_player){
             get_next_action(card_group_handler);
         }else{
             if(current_action!=nullptr){
-                current_action->update(card_group_handler,this);
+                current_action->update(card_group_handler,this,random_package);
                 if(current_action->IsDone()) current_action=nullptr;
             }else{
                 get_next_action(card_group_handler);

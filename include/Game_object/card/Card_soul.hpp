@@ -10,16 +10,17 @@ class Card_soul
 public:
     virtual ~Card_soul()=default;
     void discard();
-    void shuffle();
+    void shuffle(bool shuffle_invisible);
     bool is_fly()const{return is_flying;}
 protected:
+    bool is_flying,is_shuffling,shuffle_invisible;
     void update_flying(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
     Card_soul();
     float current_x,current_y,target_x,target_y,target_angle,start_wait_timer,end_timer;
 private:
     const float & DT=RUtil::Game_Input::delta_time();
     void prepare_to_fly();
-    bool is_flying,stop_rotate,is_clockwise,is_done;
+    bool stop_rotate,is_clockwise,is_done;
     float rotate_rate,end_x,end_y,current_speed,vfx_timer;
     static constexpr float HOME_IN_THRESHOLD=72.0F*Setting::SCALE,VELOCITY_RAMP_RATE=3000.0F*Setting::SCALE, MAX_VELOCITY=6000.0F*Setting::SCALE, DST_THRESHOLD=36.0F*Setting::SCALE,ROTATION_RATE = 150.0F * Setting::SCALE,START_VELOCITY = 200.0F * Setting::SCALE;
     std::vector<glm::vec2> ctl_pts;

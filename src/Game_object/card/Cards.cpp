@@ -66,7 +66,7 @@ namespace Card{
             m_hover_timer=m_hover_timer<DT?0.0F:m_hover_timer-DT;
 
         this->update_flying(effs,PlayerColor_RGB);
-        if(!this->is_fly()){
+        if(!this->is_flying){
             current_x=RUtil::Math::varlerp(current_x,target_x,6.0F,CARD_SNAP_THRESHOLD);
             current_y=RUtil::Math::varlerp(current_y,target_y,6.0F,CARD_SNAP_THRESHOLD);
         }
@@ -90,7 +90,13 @@ namespace Card{
         }
         glowgroup.update();
     }
-    void Cards::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
+    void Cards::render(const std::shared_ptr<Draw::Draw_2D> &r2,const Uint32 PlayerColor_RGB)const{
+        if(is_shuffling&&shuffle_invisible) return;
+        if(is_shuffling){
+            r2->SetColor(PlayerColor_RGB,1.0F);
+            format_render(r2,m_card_bg_silhouette,this->current_x,this->current_y,1.0F+this->m_tint_a/5.0F);
+        }
+        //this.renderHelper(sb, AbstractDungeon.player.getCardRenderColor(), this.getCardBgAtlas(), this.current_x, this.current_y, 1.0F + this.tintColor.a / 5.0F);
         //flash
         if(!m_card_flash.IsDone())  m_card_flash.render(r2);
         //glow
@@ -130,10 +136,18 @@ namespace Card{
     void Cards::frame_format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x_offset,const float x_scale)const{
         r2->draw(img, this->current_x + img->offsetX - (float)img->original_width / 2.0F + x_offset * this->m_draw_scale, this->current_y + img->offsetY - (float)img->original_height / 2.0F, (float)img->GetRegionWidth(), (float)img->GetRegionHeight(), this->m_angle, (float)img->original_width / 2.0F - img->offsetX - x_offset * this->m_draw_scale, (float)img->original_height / 2.0F - img->offsetY,  this->m_draw_scale * Setting::SCALE * x_scale, this->m_draw_scale * Setting::SCALE);
     }
-    void Cards::Shrink(){m_target_draw_scale=0.12F;}
-    void Cards::Darken(){
+    void Cards::Shrink(bool immediate){
+        m_target_draw_scale=0.12F;
+        if(immediate) m_draw_scale=0.12F;
+    }
+    void Cards::Darken(bool immediate){
         darken=true;
-        m_dark_timer=0.3F;
+        if(immediate){
+            m_tint_a=1.0F;
+            m_dark_timer=0.0F;
+        }else{
+            m_dark_timer=0.3F;
+        }
     };
     void Cards::Lighten(){
         darken=false;

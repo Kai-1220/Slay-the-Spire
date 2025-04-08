@@ -20,6 +20,8 @@ set(SRC_FILES
 	Game_object/action/Damage_action.cpp
 	Game_object/action/Discard_action.cpp
 	Game_object/action/Discard_all_action.cpp
+	Game_object/action/Draw_card_action.cpp
+	Game_object/action/Empty_shuffle_action.cpp
 	Game_object/action/Wait_action.cpp
 	Game_object/card/Cards.cpp
 	Game_object/card/Card_group.cpp
@@ -81,6 +83,8 @@ set(INCLUDE_FILES
 	Game_object/action/Damage_action.hpp
 	Game_object/action/Discard_action.hpp
 	Game_object/action/Discard_all_action.hpp
+	Game_object/action/Draw_card_action.hpp
+	Game_object/action/Empty_shuffle_action.hpp
 	Game_object/action/Wait_action.hpp
 	Game_object/card/Cards.hpp
 	Game_object/card/Card_group.hpp
@@ -118,6 +122,7 @@ set(INCLUDE_FILES
 	RUtil/Hitbox.hpp
 	RUtil/Image_book.hpp
 	RUtil/Random.hpp
+	RUtil/Random_package.hpp
 	RUtil/Some_Math.hpp
 	RUtil/Text_Vector_Reader.hpp
 )

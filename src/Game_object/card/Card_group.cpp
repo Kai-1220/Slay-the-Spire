@@ -3,9 +3,9 @@ namespace Card{
     Card_group::Card_group(){
 
     }
-    void Card_group::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
+    void Card_group::render(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const{
         for(const auto &it:box){
-            it->render(r2);
+            it->render(r2,PlayerColor_RGB);
         }
     }
     void Card_group::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
@@ -56,5 +56,10 @@ namespace Card{
     }
     void Card_group::ShuffleWithRng(const std::shared_ptr<RUtil::Random> &rng){
         std::shuffle(box.begin(),box.end(),*rng);
+    }
+    bool Card_group::IsSomeoneFlying()const{
+        for(const auto&it:box)
+            if(it->is_fly()) return true;
+        return false;
     }
 }

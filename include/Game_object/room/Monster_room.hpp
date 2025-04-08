@@ -11,7 +11,7 @@ public:
     Monster_room();
     const std::shared_ptr<Draw::ReTexture> &GetTexture()const override{return IMG;}
     const std::shared_ptr<Draw::ReTexture> &GetOutlineTexture()const override{return IMG_O;}
-    void update(const std::shared_ptr<Action::Action_group_handler> &action_group_handler,const std::shared_ptr<Card::Card_group_handler> &card_group_handler)override;
+    void update(const std::shared_ptr<Action::Action_group_handler> &action_group_handler,const std::shared_ptr<Card::Card_group_handler> &card_group_handler,const RUtil::Random_package &random_package)override;
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const override;
     void init_room()override;
 private:
