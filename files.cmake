@@ -56,6 +56,7 @@ set(SRC_FILES
 	RUtil/Image_book.cpp
 	RUtil/Random.cpp
 	RUtil/Some_Math.cpp
+	RUtil/Text_box.cpp
 	RUtil/Text_Vector_Reader.cpp
 )
 
@@ -124,6 +125,7 @@ set(INCLUDE_FILES
 	RUtil/Random.hpp
 	RUtil/Random_package.hpp
 	RUtil/Some_Math.hpp
+	RUtil/Text_box.hpp
 	RUtil/Text_Vector_Reader.hpp
 )
 

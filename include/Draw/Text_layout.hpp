@@ -6,6 +6,7 @@
 #include "Draw/ReText.hpp"
 #include "Draw/Draw_2D.hpp"
 namespace Draw{
+//need fix check.
 class Text_layout
 {
 public:

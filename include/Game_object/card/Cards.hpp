@@ -94,7 +94,7 @@ private:
     static constexpr float  SHADOW_OFFSET_X = 18.0F * Setting::SCALE,
                             SHADOW_OFFSET_Y = 14.0F * Setting::SCALE,
                             CARD_SNAP_THRESHOLD = 1.0F * Setting::SCALE;
-    static std::shared_ptr<std::vector<Draw::Text_layout>> s_ui_vec;
+    static const std::vector<std::shared_ptr<Draw::Text_layout>> &s_ui_vec;
     static float s_type_offset_attack,s_type_offset_skill,s_type_offset_power,s_type_offset_status,s_type_offset_curse,s_type_width_attack,s_type_width_skill,s_type_width_power,s_type_width_status,s_type_width_curse;
     static constexpr int CARD_FONT_SIZE=17;
 public:

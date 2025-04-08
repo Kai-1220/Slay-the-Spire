@@ -28,7 +28,7 @@
   "AbstractDungeon": {
     "TEXT": [
       "Proceed",
-	  "Blights:"
+      "Blights:"
     ]
   },
   "AbstractMonster": {
@@ -153,6 +153,15 @@
       " turn"
     ]
   },
+  "BetaArtUnlockEffect": {
+    "TEXT": [
+      "Ironclad Beta Card Art Unlocked!",
+      "The Silent Beta Card Art Unlocked!",
+      "Defect Beta Card Art Unlocked!",
+      "All Beta Card Art Unlocked!",
+      "Watcher Beta Card Art Unlocked!"
+    ]
+  },
   "BetterToHandAction": {
     "TEXT": [
       "Choose a Card to Put into Your Hand.",
@@ -173,7 +182,7 @@
       "Skip",
       "VOTE NOW: ",
       "s left.",
-	  "Choose a Blight"
+      "Choose a Blight"
     ]
   },
   "CacheAction": {
@@ -208,7 +217,7 @@
       "So tired..."
     ]
   },
-  "Cancel Button": {
+  "Cancel_Button": {
     "TEXT": [
       "Delete Save"
     ]
@@ -244,7 +253,7 @@
       "VOTE NOW: ",
       "s left.",
       "View Upgrade",
-	  "Choose One"
+      "Choose One"
     ]
   },
   "CharacterOption": {
@@ -286,6 +295,11 @@
       "Choose One"
     ]
   },
+  "ClarityAction": {
+    "TEXT": [
+      "Choose 1 card to keep. The rest are exhausted."
+    ]
+  },
   "CombatRewardScreen": {
     "TEXT": [
       "Proceed",
@@ -303,11 +317,6 @@
       "Tip: "
     ]
   },
-  "Confirm Button": {
-    "TEXT": [
-      "Confirm"
-    ]
-  },
   "ConfirmPopup": {
     "TEXT": [
       "Return",
@@ -316,9 +325,9 @@
       "No"
     ]
   },
-  "SignatureMoveMessage": {
+  "Confirm_Button": {
     "TEXT": [
-      "This must be my only #rAttack!"
+      "Confirm"
     ]
   },
   "CopyAction": {
@@ -331,6 +340,20 @@
       "Click again to exit",
       "to exit",
       "Tap again to exit"
+    ]
+  },
+  "CustomModeScreen": {
+    "TEXT": [
+      "Custom Mode",
+      "Achievements and Leaderboards are off.",
+      "Character",
+      "Ascension",
+      "Level ",
+      "Ascension Mode",
+      "Modifiers",
+      "Seed",
+      "Set Seed",
+      "Trophies and Leaderboards are off."
     ]
   },
   "DailyScreen": {
@@ -405,29 +428,6 @@
       "Elites Killed",
       "Unspent Gold",
       "HP Bonus"
-    ],
-    "EXTRA_TEXT": [
-      "Exordium Elites Killed",
-      "City Elites Killed",
-      "Beyond Elites Killed",
-      "Speedster",
-      "Light Speed",
-      "Highlander",
-      "Collection",
-      "Full Set",
-      "Pauper",
-      "Librarian",
-      "Encyclopedia",
-      "Well Fed",
-      "Stuffed",
-      "Curses!",
-      "On My Own Terms",
-      "Champion",
-      "Perfect",
-      "Beyond Perfect",
-      "Overkill",
-      "C-c-c-combo",
-      ""
     ]
   },
   "DeathScreenUi": {
@@ -444,7 +444,7 @@
       "WARNING: This action cannot be undone."
     ]
   },
-  "Dig Option": {
+  "Dig_Option": {
     "TEXT": [
       "Dig",
       "Dig up a random relic."
@@ -526,7 +526,7 @@
       "Continue"
     ]
   },
-  "End Turn Button": {
+  "End_Turn_Button": {
     "TEXT": [
       "End Turn",
       "Enemy Turn"
@@ -558,6 +558,16 @@
       "Exordium"
     ]
   },
+  "ForethoughtAction": {
+    "TEXT": [
+      "put on bottom of your draw pile."
+    ]
+  },
+  "GainGoldTextEffect": {
+    "TEXT": [
+      " Gold"
+    ]
+  },
   "GamblingChipAction": {
     "TEXT": [
       "Replace (Gambling Chip)",
@@ -567,11 +577,6 @@
   "GameSavedEffect": {
     "TEXT": [
       "#y~Game~ #y~Saved~"
-    ]
-  },
-  "GainGoldTextEffect": {
-    "TEXT": [
-      " Gold"
     ]
   },
   "GridCardSelectScreen": {
@@ -602,13 +607,6 @@
     "TEXT": [
       "Exhaust"
     ]
-  },
-  "InputKeyNames": {
-    "TEXT_DICT": {
-      "Escape": "ESC",
-      "Forward Delete": "Delete",
-      "Delete": "Backspace"
-    }
   },
   "InputSettingsScreen": {
     "TEXT": [
@@ -753,11 +751,11 @@
       "Legend"
     ]
   },
-  "Lift Option": {
+  "Lift_Option": {
     "TEXT": [
       "Lift",
       "Start battles with +1 Strength. (Up to 3)",
-	  ""
+      ""
     ]
   },
   "MainMenuScreen": {
@@ -840,8 +838,8 @@
       "Customize your own run with unique modifiers.",
       "Change your controls.",
       "Change your graphics, audio, and gameplay preferences.",
-	  "Potion Lab",
-	  "Observe the numerous potions found climbing the Spire."
+      "Potion Lab",
+      "Observe the numerous potions found climbing the Spire."
     ]
   },
   "MerchantImageTextNotInGame": {
@@ -907,6 +905,11 @@
       " NL (TEMPORARY: Use arrow keys to navigate through older logs)"
     ]
   },
+  "Period": {
+    "TEXT": [
+      "."
+    ]
+  },
   "PotionPopUp": {
     "TEXT": [
       "Throw",
@@ -914,32 +917,6 @@
       "Discard",
       "I cannot use potions!",
       "I can't do that in combat!"
-    ]
-  },
-  "PowerExpireTextEffect": {
-    "TEXT": [
-      "Wears Off"
-    ]
-  },
-  "Proceed Button": {
-    "TEXT": [
-      "Proceed"
-    ]
-  },
-  "PutOnDeckAction": {
-    "TEXT": [
-      "put on top of your draw pile"
-    ]
-  },
-  "Recall Option": {
-    "TEXT": [
-      "Recall",
-      "Obtain the Ruby Key."
-    ]
-  },
-  "RecycleAction": {
-    "TEXT": [
-      "Exhaust"
     ]
   },
   "PotionViewScreen": {
@@ -951,6 +928,32 @@
       "Stronger potions which appear less often than common potions.",
       "Rare:",
       "Unique and powerful potions which are rarely seen."
+    ]
+  },
+  "PowerExpireTextEffect": {
+    "TEXT": [
+      "Wears Off"
+    ]
+  },
+  "Proceed_Button": {
+    "TEXT": [
+      "Proceed"
+    ]
+  },
+  "PutOnDeckAction": {
+    "TEXT": [
+      "put on top of your draw pile"
+    ]
+  },
+  "Recall_Option": {
+    "TEXT": [
+      "Recall",
+      "Obtain the Ruby Key."
+    ]
+  },
+  "RecycleAction": {
+    "TEXT": [
+      "Exhaust"
     ]
   },
   "RelicViewScreen": {
@@ -990,13 +993,13 @@
       "Choose any number of cards to discard."
     ]
   },
-  "Rest Option": {
+  "Rest_Option": {
     "TEXT": [
       "Rest",
       "Heal for 100% of your Max HP (",
       " HP from ",
       "Heal for 30% of your Max HP (",
-	  ""
+      ""
     ]
   },
   "RestartForChangesEffect": {
@@ -1021,6 +1024,48 @@
       "Linked",
       "Obtaining this will remove ",
       "."
+    ]
+  },
+  "RichPresence": {
+    "TEXT": [
+      "Daily - Floor %s",
+      "Custom - Floor %s",
+      " F%s",
+      "Main Menu",
+      "A%s "
+    ]
+  },
+  "RunHistoryMonsterNames": {
+    "TEXT": [
+      "Gang of Gremlins",
+      "Large Slime",
+      "Exordium Thugs",
+      "Exordium Wildlife",
+      "Swarm of Slimes",
+      "Small Slimes",
+      "City Muggers",
+      "Three Byrds",
+      "Four Byrds",
+      "Triple Cultists",
+      "Chosen Flock",
+      "Sentry and Spheric Guardian",
+      "Centurion and Mystic",
+      "Parasite and Fungi Beast",
+      "Masked Bandits Gang",
+      "Colosseum Nobs",
+      "Colosseum Slavers",
+      "Three Shapes",
+      "Jaw Worm Horde",
+      "Four Shapes",
+      "Spheric Guardian with Shapes",
+      "Double Orb Walkers",
+      "Donu and Deca",
+      "Sentries",
+      "Chosen and Cultist",
+      "(Deprecated) Flame Bruiser",
+      "(Deprecated) Slaver and Parasite",
+      "(Deprecated) Snecko and Mystics",
+      "Shield and Spear"
     ]
   },
   "RunHistoryPathNodes": {
@@ -1074,39 +1119,6 @@
       "#bRecalled"
     ]
   },
-  "RunHistoryMonsterNames": {
-    "TEXT": [
-      "Gang of Gremlins",
-      "Large Slime",
-      "Exordium Thugs",
-      "Exordium Wildlife",
-      "Swarm of Slimes",
-      "Small Slimes",
-      "City Muggers",
-      "Three Byrds",
-      "Four Byrds",
-      "Triple Cultists",
-      "Chosen Flock",
-      "Sentry and Spheric Guardian",
-      "Centurion and Mystic",
-      "Parasite and Fungi Beast",
-      "Masked Bandits Gang",
-      "Colosseum Nobs",
-      "Colosseum Slavers",
-      "Three Shapes",
-      "Jaw Worm Horde",
-      "Four Shapes",
-      "Spheric Guardian with Shapes",
-      "Double Orb Walkers",
-      "Donu and Deca",
-      "Sentries",
-      "Chosen and Cultist",
-      "(Deprecated) Flame Bruiser",
-      "(Deprecated) Slaver and Parasite",
-      "(Deprecated) Snecko and Mystics",
-      "Shield and Spear"
-    ]
-  },
   "RunHistoryScreen": {
     "TEXT": [
       "The Ironclad",
@@ -1147,6 +1159,19 @@
       "The Watcher"
     ]
   },
+  "SaveSlot": {
+    "TEXT": [
+      "Playtime ",
+      "Empty Slot"
+    ]
+  },
+  "SaveSlotScreen": {
+    "TEXT": [
+      "Choose a Save Slot",
+      "Rename",
+      "Delete this Save"
+    ]
+  },
   "SeedPanel": {
     "TEXT": [
       "0000000000",
@@ -1172,14 +1197,14 @@
       "put on top of your draw pile."
     ]
   },
-  "ForethoughtAction": {
-    "TEXT": [
-      "put on bottom of your draw pile."
-    ]
-  },
   "ShopRoom": {
     "TEXT": [
       "Skip Merchant"
+    ]
+  },
+  "SignatureMoveMessage": {
+    "TEXT": [
+      "This must be my only #rAttack!"
     ]
   },
   "SingleCardViewPopup": {
@@ -1223,7 +1248,7 @@
       "Choose a Skill to Add to Your Hand"
     ]
   },
-  "Smith Option": {
+  "Smith_Option": {
     "TEXT": [
       "Smith",
       "Upgrade a card in your deck.",
@@ -1233,6 +1258,11 @@
   "StorePotion": {
     "TEXT": [
       "You have no space for this"
+    ]
+  },
+  "SyncMessage": {
+    "TEXT": [
+      "Syncing data..."
     ]
   },
   "TheBeyond": {
@@ -1255,7 +1285,7 @@
       "Energy"
     ]
   },
-  "Toke Option": {
+  "Toke_Option": {
     "TEXT": [
       "Toke",
       "Remove a card from your deck."
@@ -1283,11 +1313,6 @@
       "VOTE NOW: "
     ]
   },
-  "Unlock Confirm Button": {
-    "TEXT": [
-      "Continue"
-    ]
-  },
   "UnlockCharacterScreen": {
     "TEXT": [
       "Cards Unlocked!",
@@ -1312,31 +1337,9 @@
       "New Unlock!"
     ]
   },
-  "CustomModeScreen": {
+  "Unlock_Confirm_Button": {
     "TEXT": [
-      "Custom Mode",
-      "Achievements and Leaderboards are off.",
-      "Character",
-      "Ascension",
-      "Level ",
-      "Ascension Mode",
-      "Modifiers",
-      "Seed",
-      "Set Seed",
-      "Trophies and Leaderboards are off."
-    ]
-  },
-  "SaveSlot": {
-    "TEXT": [
-      "Playtime ",
-      "Empty Slot"
-    ]
-  },
-  "SaveSlotScreen": {
-    "TEXT": [
-      "Choose a Save Slot",
-      "Rename",
-      "Delete this Save"
+      "Continue"
     ]
   },
   "VictoryScreen": {
@@ -1356,42 +1359,9 @@
       "Victory!"
     ]
   },
-  "Period": {
-    "TEXT": [
-      "."
-    ]
-  },
-  "BetaArtUnlockEffect": {
-    "TEXT": [
-      "Ironclad Beta Card Art Unlocked!",
-      "The Silent Beta Card Art Unlocked!",
-      "Defect Beta Card Art Unlocked!",
-      "All Beta Card Art Unlocked!",
-      "Watcher Beta Card Art Unlocked!"
-    ]
-  },
-  "RichPresence": {
-    "TEXT": [
-      "Daily - Floor %s",
-      "Custom - Floor %s",
-      " F%s",
-      "Main Menu",
-      "A%s "
-    ]
-  },
-  "ClarityAction": {
-    "TEXT": [
-      "Choose 1 card to keep. The rest are exhausted."
-    ]
-  },
   "WishAction": {
     "TEXT": [
       "Choose a Card to play."
-    ]
-  },
-  "SyncMessage": {
-    "TEXT": [
-      "Syncing data..."
     ]
   }
 }
