@@ -4,7 +4,8 @@
 namespace RUtil{
 class Hitbox{
 public:
-    Hitbox(float x,float y,float height,float width);
+    Hitbox(float x,float y,float width,float height);
+    Hitbox(float width,float height);
     ~Hitbox()=default;
     const bool&JustHovered()const {return just_hovered;}
     const bool&Hovered()const {return hovered;}
@@ -14,8 +15,8 @@ public:
     void move(float center_x,float center_y);
 private:
     static const int &nx,&ny;
-    const bool &just_clicked=RUtil::Game_Input::just_clicked(),&just_released=RUtil::Game_Input::just_released();
-    float x,y,height,width,cx,cy;
+    static const bool &just_clicked,&just_released;
+    float x,y,width,height,cx,cy;
     bool just_hovered,hovered,click_stared,clicked;
 };
 }

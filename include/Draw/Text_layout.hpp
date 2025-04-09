@@ -1,10 +1,10 @@
 #ifndef DRAW_TEXT_LAYOUT_HPP
 #define DRAW_TEXT_LAYOUT_HPP
-#include "pch.hpp"
 #include "Util/Color.hpp"
 #include "Draw/Atlas_Region.hpp"
 #include "Draw/ReText.hpp"
 #include "Draw/Draw_2D.hpp"
+#include "WindowSize.hpp"
 namespace Draw{
 //need fix check.
 class Text_layout
@@ -27,8 +27,8 @@ public:
     //This class is affected by Setting::SCALE
     Text_layout(const std::string &text_string);
     ~Text_layout()=default;
-    static void SetLanguage(language lan);
-    static void SetFontWeight(font_weight fw);
+    static void SetNextLanguage(language lan);
+    static void SetNextFontWeight(font_weight fw);
     void set_middle();
     void set_left();
     //フォントサイズかえること書いてるだけと、32以上とぼやけるかも。
@@ -38,6 +38,7 @@ public:
     void set_vars(int value,int pos);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float a=1.0F)const;
     void render_without_format_word(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float angle,const float scale,const float origin_x,const float origin_y)const;
+    void render_without_format_word_top_left(const std::shared_ptr<Draw::Draw_2D> &r2,const float x,const float y)const;
     float GetWidth()const{return width;}
     float GetHeight()const{return height;}
     static void split_text(std::vector<std::string> &strs,const std::string &text_string);
@@ -47,7 +48,7 @@ private:
         float x,y,w,h;
         Uint32 c=-1;
     };
-    static void pos_update();
+    static void next_pos_update();
     static void init_orbs();
     static void init_nums();
     void set_texture_pos(const std::shared_ptr<Draw::ReText> &t_retext,const std::vector<std::string> &strs);
@@ -56,12 +57,12 @@ private:
     void fix_width();
     void scale_all_pos(const float scale);
     static language s_language;
-    static std::string s_lan_pos;
     static font_weight s_font_weight;
+    static std::string s_next_lan_pos;
     static std::shared_ptr<Draw::Atlas_Region>orb_red,orb_green,orb_blue,orb_purple,orb_card,orb_potion,orb_relic,orb_special;
     static std::shared_ptr<Draw::Image_Region> nums[10];
-    static constexpr Uint32 GOLD_COLOR=-272084481,
-                            RED_TEXT_COLOR = -10132481,
+    static constexpr auto s_lan_pos=Setting::LANGUAGE_POS;
+    static constexpr Uint32 RED_TEXT_COLOR = -10132481,
                             GREEN_TEXT_COLOR = 2147418367,
                             BLUE_TEXT_COLOR = -2016482305,
                             PURPLE_COLOR = -293409025,

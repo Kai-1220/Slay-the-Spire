@@ -4,15 +4,15 @@
 #include <iostream>
 namespace Dungeon
 {
-    Dungeon_screen::Dungeon_screen(){
-        the_map=std::make_shared<Map::Dungeon_map>();
+    Dungeon_screen::Dungeon_screen():the_map(offsetY,on_top){
         offsetY = -100.0F * Setting::SCALE;
         target_offsetY=offsetY;
         scroll_wait_timer=0.0F;
         grabbed=false;
+        on_top=true;
     }
     void Dungeon_screen::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
-        the_map->render(r2,offsetY);
+        the_map.render(r2);
         if(display_map!=nullptr){
             for(const auto&it:*display_map)
                 for(const auto&it2:it)
@@ -23,6 +23,7 @@ namespace Dungeon
         }
     }
     void Dungeon_screen::update(Interface::Screen Now_screen){
+        the_map.update();
         // if (AbstractDungeon.screen == CurrentScreen.MAP) {
             this->updateOffsetY();
         //  }
@@ -69,7 +70,7 @@ namespace Dungeon
         else if(scroll_wait_timer<3.0F)
             offsetY = RUtil::Math::interpolation_exp10(MAP_SCROLL_LOWER,MAP_UPPER_SCROLL_NORMAL, scroll_wait_timer / 3.0F);
     }
-    Interface::Screen Dungeon_screen::Where_want_to_go(){
+    Interface::Screen Dungeon_screen::where_want_to_go(){
         return Interface::Screen::On_map;
     }
 } // namespace Dungeon

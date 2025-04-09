@@ -24,9 +24,6 @@ public:
 
     ReText &operator=(const ReText &) = delete;
     ReText &operator=(ReText &&)=delete;
-private:
-    // constexpr int size=64;
-    
 };
 } // namespace Core
     

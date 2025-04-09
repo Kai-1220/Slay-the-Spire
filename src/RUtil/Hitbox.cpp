@@ -1,8 +1,14 @@
 #include "RUtil/Hitbox.hpp"
 
 namespace RUtil{
-Hitbox::Hitbox(float x,float y,float height,float width)
-                    :x(x),y(y),height(height),width(width){
+Hitbox::Hitbox(float x,float y,float width,float height)
+                    :x(x),y(y),width(width),height(height){
+    this->cx=x+width/2.0F;
+    this->cy=y+height/2.0F;
+    this->just_hovered=this->click_stared=this->clicked=this->hovered=false;
+}
+Hitbox::Hitbox(float height,float width):width(width),height(height){
+    x=y=0.0F;
     this->cx=x+width/2.0F;
     this->cy=y+height/2.0F;
     this->just_hovered=this->click_stared=this->clicked=this->hovered=false;
@@ -30,4 +36,5 @@ void Hitbox::move(float center_x,float center_y){
     this->y=this->cy-this->height/2.0F;
 }
 const int &Hitbox::nx=RUtil::Game_Input::getX(),&Hitbox::ny=RUtil::Game_Input::getY();   
+const bool &Hitbox::just_clicked=RUtil::Game_Input::just_clicked(),&Hitbox::just_released=RUtil::Game_Input::just_released();    
 }

@@ -1,6 +1,6 @@
 #include "RUtil/All_Image.hpp"
 #include "RUtil/Atlas_Reader.hpp"
-
+#include <vector>
 namespace RUtil{
     const std::shared_ptr<Draw::Atlas_Region> &All_Image::GetAtlasRegion(AtlasRegionID ID){
         static const std::vector<std::shared_ptr<Draw::Atlas_Region>> AtlasRegionBox=[](){

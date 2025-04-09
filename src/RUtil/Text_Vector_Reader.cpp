@@ -6,8 +6,7 @@ const std::vector<std::shared_ptr<Draw::Text_layout>> &Text_Vector_Reader::GetTe
     static const std::vector<std::vector<std::shared_ptr<Draw::Text_layout>>> BOX=[](){
         std::vector<std::vector<std::shared_ptr<Draw::Text_layout>>> temp;
         //load ui
-        GetJsonFileText(RESOURCE_DIR"/language/zht/ui.json",temp);
-        printf("%lld",temp.size());
+        GetJsonFileText(RESOURCE_DIR"/language/eng/ui.json",temp);
         return temp;
     }();
     return BOX[static_cast<int>(id)];

@@ -12,6 +12,7 @@ set(SRC_FILES
 	Draw/Image_Region.cpp
 	Draw/ReText.cpp
 	Draw/ReTexture.cpp
+	Draw/Text_box.cpp
 	Draw/Text_layout.cpp
 	Game_object/action/Actions.cpp
 	Game_object/action/Action_group.cpp
@@ -42,6 +43,8 @@ set(SRC_FILES
 	Game_object/effect/Effects.cpp
 	Game_object/effect/Effect_group.cpp
 	Game_object/map/Dungeon_map.cpp
+	Game_object/map/Legend.cpp
+	Game_object/map/Legend_item.cpp
 	Game_object/map/Map_dot.cpp
 	Game_object/map/Map_edge.cpp
 	Game_object/map/Map_generator.cpp
@@ -56,7 +59,6 @@ set(SRC_FILES
 	RUtil/Image_book.cpp
 	RUtil/Random.cpp
 	RUtil/Some_Math.cpp
-	RUtil/Text_box.cpp
 	RUtil/Text_Vector_Reader.cpp
 )
 
@@ -75,6 +77,7 @@ set(INCLUDE_FILES
 	Draw/Image_Region.hpp
 	Draw/ReText.hpp
 	Draw/ReTexture.hpp
+	Draw/Text_box.hpp
 	Draw/Text_layout.hpp
 	Game_object/Group_template.hpp
 	Game_object/action/Actions.hpp
@@ -109,6 +112,8 @@ set(INCLUDE_FILES
 	Game_object/effect/Effect_group.hpp
 	Game_object/interface/Is_screen.hpp
 	Game_object/map/Dungeon_map.hpp
+	Game_object/map/Legend.hpp
+	Game_object/map/Legend_item.hpp
 	Game_object/map/Map_dot.hpp
 	Game_object/map/Map_edge.hpp
 	Game_object/map/Map_generator.hpp
@@ -125,7 +130,6 @@ set(INCLUDE_FILES
 	RUtil/Random.hpp
 	RUtil/Random_package.hpp
 	RUtil/Some_Math.hpp
-	RUtil/Text_box.hpp
 	RUtil/Text_Vector_Reader.hpp
 )
 

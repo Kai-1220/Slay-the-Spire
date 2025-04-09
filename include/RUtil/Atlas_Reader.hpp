@@ -1,6 +1,7 @@
 #ifndef RUTIL_ATLAS_READER_HPP
 #define RUTIL_ATLAS_READER_HPP
 #include"Draw/Atlas_Region.hpp"
+#include <unordered_map>
 namespace RUtil{
 class Atlas_Reader
 {

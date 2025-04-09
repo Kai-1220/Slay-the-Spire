@@ -1,7 +1,8 @@
 #ifndef DRAW_RETEXTURE_HPP
 #define DRAW_RETEXTURE_HPP
 
-#include "pch.hpp" // IWYU pragma: export
+#include <GL/glew.h>
+#include <string>
 
 namespace Draw {
 //one Image one Texture and only one.
@@ -25,11 +26,8 @@ public:
     int GetWidth() const {return w;}
     int GetHeight() const {return h;}
     void Bind() const;
-protected:
-    //for Retext class
-    void SetReTexture(const GLuint m_TextureId,const int w,const int h){this->m_TextureId=m_TextureId;this->w=w;this->h=h;}
-    ReTexture(){m_TextureId=w=h=0;}
-private:
+protected://for Retext class
+    ReTexture()=default;
     GLuint m_TextureId;
     int w,h;
 };

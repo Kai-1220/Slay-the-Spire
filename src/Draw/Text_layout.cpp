@@ -1,7 +1,6 @@
 #include "Draw/Text_layout.hpp"
 #include "Util/Logger.hpp"
 #include "RUtil/Atlas_Reader.hpp"
-#include "Draw/ReText.hpp"
 #include "WindowSize.hpp"
 #include "RUtil/Some_Math.hpp"
 namespace Draw
@@ -34,71 +33,71 @@ namespace Draw
         set_left();//default left
         this->scale_all_pos(Setting::SCALE);
     }
+    std::string Text_layout::s_next_lan_pos;
     Text_layout::language Text_layout::s_language=Text_layout::language::zht;
-    std::string Text_layout::s_lan_pos=RESOURCE_DIR"/font/zht/NotoSansCJKtc-Regular.otf";
     Text_layout::font_weight Text_layout::s_font_weight=Text_layout::font_weight::regular;
     std::shared_ptr<Draw::Image_Region> Text_layout::nums[10]={nullptr};
     std::shared_ptr<Draw::Atlas_Region> Text_layout::orb_red=nullptr,Text_layout::orb_blue=nullptr,
                                         Text_layout::orb_green=nullptr,Text_layout::orb_purple=nullptr,
                                         Text_layout::orb_card=nullptr,Text_layout::orb_potion=nullptr,
                                         Text_layout::orb_relic=nullptr,Text_layout::orb_special=nullptr;
-    void Text_layout::SetLanguage(language lan){
+    void Text_layout::SetNextLanguage(language lan){
         s_language=lan;
-        pos_update();
+        next_pos_update();
     }
-    void Text_layout::SetFontWeight(font_weight fw){
+    void Text_layout::SetNextFontWeight(font_weight fw){
         s_font_weight=fw;
-        pos_update();
+        next_pos_update();
     }
-    void Text_layout::pos_update(){
+    void Text_layout::next_pos_update(){
         switch (s_language)
         {
         case language::eng:
-            s_lan_pos=RESOURCE_DIR"/font/";
+            s_next_lan_pos=RESOURCE_DIR"/font/";
             break;
         case language::jpn:
-            s_lan_pos=RESOURCE_DIR"/font/jpn/NotoSansCJKjp-";
+            s_next_lan_pos=RESOURCE_DIR"/font/jpn/NotoSansCJKjp-";
             break;
         case language::zht:
-            s_lan_pos=RESOURCE_DIR"/font/zht/NotoSansCJKtc-";
+            s_next_lan_pos=RESOURCE_DIR"/font/zht/NotoSansCJKtc-";
             break;
         default:
             LOG_ERROR("language ERROR");
-            s_lan_pos=RESOURCE_DIR"/font/zht/NotoSansCJKtc-";
+            s_next_lan_pos=RESOURCE_DIR"/font/zht/NotoSansCJKtc-";
             break;
         }
         if(s_language==language::eng){
             switch (s_font_weight)
             {
             case font_weight::bold:
-                s_lan_pos+="Kreon-Bold.ttf";
+                s_next_lan_pos+="Kreon-Bold.ttf";
                 break;
             case font_weight::medium:
-                s_lan_pos+="ZillaSlab-RegularItalic.otf";
+                s_next_lan_pos+="ZillaSlab-RegularItalic.otf";
                 break;
             case font_weight::regular:
-                s_lan_pos+="Kreon-Regular.ttf";
+                s_next_lan_pos+="Kreon-Regular.ttf";
                 break;
             default:
                 LOG_ERROR("Font_weight ERROR");
-                s_lan_pos+="Kreon-Regular.ttf";
+                s_next_lan_pos+="Kreon-Regular.ttf";
                 break;
             }
         }else{
             switch (s_font_weight)
             {
             case font_weight::bold:
-                s_lan_pos+="Bold.otf";
+                s_next_lan_pos+="Bold.otf";
                 break;
             case font_weight::medium:
-                s_lan_pos+="Medium.otf";
+                s_next_lan_pos+="Medium.otf";
                 break;
             case font_weight::regular:
-                s_lan_pos+="Regular.otf";
+                s_next_lan_pos+="Regular.otf";
                 break;
             default:
                 LOG_ERROR("Font_weight ERROR");
-                s_lan_pos+="Regular.otf";
+                s_next_lan_pos+="Regular.otf";
                 break;
             }
         }
@@ -117,7 +116,7 @@ namespace Draw
     void Text_layout::init_nums(){
         std::string data="01234\n56789";
         std::shared_ptr<Draw::ReText> nums_text=std::make_shared<Draw::ReText>(s_lan_pos,BIGGIST_SIZE,data.c_str());
-        TTF_Font* m_Font=TTF_OpenFont(s_lan_pos.c_str(), BIGGIST_SIZE);
+        TTF_Font* m_Font=TTF_OpenFont(s_lan_pos, BIGGIST_SIZE);
         int n_w,n_h,t_w=0;
         for(int i=0;i<5;i++){
             TTF_SizeUTF8(m_Font,data.substr(i,1).c_str(),&n_w,&n_h);
@@ -180,7 +179,7 @@ namespace Draw
         width=height=0.0F;
         //goal:set the correct pos in texture & set where vars is.
         //and set w,h
-        TTF_Font* m_Font=TTF_OpenFont(s_lan_pos.c_str(), BIGGIST_SIZE);
+        TTF_Font* m_Font=TTF_OpenFont(s_lan_pos, BIGGIST_SIZE);
         int now_x=0,now_y=0,n_w=0,n_h=0;
         for(const std::string &it:strs){
             this->m_regs_info.emplace_back();
@@ -241,7 +240,7 @@ namespace Draw
                 switch (it[1])
                 {
                 case 'y':
-                    m_regs_info.back().c=Text_layout::GOLD_COLOR;
+                    m_regs_info.back().c=Setting::GOLD_COLOR;
                     break;
                 case 'g':
                     m_regs_info.back().c=Text_layout::GREEN_TEXT_COLOR;
@@ -361,7 +360,7 @@ namespace Draw
         //It might look a bit strange, but I think it is fine.
         if(m_fontsize!=fontsize){
             m_fontsize=fontsize;
-            TTF_Font* m_Font=TTF_OpenFont(s_lan_pos.c_str(), m_fontsize);
+            TTF_Font* m_Font=TTF_OpenFont(s_lan_pos, m_fontsize);
             int font_w,font_h;
             TTF_SizeUTF8(m_Font,"A",&font_w,&font_h);
             TTF_CloseFont(m_Font);
@@ -455,6 +454,12 @@ namespace Draw
         const int info_len=(int)m_regs_info.size();
         for(int i=0;i<info_len;i++){
             r2->draw(this->regs[i], m_regs_info[i].x*scale + center_x, m_regs_info[i].y*scale + center_y, m_regs_info[i].w*scale, m_regs_info[i].h*scale, angle, this->width*scale/2.0F+origin_x, this->height*scale/2.0F+origin_y);
+        }
+    }
+    void Text_layout::render_without_format_word_top_left(const std::shared_ptr<Draw::Draw_2D> &r2,const float x,const float y)const{
+        const int info_len=(int)m_regs_info.size();
+        for(int i=0;i<info_len;i++){
+            r2->draw(this->regs[i], m_regs_info[i].x + x + m_regs_info[i].w/2.0F, m_regs_info[i].y + y - m_regs_info[i].h/2.0F, m_regs_info[i].w, m_regs_info[i].h);
         }
     }
 } // namespace Draw

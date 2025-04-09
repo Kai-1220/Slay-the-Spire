@@ -88,4 +88,10 @@ namespace RUtil{
         }
     }
     float Math::BounceIn(float t){return 1.0F-BounceOut(t);}
+    Uint32 Math::color_lerp_rgb(Uint32 start,Uint32 target,Uint32 t){
+        Uint32 re=0;
+        for(int i=1;i<4;i++)
+            re|=lerp(start>>(i<<3)&0xff,target>>(i<<3)&0xff,t)<<(i<<3);
+        return re;
+    }
 }

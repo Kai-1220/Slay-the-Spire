@@ -8,7 +8,9 @@ enum class Room_type{
     Monster,
     Shop,
     Rest,
-    Event
+    Event,
+    Treasure,
+    Elite
 };
 
 class Rooms{

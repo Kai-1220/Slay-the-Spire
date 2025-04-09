@@ -27,6 +27,7 @@ public:
     static float fadelerp(float start,float target);
     static float scrolllerp(float start,float target);
     static float varlerp(float start,const float target,const float speed,const float threshold);
+    static Uint32 color_lerp_rgb(Uint32 start,Uint32 target,Uint32 t);
     static float interpolation_exp10(float start,float target,float a);
     static float interpolation_fade(float start,float target,float a);
     static float interpolation_powout2(float start,float target,float a);

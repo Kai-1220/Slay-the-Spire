@@ -1,6 +1,7 @@
 #ifndef DRAW_Image_Region_HPP
 #define DRAW_Image_Region_HPP
 #include "Draw/ReTexture.hpp"
+#include <memory>
 namespace Draw {
 //Reference from java gdx textureregion
 /**
