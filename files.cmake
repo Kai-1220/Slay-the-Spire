@@ -31,6 +31,9 @@ set(SRC_FILES
 	Game_object/card/red/Anger.cpp
 	Game_object/card/red/Strike_red.cpp
 	Game_object/character/Characters.cpp
+	Game_object/character/Monster/AcidSlimeL.cpp
+	Game_object/character/Monster/FatGremlin.cpp
+	Game_object/character/Monster/JawWorm.cpp
 	Game_object/character/Monster/Monsters.cpp
 	Game_object/character/Monster/TempMonster.cpp
 	Game_object/dungeon/Dungeons.cpp
@@ -99,6 +102,9 @@ set(INCLUDE_FILES
 	Game_object/card/red/Strike_red.hpp
 	Game_object/character/Characters.hpp
 	Game_object/character/Player.hpp
+	Game_object/character/Monster/AcidSlimeL.hpp
+	Game_object/character/Monster/FatGremlin.hpp
+	Game_object/character/Monster/JawWorm.hpp
 	Game_object/character/Monster/Monsters.hpp
 	Game_object/character/Monster/TempMonster.hpp
 	Game_object/dungeon/Dungeons.hpp

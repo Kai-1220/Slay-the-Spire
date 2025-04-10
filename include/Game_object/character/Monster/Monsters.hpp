@@ -28,6 +28,9 @@ public:
     virtual ~Monsters()=default;
     // virtual void apply(const std::shared_ptr<Action::Action_group> &action_group)const=0;
     void damage(int num)override;
+    void setHP(int min,int max);
+    void setBlock(int num);
+    virtual void render(const std::shared_ptr<Draw::Draw_2D> &r2)=0;
 protected:
     int m_damage;
 };
