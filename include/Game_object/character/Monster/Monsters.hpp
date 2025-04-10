@@ -5,7 +5,22 @@
 namespace Monster{
 enum class MonsterID{
     None,
-    TempMonster
+    TempMonster,
+    AcidSlimeL,AcidSlimeM,AcidSlimeS,
+    Cultist,
+    FungiBeast,
+    GremlinNob,FatGremlin,MadGremlin,ShieldGremlin,SneakyGremlin,
+    GremlinWizard,
+    Hexaghost,
+    Lagavulin,
+    RedLouse,
+    GreenLouse,
+    Sentry,
+    BlueSlaver,RedSlaver,
+    SpikeSlimeL,SpikeSlimeM,SpikeSlimeS,
+    JawWorm,
+    Looter,
+    Mugger
 };
 class Monsters:public Character::Characters
 {

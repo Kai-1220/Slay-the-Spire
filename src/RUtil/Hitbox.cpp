@@ -1,10 +1,19 @@
 #include "RUtil/Hitbox.hpp"
-
+#include <iostream>
 namespace RUtil{
-Hitbox::Hitbox(float x,float y,float width,float height)
-                    :x(x),y(y),width(width),height(height){
-    this->cx=x+width/2.0F;
-    this->cy=y+height/2.0F;
+Hitbox::Hitbox(float x,float y,float width,float height,bool isCenter)
+                    :width(width),height(height){
+    if(isCenter){
+        this->cx=x;
+        this->cy=y;
+        this->x=x-width/2.0F;
+        this->y=y-height/2.0F;
+    }else{
+        this->x=x;
+        this->y=y;
+        this->cx=x+width/2.0F;
+        this->cy=y+height/2.0F;
+    }
     this->just_hovered=this->click_stared=this->clicked=this->hovered=false;
 }
 Hitbox::Hitbox(float height,float width):width(width),height(height){
@@ -20,8 +29,9 @@ void Hitbox::update(){
     hovered = x<=nx&&nx<=x+width&&y<=ny&&ny<=y+height;
     if(!hovered) just_hovered=false;
     //click check
-    if(hovered&&just_clicked)
+    if(hovered&&just_clicked){
         this->click_stared=true;
+    }
     else if(clicked){
         clicked=false;
     }else if(click_stared&&just_released){

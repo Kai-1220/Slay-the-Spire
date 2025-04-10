@@ -53,6 +53,7 @@ bool Input::IfScroll() {
 bool Input::IfExit() {
     return s_Exit;
 }
+
 glm::vec2 Input::GetScrollDistance() {
 
     return s_ScrollDistance;
@@ -104,14 +105,9 @@ void Input::Update() {
             UpdateKeyState(&s_Event);
         }
 
-        // s_Scroll = s_Event.type == SDL_MOUSEWHEEL || s_Scroll;
+        s_Scroll = s_Event.type == SDL_MOUSEWHEEL || s_Scroll;
 
-        // if (s_Scroll) {
-        //     s_ScrollDistance.x = static_cast<float>(s_Event.wheel.x);
-        //     s_ScrollDistance.y = static_cast<float>(s_Event.wheel.y);
-        // }
-        if(s_Event.type == SDL_MOUSEWHEEL){
-            s_Scroll = true;
+        if (s_Scroll) {
             s_ScrollDistance.x = static_cast<float>(s_Event.wheel.x);
             s_ScrollDistance.y = static_cast<float>(s_Event.wheel.y);
         }
@@ -128,4 +124,5 @@ void Input::SetCursorPosition(const glm::vec2 &pos) {
     SDL_WarpMouseInWindow(nullptr, static_cast<int>(pos.x),
                           static_cast<int>(pos.y));
 }
+
 } // namespace Util

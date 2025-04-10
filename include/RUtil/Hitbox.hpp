@@ -4,7 +4,7 @@
 namespace RUtil{
 class Hitbox{
 public:
-    Hitbox(float x,float y,float width,float height);
+    Hitbox(float x,float y,float width,float height,bool isCenter=false);
     Hitbox(float width,float height);
     ~Hitbox()=default;
     const bool&JustHovered()const {return just_hovered;}
