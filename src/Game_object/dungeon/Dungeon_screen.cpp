@@ -1,7 +1,5 @@
 #include "RUtil/Game_Input.hpp"
 #include "Game_object/dungeon/Dungeon_screen.hpp"
-#include "RUtil/Some_Math.hpp"
-#include <iostream>
 namespace Dungeon
 {
     Dungeon_screen::Dungeon_screen():the_map(offsetY,on_top){
@@ -16,17 +14,28 @@ namespace Dungeon
         if(display_map!=nullptr){
             for(const auto&it:*display_map)
                 for(const auto&it2:it)
-                    if(it2!=nullptr)
-                        it2->render(r2,offsetY);
+                    if(it2!=nullptr)it2->render(r2,offsetY);
         }else{
             LOG_ERROR("Forget to set the dispaly_map.");
         }
     }
-    void Dungeon_screen::update(Interface::Screen Now_screen){
+    void Dungeon_screen::update(const Lazy_package &lazy_package){
         the_map.update();
-        // if (AbstractDungeon.screen == CurrentScreen.MAP) {
-            this->updateOffsetY();
-        //  }
+        bool pause_offset_y_update=false;
+        if(display_map!=nullptr){
+            for(const auto&it:*display_map)
+                for(const auto&it2:it)
+                    if(it2!=nullptr){
+                        it2->update(offsetY,true,on_top,lazy_package.top_effs);
+                        if(it2->IsMakingCircle()){
+                            pause_offset_y_update=true;
+                        }
+                    }
+        }else{
+            LOG_ERROR("Forget to set the dispaly_map.");
+        }
+
+        if(!pause_offset_y_update) this->updateOffsetY();
     }
     void Dungeon_screen::updateOffsetY(){
         if(grabbed){
@@ -69,6 +78,13 @@ namespace Dungeon
             offsetY=RUtil::Math::fadelerp(offsetY,target_offsetY);
         else if(scroll_wait_timer<3.0F)
             offsetY = RUtil::Math::interpolation_exp10(MAP_SCROLL_LOWER,MAP_UPPER_SCROLL_NORMAL, scroll_wait_timer / 3.0F);
+    }
+    
+    void Dungeon_screen::set_display_map(const std::vector<std::vector<std::shared_ptr<Map::Map_node>>>&map){
+        for(const auto&it:map)
+            for(const auto&it2:it)
+                if(it2!=nullptr)it2->BindLegend(this->the_map.GetLegend());
+        display_map=&map;
     }
     Interface::Screen Dungeon_screen::where_want_to_go(){
         return Interface::Screen::On_map;

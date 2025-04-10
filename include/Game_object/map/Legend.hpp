@@ -1,6 +1,7 @@
 #ifndef GAME_OBJECT_MAP_LEGEND
 #define GAME_OBJECT_MAP_LEGEND
 #include "Game_object/map/Legend_item.hpp"
+#include "Game_object/room/Rooms.hpp"
 namespace Map{
 class Legend
 {
@@ -9,6 +10,7 @@ public:
     ~Legend()=default;
     void update(const float map_a,bool on_top);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
+    const bool &get_hovered_hb_ref(Room::Room_type room_type)const;
 private:
     std::vector<Legend_item> items;
     float legend_a;

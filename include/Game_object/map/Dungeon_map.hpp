@@ -11,8 +11,8 @@ public:
     void show();
     void hide();
     void update();
+    const auto &GetLegend()const{return legend;}
 private:
-    std::vector<std::shared_ptr<Draw::ReTexture>> map_legends_items;
     float map_a,map_offsetY,map_target_a,map_mid_pos;
     Legend legend;
     RUtil::Hitbox boss_hitbox;

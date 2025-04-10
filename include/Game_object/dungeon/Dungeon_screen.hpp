@@ -10,9 +10,9 @@ public:
     Dungeon_screen();
     ~Dungeon_screen()=default;
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const override;
-    void update(Interface::Screen Now_screen) override;
+    void update(const Lazy_package &lazy_package) override;
     Interface::Screen where_want_to_go() override;
-    void set_display_map(const std::vector<std::vector<std::shared_ptr<Map::Map_node>>>&map){display_map=&map;}
+    void set_display_map(const std::vector<std::vector<std::shared_ptr<Map::Map_node>>>&map);
 private:
     void updateOffsetY();
     void reset_scroll();

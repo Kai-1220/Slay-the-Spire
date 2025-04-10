@@ -5,10 +5,10 @@ namespace Dungeon{
         Current_screen=Interface::Screen::On_map;
         m_dungeon_screen=std::make_shared<Dungeon::Dungeon_screen>();
     }
-    void Dungeon_manager::update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler,const std::shared_ptr<Effect::Effect_group>&effs,const std::shared_ptr<Effect::Effect_group>&top_effs){
+    void Dungeon_manager::update(const Lazy_package &lazy_package){
         switch (Current_screen) {
             case Interface::Screen::On_map:
-                m_dungeon_screen->update(Current_screen);
+                m_dungeon_screen->update(lazy_package);
                 break;
             default:
                 LOG_ERROR("Something wrong when switch screen");

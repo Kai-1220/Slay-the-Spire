@@ -16,7 +16,7 @@ public:
 protected:
     bool is_done=false;
     Uint32 color;
-    float duration,scale,color_a=1.0F;
+    float duration=0.0F,scale=0.0F,color_a=1.0F;
     static const float &DT;
 };
 } // namespace Effect

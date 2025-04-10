@@ -1,7 +1,7 @@
 #ifndef RUTIL_IMAGE_BOOK_HPP
 #define RUTIL_IMAGE_BOOK_HPP
-#include"pch.hpp"
 #include "Draw/ReTexture.hpp"
+#include <memory>
 #include <functional>
 namespace RUtil{
 // Store Texture//Don't need to worry that texture is not exist.

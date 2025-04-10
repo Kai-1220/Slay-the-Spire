@@ -1,10 +1,9 @@
 #ifndef GAME_OBJECT_MAP_MAP_NODE
 #define GAME_OBJECT_MAP_MAP_NODE
-#include "pch.hpp"
 #include "Game_object/map/Map_edge.hpp"
 #include "WindowSize.hpp"
 #include "Game_object/room/Rooms.hpp"
-#include <iostream>
+#include "Game_object/map/Legend.hpp"
 namespace Map{
 class Map_node
 {
@@ -19,6 +18,7 @@ public:
     int GetY()const{return y;}
     float GetOffsetX()const{return offset_x;}
     float GetOffsetY()const{return offset_y;}
+    bool IsMakingCircle()const{return making_circle;}
     std::shared_ptr<Room::Rooms> GetRoom()const {return m_room;}
     void add_edge(const std::shared_ptr<Map_edge> &edge);
     void SetRight(bool x);
@@ -26,11 +26,17 @@ public:
     void SetMiddle(bool x);
     void SetToBoss(bool x);
     void SetRoom(const std::shared_ptr<Room::Rooms> &room);
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const;
+    void BindLegend(const Legend &legend);
+    void SetReadyToConnect(const bool value){is_ready_to_connect=value;}
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset)const;
+    void update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,const std::shared_ptr<Effect::Effect_group>&top_effs);
 private:
     int x,y;
-    float offset_x,offset_y,m_scale,m_angle;
-    bool right,middle,left,to_boss,taken;
+    RUtil::Hitbox hb;
+    float offset_x,offset_y,m_scale,m_angle,anim_wait_timer,color_a,oscillate_timer;
+    bool right,middle,left,to_boss,taken,is_ready_to_connect,highlight,making_circle;
+    const bool *legend_hovered=nullptr;
+    void oscillate();
     Uint32 color;
     //the edges only point to future.
     std::vector<std::shared_ptr<Map_edge>> edges;

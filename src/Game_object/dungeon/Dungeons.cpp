@@ -15,7 +15,7 @@ namespace Dungeon{
         effs->update();
         top_effs->update();
         if(m_current_node!=nullptr) m_current_node->GetRoom()->update(action_group_handler,card_group_handler,random_package);
-        m_dungeon_manager.update(card_group_handler,action_group_handler,effs,top_effs);
+        m_dungeon_manager.update({card_group_handler,action_group_handler,effs,top_effs});
     }
     void Dungeons::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         scene->render(r2);

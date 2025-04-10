@@ -31,5 +31,5 @@ void Map_edge::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offs
         it.render(r2,screen_offset);
     }
 }
-void Map_edge::MarkAsTaken(){this->color=Map_node::AVAILABLE_COLOR;}
+void Map_edge::MarkTaken(bool is_taken){this->color=is_taken?Map_node::AVAILABLE_COLOR:Map_node::NOT_TAKEN_COLOR;}
 }

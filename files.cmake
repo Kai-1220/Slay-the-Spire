@@ -34,7 +34,6 @@ set(SRC_FILES
 	Game_object/character/Monster/Monsters.cpp
 	Game_object/character/Monster/TempMonster.cpp
 	Game_object/dungeon/Dungeons.cpp
-	Game_object/dungeon/Dungeon_BottomScene.cpp
 	Game_object/dungeon/Dungeon_manager.cpp
 	Game_object/dungeon/Dungeon_screen.cpp
 	Game_object/effect/Card_flash.cpp
@@ -42,6 +41,8 @@ set(SRC_FILES
 	Game_object/effect/Card_trail_effect.cpp
 	Game_object/effect/Effects.cpp
 	Game_object/effect/Effect_group.cpp
+	Game_object/effect/Fade_wide.cpp
+	Game_object/effect/Map_circle_effect.cpp
 	Game_object/map/Dungeon_map.cpp
 	Game_object/map/Legend.cpp
 	Game_object/map/Legend_item.cpp
@@ -80,6 +81,7 @@ set(INCLUDE_FILES
 	Draw/Text_box.hpp
 	Draw/Text_layout.hpp
 	Game_object/Group_template.hpp
+	Game_object/Lazy_package.hpp
 	Game_object/action/Actions.hpp
 	Game_object/action/Action_group.hpp
 	Game_object/action/Action_group_handler.hpp
@@ -102,7 +104,6 @@ set(INCLUDE_FILES
 	Game_object/character/Monster/Monsters.hpp
 	Game_object/character/Monster/TempMonster.hpp
 	Game_object/dungeon/Dungeons.hpp
-	Game_object/dungeon/Dungeon_BottomScene.hpp
 	Game_object/dungeon/Dungeon_manager.hpp
 	Game_object/dungeon/Dungeon_screen.hpp
 	Game_object/effect/Card_flash.hpp
@@ -110,6 +111,8 @@ set(INCLUDE_FILES
 	Game_object/effect/Card_trail_effect.hpp
 	Game_object/effect/Effects.hpp
 	Game_object/effect/Effect_group.hpp
+	Game_object/effect/Fade_wide.hpp
+	Game_object/effect/Map_circle_effect.hpp
 	Game_object/interface/Is_screen.hpp
 	Game_object/map/Dungeon_map.hpp
 	Game_object/map/Legend.hpp

@@ -10,6 +10,7 @@ public:
     ~Legend_item()=default;
     void update(){this->hb.update();}
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float color_a)const;
+    const bool &get_hovered_hb_ref()const{return hb.Hovered();}
 private:
     const float y;
     const std::shared_ptr<Draw::ReTexture> &img;

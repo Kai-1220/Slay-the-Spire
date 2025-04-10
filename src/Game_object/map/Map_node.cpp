@@ -1,32 +1,85 @@
 #include "Game_object/map/Map_node.hpp"
 #include "RUtil/Image_book.hpp"
+#include "Game_object/effect/Map_circle_effect.hpp"
 namespace Map{
 //mikannsei
-Map_node::Map_node(int x,int y):x(x),y(y){
+Map_node::Map_node(int x,int y):x(x),y(y),hb(64.0F*Setting::SCALE,64.0F*Setting::SCALE){
     this->offset_x=(float)((int)RUtil::Random::GetRandomFloat(-JITTER_X, JITTER_X));
     this->offset_y=(float)((int)RUtil::Random::GetRandomFloat(-JITTER_Y, JITTER_Y));
     color=NOT_TAKEN_COLOR;
     m_scale=0.5F;
+    color_a=1.0F;
     m_angle=RUtil::Random::GetRandomFloat(0.0F,360.0F);
-    taken=right=left=middle=to_boss=false;
+    taken=right=left=middle=to_boss=is_ready_to_connect=highlight=making_circle=false;
+    anim_wait_timer=0.0F;
 }
-void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const{
+void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,const std::shared_ptr<Effect::Effect_group>&top_effs){
+    hb.move((float)this->x*SPACING_X+OFFSET_X+this->offset_x, (float)this->y*MAP_DST_Y+OFFSET_Y+this->offset_y+screen_offset);
+    hb.update();
+    if(0.0F < anim_wait_timer){
+        making_circle=false;
+        anim_wait_timer-=RUtil::Game_Input::delta_time();
+        highlight=hb.Hovered();
+        if(anim_wait_timer <= 0.0F){
+            this->taken=true;
+            highlight=false;
+        }
+        oscillate();
+        return;
+    }
+    if(taken){
+        if(hb.Hovered()) m_scale=1.0F;
+        else m_scale=RUtil::Math::varlerp(m_scale,0.5F,8.0F,0.003F);
+        return;
+    }
+    highlight=false;
+    color=Map_node::AVAILABLE_COLOR;
+    if(*legend_hovered){
+        m_scale=0.68F;
+    }else if(is_ready_to_connect&&is_dungeon_now_room_complete){
+        if(hb.Clicked()&&on_top){
+            //node be selected
+            top_effs->AddTop(std::make_shared<Effect::Map_circle_effect>((float)this->x*SPACING_X+OFFSET_X+this->offset_x,(float)this->y*MAP_DST_Y+OFFSET_Y+screen_offset,this->m_angle));
+            making_circle=true;
+            anim_wait_timer=0.25F;
+        }else if(hb.Hovered()){
+            highlight=true;
+        }
+        oscillate();
+    }else if(hb.Hovered()){
+        m_scale=1.0F;
+    }else{
+        m_scale=RUtil::Math::varlerp(m_scale,0.5F,8.0F,0.003F);
+        color=Map_node::NOT_TAKEN_COLOR;
+    }
+}
+void Map_node::oscillate(){
+    oscillate_timer+=RUtil::Game_Input::delta_time()*5.0F;
+    color_a=0.66F+(glm::cos(oscillate_timer)+1.0F)/6.0F;
+    m_scale=0.25F+color_a;
+}
+void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset)const{
     for(const std::shared_ptr<Map_edge> &it:edges){
         it->render(r2,screen_offset);
     }
-    r2->SetColor_RGBA(OUTLINE_COLOR);//highlight
-    r2->draw(this->m_room->GetOutlineTexture(), (float)this->x * SPACING_X + OFFSET_X - 64.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 64.0F + this->offset_y, 128.0F, 128.0F, 0.0F, 64.0F, 64.0F, this->m_scale * Setting::SCALE * 2.0F, this->m_scale * Setting::SCALE * 2.0F);
-    if(this->taken)
-        r2->SetColor_RGBA(AVAILABLE_COLOR);
+    if(*legend_hovered){
+        r2->SetColor(Util::Colors::LIGHT_GRAY);
+    }else if(this->highlight)
+        r2->SetColor(0.9F,0.9F,0.9F,1.0F);
     else
-        r2->SetColor_RGBA(this->color);
+        r2->SetColor_RGBA(OUTLINE_COLOR);
+    r2->draw(this->m_room->GetOutlineTexture(), (float)this->x * SPACING_X + OFFSET_X - 64.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 64.0F + this->offset_y, 128.0F, 128.0F, 0.0F, 64.0F, 64.0F, this->m_scale * Setting::SCALE, this->m_scale * Setting::SCALE);
+    
+    r2->SetColor_RGBA(this->color);
     r2->draw(this->m_room->GetTexture(), (float)this->x * SPACING_X + OFFSET_X - 64.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 64.0F + this->offset_y, 128.0F, 128.0F, 0.0F, 64.0F, 64.0F, this->m_scale * Setting::SCALE, this->m_scale * Setting::SCALE);
     
-    if(taken){//need more check
-        r2->SetColor_RGBA(AVAILABLE_COLOR);
+    if(taken)
         r2->draw(s_circle, (float)this->x * SPACING_X + OFFSET_X - 96.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 96.0F + this->offset_y, 192.0F, 192.0F, this->m_angle, 96.0F, 96.0F, (this->m_scale * 0.95F + 0.2F) * Setting::SCALE, (this->m_scale * 0.95F + 0.2F) * Setting::SCALE);
-    }
 }
+void Map_node::BindLegend(const Legend &legend){
+    legend_hovered=&legend.get_hovered_hb_ref(m_room->room_type);
+}
+    
 void Map_node::add_edge(const std::shared_ptr<Map_edge> &edge){edges.emplace_back(edge);}
 void Map_node::SetRight(bool x){right=x;}
 void Map_node::SetLeft(bool x){left=x;}

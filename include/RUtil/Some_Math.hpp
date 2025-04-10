@@ -19,7 +19,7 @@ public:
         ((args/=Sum),...);
     }
     template <typename T>
-    static constexpr T lerp(const T a,const T b,const T t){
+    static constexpr T lerp(const T a,const T b,const float t){
         return a + t * (b - a);
     }
     static float interpolation_exp(float v, float p, float a);
@@ -27,7 +27,7 @@ public:
     static float fadelerp(float start,float target);
     static float scrolllerp(float start,float target);
     static float varlerp(float start,const float target,const float speed,const float threshold);
-    static Uint32 color_lerp_rgb(Uint32 start,Uint32 target,Uint32 t);
+    static Uint32 color_lerp_rgb(Uint32 start,Uint32 target,float t);
     static float interpolation_exp10(float start,float target,float a);
     static float interpolation_fade(float start,float target,float a);
     static float interpolation_powout2(float start,float target,float a);
@@ -37,7 +37,8 @@ public:
     static float GetDegress(const glm::vec2 &v);
     static float BounceOut(float t);
     static float BounceIn(float t);
-    static constexpr float Apply(float start,float target,float t){return start+(target-start)*t;}
+    template <typename T>
+    static constexpr T Apply(T start,T target,float t){return start+(target-start)*t;}
     static glm::vec2 BezierQuadratic(const glm::vec2 p0,const glm::vec2 p1,const glm::vec2 p2,const float t);
     static glm::vec2 CatmullRomSpline(const std::vector<glm::vec2> &controls,float t,const int len,const int vec_start_pos=0);
     static constexpr Uint32 GetColorUint32_RGB(int r,int g,int b){return r<<24|g<<16|b<<8;};

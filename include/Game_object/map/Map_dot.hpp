@@ -9,7 +9,7 @@ public:
     //x,y are texture center
     Map_dot(float x,float y,float rotation,bool jitter);
     ~Map_dot()=default;
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const;
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset)const;
 private:
     static const std::shared_ptr<Draw::ReTexture> &dot_texture;
     float x,y,rotation;

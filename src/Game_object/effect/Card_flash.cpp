@@ -1,4 +1,5 @@
 #include "Game_object/effect/Card_flash.hpp"
+#include "RUtil/Some_Math.hpp"
 namespace Effect
 {
     Card_flash::Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
