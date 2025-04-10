@@ -36,9 +36,10 @@ void Bottom_scene::render_combat_room_bg(const std::shared_ptr<Draw::Draw_2D> &r
     r2->SetColor(-1);
     render_format(r2,bg);
     render_format(r2,mg);
+    render_format(r2,fg);
     if(render_hollow_mid&&render_solid_mid)
         r2->SetColor(Util::Colors::GRAY);
-    if(render_solid_mid) render_format(r2,solid_wall);
+    if(render_solid_mid) render_format(r2 ,solid_wall);
     r2->SetColor(-1);
     if(render_hollow_mid) render_format(r2,hollow_wall);
     if(render_left_wall) render_format(r2,left_wall);

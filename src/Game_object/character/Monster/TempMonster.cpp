@@ -4,6 +4,9 @@ namespace Monster
     TempMonster::TempMonster(){
         m_damage=5;
     }
+    void TempMonster::render(const std::shared_ptr<Draw::Draw_2D> &r2){
+
+    }
     // void TempMonster::apply(const std::shared_ptr<Action::Action_group> &action_group)const{
         
     // }

@@ -3,6 +3,7 @@
 #include "Draw/Draw_2D.hpp"
 #include "Cursor.hpp"
 #include "Util/Input.hpp"
+#include "draw_test.hpp"
 int main(int, char**) {
     srand(static_cast<unsigned int>(time(0)));//set the rand seed,it will affect the entire program.
     auto context = Core::Context::GetInstance();
@@ -15,6 +16,7 @@ int main(int, char**) {
         app.update();
         Draw2D->begin();
         app.render(Draw2D);
+        // test(Draw2D);
         Cursor::Draw(Draw2D);
         Draw2D->end();
         context->Update();

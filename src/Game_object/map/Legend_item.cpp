@@ -6,7 +6,7 @@ namespace Map
     y(LEGEND_Y - idx * SPACE + OFFSET),
     img(img),
     m_text_box(title, body, 1500.0F*Setting::SCALE, 270.0F*Setting::SCALE),
-    hb(TEXT_X, this->y, 230.0F*Setting::SCALE, SPACE-2.0F),
+    hb(TEXT_X, this->y, 230.0F*Setting::SCALE, SPACE-2.0,true),
     label(label){}
 
     void Legend_item::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float color_a)const{
