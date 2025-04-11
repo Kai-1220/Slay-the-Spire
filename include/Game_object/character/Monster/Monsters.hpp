@@ -30,7 +30,6 @@ public:
     void damage(int num)override;
     void setHP(int min,int max);
     void setBlock(int num);
-    virtual void render(const std::shared_ptr<Draw::Draw_2D> &r2)=0;
 protected:
     int m_damage;
 };

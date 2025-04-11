@@ -11,4 +11,5 @@ void Monsters::setHP(int min,int max){
 void Monsters::setBlock(int num){
     this->current_Block=num;
 }
+
 } // namespace Monster
