@@ -13,6 +13,7 @@ public:
 private:
     float y;
     static const std::shared_ptr<Draw::Atlas_Region> &IMG;
+public:
     static const std::shared_ptr<Draw::ReTexture> &white_square;
 };
 }

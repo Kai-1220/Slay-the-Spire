@@ -17,10 +17,10 @@ void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_c
     hb.move((float)this->x*SPACING_X+OFFSET_X+this->offset_x, (float)this->y*MAP_DST_Y+OFFSET_Y+this->offset_y+screen_offset);
     hb.update();
     if(0.0F < anim_wait_timer){
-        making_circle=false;
         anim_wait_timer-=RUtil::Game_Input::delta_time();
         highlight=hb.Hovered();
         if(anim_wait_timer <= 0.0F){
+            making_circle=false;
             this->taken=true;
             highlight=false;
         }
@@ -79,7 +79,16 @@ void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float scree
 void Map_node::BindLegend(const Legend &legend){
     legend_hovered=&legend.get_hovered_hb_ref(m_room->room_type);
 }
-    
+std::shared_ptr<Map_edge>Map_node::GetConnectedEdge(const std::shared_ptr<Map_node> &node){
+    for(const auto&it:edges){
+        if(it->to_y==node->y && it->to_x==node->x)
+            return it;
+    }
+    return nullptr;
+}
+void Map_node::MarkAllEdge(const bool is_taken)const{
+    for(const auto&it:edges) it->MarkTaken(is_taken);
+}
 void Map_node::add_edge(const std::shared_ptr<Map_edge> &edge){edges.emplace_back(edge);}
 void Map_node::SetRight(bool x){right=x;}
 void Map_node::SetLeft(bool x){left=x;}

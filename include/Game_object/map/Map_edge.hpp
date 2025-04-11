@@ -9,9 +9,9 @@ public:
             float to_offset_x,float to_offset_y,bool is_boss);
     ~Map_edge()=default;
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,float screen_offset)const;
-    void MarkTaken(bool is_taken);
+    void MarkTaken(const bool is_taken);
+    const int from_x,from_y,to_x,to_y; 
 private:
-    int from_x,from_y,to_x,to_y;
     std::vector<Map_dot> dots;
     Uint32 color;
     static constexpr Uint32 DISABLED_COLOR=0x00000040;

@@ -22,6 +22,14 @@ private:
     std::vector<std::vector<std::shared_ptr<Map::Map_node>>> m_map;
     std::shared_ptr<RUtil::Random> map_rng;
     std::shared_ptr<Map::Map_node> m_current_node;
+    float fade_timer,fade_color_a;
+    bool next_node_is_making_circle,is_fade_in,is_fade_out;
+    void set_next_node_oscillate_and_edge(const bool value)const;
+    bool check_next_node_making_circle()const;
+    void change_current_node_to_next();
+    void fade_in();
+    void fade_out();
+    void update_fading();
 };
 }
 #endif

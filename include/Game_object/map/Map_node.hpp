@@ -14,12 +14,13 @@ public:
     bool CanMoveMiddle()const{return middle;}
     bool CanMoveLeft()const{return left;}
     bool CanToBoss()const {return to_boss;}
-    int GetX()const{return x;}
-    int GetY()const{return y;}
     float GetOffsetX()const{return offset_x;}
     float GetOffsetY()const{return offset_y;}
     bool IsMakingCircle()const{return making_circle;}
+    bool GetTaken()const{return taken;}
     std::shared_ptr<Room::Rooms> GetRoom()const {return m_room;}
+    std::shared_ptr<Map_edge>GetConnectedEdge(const std::shared_ptr<Map_node> &node);
+    void MarkAllEdge(const bool is_taken)const;
     void add_edge(const std::shared_ptr<Map_edge> &edge);
     void SetRight(bool x);
     void SetLeft(bool x);
@@ -30,8 +31,8 @@ public:
     void SetReadyToConnect(const bool value){is_ready_to_connect=value;}
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset)const;
     void update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,const std::shared_ptr<Effect::Effect_group>&top_effs);
+    const int x,y;
 private:
-    int x,y;
     RUtil::Hitbox hb;
     float offset_x,offset_y,m_scale,m_angle,anim_wait_timer,color_a,oscillate_timer;
     bool right,middle,left,to_boss,taken,is_ready_to_connect,highlight,making_circle;

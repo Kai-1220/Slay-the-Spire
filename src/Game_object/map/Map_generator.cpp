@@ -41,7 +41,7 @@ std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int h
             
             //this is so long.... but I think it's ok.
             if(map[next_node_y][next_node_x]==nullptr)map[next_node_y][next_node_x]=std::make_shared<Map::Map_node>(next_node_x,next_node_y);
-            std::shared_ptr<Map_edge> Next_edge=std::make_shared<Map_edge>(map[now_node_y][now_node_x]->GetX(),map[now_node_y][now_node_x]->GetY(),map[next_node_y][next_node_x]->GetX(),map[next_node_y][next_node_x]->GetY(),
+            std::shared_ptr<Map_edge> Next_edge=std::make_shared<Map_edge>(map[now_node_y][now_node_x]->x,map[now_node_y][now_node_x]->y,map[next_node_y][next_node_x]->x,map[next_node_y][next_node_x]->y,
                                                             map[now_node_y][now_node_x]->GetOffsetX(),map[now_node_y][now_node_x]->GetOffsetY(),map[next_node_y][next_node_x]->GetOffsetX(),map[next_node_y][next_node_x]->GetOffsetY(),false);
             switch(next_node_x-now_node_x){
                 case 1:
@@ -71,7 +71,7 @@ std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int h
         }
         if(!map[now_node_y][now_node_x]->CanToBoss()){
             map[now_node_y][now_node_x]->SetToBoss(true);
-            map[now_node_y][now_node_x]->add_edge(std::make_shared<Map_edge>(map[now_node_y][now_node_x]->GetX(),map[now_node_y][now_node_x]->GetY(), 3, now_node_y+2, map[now_node_y][now_node_x]->GetOffsetX(),map[now_node_y][now_node_x]->GetOffsetY(),0.0F,0.0F,true));//あたまおかしくなってる
+            map[now_node_y][now_node_x]->add_edge(std::make_shared<Map_edge>(map[now_node_y][now_node_x]->x,map[now_node_y][now_node_x]->y, 3, now_node_y+2, map[now_node_y][now_node_x]->GetOffsetX(),map[now_node_y][now_node_x]->GetOffsetY(),0.0F,0.0F,true));//あたまおかしくなってる
         }
     }
     
