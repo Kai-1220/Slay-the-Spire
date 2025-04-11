@@ -11,9 +11,8 @@ namespace Character{
         setHPBarWidth(WIDTH*0.5F);
     }
     
-    void Player::render(const std::shared_ptr<Draw::Draw_2D> &r2)
+    void Player::render(const std::shared_ptr<Draw::Draw_2D> &r2) const 
     {
-        update();
         r2->SetColor(-1);
         r2->draw(img,getPosition().x,getPosition().y,WIDTH,HIGHT); 
         render_HP(r2);

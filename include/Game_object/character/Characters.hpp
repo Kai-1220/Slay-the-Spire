@@ -12,7 +12,7 @@ public:
     Characters();
     virtual ~Characters()=default;
     virtual void damage(int num)=0;
-    virtual void render(const std::shared_ptr<Draw::Draw_2D> &r2)=0;
+    virtual void render(const std::shared_ptr<Draw::Draw_2D> &r2) const =0;
     void update();
     void setPosition(glm::vec2 vec,int WIDTH);
     void setHPBarWidth(float width);

@@ -3,14 +3,13 @@
 #include "RUtil/Some_Math.hpp"
 namespace Character{
     Characters::Characters(){
-        hb_width=120.0F*Setting::SCALE;
         hb_height=HEALTH_BAR_HEIGHT;
         hb_a=1.0F;
         shadow_a = 1.0F;
         bg_a = 1.0F;
         outline_a =  1.0F;
         block_offset = 0.0F;
-        DecreaseWaitTimer=10.0F;
+        DecreaseWaitTimer=1.2F;
         health_width=hb_width;
         health_target_width=hb_width;
 
@@ -88,6 +87,7 @@ namespace Character{
     }
     void Characters::setHPBarWidth(float width){
         hb_width=width;
+        update();
     };
     
     const std::shared_ptr<Draw::ReTexture>  &Characters::_SHADOW_L=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/leftBg.png"),&Characters::_SHADOW_R=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/rightBg.png"),&Characters::_SHADOW_B=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/bodyBg.png"),

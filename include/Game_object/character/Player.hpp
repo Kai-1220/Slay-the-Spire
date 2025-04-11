@@ -8,7 +8,7 @@ public:
     Player();
     virtual ~Player()=default;
     void damage(int num)override{current_HP-=num;};
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2) override;
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2) const override;
 private:
     static const std::shared_ptr<Draw::ReTexture> &img;
     static constexpr int WIDTH_OFFSET=-800.0F*Setting::SCALE,
