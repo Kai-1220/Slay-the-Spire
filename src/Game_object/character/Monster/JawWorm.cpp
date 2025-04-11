@@ -7,7 +7,7 @@ namespace Monster{
         setBlock(0);
         m_damage=12;
         setPosition(glm::vec2(WINDOW_WIDTH*0.5F+WIDTH_OFFSET,WINDOW_HEIGHT*0.5F+HEIGHT_OFFSET),WIDTH);
-        setHPBarWidth(WIDTH);
+        setHPBarWidth(WIDTH*0.8F);
     }
     
     void JawWorm::render(const std::shared_ptr<Draw::Draw_2D> &r2)

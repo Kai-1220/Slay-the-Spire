@@ -21,9 +21,9 @@ public:
     // void apply(const std::shared_ptr<Action::Action_group> &action_group)const override;
 private:
     static const std::shared_ptr<Draw::ReTexture> &img;
-    static constexpr int HEIGHT_OFFSET=-300.0F*Setting::SCALE;
-    static constexpr int WIDTH=100.0F*Setting::SCALE*1.5,
-                         HIGHT=150.0F*Setting::SCALE*1.5;
+    static constexpr int HEIGHT_OFFSET=-200.0F*Setting::SCALE;
+    static constexpr int WIDTH=300.0F*Setting::SCALE,
+                         HIGHT=180.0F*Setting::SCALE;
 };
 }
 #endif

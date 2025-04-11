@@ -31,6 +31,7 @@ set(SRC_FILES
 	Game_object/card/red/Anger.cpp
 	Game_object/card/red/Strike_red.cpp
 	Game_object/character/Characters.cpp
+	Game_object/character/Player.cpp
 	Game_object/character/Monster/AcidSlimeL.cpp
 	Game_object/character/Monster/FatGremlin.cpp
 	Game_object/character/Monster/JawWorm.cpp
@@ -141,6 +142,6 @@ set(INCLUDE_FILES
 	RUtil/Some_Math.hpp
 	RUtil/Text_Vector_Reader.hpp
 )
-
+ 
 set(TEST_FILES
 )

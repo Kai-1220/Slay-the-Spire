@@ -19,9 +19,9 @@ public:
 private:
     static const std::shared_ptr<Draw::ReTexture> &img;
     static constexpr int WIDTH_OFFSET=700.0F*Setting::SCALE,
-                        HEIGHT_OFFSET=-300.0F*Setting::SCALE;
-    static constexpr int WIDTH=150.0F*Setting::SCALE,
-                        HIGHT=300.0F*Setting::SCALE;
+                        HEIGHT_OFFSET=-200.0F*Setting::SCALE;
+    static constexpr int WIDTH=110.0F*Setting::SCALE,
+                        HIGHT=220.0F*Setting::SCALE;
 };
 }
 #endif

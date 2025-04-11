@@ -7,7 +7,7 @@ namespace Monster{
         setBlock(0);
         m_damage=16;
         setPosition(glm::vec2(WINDOW_WIDTH*0.5F,WINDOW_HEIGHT*0.5F+HEIGHT_OFFSET),WIDTH);
-        setHPBarWidth(WIDTH);
+        setHPBarWidth(WIDTH*0.8F);
     }
     
     void AcidSlimeL::render(const std::shared_ptr<Draw::Draw_2D> &r2)
