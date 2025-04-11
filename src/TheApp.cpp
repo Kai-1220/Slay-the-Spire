@@ -1,6 +1,8 @@
 #include "TheApp.hpp"
 #include "Game_object/card/red/Strike_red.hpp"
+#include "Core/Context.hpp"
 TheApp::TheApp(){
+    m_InitScreen=std::make_shared<InitScreen>();
     m_dungeon=std::make_shared<Dungeon::Dungeons>();
     card_group_handler=std::make_shared<Card::Card_group_handler>();
     action_group_handler=std::make_shared<Action::Action_group_handler>();
@@ -9,8 +11,27 @@ TheApp::TheApp(){
 }
 void TheApp::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
     //assume that now in the room
-    m_dungeon->render(r2);
+    // switch (m_InitScreen->GetCurrentState()) {
+    // case InitScreen::State::INIT:
+    //     m_InitScreen->draw(r2);
+    //     break;
+    // case  InitScreen::State::STSRT_GAME:
+        m_dungeon->render(r2);
+    //     break;
+    // default:
+    //     break;
+    // }
 }
 void TheApp::update(){
-    m_dungeon->update(card_group_handler,action_group_handler,random_package);
+    // switch (m_InitScreen->GetCurrentState()) {
+    // case  InitScreen::State::STSRT_GAME:
+        m_dungeon->update(card_group_handler,action_group_handler,random_package);
+    //     break;
+    // case InitScreen::State::END:
+    //     Core::Context::GetInstance()->SetExit(true);
+    //     break;
+    // default:
+    //     break;
+    // }
+    
 }
