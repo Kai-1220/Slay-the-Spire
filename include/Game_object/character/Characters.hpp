@@ -12,14 +12,21 @@ public:
     Characters();
     virtual ~Characters()=default;
     virtual void damage(int num)=0;
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
-    void setPosition(glm::vec2 vec);
+    virtual void render(const std::shared_ptr<Draw::Draw_2D> &r2) const =0;
+    void update();
+    void setPosition(glm::vec2 vec,int WIDTH);
+    void setHPBarWidth(float width);
 protected:
     int max_HP,current_HP,current_Block;
     void render_HP(const std::shared_ptr<Draw::Draw_2D> &r2)const;
-    glm::vec2 pos;
+    glm::vec2 getPosition()const{ return pos;};
+    
+    
 private:
+    glm::vec2 pos;
     float hb_height,hb_width,hb_cX,hb_cY,hb_a;
+    float DecreaseWaitTimer;
+    bool HPDecrease=false;
     float shadow_a,bg_a,outline_a,health_width,health_target_width,block_offset;
     static const std::shared_ptr<Draw::ReTexture>  &_SHADOW_L,&_SHADOW_R,&_SHADOW_B,
                                                 &HEALTH_BAR_B,&HEALTH_BAR_L,&HEALTH_BAR_R,

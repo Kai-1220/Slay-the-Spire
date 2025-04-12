@@ -46,12 +46,12 @@ namespace Dungeon{
     }
     void Dungeons::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         scene->render(r2);
-        if(m_current_node!=nullptr) m_current_node->GetRoom()->render(r2);
-        effs->render(r2);
-        m_dungeon_manager.render(r2);
-        top_effs->render(r2);
-        r2->SetColor(fade_color,fade_color_a);
-        r2->draw(Effect::Fade_wide::white_square, 0.0F, 0.0F, WINDOW_WIDTH, WINDOW_HEIGHT);
+        // if(m_current_node!=nullptr) m_current_node->GetRoom()->render(r2);
+        // effs->render(r2);
+        // m_dungeon_manager.render(r2);
+        // top_effs->render(r2);
+        // r2->SetColor(fade_color,fade_color_a);
+        // r2->draw(Effect::Fade_wide::white_square, 0.0F, 0.0F, WINDOW_WIDTH, WINDOW_HEIGHT);
     }
     void Dungeons::set_next_node_oscillate_and_edge(const bool value)const{
         if(m_current_node==nullptr){

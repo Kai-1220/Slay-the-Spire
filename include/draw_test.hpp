@@ -8,5 +8,6 @@
 #include "Game_object/character/Monster/AcidSlimeL.hpp"
 #include "Game_object/character/Monster/JawWorm.hpp"
 #include "Game_object/character/Monster/FatGremlin.hpp"
+#include "Game_object/character/Player.hpp"
 void test(const std::shared_ptr<Draw::Draw_2D> &r2);
 #endif // DRAW_TEST_HPP

@@ -13,14 +13,14 @@ namespace RUtil{
     float Math::fadelerp(float start,float target){
         if(start!=target){
             start=lerp(start,target,RUtil::Game_Input::delta_time()*12.0F);
-            if(std::abs(start-target)<0.01F||start>target) start=target;
+            if(std::abs(start-target)<0.01F) start=target;
         }
         return start;
     }
     float Math::varlerp(float start,const float target,const float speed,const float threshold){
         if(start!=target){
             start=lerp(start,target,RUtil::Game_Input::delta_time()*speed);
-            if(std::abs(start-target)<threshold||start>target) start=target;
+            if(std::abs(start-target)<threshold) start=target;
         }
         return start;
     }
