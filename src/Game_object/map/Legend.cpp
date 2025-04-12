@@ -17,7 +17,8 @@ namespace Map
         }else{
             legend_a=RUtil::Math::fadelerp(legend_a,0.0F);
         }
-        for(auto&it:items) it.update();
+        if(on_top)
+            for(auto&it:items) it.update();
     }
     void Legend::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         r2->SetColor(Util::Colors::WHITE,legend_a);

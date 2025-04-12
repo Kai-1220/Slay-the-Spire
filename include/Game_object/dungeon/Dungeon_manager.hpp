@@ -11,8 +11,10 @@ namespace Dungeon{
         void update(const Lazy_package &lazy_package);
         void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
         void set_display_map(const std::vector<std::vector<std::shared_ptr<Map::Map_node>>>&map)const{m_dungeon_screen->set_display_map(map);}
+        void set_current_on_top(bool value){Current_screen->set_on_top(value);}
+        void hide_dungeon_screen_instantly()const{m_dungeon_screen->hide_instantly();}
     private:
-        Interface::Screen Current_screen;
+        std::shared_ptr<Interface::Is_screen> Current_screen;
         std::shared_ptr<Dungeon::Dungeon_screen> m_dungeon_screen;
     };
 }

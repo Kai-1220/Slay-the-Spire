@@ -13,6 +13,7 @@ public:
     const bool&Clicked()const{return clicked;}
     void update();
     void move(float center_x,float center_y);
+    void UnHovered(){hovered=false;}
 private:
     static const int &nx,&ny;
     static const bool &just_clicked,&just_released;

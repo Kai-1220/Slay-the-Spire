@@ -17,8 +17,8 @@ public:
     float GetOffsetX()const{return offset_x;}
     float GetOffsetY()const{return offset_y;}
     bool IsMakingCircle()const{return making_circle;}
-    bool GetTaken()const{return taken;}
-    std::shared_ptr<Room::Rooms> GetRoom()const {return m_room;}
+    void MarkTaken(){taken=true;}
+    const std::shared_ptr<Room::Rooms> &GetRoom()const {return m_room;}
     std::shared_ptr<Map_edge>GetConnectedEdge(const std::shared_ptr<Map_node> &node);
     void MarkAllEdge(const bool is_taken)const;
     void add_edge(const std::shared_ptr<Map_edge> &edge);
@@ -35,7 +35,7 @@ public:
 private:
     RUtil::Hitbox hb;
     float offset_x,offset_y,m_scale,m_angle,anim_wait_timer,color_a,oscillate_timer;
-    bool right,middle,left,to_boss,taken,is_ready_to_connect,highlight,making_circle;
+    bool right,middle,left,to_boss,taken,is_ready_to_connect,highlight,making_circle,made_circle;
     const bool *legend_hovered=nullptr;
     void oscillate();
     Uint32 color;

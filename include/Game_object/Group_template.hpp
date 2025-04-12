@@ -12,7 +12,7 @@ public:
     void AddBot(T&&item){box.emplace_front(std::move(item));}
     void AddTop(const T&item){box.emplace_back(item);}
     void AddBot(const T&item){box.emplace_front(item);}
-    T PopTop(){auto&&temp=std::move(box.back());box.pop_back();return temp;}
+    T PopTop(){auto temp=std::move(box.back());box.pop_back();return temp;}
     void Clear(){box.clear();}
     auto begin()const{return box.begin();}
     auto end()const{return box.end();}

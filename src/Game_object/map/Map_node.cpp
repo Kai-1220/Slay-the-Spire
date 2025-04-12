@@ -10,7 +10,7 @@ Map_node::Map_node(int x,int y):x(x),y(y),hb(64.0F*Setting::SCALE,64.0F*Setting:
     m_scale=0.5F;
     color_a=1.0F;
     m_angle=RUtil::Random::GetRandomFloat(0.0F,360.0F);
-    taken=right=left=middle=to_boss=is_ready_to_connect=highlight=making_circle=false;
+    taken=right=left=middle=to_boss=is_ready_to_connect=highlight=making_circle=made_circle=false;
     anim_wait_timer=0.0F;
 }
 void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,const std::shared_ptr<Effect::Effect_group>&top_effs){
@@ -21,14 +21,14 @@ void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_c
         highlight=hb.Hovered();
         if(anim_wait_timer <= 0.0F){
             making_circle=false;
-            this->taken=true;
             highlight=false;
         }
         oscillate();
         return;
     }
-    if(taken){
-        if(hb.Hovered()) m_scale=1.0F;
+    if(made_circle){
+        if(*legend_hovered) m_scale=0.68F;
+        else if(hb.Hovered()) m_scale=1.0F;
         else m_scale=RUtil::Math::varlerp(m_scale,0.5F,8.0F,0.003F);
         return;
     }
@@ -39,8 +39,9 @@ void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_c
     }else if(is_ready_to_connect&&is_dungeon_now_room_complete){
         if(hb.Clicked()&&on_top){
             //node be selected
-            top_effs->AddTop(std::make_shared<Effect::Map_circle_effect>((float)this->x*SPACING_X+OFFSET_X+this->offset_x,(float)this->y*MAP_DST_Y+OFFSET_Y+screen_offset,this->m_angle));
+            top_effs->AddTop(std::make_shared<Effect::Map_circle_effect>((float)this->x*SPACING_X+OFFSET_X+this->offset_x,(float)this->y*MAP_DST_Y+OFFSET_Y+screen_offset+this->offset_y,this->m_angle));
             making_circle=true;
+            made_circle=true;
             anim_wait_timer=0.25F;
         }else if(hb.Hovered()){
             highlight=true;
@@ -84,6 +85,7 @@ std::shared_ptr<Map_edge>Map_node::GetConnectedEdge(const std::shared_ptr<Map_no
         if(it->to_y==node->y && it->to_x==node->x)
             return it;
     }
+    LOG_ERROR("Can't get connected edge.");
     return nullptr;
 }
 void Map_node::MarkAllEdge(const bool is_taken)const{

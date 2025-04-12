@@ -18,13 +18,12 @@ public:
     int NextInt(){return static_cast<int>((*this)()&0x7fffffff);}
     bool Nextboolean(){return static_cast<bool>((*this)()&1);}
     auto GetCounter()const{return counter;}
-
+    void SetNewSeed(unsigned long long int seed,int counter=0);
     static bool GetRandomBoolean(){return static_cast<bool>(s_gen()&1);}
     static float GetRandomFloat(const float min,const float max);
 private:
     std::mt19937 m_gen;
     unsigned int counter;
-    unsigned long long int seed;
 
     static std::mt19937 s_gen;
 };

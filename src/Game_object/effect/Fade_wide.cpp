@@ -14,7 +14,7 @@ namespace Effect
     void Fade_wide::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         r2->SetBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
         r2->SetColor(this->color,this->color_a);
-        r2->draw(IMG,0.0F,this->y,(float)WINDOW_WIDTH,IMG->GetRegionHeight());
+        r2->draw(IMG,0.0F,this->y,(float)WINDOW_WIDTH,(float)IMG->GetRegionHeight());
         r2->draw(white_square,0.0F,this->y+(float)IMG->GetRegionHeight()-1.0F*Setting::SCALE,(float)WINDOW_WIDTH,(float)WINDOW_HEIGHT);
     }
     void Fade_wide::update(){

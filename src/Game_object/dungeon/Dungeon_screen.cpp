@@ -35,7 +35,7 @@ namespace Dungeon
             LOG_ERROR("Forget to set the dispaly_map.");
         }
 
-        if(!pause_offset_y_update) this->updateOffsetY();
+        if(on_top&&!pause_offset_y_update) this->updateOffsetY();
     }
     void Dungeon_screen::updateOffsetY(){
         if(grabbed){
@@ -85,8 +85,5 @@ namespace Dungeon
             for(const auto&it2:it)
                 if(it2!=nullptr)it2->BindLegend(this->the_map.GetLegend());
         display_map=&map;
-    }
-    Interface::Screen Dungeon_screen::where_want_to_go(){
-        return Interface::Screen::On_map;
     }
 } // namespace Dungeon
