@@ -2,10 +2,11 @@
 #include "WindowSize.hpp"
 #include "Util/Input.hpp"
 #include "Util/Keycode.hpp"
-#include "RUtil/Image_book.hpp"
-#include <iostream>
-#include <vector>
 
+#include "RUtil/Image_book.hpp"
+#include "Draw/Image_Region.hpp"
+#include "Draw/ReText.hpp"
+#include "Util/Color.hpp"
 
 InitScreen::InitScreen() {
     LOG_TRACE("InitScreen");
@@ -45,8 +46,7 @@ void InitScreen::CreateWhiteCloud(int i){
     WhiteCloudCount.push_back(i);
 }
 void InitScreen::CreateText(int i){
-    std::shared_ptr<Draw::ReText> Text=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf", m_Size, m_Text[i],
-        Util::Color::FromRGB(255, 255, 255));
+    std::shared_ptr<Draw::ReText> Text=std::make_shared<Draw::ReText>(RESOURCE_DIR"/font/zht/NotoSansCJKtc-Bold.otf", m_Size, m_Text[i]);
     TextObj.push_back(Text);
 }
 
@@ -58,7 +58,7 @@ void InitScreen::Create(){
         CreateText(i);
     }
 }
-void InitScreen::draw(std::shared_ptr<Draw::Draw_2D> Draw2D){
+void InitScreen::draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D){
     if(rand()%100<45 && CloudGenTime>500){
         if(rand()%2==0){
             CreateBlackCloud(rand()%7);

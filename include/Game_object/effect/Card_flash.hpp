@@ -1,8 +1,13 @@
-#ifndef GAME_OBJECT_EFFECT_CARD_FLASH
-#define GAME_OBJECT_EFFECT_CARD_FLASH
+#pragma once
+
 #include "Game_object/effect/Effects.hpp"
-#include "Draw/Atlas_Region.hpp"
 #include "RUtil/Some_Math.hpp"
+
+//fwd decl
+namespace Draw{
+    class Atlas_Region;
+}
+
 namespace Effect{
 class Card_flash final:public Effects
 {
@@ -20,4 +25,3 @@ private:
     static constexpr Uint32 DFAULT_COLOR=RUtil::Math::GetColorUint32_RGB(1.0F,0.8F,0.2F);
 };
 }
-#endif

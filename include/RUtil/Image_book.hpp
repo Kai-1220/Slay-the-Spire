@@ -1,8 +1,12 @@
-#ifndef RUTIL_IMAGE_BOOK_HPP
-#define RUTIL_IMAGE_BOOK_HPP
-#include "Draw/ReTexture.hpp"
-#include <memory>
+#pragma once
+
 #include <functional>
+
+//fwd decl
+namespace Draw{
+    class ReTexture;
+}
+
 namespace RUtil{
 // Store Texture//Don't need to worry that texture is not exist.
 class Image_book
@@ -27,5 +31,3 @@ private:
     };
 };
 }
-
-#endif

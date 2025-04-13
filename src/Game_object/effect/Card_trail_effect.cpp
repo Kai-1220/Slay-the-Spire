@@ -1,9 +1,14 @@
+#include <memory>
+
 #include "Game_object/effect/Card_trail_effect.hpp"
-#include "RUtil/Game_Input.hpp"
 #include "RUtil/Some_Math.hpp"
+#include "RUtil/All_Image.hpp"
+#include "Draw/Atlas_Region.hpp"
+
 namespace Effect
 {
-    Card_trail_effect::Card_trail_effect(glm::vec2 pos,Uint32 RGB_color):Effects(RGB_color),pos(pos-6.0F){
+    Card_trail_effect::Card_trail_effect(glm::vec2 pos,Uint32 RGB_color):pos(pos-6.0F){
+        color=RGB_color;
         duration=0.5F;
         scale=0.01F;
     }

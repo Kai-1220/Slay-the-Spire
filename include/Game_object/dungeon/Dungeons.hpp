@@ -31,7 +31,7 @@ private:
     void fade_in();
     void fade_out();
     void update_fading();
-    void entering_next_room(const RUtil::Random_package &random_package);
+    void entering_next_room(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler,const RUtil::Random_package &random_package);
 };
 }
 #endif

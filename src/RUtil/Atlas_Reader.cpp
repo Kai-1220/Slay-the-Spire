@@ -1,8 +1,12 @@
-#include "RUtil/Atlas_Reader.hpp"
 #include<fstream>
-#include "Util/Logger.hpp"
+
+#include "RUtil/Atlas_Reader.hpp"
+#include"Draw/Atlas_Region.hpp"
 #include "RUtil/Some_Math.hpp"
 #include "RUtil/Image_book.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace RUtil{
     Atlas_Reader::Atlas_Reader(const std::string &atlas_path){
         BuildMap(atlas_path);

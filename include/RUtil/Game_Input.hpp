@@ -1,10 +1,7 @@
-#ifndef RUTIL_GAME_INPUT_HPP
-#define RUTIL_GAME_INPUT_HPP
-#include <SDL_events.h>
-#include "config.hpp"
+#pragma once
+
 namespace RUtil{
 //do some limit for input
-
 class Game_Input
 {
 public:
@@ -42,4 +39,3 @@ private:
     static float delta_time_s;// I don't know if it's good to put it here
 };
 }
-#endif

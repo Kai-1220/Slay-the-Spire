@@ -1,4 +1,5 @@
 #include "Draw/Atlas_Region.hpp"
+
 namespace Draw
 {
 Atlas_Region::Atlas_Region(const std::string& name, int x, int y,

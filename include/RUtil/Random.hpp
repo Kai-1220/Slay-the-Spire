@@ -1,6 +1,7 @@
-#ifndef RUTIL_RANDOM_HPP
-#define RUTIL_RANDOM_HPP
+#pragma once
+
 #include<random>
+
 namespace RUtil{
 class Random{
 public:
@@ -28,4 +29,3 @@ private:
     static std::mt19937 s_gen;
 };
 }
-#endif

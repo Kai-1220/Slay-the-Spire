@@ -1,6 +1,7 @@
 #include "Game_object/character/Characters.hpp"
 #include <iostream>
 #include "RUtil/Some_Math.hpp"
+#include "RUtil/Game_Input.hpp"
 namespace Character{
     Characters::Characters(){
         hb_height=HEALTH_BAR_HEIGHT;

@@ -1,8 +1,13 @@
-#ifndef GAME_OBJECT_EFFECT_CARD_TRAIL_EFFECT
-#define GAME_OBJECT_EFFECT_CARD_TRAIL_EFFECT
+#pragma once
+
 #include "Game_object/effect/Effects.hpp"
-#include "RUtil/All_Image.hpp"
 #include "WindowSize.hpp"
+
+//fwd decl
+namespace Draw{
+    class Atlas_Region;
+}
+
 namespace Effect{
 class Card_trail_effect final:public Effects
 {
@@ -17,4 +22,3 @@ const glm::vec2 pos;
 static constexpr float SCALE_MULTI = Setting::SCALE * 22.0F;
 };
 }
-#endif

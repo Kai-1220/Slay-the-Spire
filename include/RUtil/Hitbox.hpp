@@ -1,6 +1,5 @@
-#ifndef RUTIL_HITBOX_HPP
-#define RUTIL_HITBOX_HPP
-#include "RUtil/Game_Input.hpp"
+#pragma once
+
 namespace RUtil{
 class Hitbox{
 public:
@@ -21,4 +20,3 @@ private:
     bool just_hovered,hovered,click_stared,clicked;
 };
 }
-#endif

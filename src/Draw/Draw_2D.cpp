@@ -1,7 +1,13 @@
-#include "Draw/Draw_2D.hpp"
-#include "Util/Logger.hpp"
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Draw/Draw_2D.hpp"
+#include "Draw/ReTexture.hpp"
+#include "Draw/Image_Region.hpp"
+
+#include "Util/Color.hpp"
+#include "Core/Program.hpp"
 #include "config.hpp"
+
 namespace Draw {
     Draw_2D::Draw_2D(const int size,const std::shared_ptr<Core::Program> &program){
         int len;
@@ -16,7 +22,9 @@ namespace Draw {
         //4 pos.x 4 pos.y 4 color 4 u 4 v
         //total 20
         //Init member
-        NowProgram=program==nullptr?DefaultProgram:program;
+        NowProgram=program==nullptr?std::make_shared<Core::Program>(
+            RESOURCE_DIR "/shader/default/default.vert",
+            RESOURCE_DIR "/shader/default/default.frag"):program;//if program is nullptr, use default.
         SetColor(Util::Colors::WHITE);
         m_Transform=u_Combine=glm::mat4(1.0F);
         m_Projection=glm::ortho<float>(0.0F,(float)WINDOW_WIDTH,0.0F,(float)WINDOW_HEIGHT,0.0F,1.0F);

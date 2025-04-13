@@ -1,8 +1,11 @@
-#ifndef GAME_OBJECT_EFFECT_CARD_GLOW_BORDER
-#define GAME_OBJECT_EFFECT_CARD_GLOW_BORDER
+#pragma once
+
 #include "Game_object/effect/Effects.hpp"
-#include "RUtil/Some_Math.hpp"
-#include "Draw/Atlas_Region.hpp"
+
+//fwd decl
+namespace Draw{
+    class Atlas_Region;
+}
 namespace Effect{
 class Card_glow_border final:public Effects
 {
@@ -18,4 +21,3 @@ private:
     static constexpr Uint32 DFAULT_COLOR=0x30c8dc00;
 };
 }
-#endif

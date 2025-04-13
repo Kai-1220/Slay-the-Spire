@@ -1,8 +1,14 @@
-#ifndef GAME_OBJECT_MAP_DOT_MAP
-#define GAME_OBJECT_MAP_DOT_MAP
+#pragma once
+
+#include <memory>
+
 #include "WindowSize.hpp"
-#include "RUtil/Image_book.hpp"
-#include "Draw/Draw_2D.hpp"
+//fwd decl
+namespace Draw{
+    class Draw_2D;
+    class ReTexture;
+}
+
 namespace Map{
 class Map_dot{
 public:
@@ -17,4 +23,3 @@ private:
     static constexpr float OFFSET_Y = 172.0F * Setting::SCALE;
 };
 }
-#endif

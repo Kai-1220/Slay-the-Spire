@@ -3,11 +3,11 @@
 #include "RUtil/Atlas_Reader.hpp"
 #include "WindowSize.hpp"
 #include "RUtil/Some_Math.hpp"
+#include "Draw/NumberDrawer.hpp"//need to delete
 namespace Draw
 {
     Text_layout::Text_layout(const std::string &text_string){
         if(orb_red==nullptr){
-            this->init_nums();
             this->init_orbs();
         }
         //#y:yellow #g:green #r:red #b:blue #p:purple #n:new line
@@ -26,8 +26,8 @@ namespace Draw
                 }else total_str+=it;
             }
         }
-        m_fontsize=BIGGIST_SIZE;//default biggist_size
-        std::shared_ptr<Draw::ReText> t_retext=std::make_shared<Draw::ReText>(s_lan_pos,BIGGIST_SIZE,total_str);
+        m_fontsize=Setting::BIGGIST_SIZE;//default biggist_size
+        std::shared_ptr<Draw::ReText> t_retext=std::make_shared<Draw::ReText>(s_lan_pos,Setting::BIGGIST_SIZE,total_str);
         set_texture_pos(t_retext,strs);
         middle_mode=true;//it will be changed to false later
         set_left();//default left
@@ -36,7 +36,6 @@ namespace Draw
     std::string Text_layout::s_next_lan_pos;
     Text_layout::language Text_layout::s_language=Text_layout::language::zht;
     Text_layout::font_weight Text_layout::s_font_weight=Text_layout::font_weight::regular;
-    std::shared_ptr<Draw::Image_Region> Text_layout::nums[10]={nullptr};
     std::shared_ptr<Draw::Atlas_Region> Text_layout::orb_red=nullptr,Text_layout::orb_blue=nullptr,
                                         Text_layout::orb_green=nullptr,Text_layout::orb_purple=nullptr,
                                         Text_layout::orb_card=nullptr,Text_layout::orb_potion=nullptr,
@@ -113,24 +112,6 @@ namespace Draw
         orb_relic=orb_atlas.Find_Atlas_Region("relic");
         orb_special=orb_atlas.Find_Atlas_Region("special");
     }
-    void Text_layout::init_nums(){
-        std::string data="01234\n56789";
-        std::shared_ptr<Draw::ReText> nums_text=std::make_shared<Draw::ReText>(s_lan_pos,BIGGIST_SIZE,data.c_str());
-        TTF_Font* m_Font=TTF_OpenFont(s_lan_pos, BIGGIST_SIZE);
-        int n_w,n_h,t_w=0;
-        for(int i=0;i<5;i++){
-            TTF_SizeUTF8(m_Font,data.substr(i,1).c_str(),&n_w,&n_h);
-            nums[i]=std::make_shared<Draw::Image_Region>(nums_text,t_w,0,n_w,n_h);
-            t_w+=n_w;
-        }
-        t_w=0;
-        for(int i=5;i<10;i++){
-            TTF_SizeUTF8(m_Font,data.substr(i+1,1).c_str(),&n_w,&n_h);
-            nums[i]=std::make_shared<Draw::Image_Region>(nums_text,t_w,n_h,n_w,n_h);
-            t_w+=n_w;
-        }
-        TTF_CloseFont(m_Font);
-    }
     void Text_layout::split_text(std::vector<std::string> &strs,const std::string &text_string){
         int sub_st=0,sub_len=0;
         bool color_flag=false,color_end_flag=false,split_flag=false,
@@ -179,7 +160,7 @@ namespace Draw
         width=height=0.0F;
         //goal:set the correct pos in texture & set where vars is.
         //and set w,h
-        TTF_Font* m_Font=TTF_OpenFont(s_lan_pos, BIGGIST_SIZE);
+        TTF_Font* m_Font=TTF_OpenFont(s_lan_pos, Setting::BIGGIST_SIZE);
         int now_x=0,now_y=0,n_w=0,n_h=0;
         for(const std::string &it:strs){
             this->m_regs_info.emplace_back();
@@ -278,6 +259,7 @@ namespace Draw
         height=(float)(now_y+n_h);//set height
         
         //文字以外の部分の高さと幅を設定する
+        auto &nums=NumberDrawer::GetNums();//need to delete
         const float num_h=(float)nums[0]->GetRegionHeight(),
                     num_w=(float)nums[0]->GetRegionWidth(),
                     half_height=height/2.0F;
@@ -422,6 +404,7 @@ namespace Draw
         }
     }
     void Text_layout::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float center_x,const float center_y,const float a)const{
+        auto &nums=NumberDrawer::GetNums();//need to delete
         for(int i=0,j=0;i<(int)m_regs_info.size();i++){
             r2->SetColor(m_regs_info[i].c,a);
             if(m_regs_info[i].is_var){

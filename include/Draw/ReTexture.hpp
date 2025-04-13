@@ -1,7 +1,5 @@
-#ifndef DRAW_RETEXTURE_HPP
-#define DRAW_RETEXTURE_HPP
+#pragma once
 
-#include <GL/glew.h>
 #include <string>
 
 namespace Draw {
@@ -22,15 +20,13 @@ public:
     ReTexture &operator=(const ReTexture &) = delete;
     ReTexture &operator=(ReTexture &&)=delete;
 
-    GLuint GetReTextureId() const { return m_TextureId; }
+    unsigned int GetReTextureId() const { return m_TextureId; }
     int GetWidth() const {return w;}
     int GetHeight() const {return h;}
     void Bind() const;
 protected://for Retext class
     ReTexture()=default;
-    GLuint m_TextureId;
+    unsigned int m_TextureId;
     int w,h;
 };
 } // namespace Core
-
-#endif

@@ -1,10 +1,22 @@
-#ifndef DRAW_DRAW_2D_HPP
-#define DRAW_DRAW_2D_HPP
-#include "pch.hpp"
-#include "Core\Program.hpp"
-#include "Util\Color.hpp"
-#include "Draw\ReTexture.hpp"
-#include "Draw\Image_Region.hpp"
+#pragma once
+
+#include <memory>
+#include <vector>
+#include <SDL_stdinc.h>
+#include <glm/mat4x4.hpp>
+
+//fwd decl
+namespace Util{
+enum class Colors : Uint32;
+} 
+namespace Core{
+    class Program;
+}
+namespace Draw{
+    class ReTexture;
+    class Image_Region;
+}
+
 namespace Draw {
 // 
 /**
@@ -76,25 +88,22 @@ private:
     void SetCombine();
     void SetVert(const float x,const float y,const float x2,const float y2,
                  const float u,const float v,const float u2,const float v2);
-    GLuint  m_EBO_BufferId,//only have one EBO. 
+    unsigned int  m_EBO_BufferId,//only have one EBO. 
             m_ArrayId,//one VAO.
             m_VBO_BufferId;//one VBO.
             //VAO VBO EBO will die after draw_2d die.
-    std::shared_ptr<Core::Program> DefaultProgram=std::make_shared<Core::Program>(
-                                                RESOURCE_DIR "/shader/default/default.vert",
-                                                RESOURCE_DIR "/shader/default/default.frag");
+
     std::shared_ptr<Core::Program> NowProgram;
     
     std::shared_ptr<ReTexture> LastTexture=nullptr;
     int idx=0,max_len;
-    std::vector<GLfloat> vertices;
-    GLfloat color;
+    std::vector<float> vertices;
+    float color;
     glm::mat4 m_Projection,m_Transform,u_Combine;
     bool drawing;
-    GLint CombineMatrixPos,Sampler2DPos;
-    static constexpr GLint SLOTPOS=0;
+    int CombineMatrixPos,Sampler2DPos;
+    static constexpr int SLOTPOS=0;
     bool blending_diabled;
     int blendSrc,blendDst;
 };
 }
-#endif

@@ -1,6 +1,11 @@
+#include <SDL_mouse.h>
+
 #include "RUtil/Game_Input.hpp"
+#include "WindowSize.hpp"
+
 #include "Util/Input.hpp"
 #include "Util/Time.hpp"
+
 namespace RUtil{
     void Game_Input::update(){
         SDL_GetMouseState(&x, &y);

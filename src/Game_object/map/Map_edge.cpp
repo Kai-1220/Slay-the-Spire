@@ -1,6 +1,8 @@
 #include "Game_object/map/Map_edge.hpp"
 #include "Game_object/map/Map_node.hpp"
+#include "Draw/Draw_2D.hpp"
 #include "RUtil/Some_Math.hpp"
+
 namespace Map{
 Map_edge::Map_edge(int from_x,int from_y,int to_x,int to_y,
         float from_offset_x,float from_offset_y,

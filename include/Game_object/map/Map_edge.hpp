@@ -1,6 +1,16 @@
-#ifndef GAME_OBJECT_MAP_EDGE_MAP
-#define GAME_OBJECT_MAP_EDGE_MAP
-#include"Game_object/map/Map_dot.hpp"
+#pragma once
+
+#include <vector>
+#include <SDL_stdinc.h>//uint
+
+#include "Game_object/map/Map_dot.hpp"
+#include "WindowSize.hpp"
+
+//fwd decl
+namespace Draw{
+    class Draw_2D;
+}
+
 namespace Map{
 class Map_edge{
 public:
@@ -22,4 +32,3 @@ private:
                            
 };
 }
-#endif

@@ -1,10 +1,14 @@
 #include "Game_object/effect/Fade_wide.hpp"
 #include "RUtil/Image_book.hpp"
-#include "WindowSize.hpp"
 #include "RUtil/Some_Math.hpp"
+#include "RUtil/All_Image.hpp"
+#include "Draw/Atlas_Region.hpp"
+#include "WindowSize.hpp"
+
 namespace Effect
 {
-    Fade_wide::Fade_wide(Uint32 dungeon_fade_color):Effects(dungeon_fade_color){
+    Fade_wide::Fade_wide(Uint32 dungeon_fade_color){
+        color=dungeon_fade_color;
         color_a=0.0F;
         duration=1.5F;
         this->y=(float)(WINDOW_HEIGHT+IMG->GetRegionHeight());

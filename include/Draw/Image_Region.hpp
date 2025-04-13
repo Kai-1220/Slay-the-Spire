@@ -1,8 +1,10 @@
-#ifndef DRAW_Image_Region_HPP
-#define DRAW_Image_Region_HPP
-#include "Draw/ReTexture.hpp"
+#pragma once
+
 #include <memory>
+
 namespace Draw {
+//fwd decl
+class ReTexture;
 //Reference from java gdx textureregion
 /**
  * @class Image_Region
@@ -43,7 +45,4 @@ private:
     float u,v,u2,v2;//from top-left corner
     int region_w,region_h;
 };
-
-
 }
-#endif

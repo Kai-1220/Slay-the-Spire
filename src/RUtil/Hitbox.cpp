@@ -1,5 +1,6 @@
 #include "RUtil/Hitbox.hpp"
-#include <iostream>
+#include "RUtil/Game_Input.hpp"
+
 namespace RUtil{
 Hitbox::Hitbox(float x,float y,float width,float height,bool isCenter)
                     :width(width),height(height){

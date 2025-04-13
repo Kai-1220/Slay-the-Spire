@@ -10,6 +10,7 @@ Map_node::Map_node(int x,int y):x(x),y(y),hb(64.0F*Setting::SCALE,64.0F*Setting:
     m_scale=0.5F;
     color_a=1.0F;
     m_angle=RUtil::Random::GetRandomFloat(0.0F,360.0F);
+    oscillate_timer=RUtil::Random::GetRandomFloat(0.0F,2.0F*glm::pi<float>());
     taken=right=left=middle=to_boss=is_ready_to_connect=highlight=making_circle=made_circle=false;
     anim_wait_timer=0.0F;
 }
@@ -19,11 +20,12 @@ void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_c
     if(0.0F < anim_wait_timer){
         anim_wait_timer-=RUtil::Game_Input::delta_time();
         highlight=hb.Hovered();
+        oscillate();
         if(anim_wait_timer <= 0.0F){
             making_circle=false;
             highlight=false;
+            color_a=1.0F;
         }
-        oscillate();
         return;
     }
     if(made_circle){
@@ -34,6 +36,7 @@ void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_c
     }
     highlight=false;
     color=Map_node::AVAILABLE_COLOR;
+    color_a=1.0F;
     if(*legend_hovered){
         m_scale=0.68F;
     }else if(is_ready_to_connect&&is_dungeon_now_room_complete){
@@ -59,19 +62,19 @@ void Map_node::oscillate(){
     color_a=0.66F+(glm::cos(oscillate_timer)+1.0F)/6.0F;
     m_scale=0.25F+color_a;
 }
-void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset)const{
+void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset,const float map_a)const{
     for(const std::shared_ptr<Map_edge> &it:edges){
         it->render(r2,screen_offset);
     }
     if(*legend_hovered){
-        r2->SetColor(Util::Colors::LIGHT_GRAY);
+        r2->SetColor(Util::Colors::LIGHT_GRAY,map_a);
     }else if(this->highlight)
-        r2->SetColor(0.9F,0.9F,0.9F,1.0F);
+        r2->SetColor(0.9F,0.9F,0.9F,map_a);
     else
-        r2->SetColor_RGBA(OUTLINE_COLOR);
+        r2->SetColor(OUTLINE_COLOR,map_a);
     r2->draw(this->m_room->GetOutlineTexture(), (float)this->x * SPACING_X + OFFSET_X - 64.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 64.0F + this->offset_y, 128.0F, 128.0F, 0.0F, 64.0F, 64.0F, this->m_scale * Setting::SCALE, this->m_scale * Setting::SCALE);
     
-    r2->SetColor_RGBA(this->color);
+    r2->SetColor(this->color,this->color_a*map_a);
     r2->draw(this->m_room->GetTexture(), (float)this->x * SPACING_X + OFFSET_X - 64.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 64.0F + this->offset_y, 128.0F, 128.0F, 0.0F, 64.0F, 64.0F, this->m_scale * Setting::SCALE, this->m_scale * Setting::SCALE);
     
     if(taken)

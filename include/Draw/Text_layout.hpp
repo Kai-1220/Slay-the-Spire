@@ -50,7 +50,6 @@ private:
     };
     static void next_pos_update();
     static void init_orbs();
-    static void init_nums();
     void set_texture_pos(const std::shared_ptr<Draw::ReText> &t_retext,const std::vector<std::string> &strs);
     void adjust_pos(int info_pos,float dis);
     void set_things(int info_pos,int value,int old_value);
@@ -60,17 +59,14 @@ private:
     static font_weight s_font_weight;
     static std::string s_next_lan_pos;
     static std::shared_ptr<Draw::Atlas_Region>orb_red,orb_green,orb_blue,orb_purple,orb_card,orb_potion,orb_relic,orb_special;
-    static std::shared_ptr<Draw::Image_Region> nums[10];
     static constexpr auto s_lan_pos=Setting::LANGUAGE_POS;
     static constexpr Uint32 RED_TEXT_COLOR = -10132481,
                             GREEN_TEXT_COLOR = 2147418367,
                             BLUE_TEXT_COLOR = -2016482305,
                             PURPLE_COLOR = -293409025,
                             WHITE=-1;
-    static constexpr int BIGGIST_SIZE=32;//temp max 32 if there is a bigger font ,adjust this.
     std::vector<std::shared_ptr<Draw::Image_Region>> regs;
     std::vector<regs_info> m_regs_info;
-    
     int damage_pos=-1,block_pos=-1,damage=0,block=0;
     std::vector<std::pair<int,int>> pos_and_vars;
 

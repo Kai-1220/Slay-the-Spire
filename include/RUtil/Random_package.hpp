@@ -1,7 +1,8 @@
-#ifndef RUTIL_RANDOM_PACKAGE
-#define RUTIL_RANDOM_PACKAGE
+#pragma once
+
 #include "RUtil/Random.hpp"
 #include <memory>
+
 namespace RUtil{
 struct Random_package
 {
@@ -41,4 +42,3 @@ struct Random_package
     }
 };
 }
-#endif

@@ -1,5 +1,6 @@
 #include "Game_object/action/Action_group_handler.hpp"
 #include "Game_object/action/Card_use_action.hpp"
+#include "Game_object/action/Wait_action.hpp"
 namespace Action
 {
     void Action_group_handler::update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const RUtil::Random_package &random_package){
@@ -33,6 +34,13 @@ namespace Action
             //reduce energy
             card_queue.pop_front();
         }
+    }
+    void Action_group_handler::prepare_for_battle(){
+        if(!action_box.empty()){
+            LOG_ERROR("There are some remain action in box.");
+            action_box.Clear();
+        }
+        action_box.AddTop(std::make_shared<Action::Wait_action>(1.0F));
     }
     void Action_group_handler::AddActionTop(std::shared_ptr<Actions>&&action){action_box.AddTop(std::move(action));}
     void Action_group_handler::AddActionBot(std::shared_ptr<Actions>&&action){action_box.AddBot(std::move(action));}

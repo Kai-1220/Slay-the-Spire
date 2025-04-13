@@ -14,7 +14,7 @@ namespace Dungeon
         if(display_map!=nullptr){
             for(const auto&it:*display_map)
                 for(const auto&it2:it)
-                    if(it2!=nullptr)it2->render(r2,offsetY);
+                    if(it2!=nullptr)it2->render(r2,offsetY,the_map.get_alpha());
         }else{
             LOG_ERROR("Forget to set the dispaly_map.");
         }

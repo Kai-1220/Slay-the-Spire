@@ -10,6 +10,7 @@ set(SRC_FILES
 	Draw/Atlas_Region.cpp
 	Draw/Draw_2D.cpp
 	Draw/Image_Region.cpp
+	Draw/NumberDrawer.cpp
 	Draw/ReText.cpp
 	Draw/ReTexture.cpp
 	Draw/Text_box.cpp
@@ -47,6 +48,8 @@ set(SRC_FILES
 	Game_object/effect/Effect_group.cpp
 	Game_object/effect/Fade_wide.cpp
 	Game_object/effect/Map_circle_effect.cpp
+	Game_object/effect/Refresh_energy_effect.cpp
+	Game_object/energy_orb/Red_orb.cpp
 	Game_object/map/Dungeon_map.cpp
 	Game_object/map/Legend.cpp
 	Game_object/map/Legend_item.cpp
@@ -54,6 +57,8 @@ set(SRC_FILES
 	Game_object/map/Map_edge.cpp
 	Game_object/map/Map_generator.cpp
 	Game_object/map/Map_node.cpp
+	Game_object/panel/Energy_panel.cpp
+	Game_object/panel/Panels.cpp
 	Game_object/room/Monster_room.cpp
 	Game_object/scene/Bottom_scene.cpp
 	Game_object/scene/Scenes.cpp
@@ -80,6 +85,7 @@ set(INCLUDE_FILES
 	Draw/Atlas_Region.hpp
 	Draw/Draw_2D.hpp
 	Draw/Image_Region.hpp
+	Draw/NumberDrawer.hpp
 	Draw/ReText.hpp
 	Draw/ReTexture.hpp
 	Draw/Text_box.hpp
@@ -120,6 +126,9 @@ set(INCLUDE_FILES
 	Game_object/effect/Effect_group.hpp
 	Game_object/effect/Fade_wide.hpp
 	Game_object/effect/Map_circle_effect.hpp
+	Game_object/effect/Refresh_energy_effect.hpp
+	Game_object/energy_orb/Energy_orb.hpp
+	Game_object/energy_orb/Red_orb.hpp
 	Game_object/interface/Is_screen.hpp
 	Game_object/map/Dungeon_map.hpp
 	Game_object/map/Legend.hpp
@@ -128,6 +137,8 @@ set(INCLUDE_FILES
 	Game_object/map/Map_edge.hpp
 	Game_object/map/Map_generator.hpp
 	Game_object/map/Map_node.hpp
+	Game_object/panel/Energy_panel.hpp
+	Game_object/panel/Panels.hpp
 	Game_object/room/Monster_room.hpp
 	Game_object/room/Rooms.hpp
 	Game_object/scene/Bottom_scene.hpp
@@ -142,6 +153,6 @@ set(INCLUDE_FILES
 	RUtil/Some_Math.hpp
 	RUtil/Text_Vector_Reader.hpp
 )
- 
+
 set(TEST_FILES
 )

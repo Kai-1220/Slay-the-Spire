@@ -1,5 +1,5 @@
-#ifndef GAME_OBJECT_GROUP_TEMPLATE
-#define GAME_OBJECT_GROUP_TEMPLATE
+#pragma once
+
 namespace Template{
 template<typename box_type>
 class Group_template
@@ -24,4 +24,3 @@ protected:
     box_type box;
 };
 }
-#endif

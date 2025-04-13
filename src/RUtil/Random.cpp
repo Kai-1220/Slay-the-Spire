@@ -1,4 +1,5 @@
 #include "RUtil/Random.hpp"
+
 namespace RUtil{
     Random::Random(unsigned long long int seed,int counter):m_gen(seed),counter(counter){
        m_gen.discard(counter);

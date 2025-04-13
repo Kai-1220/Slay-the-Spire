@@ -1,4 +1,6 @@
 #include "Draw/Image_Region.hpp"
+#include "Draw/ReTexture.hpp"
+
 namespace Draw{
     Image_Region::Image_Region(const std::shared_ptr<ReTexture> &texture,
         const int x, const int y,

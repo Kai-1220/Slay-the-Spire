@@ -1,8 +1,17 @@
-#ifndef GAME_OBJECT_EFFECT_EFFECT_GROUP
-#define GAME_OBJECT_EFFECT_EFFECT_GROUP
-#include "Game_object/effect/Effects.hpp"
-#include "Game_object/Group_template.hpp"
+#pragma once
+
 #include <list>
+
+#include "Game_object/Group_template.hpp"
+
+//fwd decl
+namespace Effect{
+    class Effects;
+}
+namespace Draw{
+    class Draw_2D;
+}
+
 namespace Effect
 {
 class Effect_group:public Template::Group_template<std::list<std::shared_ptr<Effects>>>
@@ -13,7 +22,4 @@ public:
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update();
 };
-
 } // namespace Effect
-
-#endif

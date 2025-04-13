@@ -38,7 +38,7 @@ namespace Dungeon{
             if(fade_timer==0.0F){//finished fading.
                 if(next_node_is_making_circle){//if fading is cause by node.
                     next_node_is_making_circle=false;
-                    entering_next_room(random_package);
+                    entering_next_room(card_group_handler,action_group_handler,random_package);
                 }
             }
         }
@@ -46,12 +46,12 @@ namespace Dungeon{
     }
     void Dungeons::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         scene->render(r2);
-        // if(m_current_node!=nullptr) m_current_node->GetRoom()->render(r2);
-        // effs->render(r2);
-        // m_dungeon_manager.render(r2);
-        // top_effs->render(r2);
-        // r2->SetColor(fade_color,fade_color_a);
-        // r2->draw(Effect::Fade_wide::white_square, 0.0F, 0.0F, WINDOW_WIDTH, WINDOW_HEIGHT);
+        if(m_current_node!=nullptr) m_current_node->GetRoom()->render(r2);
+        effs->render(r2);
+        m_dungeon_manager.render(r2);
+        top_effs->render(r2);
+        r2->SetColor(fade_color,fade_color_a);
+        r2->draw(Effect::Fade_wide::white_square, 0.0F, 0.0F, WINDOW_WIDTH, WINDOW_HEIGHT);
     }
     void Dungeons::set_next_node_oscillate_and_edge(const bool value)const{
         if(m_current_node==nullptr){
@@ -128,19 +128,18 @@ namespace Dungeon{
         m_current_node->MarkTaken();
         m_next_node=nullptr;
     }
-    void Dungeons::entering_next_room(const RUtil::Random_package &random_package){
+    void Dungeons::entering_next_room(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler,const RUtil::Random_package &random_package){
         set_next_node_oscillate_and_edge(false);
         change_current_node_to_next();
         set_next_node_oscillate_and_edge(true);
         fade_in();
+        effs->Clear();
+        top_effs->Clear();
         m_current_node->GetRoom()->init_room();
         random_package.ResetRoomRNGs(this->random_seed+m_current_node->y);
         m_dungeon_manager.hide_dungeon_screen_instantly();
-        effs->Clear();
-        top_effs->Clear();
-        // card_group_handler->prepare_for_battle();
-        // action_group_handler->prepare_for_battle();
-        //add 1sec wait
+        card_group_handler->prepare_for_battle(random_package.card_shuffle_rng);
+        action_group_handler->prepare_for_battle();
         scene->next_room();
 
     }

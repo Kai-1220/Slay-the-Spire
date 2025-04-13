@@ -1,12 +1,11 @@
-#ifndef GAME_OBJECT_EFFECT_EFFECTS
-#define GAME_OBJECT_EFFECT_EFFECTS
+#pragma once
+
 #include "Draw/Draw_2D.hpp"
+
 namespace Effect{
 class Effects
 {
 public:
-    Effects():color(0xffffffff){};
-    Effects(Uint32 color):color(color){}
     virtual ~Effects()=default;
     virtual void render(const std::shared_ptr<Draw::Draw_2D> &r2)const=0;
     virtual void update()=0;
@@ -15,10 +14,8 @@ public:
     void QuickDisappear(float x){duration/=x;}
 protected:
     bool is_done=false;
-    Uint32 color;
+    Uint32 color=0xffffffff;
     float duration=0.0F,scale=0.0F,color_a=1.0F;
     static const float &DT;
 };
 } // namespace Effect
-
-#endif

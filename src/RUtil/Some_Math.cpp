@@ -1,38 +1,49 @@
-#include "RUtil/Some_Math.hpp"
 #include <math.h>
+
+#include "RUtil/Some_Math.hpp"
 #include "RUtil/Game_Input.hpp"
+#include "WindowSize.hpp"
+
 namespace RUtil{
     inline float Math::interpolation_exp(float v, float p, float a){
-        float m=(float)std::pow((double)v,(double)(-p)),
-              s=1.0F/(1.0F-m);
+        const float m=(float)std::pow((double)v,(double)(-p));
+        const float s=1.0F/(1.0F-m);
         return a <= 0.5F ? ((float)std::pow((double)v, (double)(p * (a * 2.0F - 1.0F))) - m) * s / 2.0F : (2.0F - ((float)std::pow((double)v, (double)(-p * (a * 2.0F - 1.0F))) - m) * s) / 2.0F;
+    }
+    inline float Math::interpolation_expin(float v, float p, float a){
+        //v^p(a-1)  ->  [v^-p, 1]     //(v^p(a-1) - v^-p) / (1 - v^-p)  ->  [0,1]
+        const float m=(float)std::pow((double)v,(double)(-p));
+        return ((float)std::pow((double)v,(double)(p*(a-1.0F)))-m)/(1.0F-m);
     }
     inline float Math::interpolation_powout(int p, float a){
         return (float)std::pow(a-1,p)*(bool(p&1)?1:-1)+1;
     }
     float Math::fadelerp(float start,float target){
         if(start!=target){
-            start=lerp(start,target,RUtil::Game_Input::delta_time()*12.0F);
+            start=Apply(start,target,RUtil::Game_Input::delta_time()*12.0F);
             if(std::abs(start-target)<0.01F) start=target;
         }
         return start;
     }
     float Math::varlerp(float start,const float target,const float speed,const float threshold){
         if(start!=target){
-            start=lerp(start,target,RUtil::Game_Input::delta_time()*speed);
+            start=Apply(start,target,RUtil::Game_Input::delta_time()*speed);
             if(std::abs(start-target)<threshold) start=target;
         }
         return start;
     }
     float Math::scrolllerp(float start,float target){
         if(start!=target){
-            start=lerp(start,target,RUtil::Game_Input::delta_time()*10.0F);
-            if(std::abs(start-target)<SNAP_THRESHOLD) start=target; //||start>target
+            start=Apply(start,target,RUtil::Game_Input::delta_time()*10.0F);
+            if(std::abs(start-target)<Setting::SCALE) start=target;
         }
         return start;
     }
     float Math::interpolation_exp10(float start,float target,float a){
         return start+(target-start)*interpolation_exp(2.0F,10.0F,a);
+    }
+    float Math::interpolation_exp10in(float start,float target,float a){
+        return Apply(start,target,interpolation_expin(2.0F,10.0F,a));
     }
     float Math::interpolation_powout2(float start,float target,float a){
         return start+(target-start)*interpolation_powout(2,a);
@@ -91,7 +102,7 @@ namespace RUtil{
     Uint32 Math::color_lerp_rgb(Uint32 start,Uint32 target,float t){
         Uint32 re=0;
         for(int i=1;i<4;i++)
-            re|=lerp(start>>(i<<3)&0xff,target>>(i<<3)&0xff,t)<<(i<<3);
+            re|=Apply(start>>(i<<3)&0xff,target>>(i<<3)&0xff,t)<<(i<<3);
         return re;
     }
 }

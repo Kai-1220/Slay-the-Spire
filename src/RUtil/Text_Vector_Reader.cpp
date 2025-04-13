@@ -1,6 +1,8 @@
+#include<fstream>
+
 #include "RUtil/Text_Vector_Reader.hpp"
 #include "Util/Logger.hpp"
-#include<fstream>
+
 namespace RUtil{
 const std::vector<std::shared_ptr<Draw::Text_layout>> &Text_Vector_Reader::GetTextVector(const Text_ID id){
     static const std::vector<std::vector<std::shared_ptr<Draw::Text_layout>>> BOX=[](){

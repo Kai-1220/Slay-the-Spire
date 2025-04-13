@@ -1,5 +1,10 @@
+#include <memory>
+
 #include "Game_object/effect/Map_circle_effect.hpp"
+#include "RUtil/Image_book.hpp"
+#include "Draw/ReTexture.hpp"
 #include "WindowSize.hpp"
+
 namespace Effect
 {
     Map_circle_effect::Map_circle_effect(const float x,const float y,const float angle):x(x),y(y),angle(angle){

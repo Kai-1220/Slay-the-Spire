@@ -12,6 +12,7 @@ public:
     // void hide();
     void hide_instantly();
     void update();
+    float get_alpha()const{return map_a;}
     const auto &GetLegend()const{return legend;}
 private:
     float map_a,map_offsetY,map_target_a,map_mid_pos;

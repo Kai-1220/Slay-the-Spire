@@ -1,8 +1,7 @@
 #include "Game_object/character/Player.hpp"
 #include "RUtil/Random.hpp"
-#include <iostream>
 namespace Character{
-    Player::Player()
+    Player::Player():player_type(PlayerType::Ironclad)
     {
         max_HP=80;
         current_HP=80;

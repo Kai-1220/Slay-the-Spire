@@ -1,6 +1,10 @@
-#ifndef RUTIL_All_IMAGE_HPP
-#define RUTIL_All_IMAGE_HPP
-#include "Draw/Atlas_Region.hpp"
+#pragma once
+
+//fwd decl
+namespace Draw{
+    class Atlas_Region;
+}
+
 namespace RUtil
 {
 enum class AtlasRegionID{
@@ -26,5 +30,3 @@ private:
     // static std::vector<std::shared_ptr<Draw::ReTexture>> TextureBox;
 };
 } // namespace RUtil
-
-#endif

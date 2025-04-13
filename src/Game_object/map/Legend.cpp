@@ -9,7 +9,7 @@ namespace Map
         items.emplace_back(rest,s_vec_text[9],s_vec_text[10],s_vec_text[11],3);
         items.emplace_back(enemy,s_vec_text[12],s_vec_text[13],s_vec_text[14],4);
         items.emplace_back(elite,s_vec_text[15],s_vec_text[16],s_vec_text[17],5);
-        legend_a=0.0F;
+        legend_a=1.0F;
     }
     void Legend::update(const float map_a,bool on_top){
         if(map_a>=0.8F&&on_top){

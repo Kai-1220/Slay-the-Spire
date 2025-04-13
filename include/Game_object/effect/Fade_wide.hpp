@@ -1,7 +1,12 @@
-#ifndef GAME_OBJECT_EFFECT_FADE_WIDE
-#define GAME_OBJECT_EFFECT_FADE_WIDE
+#pragma once
+
 #include "Game_object/effect/Effects.hpp"
-#include "RUtil/All_Image.hpp"
+
+//fwd decl
+namespace Draw{
+    class Atlas_Region;
+}
+
 namespace Effect{
 class Fade_wide final:public Effects
 {
@@ -17,4 +22,3 @@ public:
     static const std::shared_ptr<Draw::ReTexture> &white_square;
 };
 }
-#endif

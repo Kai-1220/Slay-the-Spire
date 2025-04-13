@@ -1,8 +1,14 @@
+#include <GL/glew.h> 
+
 #include "Game_object/effect/Card_glow_border.hpp"
-#include "RUtil/Game_Input.hpp"
+#include "Draw/Atlas_Region.hpp"
+#include "RUtil/Some_Math.hpp"
+#include "WindowSize.hpp"
+
 namespace Effect
 {
-    Card_glow_border::Card_glow_border(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale):Effects(DFAULT_COLOR),card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
+    Card_glow_border::Card_glow_border(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
+        color=DFAULT_COLOR;
         this->duration=1.2F;
     }
     void Card_glow_border::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{

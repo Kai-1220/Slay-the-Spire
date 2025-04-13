@@ -29,7 +29,7 @@ public:
     void SetRoom(const std::shared_ptr<Room::Rooms> &room);
     void BindLegend(const Legend &legend);
     void SetReadyToConnect(const bool value){is_ready_to_connect=value;}
-    void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset)const;
+    void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset,const float map_a)const;
     void update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,const std::shared_ptr<Effect::Effect_group>&top_effs);
     const int x,y;
 private:

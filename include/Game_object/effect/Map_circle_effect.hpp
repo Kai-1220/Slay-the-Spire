@@ -1,8 +1,13 @@
-#ifndef GAME_OBJECT_EFFECT_MAP_CIRCLE_EFFECT
-#define GAME_OBJECT_EFFECT_MAP_CIRCLE_EFFECT
+#pragma once
+
 #include "Game_object/effect/Effects.hpp"
-#include "RUtil/Image_book.hpp"
 #include "RUtil/Some_Math.hpp"
+
+//fwd decl
+namespace Draw{
+    class ReTexture;
+}
+
 namespace Effect{
 class Map_circle_effect final:public Effects
 {
@@ -17,4 +22,3 @@ static const std::shared_ptr<Draw::ReTexture> &IMG1,&IMG2,&IMG3,&IMG4,&IMG5;
 static constexpr Uint32 COLOR=RUtil::Math::GetColorUint32_RGB(0.09F,0.13F,0.17F);
 };
 }
-#endif

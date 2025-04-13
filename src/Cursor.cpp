@@ -1,11 +1,18 @@
+#include <memory>
+
 #include "Cursor.hpp"
+#include "WindowSize.hpp"
+#include "Draw/Draw_2D.hpp"
+#include "RUtil/Game_Input.hpp"
+#include "RUtil/Image_book.hpp"
+
 static constexpr float OFFSET=Setting::SCALE*24.0F;
 
 void Cursor::SetVisible(bool is_visible){Cursor::is_visible=is_visible;}
 
 void Cursor::Draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D){
     if(!is_visible) return;
-    Draw2D->SetColor(Util::Colors::WHITE);
+    Draw2D->SetColor(-1);
     if(RUtil::Game_Input::is_down()){
         // Draw2D->draw(Texture,
         //     Util::Input::GetCursorPosition().x+WINDOW_WIDTH/2,Util::Input::GetCursorPosition().y+WINDOW_HEIGHT/2-height,width,height,

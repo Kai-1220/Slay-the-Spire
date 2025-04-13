@@ -1,5 +1,8 @@
 #include "Game_object/map/Map_dot.hpp"
 #include "RUtil/Random.hpp"
+#include "RUtil/Image_book.hpp"
+#include "Draw/Draw_2D.hpp"
+
 namespace Map{
     Map_dot::Map_dot(float x,float y,float rotation,bool jitter){
         if(jitter){

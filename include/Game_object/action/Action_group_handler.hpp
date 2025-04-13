@@ -17,6 +17,7 @@ public:
     void AddCardQueue(const Card::Card_item &card_item);
     void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const RUtil::Random_package &random_package);
     bool is_nothing_to_do()const{return this->current_action==nullptr&&action_box.empty();}
+    void prepare_for_battle();
 private:
     void get_next_action(const std::shared_ptr<Card::Card_group_handler>&card_group_handler);
     Action_group action_box,pre_action_box;

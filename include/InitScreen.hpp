@@ -1,22 +1,11 @@
 #ifndef INITSCREEN_HPP
 #define INITSCREEN_HPP
 
-#include "pch.hpp" // IWYU pragma: export
+#include <vector>
 
-#include "Util/Renderer.hpp"
-#include "Util/Text.hpp"
-#include "Util/Logger.hpp"
-#include "Util/GameObject.hpp"
-#include "Util/Transform.hpp"
-#include "Util/TransformUtils.hpp"
 #include "Draw/Draw_2D.hpp"
 #include "Draw/ReText.hpp"
 
-
-#include <SDL.h>
-#include <memory>
-#include <vector>
-#include <iostream>
 class InitScreen {
 public:
     enum class State {
@@ -39,11 +28,8 @@ public:
     void CreateWhiteCloud(int i);
     void CreateText(int i);
     void Create();
-    void draw(std::shared_ptr<Draw::Draw_2D> Draw2D);
+    void draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D);
     State GetCurrentState() const { return m_CurrentState; }
-
-    glm::vec2 GetTextScreenPosition(int index);
-
 
 private:
     State m_CurrentState = State::INIT;

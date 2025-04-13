@@ -1,10 +1,11 @@
-#ifndef CURSOR_HPP
-#define CURSOR_HPP
+#pragma once
 
-#include "Draw/Draw_2D.hpp"
-#include "WindowSize.hpp"
-#include "RUtil/Image_book.hpp"
-#include "RUtil/Game_Input.hpp"
+//fwd decl
+namespace Draw{
+    class ReTexture;
+    class Draw_2D;
+}
+
 class Cursor{
 public:
     Cursor()=delete;~Cursor()=delete;Cursor(const Cursor &) = delete;Cursor(Cursor &&) = delete;Cursor &operator=(const Cursor &) = delete;Cursor &operator=(Cursor &&) = delete;
@@ -21,5 +22,3 @@ private:
     // const int width=50,height=50;
     static bool is_visible;
 };
-
-#endif

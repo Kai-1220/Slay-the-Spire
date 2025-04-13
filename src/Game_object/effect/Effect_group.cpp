@@ -1,4 +1,10 @@
+#include <memory>
+#include <GL/glew.h>
+
 #include "Game_object/effect/Effect_group.hpp"
+#include "Game_object/effect/Effects.hpp"
+#include "Draw/Draw_2D.hpp"
+
 namespace Effect
 {
     void Effect_group::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{

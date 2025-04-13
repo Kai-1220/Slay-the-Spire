@@ -1,6 +1,6 @@
-#ifndef DRAW_ATLAS_REGION_HPP
-#define DRAW_ATLAS_REGION_HPP
+#pragma once
 #include "Draw/Image_Region.hpp"
+#include <string>
 namespace Draw{
 class Atlas_Region:public Draw::Image_Region
 {
@@ -19,4 +19,3 @@ public:
     const bool rotate;
 };
 }
-#endif

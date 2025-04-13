@@ -1,9 +1,7 @@
-#ifndef DRAW_RETEXT_HPP
-#define DRAW_RETEXT_HPP
-#include "pch.hpp"
-#include "Util/Color.hpp"
+#pragma once
+
 #include "Draw/ReTexture.hpp"
-#include <functional>
+
 namespace Draw {
 class ReText:public ReTexture{
 public:
@@ -15,8 +13,7 @@ public:
      * If you want chage color or font size,
      * please use draw function in "Draw_2D"
      */
-    ReText(const std::string &font, int size, const std::string &text,
-        const Util::Color &color = Util::Color(255, 255, 255));
+    ReText(const std::string &font, int size, const std::string &text);
     ReText(const ReText &) = delete;
     ReText(ReText &&) = delete;
 
@@ -26,5 +23,3 @@ public:
     ReText &operator=(ReText &&)=delete;
 };
 } // namespace Core
-    
-#endif

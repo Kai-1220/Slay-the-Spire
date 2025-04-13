@@ -1,7 +1,14 @@
-#ifndef RUTIL_ATLAS_READER_HPP
-#define RUTIL_ATLAS_READER_HPP
-#include"Draw/Atlas_Region.hpp"
+#pragma once
+
 #include <unordered_map>
+#include <string>
+#include <memory>
+
+//fwd decl
+namespace Draw{
+    class Atlas_Region;
+}
+
 namespace RUtil{
 class Atlas_Reader
 {
@@ -16,4 +23,3 @@ private:
 
 };
 }
-#endif
