@@ -1,5 +1,8 @@
+#include <GL/glew.h> 
+
 #include "Game_object/effect/Card_flash.hpp"
 #include "Draw/Atlas_Region.hpp"
+#include "Draw/Draw_2D.hpp"
 #include "WindowSize.hpp"
 
 namespace Effect

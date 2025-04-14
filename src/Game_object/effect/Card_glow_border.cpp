@@ -1,7 +1,8 @@
-#include <GL/glew.h> 
+#include <GL/glew.h>
 
 #include "Game_object/effect/Card_glow_border.hpp"
 #include "Draw/Atlas_Region.hpp"
+#include "Draw/Draw_2D.hpp"
 #include "RUtil/Some_Math.hpp"
 #include "WindowSize.hpp"
 

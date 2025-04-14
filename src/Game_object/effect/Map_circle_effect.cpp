@@ -1,8 +1,10 @@
 #include <memory>
+#include <GL/glew.h> 
 
 #include "Game_object/effect/Map_circle_effect.hpp"
 #include "RUtil/Image_book.hpp"
 #include "Draw/ReTexture.hpp"
+#include "Draw/Draw_2D.hpp"
 #include "WindowSize.hpp"
 
 namespace Effect

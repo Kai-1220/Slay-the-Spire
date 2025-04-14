@@ -1,5 +1,8 @@
 #include "RUtil/Game_Input.hpp"
 #include "Game_object/dungeon/Dungeon_screen.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Dungeon
 {
     Dungeon_screen::Dungeon_screen():the_map(offsetY,on_top){

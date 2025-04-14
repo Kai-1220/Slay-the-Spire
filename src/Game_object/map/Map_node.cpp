@@ -1,6 +1,10 @@
 #include "Game_object/map/Map_node.hpp"
 #include "RUtil/Image_book.hpp"
 #include "Game_object/effect/Map_circle_effect.hpp"
+#include "RUtil/ColorValuesOnly.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Map{
 //mikannsei
 Map_node::Map_node(int x,int y):x(x),y(y),hb(64.0F*Setting::SCALE,64.0F*Setting::SCALE){
@@ -67,7 +71,7 @@ void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float scree
         it->render(r2,screen_offset);
     }
     if(*legend_hovered){
-        r2->SetColor(Util::Colors::LIGHT_GRAY,map_a);
+        r2->SetColor(RUtil::Colors::LIGHT_GRAY,map_a);
     }else if(this->highlight)
         r2->SetColor(0.9F,0.9F,0.9F,map_a);
     else

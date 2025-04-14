@@ -1,7 +1,9 @@
 #include "Draw/ReTexture.hpp"
+
 #include "Util/MissingTexture.hpp"
 #include "Core/TextureUtils.hpp"
 #include "Core/Context.hpp"
+
 namespace Draw {
     ReTexture::ReTexture(const std::string &filepath){
         Core::Context::GetInstance();//check context is exist.

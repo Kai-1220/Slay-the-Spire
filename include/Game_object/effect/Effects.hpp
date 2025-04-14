@@ -1,6 +1,12 @@
 #pragma once
 
-#include "Draw/Draw_2D.hpp"
+#include <memory>
+#include <SDL_stdinc.h>
+
+//fwd decl;
+namespace Draw{
+    class Draw_2D;
+}
 
 namespace Effect{
 class Effects

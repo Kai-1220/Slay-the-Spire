@@ -4,6 +4,7 @@ set(SRC_FILES
 	InitScreen.cpp
 	main.cpp
 	TheApp.cpp
+	button/End_turn_button.cpp
 	character/character.cpp
 	character/moster.cpp
 	character/Monsters/AcidSlimeL.cpp
@@ -46,6 +47,7 @@ set(SRC_FILES
 	Game_object/effect/Card_trail_effect.cpp
 	Game_object/effect/Effects.cpp
 	Game_object/effect/Effect_group.cpp
+	Game_object/effect/End_turn_button_glow.cpp
 	Game_object/effect/Fade_wide.cpp
 	Game_object/effect/Map_circle_effect.cpp
 	Game_object/effect/Refresh_energy_effect.cpp
@@ -102,6 +104,8 @@ set(INCLUDE_FILES
 	Game_object/action/Draw_card_action.hpp
 	Game_object/action/Empty_shuffle_action.hpp
 	Game_object/action/Wait_action.hpp
+	Game_object/button/Buttons.hpp
+	Game_object/button/End_turn_button.hpp
 	Game_object/card/Cards.hpp
 	Game_object/card/Card_group.hpp
 	Game_object/card/Card_group_handler.hpp
@@ -124,6 +128,7 @@ set(INCLUDE_FILES
 	Game_object/effect/Card_trail_effect.hpp
 	Game_object/effect/Effects.hpp
 	Game_object/effect/Effect_group.hpp
+	Game_object/effect/End_turn_button_glow.hpp
 	Game_object/effect/Fade_wide.hpp
 	Game_object/effect/Map_circle_effect.hpp
 	Game_object/effect/Refresh_energy_effect.hpp
@@ -145,6 +150,7 @@ set(INCLUDE_FILES
 	Game_object/scene/Scenes.hpp
 	RUtil/All_Image.hpp
 	RUtil/Atlas_Reader.hpp
+	RUtil/ColorValuesOnly.hpp
 	RUtil/Game_Input.hpp
 	RUtil/Hitbox.hpp
 	RUtil/Image_book.hpp

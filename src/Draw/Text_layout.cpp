@@ -4,6 +4,8 @@
 #include "WindowSize.hpp"
 #include "RUtil/Some_Math.hpp"
 #include "Draw/NumberDrawer.hpp"//need to delete
+#include "RUtil/ColorValuesOnly.hpp"
+
 namespace Draw
 {
     Text_layout::Text_layout(const std::string &text_string){
@@ -221,7 +223,7 @@ namespace Draw
                 switch (it[1])
                 {
                 case 'y':
-                    m_regs_info.back().c=Setting::GOLD_COLOR;
+                    m_regs_info.back().c=RUtil::GOLD_COLOR;
                     break;
                 case 'g':
                     m_regs_info.back().c=Text_layout::GREEN_TEXT_COLOR;

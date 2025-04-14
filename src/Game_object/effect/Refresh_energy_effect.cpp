@@ -1,8 +1,10 @@
+#include <GL/glew.h> 
+
 #include "Game_object/effect/Refresh_energy_effect.hpp"
-#include "Draw/Draw_2D.hpp"
-#include "Draw/Atlas_Region.hpp"
-#include "RUtil/All_Image.hpp"
 #include "RUtil/Some_Math.hpp"
+#include "RUtil/All_Image.hpp"
+#include "Draw/Atlas_Region.hpp"
+#include "Draw/Draw_2D.hpp"
 #include "WindowSize.hpp"
 
 namespace Effect

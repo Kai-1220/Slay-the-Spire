@@ -1,4 +1,5 @@
-#include <math.h>
+#include <algorithm>
+#include <glm/glm.hpp>
 
 #include "RUtil/Some_Math.hpp"
 #include "RUtil/Game_Input.hpp"

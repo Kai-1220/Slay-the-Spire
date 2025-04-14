@@ -9,10 +9,10 @@
 namespace RUtil{
     void Game_Input::update(){
         SDL_GetMouseState(&x, &y);
-        if(x>(int)WINDOW_WIDTH) x=(int)WINDOW_WIDTH;
+        if(x>(int)Setting::WINDOW_WIDTH) x=(int)Setting::WINDOW_WIDTH;
         else if(x<0) x=0;
-        y=WINDOW_HEIGHT-y;
-        if(y>(int)WINDOW_HEIGHT) y=(int)WINDOW_HEIGHT;
+        y=Setting::WINDOW_HEIGHT-y;
+        if(y>(int)Setting::WINDOW_HEIGHT) y=(int)Setting::WINDOW_HEIGHT;
         else if(y<1) y=1;
         MS.isMouseDown=Util::Input::IsKeyPressed(Util::Keycode::MOUSE_LB);
         MS.isMouseDown_R=Util::Input::IsKeyPressed(Util::Keycode::MOUSE_RB);

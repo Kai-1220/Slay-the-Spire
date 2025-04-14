@@ -6,7 +6,7 @@ namespace Monster{
         setHP(65,69);
         setBlock(0);
         m_damage=16;
-        setPosition(glm::vec2(WINDOW_WIDTH*0.5F,WINDOW_HEIGHT*0.5F+HEIGHT_OFFSET),WIDTH);
+        setPosition(glm::vec2(Setting::WINDOW_WIDTH*0.5F,Setting::WINDOW_HEIGHT*0.5F+HEIGHT_OFFSET),WIDTH);
         setHPBarWidth(WIDTH*0.8F);
     }
     

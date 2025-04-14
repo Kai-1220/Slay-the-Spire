@@ -1,4 +1,6 @@
 #include "Game_object/scene/Bottom_scene.hpp"
+#include "RUtil/ColorValuesOnly.hpp"
+
 namespace Scene
 {
 // Bottom_scene::Bottom_scene(const std::shared_ptr<Room::Rooms> &current_room):Scenes(current_room){
@@ -38,7 +40,7 @@ void Bottom_scene::render_combat_room_bg(const std::shared_ptr<Draw::Draw_2D> &r
     render_format(r2,mg);
     render_format(r2,fg);
     if(render_hollow_mid&&render_solid_mid)
-        r2->SetColor(Util::Colors::GRAY);
+        r2->SetColor(RUtil::Colors::GRAY);
     if(render_solid_mid) render_format(r2 ,solid_wall);
     r2->SetColor(-1);
     if(render_hollow_mid) render_format(r2,hollow_wall);
@@ -52,7 +54,7 @@ void Bottom_scene::render_combat_room_bg(const std::shared_ptr<Draw::Draw_2D> &r
     if(render_ceiling_mod[5]) render_format(r2,ceiling_mod6);
     r2->SetBlendFunc(GL_SRC_COLOR,GL_ONE);
     r2->SetColor(color.r,color.g,color.b);
-    r2->draw(white_square,0.0F,0.0F,(float)WINDOW_WIDTH,(float)WINDOW_HEIGHT);
+    r2->draw(white_square,0.0F,0.0F,(float)Setting::WINDOW_WIDTH,(float)Setting::WINDOW_HEIGHT);
     r2->SetBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 }
 const std::shared_ptr<Draw::Atlas_Region> &Bottom_scene::fg=RUtil::All_Image::GetAtlasRegion(RUtil::AtlasRegionID::bottom_scene_mod_fg),&Bottom_scene::mg=RUtil::All_Image::GetAtlasRegion(RUtil::AtlasRegionID::bottom_scene_mod_mg),&Bottom_scene::left_wall=RUtil::All_Image::GetAtlasRegion(RUtil::AtlasRegionID::bottom_scene_mod_mod1),

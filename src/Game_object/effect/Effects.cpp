@@ -1,5 +1,3 @@
-#include <memory>
-
 #include "Game_object/effect/Effects.hpp"
 #include "RUtil/Game_Input.hpp"
 

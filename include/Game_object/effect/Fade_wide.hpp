@@ -5,6 +5,7 @@
 //fwd decl
 namespace Draw{
     class Atlas_Region;
+    class ReTexture;
 }
 
 namespace Effect{

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/vec2.hpp>
+
 #include "Game_object/effect/Effects.hpp"
 #include "WindowSize.hpp"
 

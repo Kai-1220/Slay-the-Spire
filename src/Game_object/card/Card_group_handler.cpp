@@ -5,7 +5,7 @@ namespace Card{
     static constexpr float LOW_LOW_LINE=50.0F*Setting::SCALE;
     static constexpr float HOVER_CARD_Y_POSITION=210.0F*Setting::SCALE;
     static constexpr float START_LINE_OFFSET=140.0F*Setting::SCALE;
-    static constexpr float CARD_DROP_END_Y=static_cast<float>(WINDOW_HEIGHT)*0.81F;
+    static constexpr float CARD_DROP_END_Y=static_cast<float>(Setting::WINDOW_HEIGHT)*0.81F;
     static constexpr float CARD_DROP_START_Y=350.0F*Setting::SCALE;
     Card_group_handler::Card_group_handler(){
         single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
@@ -100,7 +100,7 @@ namespace Card{
             hand_cards[i]->SetTargetAngle(angle_start-((float)i+0.5F)*INCREMENT_ANGLE);
         }
         //adjust y & set x
-        constexpr float half_width=(float)WINDOW_WIDTH/2.0F;
+        constexpr float half_width=(float)Setting::WINDOW_WIDTH/2.0F;
         switch (len)
         {
         case 1:
@@ -271,7 +271,7 @@ namespace Card{
                             arrowY=input_y;
                             Cursor::SetVisible(false);
                             refresh_hand_layout();
-                            hovered_card->SetTargetX(WINDOW_WIDTH/2.0F);
+                            hovered_card->SetTargetX(Setting::WINDOW_WIDTH/2.0F);
                             hovered_card->SetTargetY(Card::Cards::IMG_HEIGHT*0.75F/2.5F);
                         }
                     }

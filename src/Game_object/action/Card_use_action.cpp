@@ -1,5 +1,8 @@
 #include "Game_object/action/Card_use_action.hpp"
 #include "Game_object/action/Wait_action.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Action{
     Card_use_action::Card_use_action(const Card::Card_item &card_item):m_card_itme(card_item){
         this->duration=0.15F;

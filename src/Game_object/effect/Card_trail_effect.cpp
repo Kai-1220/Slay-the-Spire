@@ -1,9 +1,11 @@
 #include <memory>
+#include <GL/glew.h>
 
 #include "Game_object/effect/Card_trail_effect.hpp"
 #include "RUtil/Some_Math.hpp"
 #include "RUtil/All_Image.hpp"
 #include "Draw/Atlas_Region.hpp"
+#include "Draw/Draw_2D.hpp"
 
 namespace Effect
 {

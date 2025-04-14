@@ -1,4 +1,9 @@
+#include <algorithm>
+
 #include "Game_object/card/Card_group.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Card{
     Card_group::Card_group(){
 

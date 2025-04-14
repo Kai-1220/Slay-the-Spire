@@ -1,5 +1,9 @@
 #include "Game_object/map/Legend.hpp"
 #include "RUtil/Text_Vector_Reader.hpp"
+#include "RUtil/ColorValuesOnly.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Map
 {
     Legend::Legend(){
@@ -21,7 +25,7 @@ namespace Map
             for(auto&it:items) it.update();
     }
     void Legend::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
-        r2->SetColor(Util::Colors::WHITE,legend_a);
+        r2->SetColor(RUtil::Colors::WHITE,legend_a);
         r2->draw(legend_img, Legend_item::LEGEND_X - 256.0F, Legend_item::LEGEND_Y - 400.0F, 512.0F, 800.0F, 0.0F, 256.0F, 400.0F, Setting::SCALE, Setting::SCALE);
         for(const auto&it:items) it.render(r2,legend_a);
     }

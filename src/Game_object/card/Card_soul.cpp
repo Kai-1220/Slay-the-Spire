@@ -1,3 +1,5 @@
+#include <glm/glm.hpp>
+
 #include "Game_object/card/Card_soul.hpp"
 #include "RUtil/Some_Math.hpp"
 #include "Game_object/effect/Card_trail_effect.hpp"
@@ -73,7 +75,7 @@ void Card_soul::update_flying(const std::shared_ptr<Effect::Effect_group> &effs,
                 this->current_speed+=DT*VELOCITY_RAMP_RATE*1.5F;
 
             if(current_speed>MAX_VELOCITY) current_speed=MAX_VELOCITY;
-            if((end_x<(float)WINDOW_WIDTH/2.0F&&current_x<0.0F)||(end_x>(float)WINDOW_WIDTH/2.0F&&current_x>(float)WINDOW_WIDTH)){
+            if((end_x<(float)Setting::WINDOW_WIDTH/2.0F&&current_x<0.0F)||(end_x>(float)Setting::WINDOW_WIDTH/2.0F&&current_x>(float)Setting::WINDOW_WIDTH)){
                 this->is_done=true;
             }else if(glm::length(glm::vec2{current_x-end_x,current_y-end_y})<DST_THRESHOLD){
                 this->is_done=true;

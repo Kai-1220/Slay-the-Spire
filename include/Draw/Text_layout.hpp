@@ -1,10 +1,11 @@
 #ifndef DRAW_TEXT_LAYOUT_HPP
 #define DRAW_TEXT_LAYOUT_HPP
-#include "Util/Color.hpp"
+
 #include "Draw/Atlas_Region.hpp"
 #include "Draw/ReText.hpp"
 #include "Draw/Draw_2D.hpp"
 #include "WindowSize.hpp"
+
 namespace Draw{
 //need fix check.
 class Text_layout

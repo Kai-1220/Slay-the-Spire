@@ -1,5 +1,10 @@
 #ifndef GAME_OBJECT_CARD_CARD_SOUL
 #define GAME_OBJECT_CARD_CARD_SOUL
+#include <memory>
+#include <vector>
+#include <glm/vec2.hpp>
+#include <SDL_stdinc.h>
+
 #include "WindowSize.hpp"
 #include "Game_object/effect/Effect_group.hpp"
 #include "RUtil/Game_Input.hpp"
@@ -26,10 +31,10 @@ private:
     std::vector<glm::vec2> ctl_pts;
     int ctl_idx,ctl_len;
 public:
-    static constexpr float  DISCARD_X = (float)WINDOW_WIDTH * 0.96F,
-                            DISCARD_Y = (float)WINDOW_HEIGHT * 0.06F,
-                            DRAW_PILE_X = (float)WINDOW_WIDTH * 0.04F,
-                            DRAW_PILE_Y = (float)WINDOW_HEIGHT * 0.06F;
+    static constexpr float  DISCARD_X = (float)Setting::WINDOW_WIDTH * 0.96F,
+                            DISCARD_Y = (float)Setting::WINDOW_HEIGHT * 0.06F,
+                            DRAW_PILE_X = (float)Setting::WINDOW_WIDTH * 0.04F,
+                            DRAW_PILE_Y = (float)Setting::WINDOW_HEIGHT * 0.06F;
 };
 }
 #endif

@@ -1,6 +1,9 @@
 #include "Game_object/dungeon/Dungeons.hpp"
 #include "Game_object/scene/Bottom_scene.hpp"
 #include "Game_object/effect/Fade_wide.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Dungeon{
     Dungeons::Dungeons(const RUtil::Random_package &random_package,unsigned long long int random_seed):random_seed(random_seed){
         effs=std::make_shared<Effect::Effect_group>();
@@ -51,7 +54,7 @@ namespace Dungeon{
         m_dungeon_manager.render(r2);
         top_effs->render(r2);
         r2->SetColor(fade_color,fade_color_a);
-        r2->draw(Effect::Fade_wide::white_square, 0.0F, 0.0F, WINDOW_WIDTH, WINDOW_HEIGHT);
+        r2->draw(Effect::Fade_wide::white_square, 0.0F, 0.0F, Setting::WINDOW_WIDTH, Setting::WINDOW_HEIGHT);
     }
     void Dungeons::set_next_node_oscillate_and_edge(const bool value)const{
         if(m_current_node==nullptr){

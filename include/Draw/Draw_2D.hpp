@@ -4,9 +4,10 @@
 #include <vector>
 #include <SDL_stdinc.h>
 #include <glm/mat4x4.hpp>
+#include <GL/glew.h>
 
 //fwd decl
-namespace Util{
+namespace RUtil{
 enum class Colors : Uint32;
 } 
 namespace Core{
@@ -41,9 +42,9 @@ public:
 
     void SetColor(float r,float g,float b,float a=1.0F);
     void SetColor(int r,int g,int b,int a=255);
-    void SetColor(Util::Colors color);
-    void SetColor(Util::Colors color,int a);
-    void SetColor(Util::Colors color,float a);
+    void SetColor(RUtil::Colors color);
+    void SetColor(RUtil::Colors color,int a);
+    void SetColor(RUtil::Colors color,float a);
     void SetColor(Uint32 color,float a);
     void SetColor(Uint32 color);
     void SetColor_RGBA(Uint32 color);
@@ -88,7 +89,7 @@ private:
     void SetCombine();
     void SetVert(const float x,const float y,const float x2,const float y2,
                  const float u,const float v,const float u2,const float v2);
-    unsigned int  m_EBO_BufferId,//only have one EBO. 
+    GLuint  m_EBO_BufferId,//only have one EBO. 
             m_ArrayId,//one VAO.
             m_VBO_BufferId;//one VBO.
             //VAO VBO EBO will die after draw_2d die.
@@ -101,8 +102,8 @@ private:
     float color;
     glm::mat4 m_Projection,m_Transform,u_Combine;
     bool drawing;
-    int CombineMatrixPos,Sampler2DPos;
-    static constexpr int SLOTPOS=0;
+    GLint CombineMatrixPos,Sampler2DPos;
+    static constexpr GLint SLOTPOS=0;
     bool blending_diabled;
     int blendSrc,blendDst;
 };

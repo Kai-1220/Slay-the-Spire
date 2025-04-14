@@ -1,5 +1,7 @@
 #include"Game_object/map/Dungeon_map.hpp"
 #include"Game_object/map/Map_node.hpp"
+#include"RUtil/ColorValuesOnly.hpp"
+
 namespace Map{
     Dungeon_map::Dungeon_map(const float &screen_offsetY,const bool &on_top):boss_hitbox(400.0F*Setting::SCALE,360.0F*Setting::SCALE),screen_offsetY(screen_offsetY),on_top(on_top){
         map_a=map_target_a=1.0F;
@@ -9,12 +11,12 @@ namespace Map{
     }
     void Dungeon_map::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         if(map_a!=0.0F){
-            r2->SetColor(Util::Colors::WHITE,map_a);
-            r2->draw(map_top, 0.0F, H + screen_offsetY + map_offsetY, (float)WINDOW_WIDTH, 1080.0F * Setting::SCALE);
-            r2->draw(map_mid, 0.0F, screen_offsetY + map_offsetY, (float)WINDOW_WIDTH, 1080.0F * Setting::SCALE);
-            r2->draw(map_bottom, 0.0F, -map_mid_pos +screen_offsetY + map_offsetY + 1.0F, (float)WINDOW_WIDTH, 1080.0F * Setting::SCALE);
-            r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY + 800.0F * Setting::SCALE, (float)WINDOW_WIDTH, BLEND_H);
-            r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY - 220.0F * Setting::SCALE, (float)WINDOW_WIDTH, BLEND_H);
+            r2->SetColor(RUtil::Colors::WHITE,map_a);
+            r2->draw(map_top, 0.0F, H + screen_offsetY + map_offsetY, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
+            r2->draw(map_mid, 0.0F, screen_offsetY + map_offsetY, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
+            r2->draw(map_bottom, 0.0F, -map_mid_pos +screen_offsetY + map_offsetY + 1.0F, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
+            r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY + 800.0F * Setting::SCALE, (float)Setting::WINDOW_WIDTH, BLEND_H);
+            r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY - 220.0F * Setting::SCALE, (float)Setting::WINDOW_WIDTH, BLEND_H);
             legend.render(r2);
         }
     }
@@ -34,7 +36,7 @@ namespace Map{
         this->legend.update(map_a,on_top);
         map_a=RUtil::Math::fadelerp(map_a,map_target_a);
         if(on_top){//check boos hitbox
-            boss_hitbox.move((float)WINDOW_WIDTH/2.0F, screen_offsetY + map_offsetY + BOSS_OFFSET_Y + BOSS_L/2.0F);
+            boss_hitbox.move((float)Setting::WINDOW_WIDTH/2.0F, screen_offsetY + map_offsetY + BOSS_OFFSET_Y + BOSS_L/2.0F);
             boss_hitbox.update();
             // if(boss_hitbox.ClickStared())
 

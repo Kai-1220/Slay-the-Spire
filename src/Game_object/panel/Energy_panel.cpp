@@ -8,6 +8,8 @@
 #include "RUtil/Game_Input.hpp"
 #include "WindowSize.hpp"
 
+#include "Util/Logger.hpp"
+
 namespace Panel
 {
     Energy_panel::Energy_panel():Panels(198.0F*Setting::SCALE, 190.0F*Setting::SCALE, -480.0F*Setting::SCALE, 200.0F*Setting::SCALE, true),m_font(FONTSIZE){

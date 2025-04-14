@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <list>
 
 #include "Game_object/Group_template.hpp"

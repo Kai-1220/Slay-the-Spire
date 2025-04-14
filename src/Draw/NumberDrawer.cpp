@@ -1,11 +1,14 @@
 #include <vector>
 #include <memory>
+#include <SDL_ttf.h>
 
 #include "Draw/NumberDrawer.hpp"
 #include "Draw/ReText.hpp"
 #include "Draw/Image_Region.hpp"
 #include "Draw/Draw_2D.hpp"
 #include "WindowSize.hpp"
+
+#include "Util/Logger.hpp"
 
 namespace Draw{
     NumberDrawer::NumberDrawer(int fontsize):fontsize(fontsize){

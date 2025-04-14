@@ -1,6 +1,9 @@
 #include "Game_object/action/Action_group_handler.hpp"
 #include "Game_object/action/Card_use_action.hpp"
 #include "Game_object/action/Wait_action.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Action
 {
     void Action_group_handler::update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const RUtil::Random_package &random_package){
@@ -29,8 +32,8 @@ namespace Action
         }else if(!card_queue.empty()){
             //remember check if card can't use
             action_box.AddBot(std::make_shared<Card_use_action>(card_queue.front()));
-            card_queue.front().card->SetTargetX((float)WINDOW_WIDTH/2.0F);
-            card_queue.front().card->SetTargetY((float)WINDOW_HEIGHT/2.0F);
+            card_queue.front().card->SetTargetX((float)Setting::WINDOW_WIDTH/2.0F);
+            card_queue.front().card->SetTargetY((float)Setting::WINDOW_HEIGHT/2.0F);
             //reduce energy
             card_queue.pop_front();
         }

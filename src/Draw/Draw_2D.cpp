@@ -3,8 +3,8 @@
 #include "Draw/Draw_2D.hpp"
 #include "Draw/ReTexture.hpp"
 #include "Draw/Image_Region.hpp"
+#include "RUtil/ColorValuesOnly.hpp"
 
-#include "Util/Color.hpp"
 #include "Core/Program.hpp"
 #include "config.hpp"
 
@@ -25,7 +25,7 @@ namespace Draw {
         NowProgram=program==nullptr?std::make_shared<Core::Program>(
             RESOURCE_DIR "/shader/default/default.vert",
             RESOURCE_DIR "/shader/default/default.frag"):program;//if program is nullptr, use default.
-        SetColor(Util::Colors::WHITE);
+        SetColor(RUtil::Colors::WHITE);
         m_Transform=u_Combine=glm::mat4(1.0F);
         m_Projection=glm::ortho<float>(0.0F,(float)WINDOW_WIDTH,0.0F,(float)WINDOW_HEIGHT,0.0F,1.0F);
         NowProgram->Bind();//test if not bind
@@ -84,9 +84,9 @@ namespace Draw {
 
     void Draw_2D::SetColor(float r,float g,float b,float a){SetColor(Uint32(a*255.0F)<<24|Uint32(b*255.0F)<<16|Uint32(g*255.0F)<<8|Uint32(r*255.0F));}
     void Draw_2D::SetColor(int r,int g,int b,int a){SetColor(Uint32(a<<24|b<<16|g<<8|r));}
-    void Draw_2D::SetColor(Util::Colors color){SetColor_RGBA(Uint32(color)<<8|255);}
-    void Draw_2D::SetColor(Util::Colors color,int a){SetColor_RGBA(Uint32(color)<<8|a);}
-    void Draw_2D::SetColor(Util::Colors color,float a){SetColor_RGBA(Uint32(color)<<8|Uint32(a*255.0F));}
+    void Draw_2D::SetColor(RUtil::Colors color){SetColor_RGBA(Uint32(color)<<8|255);}
+    void Draw_2D::SetColor(RUtil::Colors color,int a){SetColor_RGBA(Uint32(color)<<8|a);}
+    void Draw_2D::SetColor(RUtil::Colors color,float a){SetColor_RGBA(Uint32(color)<<8|Uint32(a*255.0F));}
     void Draw_2D::SetColor(Uint32 color,float a){SetColor_RGBA((color&0xffffff00)|Uint32(a*255.0F));}
     //rgba
     void Draw_2D::SetColor_RGBA(Uint32 color){
