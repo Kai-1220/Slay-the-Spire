@@ -42,6 +42,7 @@ set(SRC_FILES
 	Game_object/dungeon/Dungeons.cpp
 	Game_object/dungeon/Dungeon_manager.cpp
 	Game_object/dungeon/Dungeon_screen.cpp
+	Game_object/effect/Auto_release_pool_manager.cpp
 	Game_object/effect/Card_flash.cpp
 	Game_object/effect/Card_glow_border.cpp
 	Game_object/effect/Card_trail_effect.cpp
@@ -123,11 +124,14 @@ set(INCLUDE_FILES
 	Game_object/dungeon/Dungeons.hpp
 	Game_object/dungeon/Dungeon_manager.hpp
 	Game_object/dungeon/Dungeon_screen.hpp
+	Game_object/effect/Auto_release_pool_manager.hpp
 	Game_object/effect/Card_flash.hpp
 	Game_object/effect/Card_glow_border.hpp
 	Game_object/effect/Card_trail_effect.hpp
 	Game_object/effect/Effects.hpp
 	Game_object/effect/Effect_group.hpp
+	Game_object/effect/Effect_pool.hpp
+	Game_object/effect/Effect_pool.inl
 	Game_object/effect/End_turn_button_glow.hpp
 	Game_object/effect/Fade_wide.hpp
 	Game_object/effect/Map_circle_effect.hpp
@@ -135,6 +139,7 @@ set(INCLUDE_FILES
 	Game_object/energy_orb/Energy_orb.hpp
 	Game_object/energy_orb/Red_orb.hpp
 	Game_object/interface/Is_screen.hpp
+	Game_object/interface/Reusable.hpp
 	Game_object/map/Dungeon_map.hpp
 	Game_object/map/Legend.hpp
 	Game_object/map/Legend_item.hpp
