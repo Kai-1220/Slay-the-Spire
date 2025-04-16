@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <map>
 #include <string>
 
 //fwd decl
@@ -28,7 +29,9 @@ private:
             const T &Get(const std::string &filepath);
         private:
             std::function<T(const std::string &)> m_Loader;
-            std::unordered_map<std::string, T> m_Map;
+            //use std::map instead of unordered_map to ensure value references remain vaild.
+            //std::unordered_map may rehash and re-locate elements, invalidating references.
+            std::map<std::string, T> m_Map;
     };
 };
 }

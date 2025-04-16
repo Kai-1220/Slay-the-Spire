@@ -22,5 +22,10 @@ public:
     ~Effect_group()override=default;
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update();
+    
+    using Template::Group_template<std::list<std::shared_ptr<Effects>>>::AddTop;
+    void AddTop(Effects* const item){box2.emplace_back(item);}
+private:
+    std::list<Effects*> box2;
 };
 } // namespace Effect

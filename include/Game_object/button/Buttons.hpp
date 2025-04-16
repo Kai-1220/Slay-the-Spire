@@ -20,7 +20,7 @@ public:
     virtual void update()=0;
     virtual void render(const std::shared_ptr<Draw::Draw_2D> &r2)const=0;
     bool Clicked()const{return hb.Clicked();}
-private:
+protected:
     RUtil::Hitbox hb;
 };
 } // namespace Button

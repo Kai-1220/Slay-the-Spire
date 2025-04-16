@@ -8,19 +8,26 @@
 namespace Effect
 {
     void Effect_group::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
-        for(const auto &it:box){
+        for(const auto &it:box)
             it->render(r2);
-        }
+        for(const auto &it:box2)
+            it->render(r2);
         r2->SetBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     }
-    void Effect_group::update(){
-        for (auto it = box.begin(); it != box.end();) {
+
+    template <typename T>
+    static void _update(T &_box){
+        for (auto it = _box.begin(); it != _box.end();) {
             (*it)->update();
-            if ((*it)->IsDone()) {
-              it = box.erase(it);
-            }else{
-              ++it;
-            }
+            if ((*it)->IsDone())
+                it = _box.erase(it);
+            else
+                ++it;
         }
+    }
+    
+    void Effect_group::update(){
+        _update(box);
+        _update(box2);
     }
 } // namespace Effect
