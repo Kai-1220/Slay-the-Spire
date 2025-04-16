@@ -10,14 +10,24 @@ class Card_group_handler
 public:
     Card_group_handler();
     ~Card_group_handler()=default;
+
+    Card_group_handler(const Card_group_handler &) = delete;
+    Card_group_handler(Card_group_handler &&) = delete;
+    Card_group_handler &operator=(const Card_group_handler &) = delete;
+    Card_group_handler &operator=(Card_group_handler &&)=delete;
+
     void discard_all();
     void discard(const std::shared_ptr<Cards> &card);
     void draw();
-    void update(const std::shared_ptr<Action::Action_group_handler> &action_group_handler);
+    void update(Action::Action_group_handler &action_group_handler);
     void refresh_hand_layout()const;
     void prepare_for_battle(const std::shared_ptr<RUtil::Random> &rng);
-    void add_to_master_deck(std::shared_ptr<Cards> &&card);
     void shuffle(bool shuffle_invisible);
+    void hand_hide();
+    void render_hand(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const;
+
+    void update_hand_cards(Effect::Effect_group &effs, Uint32 PlayerTrailColor_RGB){hand_cards.update(effs,PlayerTrailColor_RGB);}
+    void add_to_master_deck(std::shared_ptr<Cards> &&card){master_deck.AddTop(std::move(card));}
     int discard_pile_size()const{return m_discard.Size();}
     int draw_pile_size()const{return draw_pile.Size();}
     int hand_cards_size()const{return hand_cards.Size();}
@@ -28,8 +38,7 @@ private:
     static const bool &just_r,&just_l;
     void hand_card_push()const;
     void release_card();
-    void play_card(const std::shared_ptr<Action::Action_group_handler> &action_group_handler);
-    void render_hand(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const;
+    void play_card(Action::Action_group_handler &action_group_handler);
     void render_targeting(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update_targeting();
     bool single_target,in_drop_zone,pass_hesitation_line,is_dragging_card;

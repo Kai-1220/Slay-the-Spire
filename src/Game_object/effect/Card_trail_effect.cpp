@@ -9,11 +9,6 @@
 
 namespace Effect
 {
-    Card_trail_effect::Card_trail_effect(glm::vec2 pos,Uint32 RGB_color):pos(pos-6.0F){
-        color=RGB_color;
-        duration=0.5F;
-        scale=0.01F;
-    }
     void Card_trail_effect::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         r2->SetBlendFunc(GL_SRC_ALPHA,GL_ONE);
         r2->SetColor(color,color_a);

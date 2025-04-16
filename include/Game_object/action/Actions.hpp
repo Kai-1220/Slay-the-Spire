@@ -8,7 +8,7 @@ class Actions
 {
 public:
     virtual ~Actions()=default;
-    virtual void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,Action_group_handler*const action_group_handler,const RUtil::Random_package &random_package)=0;
+    virtual void update(Card::Card_group_handler &card_group_handler,Action_group_handler*const action_group_handler,const RUtil::Random_package &random_package)=0;
     bool IsDone()const{return is_done;}
 protected:
     void TimeGo();

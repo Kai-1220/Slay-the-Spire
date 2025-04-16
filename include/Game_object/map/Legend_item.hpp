@@ -1,7 +1,15 @@
-#ifndef GAME_OBJECT_MAP_LEGEND_ITEM
-#define GAME_OBJECT_MAP_LEGEND_ITEM
+#pragma once
+
 #include "Draw/Text_box.hpp"
 #include "RUtil/Hitbox.hpp"
+
+//fwd decl
+namespace Draw{
+    class Text_layout;
+    class ReTexture;
+    class Draw_2D;
+}
+
 namespace Map{
 class Legend_item
 {
@@ -27,4 +35,3 @@ public:
                            LEGEND_Y = 600.0F * Setting::SCALE;
 };
 }
-#endif

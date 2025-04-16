@@ -1,13 +1,18 @@
-#ifndef GAME_OBJECT_CARD_CARD_SOUL
-#define GAME_OBJECT_CARD_CARD_SOUL
+#pragma once
+
 #include <memory>
 #include <vector>
-#include <glm/vec2.hpp>
-#include <SDL_stdinc.h>
+#include <glm/vec2.hpp>//vec2
+#include <SDL_stdinc.h>//Uint32
 
-#include "WindowSize.hpp"
-#include "Game_object/effect/Effect_group.hpp"
-#include "RUtil/Game_Input.hpp"
+#include "RUtil/Game_Input.hpp"//delta_time
+#include "WindowSize.hpp"//SCALE
+
+//fwd decl
+namespace Effect{
+    class Effect_group;
+}
+
 namespace Card{
 //control group flying logic
 class Card_soul
@@ -19,7 +24,7 @@ public:
     bool is_fly()const{return is_flying;}
 protected:
     bool is_flying,is_shuffling,shuffle_invisible;
-    void update_flying(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
+    void update_flying(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB);
     Card_soul();
     float current_x,current_y,target_x,target_y,target_angle,start_wait_timer,end_timer;
 private:
@@ -37,4 +42,3 @@ public:
                             DRAW_PILE_Y = (float)Setting::WINDOW_HEIGHT * 0.06F;
 };
 }
-#endif

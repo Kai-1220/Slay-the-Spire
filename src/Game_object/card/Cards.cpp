@@ -1,8 +1,10 @@
 #include "Game_object/card/Cards.hpp"
-#include "Util/Logger.hpp"
 #include "RUtil/Game_Input.hpp"
 #include "RUtil/All_Image.hpp"
 #include "Game_object/effect/Card_glow_border.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Card{
     static const std::shared_ptr<Draw::Atlas_Region> &BgSilhouette(Type type);
     static const std::shared_ptr<Draw::Atlas_Region> &CardBg(Type type,Color color);
@@ -15,7 +17,9 @@ namespace Card{
                         card_name(card_name),rarity(rarity),type(type),color(color),target(target),cost(cost),
                         m_card_bg_silhouette(BgSilhouette(type)),m_card_bg(CardBg(type,color)),m_card_frame(CardFrame(type,rarity)),
                         m_card_left_frame(CardLeftFrame(rarity)),m_card_mid_frame(CardMidFrame(rarity)),m_card_right_frame(CardRightFrame(rarity)),
-                        m_card_banner(CardBanner(rarity)),m_card_portrait(RUtil::All_Image::GetAtlasRegion(card_name)),m_card_flash(m_card_bg_silhouette,this->current_x,this->current_y,this->m_angle,this->m_draw_scale,true)
+                        m_card_banner(CardBanner(rarity)),m_card_portrait(RUtil::All_Image::GetAtlasRegion(card_name)),
+                        m_card_flash(m_card_bg_silhouette,this->current_x,this->current_y,this->m_angle,this->m_draw_scale,true),
+                        hb(IMG_WIDTH_S,IMG_HEIGHT_S)
     {
         if(s_type_width_attack==0.0F){
             init_static_menber();
@@ -58,22 +62,32 @@ namespace Card{
         
         //x,y,angle not set
     }
-    void Cards::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
+    void Cards::update(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB){
         //flash update
         if(!m_card_flash.IsDone()) m_card_flash.update();
         //hover time update
         if(m_hover_timer!=0.0F)
             m_hover_timer=m_hover_timer<DT?0.0F:m_hover_timer-DT;
 
-        this->update_flying(effs,PlayerColor_RGB);
+        this->update_flying(effs,PlayerTrailColor_RGB);
         if(!this->is_flying){
             current_x=RUtil::Math::varlerp(current_x,target_x,6.0F,CARD_SNAP_THRESHOLD);
             current_y=RUtil::Math::varlerp(current_y,target_y,6.0F,CARD_SNAP_THRESHOLD);
         }
+        //angle
         if(this->m_angle!=this->target_angle){
             this->m_angle=RUtil::Math::varlerp(this->m_angle,target_angle,12.0F,0.003F);
         }
-        //hitbox
+        //scale
+        this->hb.move(this->current_x,this->current_y);
+        this->hb.resize(HB_W*this->m_draw_scale, HB_H*this->m_draw_scale);
+        if(hb.ClickStarted()){
+            this->m_draw_scale=RUtil::Math::varlerp(this->m_draw_scale, this->m_target_draw_scale*0.9F, 7.5F, 0.003F);
+            this->m_draw_scale=RUtil::Math::varlerp(this->m_draw_scale, this->m_target_draw_scale*0.9F, 7.5F, 0.003F);
+        }else{
+            this->m_draw_scale=RUtil::Math::varlerp(this->m_draw_scale, this->m_target_draw_scale, 7.5F, 0.003F);
+        }
+
         //color
         if(m_dark_timer!=0.0F){
             m_dark_timer-=DT;

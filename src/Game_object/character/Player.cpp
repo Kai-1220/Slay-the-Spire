@@ -3,6 +3,8 @@
 namespace Character{
     Player::Player():player_type(PlayerType::Ironclad)
     {
+        max_energy=3;
+        current_energy=3;
         max_HP=80;
         current_HP=80;
         current_Block=0;

@@ -3,10 +3,14 @@
 #include "RUtil/Atlas_Reader.hpp"
 #include "RUtil/All_Image.hpp"
 #include "Draw/Draw_2D.hpp"
-#include "RUtil/Some_Math.hpp"
 #include "RUtil/Text_Vector_Reader.hpp"
+
+#include "RUtil/Some_Math.hpp"
 #include "Game_object/card/Card_soul.hpp"
 #include "Game_object/effect/Card_flash.hpp"
+#include "RUtil/Hitbox.hpp"
+#include "Game_object/effect/Effect_group.hpp"
+
 namespace Card{
 enum class Rarity{
     basic,
@@ -46,7 +50,7 @@ public:
     Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,Target target,int cost);
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,const Uint32 PlayerColor_RGB)const;
     void render_hovered_shadow(const std::shared_ptr<Draw::Draw_2D> &r2)const;
-    void update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB);
+    void update(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB);
     void SetTargetY(const float value);
     void SetTargetX(const float value);
     void SetY(const float value);
@@ -87,13 +91,16 @@ private:
     const std::shared_ptr<Draw::Atlas_Region> &m_card_bg_silhouette,&m_card_bg,&m_card_frame,&m_card_left_frame,&m_card_mid_frame,&m_card_right_frame,&m_card_banner,&m_card_portrait;
     Effect::Effect_group glowgroup;
     Effect::Card_flash m_card_flash;
+    RUtil::Hitbox hb;
     void format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x,const float y,const float scale=1.0F)const;
     void frame_format_render(const std::shared_ptr<Draw::Draw_2D> &r2,const std::shared_ptr<Draw::Atlas_Region> &img,const float x_offset,const float x_scale)const;
     static void init_static_menber();
     static constexpr Uint32 FRAME_SHADOW_COLOR=0,DEFAULT_COLOR=RUtil::Math::GetColorUint32_RGB(255,255,255),TYPE_COLOR=RUtil::Math::GetColorUint32_RGB(0.35F,0.35F,0.35F),TINT_COLOR=RUtil::Math::GetColorUint32_RGB(43,37,65);
     static constexpr float  SHADOW_OFFSET_X = 18.0F * Setting::SCALE,
                             SHADOW_OFFSET_Y = 14.0F * Setting::SCALE,
-                            CARD_SNAP_THRESHOLD = 1.0F * Setting::SCALE;
+                            CARD_SNAP_THRESHOLD = 1.0F * Setting::SCALE,
+                            HB_W = 300.0F * Setting::SCALE,
+                            HB_H = 420.0F * Setting::SCALE;
     static const std::vector<std::shared_ptr<Draw::Text_layout>> &s_ui_vec;
     static float s_type_offset_attack,s_type_offset_skill,s_type_offset_power,s_type_offset_status,s_type_offset_curse,s_type_width_attack,s_type_width_skill,s_type_width_power,s_type_width_status,s_type_width_curse;
     static constexpr int CARD_FONT_SIZE=17;

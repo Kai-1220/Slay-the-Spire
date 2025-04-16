@@ -1,5 +1,7 @@
 #include "RUtil/Game_Input.hpp"
 #include "Game_object/dungeon/Dungeon_screen.hpp"
+#include "Game_object/dungeon/Dungeon_shared.hpp"
+#include "Game_object/map/Map_node.hpp"
 
 #include "Util/Logger.hpp"
 
@@ -22,14 +24,14 @@ namespace Dungeon
             LOG_ERROR("Forget to set the dispaly_map.");
         }
     }
-    void Dungeon_screen::update(const Lazy_package &lazy_package){
+    void Dungeon_screen::update(Dungeon_shared &dungeon_shared){
         the_map.update();
         bool pause_offset_y_update=false;
         if(display_map!=nullptr){
             for(const auto&it:*display_map)
                 for(const auto&it2:it)
                     if(it2!=nullptr){
-                        it2->update(offsetY,true,on_top,lazy_package.top_effs);
+                        it2->update(offsetY,true,on_top,dungeon_shared.top_effs);
                         if(it2->IsMakingCircle()){
                             pause_offset_y_update=true;
                         }

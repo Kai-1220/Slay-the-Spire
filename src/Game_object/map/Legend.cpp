@@ -1,4 +1,5 @@
 #include "Game_object/map/Legend.hpp"
+#include "Game_object/room/Rooms.hpp"
 #include "RUtil/Text_Vector_Reader.hpp"
 #include "RUtil/ColorValuesOnly.hpp"
 

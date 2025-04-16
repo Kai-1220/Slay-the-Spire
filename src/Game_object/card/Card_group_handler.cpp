@@ -7,6 +7,7 @@ namespace Card{
     static constexpr float START_LINE_OFFSET=140.0F*Setting::SCALE;
     static constexpr float CARD_DROP_END_Y=static_cast<float>(Setting::WINDOW_HEIGHT)*0.81F;
     static constexpr float CARD_DROP_START_Y=350.0F*Setting::SCALE;
+
     Card_group_handler::Card_group_handler(){
         single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
         //in_drop_zone:(x,y) in area that can use card.
@@ -14,6 +15,7 @@ namespace Card{
         //single_target: targeting one enemy
         //pass_hesitation_line: dragging card to in_drop_zone
     }
+
     void Card_group_handler::shuffle(bool shuffle_invisible){
         //remember to shuffle the order of m_discard before this function be called.
         if(m_discard.empty()) LOG_ERROR("Try to discard card when the m_discard is empty.");
@@ -27,6 +29,7 @@ namespace Card{
             draw_pile.AddTop(card);
         }
     }
+
     void Card_group_handler::draw(){
         if(draw_pile.empty()){
             LOG_ERROR("the draw_pile is empty but, it was drawn.");
@@ -38,6 +41,7 @@ namespace Card{
             refresh_hand_layout();
         }
     }
+
     void Card_group_handler::discard_all(){
         for(const auto&it:hand_cards){
             it->Shrink(false);
@@ -47,6 +51,7 @@ namespace Card{
         }
         hand_cards.MoveAllCardTo(m_discard);
     }
+
     void Card_group_handler::discard(const std::shared_ptr<Cards> &card){
         card->Shrink(false);
         card->Darken(false);
@@ -54,6 +59,7 @@ namespace Card{
         card->start_glow();
         m_discard.AddTop(card);
     }
+
     void Card_group_handler::release_card(){
         single_target=false;
         in_drop_zone=false;
@@ -68,16 +74,18 @@ namespace Card{
         refresh_hand_layout();
         
     }
-    void Card_group_handler::play_card(const std::shared_ptr<Action::Action_group_handler> &action_group_handler){
+
+    void Card_group_handler::play_card(Action::Action_group_handler &action_group_handler){
         hovered_card->Unhover();
         hand_cards.RemoveCard(hovered_card);
         if(hovered_card->target==Target::enemy||hovered_card->target==Target::self_and_enemy)
-            action_group_handler->AddCardQueue(Card_item{hovered_card,hovered_monster});
+            action_group_handler.AddCardQueue(Card_item{hovered_card,hovered_monster});
         else
-            action_group_handler->AddCardQueue(Card_item{hovered_card,nullptr});
+            action_group_handler.AddCardQueue(Card_item{hovered_card,nullptr});
         hovered_card=nullptr;
         is_dragging_card=false;
     }
+
     void Card_group_handler::refresh_hand_layout()const{
         const int len=hand_cards.Size();
         if(len==0) return;
@@ -221,7 +229,8 @@ namespace Card{
         }
         //...
     }
-    void Card_group_handler::update(const std::shared_ptr<Action::Action_group_handler> &action_group_handler){
+    
+    void Card_group_handler::update(Action::Action_group_handler &action_group_handler){
         if(single_target){
             update_targeting();
         }else{
@@ -282,6 +291,7 @@ namespace Card{
 
         }
     }
+
     void Card_group_handler::prepare_for_battle(const std::shared_ptr<RUtil::Random> &rng){
         this->m_discard.Clear();
         this->hand_cards.Clear();
@@ -369,8 +379,8 @@ namespace Card{
             }
         }
     }
-    void Card_group_handler::add_to_master_deck(std::shared_ptr<Cards> &&card){
-        master_deck.AddTop(std::move(card));
+    void Card_group_handler::hand_hide(){
+        for(const auto&it:hand_cards) it->SetTargetY(-Cards::IMG_HEIGHT);
     }
     const std::shared_ptr<Draw::ReTexture>&Card_group_handler::reticleBlock_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/reticleBlock.png"),&Card_group_handler::reticleArrow_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/reticleArrow.png");
     const int &Card_group_handler::input_x=RUtil::Game_Input::getX(),&Card_group_handler::input_y=RUtil::Game_Input::getY();

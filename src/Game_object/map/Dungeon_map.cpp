@@ -38,7 +38,7 @@ namespace Map{
         if(on_top){//check boos hitbox
             boss_hitbox.move((float)Setting::WINDOW_WIDTH/2.0F, screen_offsetY + map_offsetY + BOSS_OFFSET_Y + BOSS_L/2.0F);
             boss_hitbox.update();
-            // if(boss_hitbox.ClickStared())
+            // if(boss_hitbox.ClickStarted())
 
         }
         if(on_top&&(boss_hitbox.Hovered()||at_boss)){

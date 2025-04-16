@@ -1,7 +1,11 @@
 #include "Game_object/map/Map_generator.hpp"
-#include "Util/Logger.hpp"
+#include "Game_object/map/Map_node.hpp"
+#include "Game_object/map/Map_edge.hpp"
 #include "RUtil/Some_Math.hpp"
 #include "Game_object/room/Monster_room.hpp"
+
+#include "Util/Logger.hpp"
+
 namespace Map{
 std::vector<std::vector<std::shared_ptr<Map_node>>> Map_generator::Get_Map(int height,int width,int density,const std::shared_ptr<RUtil::Random> &rng){
     std::vector<std::vector<std::shared_ptr<Map_node>>> map(height,std::vector<std::shared_ptr<Map_node>>(width,nullptr));

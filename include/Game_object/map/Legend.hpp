@@ -1,7 +1,14 @@
-#ifndef GAME_OBJECT_MAP_LEGEND
-#define GAME_OBJECT_MAP_LEGEND
+#pragma once
+
+#include <vector>
+
 #include "Game_object/map/Legend_item.hpp"
-#include "Game_object/room/Rooms.hpp"
+
+//fwd decl
+namespace Room{
+    enum class Room_type;
+}
+
 namespace Map{
 class Legend
 {
@@ -20,4 +27,3 @@ private:
     static const std::shared_ptr<Draw::ReTexture> &legend_img;
 };
 }
-#endif

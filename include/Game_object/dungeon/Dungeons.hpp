@@ -4,20 +4,24 @@
 #include "Game_object/effect/Effect_group.hpp"
 #include "Game_object/scene/Scenes.hpp"
 #include "Game_object/map/Map_generator.hpp"
+#include "Game_object/dungeon/Overlay.hpp"
 #include "RUtil/Random.hpp"
+
 namespace Dungeon{
 class Dungeons
 {
 public:
-    Dungeons(const RUtil::Random_package &random_package,unsigned long long int random_seed);
+    Dungeons(Dungeon_shared &dungeon_shared,RUtil::Random_package &random_package,unsigned long long int random_seed);
     virtual ~Dungeons()=default;
-    void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler,const RUtil::Random_package &random_package);
+    void update();
     void render(const std::shared_ptr<Draw::Draw_2D> &r2)const;
 protected:
     Uint32 fade_color=0x1e0f0aff;
 private:
+    Dungeon_shared &m_dungeon_shared;
+    RUtil::Random_package &m_random_package;
     Dungeon_manager m_dungeon_manager;
-    std::shared_ptr<Effect::Effect_group> effs,top_effs;
+    Overlay m_overlay;
     std::shared_ptr<Scene::Scenes> scene;
     std::vector<std::vector<std::shared_ptr<Map::Map_node>>> m_map;
     std::shared_ptr<Map::Map_node> m_current_node,m_next_node=nullptr;
@@ -31,7 +35,7 @@ private:
     void fade_in();
     void fade_out();
     void update_fading();
-    void entering_next_room(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler,const RUtil::Random_package &random_package);
+    void entering_next_room();
 };
 }
 #endif

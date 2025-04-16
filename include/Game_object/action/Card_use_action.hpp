@@ -8,7 +8,7 @@ class Card_use_action final:public Actions
 public:
     Card_use_action(const Card::Card_item &card_item);
     ~Card_use_action() override=default;
-    void update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,Action_group_handler*const action_group_handler,const RUtil::Random_package &random_package)override;
+    void update(Card::Card_group_handler &card_group_handler,Action_group_handler*const action_group_handler,const RUtil::Random_package &random_package)override;
 private:
     Card::Card_item m_card_itme;
 };

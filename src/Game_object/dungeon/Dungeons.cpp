@@ -1,35 +1,39 @@
 #include "Game_object/dungeon/Dungeons.hpp"
+#include "Game_object/dungeon/Dungeon_shared.hpp"
 #include "Game_object/scene/Bottom_scene.hpp"
 #include "Game_object/effect/Fade_wide.hpp"
+#include "Game_object/map/Map_node.hpp"
+#include "Game_object/map/Map_edge.hpp"
 
 #include "Util/Logger.hpp"
 
 namespace Dungeon{
-    Dungeons::Dungeons(const RUtil::Random_package &random_package,unsigned long long int random_seed):random_seed(random_seed){
-        effs=std::make_shared<Effect::Effect_group>();
-        top_effs=std::make_shared<Effect::Effect_group>();
+    Dungeons::Dungeons(Dungeon_shared &dungeon_shared,RUtil::Random_package &random_package,unsigned long long int random_seed):m_dungeon_shared(dungeon_shared),m_random_package(random_package),random_seed(random_seed){
         scene=std::make_shared<Scene::Bottom_scene>();
         player=std::make_shared<Character::Player>();
+        m_overlay.set_player_to_energy_panel(player);
         scene->next_room();
-        m_map=Map::Map_generator::Get_Map(15,7,6,random_package.map_rng);
+        m_map=Map::Map_generator::Get_Map(15,7,6,m_random_package.map_rng);
         m_dungeon_manager.set_display_map(m_map);
         m_current_node=nullptr;
         set_next_node_oscillate_and_edge(true);
         is_fade_in=is_fade_out=false;
         fade_color_a=0.0F;
     }
-    void Dungeons::update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler,const RUtil::Random_package &random_package){
-        effs->update();
-        top_effs->update();
-        if(m_current_node!=nullptr) m_current_node->GetRoom()->update(action_group_handler,card_group_handler,random_package);
-        m_dungeon_manager.update({card_group_handler,action_group_handler,effs,top_effs});
+    void Dungeons::update(){
+        m_dungeon_shared.effs.update();
+        m_dungeon_shared.top_effs.update();
+        if(m_current_node!=nullptr) m_current_node->GetRoom()->update(m_dungeon_shared.action_group_handler,m_dungeon_shared.card_group_handler,m_overlay,m_random_package);
+        m_dungeon_shared.card_group_handler.update_hand_cards(m_dungeon_shared.effs,player->GetCardTrailColor());
+        m_overlay.update();
+        m_dungeon_manager.update(m_dungeon_shared);
         if(!is_fade_in&&!is_fade_out){
             if(!next_node_is_making_circle){
                 if(check_and_set_next_node_making_circle()){
                     //this function should only be triggered only when the node just starting to make a circle effect.
                     next_node_is_making_circle=true;
                     m_dungeon_manager.set_current_on_top(false);
-                    top_effs->AddTop(std::make_shared<Effect::Fade_wide>(fade_color));
+                    m_dungeon_shared.top_effs.AddTop(std::make_shared<Effect::Fade_wide>(fade_color));
                 }
             }else{
                 if(!check_and_set_next_node_making_circle()){
@@ -41,7 +45,7 @@ namespace Dungeon{
             if(fade_timer==0.0F){//finished fading.
                 if(next_node_is_making_circle){//if fading is cause by node.
                     next_node_is_making_circle=false;
-                    entering_next_room(card_group_handler,action_group_handler,random_package);
+                    entering_next_room();
                 }
             }
         }
@@ -50,9 +54,11 @@ namespace Dungeon{
     void Dungeons::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
         scene->render(r2);
         if(m_current_node!=nullptr) m_current_node->GetRoom()->render(r2);
-        effs->render(r2);
+        m_dungeon_shared.card_group_handler.render_hand(r2,player->GetCardRenderColor());
+        m_overlay.render(r2);
+        m_dungeon_shared.effs.render(r2);
         m_dungeon_manager.render(r2);
-        top_effs->render(r2);
+        m_dungeon_shared.top_effs.render(r2);
         r2->SetColor(fade_color,fade_color_a);
         r2->draw(Effect::Fade_wide::white_square, 0.0F, 0.0F, Setting::WINDOW_WIDTH, Setting::WINDOW_HEIGHT);
     }
@@ -131,18 +137,18 @@ namespace Dungeon{
         m_current_node->MarkTaken();
         m_next_node=nullptr;
     }
-    void Dungeons::entering_next_room(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const std::shared_ptr<Action::Action_group_handler>&action_group_handler,const RUtil::Random_package &random_package){
+    void Dungeons::entering_next_room(){
         set_next_node_oscillate_and_edge(false);
         change_current_node_to_next();
         set_next_node_oscillate_and_edge(true);
         fade_in();
-        effs->Clear();
-        top_effs->Clear();
+        m_dungeon_shared.effs.Clear();
+        m_dungeon_shared.top_effs.Clear();
         m_current_node->GetRoom()->init_room();
-        random_package.ResetRoomRNGs(this->random_seed+m_current_node->y);
+        m_random_package.ResetRoomRNGs(this->random_seed+m_current_node->y);
         m_dungeon_manager.hide_dungeon_screen_instantly();
-        card_group_handler->prepare_for_battle(random_package.card_shuffle_rng);
-        action_group_handler->prepare_for_battle();
+        m_dungeon_shared.card_group_handler.prepare_for_battle(m_random_package.card_shuffle_rng);
+        m_dungeon_shared.action_group_handler.prepare_for_battle();
         scene->next_room();
 
     }

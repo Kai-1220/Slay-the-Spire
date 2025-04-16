@@ -42,6 +42,7 @@ set(SRC_FILES
 	Game_object/dungeon/Dungeons.cpp
 	Game_object/dungeon/Dungeon_manager.cpp
 	Game_object/dungeon/Dungeon_screen.cpp
+	Game_object/dungeon/Overlay.cpp
 	Game_object/effect/Auto_release_pool_manager.cpp
 	Game_object/effect/Card_flash.cpp
 	Game_object/effect/Card_glow_border.cpp
@@ -94,7 +95,6 @@ set(INCLUDE_FILES
 	Draw/Text_box.hpp
 	Draw/Text_layout.hpp
 	Game_object/Group_template.hpp
-	Game_object/Lazy_package.hpp
 	Game_object/action/Actions.hpp
 	Game_object/action/Action_group.hpp
 	Game_object/action/Action_group_handler.hpp
@@ -124,6 +124,8 @@ set(INCLUDE_FILES
 	Game_object/dungeon/Dungeons.hpp
 	Game_object/dungeon/Dungeon_manager.hpp
 	Game_object/dungeon/Dungeon_screen.hpp
+	Game_object/dungeon/Dungeon_shared.hpp
+	Game_object/dungeon/Overlay.hpp
 	Game_object/effect/Auto_release_pool_manager.hpp
 	Game_object/effect/Card_flash.hpp
 	Game_object/effect/Card_glow_border.hpp

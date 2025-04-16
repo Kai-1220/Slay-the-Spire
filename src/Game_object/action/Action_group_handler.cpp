@@ -6,23 +6,23 @@
 
 namespace Action
 {
-    void Action_group_handler::update(const std::shared_ptr<Card::Card_group_handler>&card_group_handler,const RUtil::Random_package &random_package){
+    void Action_group_handler::update(Card::Card_group_handler &card_group_handler,const RUtil::Random_package &random_package){
         if(is_wating_player){
-            get_next_action(card_group_handler);
+            get_next_action();
         }else{
             if(current_action!=nullptr){
                 current_action->update(card_group_handler,this,random_package);
                 if(current_action->IsDone()) current_action=nullptr;
             }else{
-                get_next_action(card_group_handler);
+                get_next_action();
                 if(current_action==nullptr){
-                    card_group_handler->refresh_hand_layout();
+                    card_group_handler.refresh_hand_layout();
                     is_wating_player=true;
                 }
             }
         }
     }
-    void Action_group_handler::get_next_action(const std::shared_ptr<Card::Card_group_handler>&card_group_handler){
+    void Action_group_handler::get_next_action(){
         if(!action_box.empty()){
             current_action=action_box.PopTop();
             is_wating_player=false;

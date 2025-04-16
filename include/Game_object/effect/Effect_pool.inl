@@ -18,13 +18,14 @@ namespace Effect{
     template <typename...Args>
     T* Effect_pool<T>::GetEffect(Args&&...args){
         if constexpr (has_UseAutoRelease<T>::value){
-            static auto _=[](){
+            static bool once=false;
+            if(!once){
                 Auto_release_pool_manager::JoinToAutoCheck(Effect_pool<T>::CheckBoxRelease);
-            }();
+                once=true;
+            }
             in_use=true;//if using auto release, mark as in use.
         }
         
-
         if(curr_n==n){//full the box
             if(box[curr_pos]->IsDone()){//can Initial
                 box[curr_pos]->CallInitial(std::forward<Args>(args)...);

@@ -1,9 +1,12 @@
 #include <glm/glm.hpp>
 
 #include "Game_object/card/Card_soul.hpp"
-#include "RUtil/Some_Math.hpp"
 #include "Game_object/effect/Card_trail_effect.hpp"
+#include "Game_object/effect/Effect_pool.hpp"
+#include "Game_object/effect/Effect_group.hpp"
+#include "RUtil/Some_Math.hpp"
 #include "RUtil/Random.hpp"
+
 namespace Card
 {
 Card_soul::Card_soul(){
@@ -41,7 +44,7 @@ void Card_soul::prepare_to_fly(){
     this->ctl_len=0;
     this->stop_rotate=false;
 }
-void Card_soul::update_flying(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
+void Card_soul::update_flying(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB){
     if(is_flying){
         if(start_wait_timer>0.0F) start_wait_timer-=DT;
         else{
@@ -90,7 +93,12 @@ void Card_soul::update_flying(const std::shared_ptr<Effect::Effect_group> &effs,
                 }
                 if(ctl_len>3){
                     for(int i=0;i<20;i++){
-                        effs->AddTop(std::make_shared<Effect::Card_trail_effect>(RUtil::Math::CatmullRomSpline(ctl_pts,i/19.0F,ctl_len,ctl_idx),PlayerColor_RGB));
+                        effs.AddTop(
+                            Effect::Effect_pool<Effect::Card_trail_effect>::GetEffect(
+                                RUtil::Math::CatmullRomSpline(ctl_pts,i/19.0F,ctl_len,ctl_idx),
+                                PlayerTrailColor_RGB
+                            )
+                        );
                     }
                 }
                 if(ctl_len>=10){

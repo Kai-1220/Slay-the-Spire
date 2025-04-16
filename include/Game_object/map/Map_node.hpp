@@ -1,9 +1,17 @@
-#ifndef GAME_OBJECT_MAP_MAP_NODE
-#define GAME_OBJECT_MAP_MAP_NODE
-#include "Game_object/map/Map_edge.hpp"
-#include "WindowSize.hpp"
-#include "Game_object/room/Rooms.hpp"
+#pragma once
+
 #include "Game_object/map/Legend.hpp"
+#include "Game_object/room/Rooms.hpp"
+#include "WindowSize.hpp"
+
+//fwd decl
+namespace Effect{
+    class Effect_group;
+}
+namespace Map{
+    class Map_edge;
+}
+
 namespace Map{
 class Map_node
 {
@@ -27,10 +35,10 @@ public:
     void SetMiddle(bool x);
     void SetToBoss(bool x);
     void SetRoom(const std::shared_ptr<Room::Rooms> &room);
-    void BindLegend(const Legend &legend);
+    void BindLegend(const Legend &legend){legend_hovered=&legend.get_hovered_hb_ref(m_room->room_type);}
     void SetReadyToConnect(const bool value){is_ready_to_connect=value;}
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,const float screen_offset,const float map_a)const;
-    void update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,const std::shared_ptr<Effect::Effect_group>&top_effs);
+    void update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,Effect::Effect_group &top_effs);
     const int x,y;
 private:
     RUtil::Hitbox hb;
@@ -57,4 +65,3 @@ public:
                             NOT_TAKEN_COLOR = 1448498943U;
 };
 }
-#endif

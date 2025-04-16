@@ -13,9 +13,9 @@ namespace Card{
             it->render(r2,PlayerColor_RGB);
         }
     }
-    void Card_group::update(const std::shared_ptr<Effect::Effect_group> &effs,const Uint32 PlayerColor_RGB){
+    void Card_group::update(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB){
         for(auto &it:box){
-            it->update(effs,PlayerColor_RGB);
+            it->update(effs,PlayerTrailColor_RGB);
         }
     }
     void Card_group::MoveAllCardTo(Card_group &group){

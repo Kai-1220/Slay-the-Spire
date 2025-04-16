@@ -1,7 +1,10 @@
 #include "Game_object/map/Map_node.hpp"
-#include "RUtil/Image_book.hpp"
+#include "Game_object/map/Map_edge.hpp"
+#include "Game_object/room/Rooms.hpp"
 #include "Game_object/effect/Map_circle_effect.hpp"
+#include "Game_object/effect/Effect_group.hpp"
 #include "RUtil/ColorValuesOnly.hpp"
+#include "RUtil/Image_book.hpp"
 
 #include "Util/Logger.hpp"
 
@@ -18,7 +21,7 @@ Map_node::Map_node(int x,int y):x(x),y(y),hb(64.0F*Setting::SCALE,64.0F*Setting:
     taken=right=left=middle=to_boss=is_ready_to_connect=highlight=making_circle=made_circle=false;
     anim_wait_timer=0.0F;
 }
-void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,const std::shared_ptr<Effect::Effect_group>&top_effs){
+void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_complete,const bool on_top,Effect::Effect_group &top_effs){
     hb.move((float)this->x*SPACING_X+OFFSET_X+this->offset_x, (float)this->y*MAP_DST_Y+OFFSET_Y+this->offset_y+screen_offset);
     hb.update();
     if(0.0F < anim_wait_timer){
@@ -46,7 +49,7 @@ void Map_node::update(const float screen_offset,const bool is_dungeon_now_room_c
     }else if(is_ready_to_connect&&is_dungeon_now_room_complete){
         if(hb.Clicked()&&on_top){
             //node be selected
-            top_effs->AddTop(std::make_shared<Effect::Map_circle_effect>((float)this->x*SPACING_X+OFFSET_X+this->offset_x,(float)this->y*MAP_DST_Y+OFFSET_Y+screen_offset+this->offset_y,this->m_angle));
+            top_effs.AddTop(std::make_shared<Effect::Map_circle_effect>((float)this->x*SPACING_X+OFFSET_X+this->offset_x,(float)this->y*MAP_DST_Y+OFFSET_Y+screen_offset+this->offset_y,this->m_angle));
             making_circle=true;
             made_circle=true;
             anim_wait_timer=0.25F;
@@ -83,9 +86,6 @@ void Map_node::render(const std::shared_ptr<Draw::Draw_2D> &r2,const float scree
     
     if(taken)
         r2->draw(s_circle, (float)this->x * SPACING_X + OFFSET_X - 96.0F + this->offset_x, (float)this->y * MAP_DST_Y + OFFSET_Y + screen_offset - 96.0F + this->offset_y, 192.0F, 192.0F, this->m_angle, 96.0F, 96.0F, (this->m_scale * 0.95F + 0.2F) * Setting::SCALE, (this->m_scale * 0.95F + 0.2F) * Setting::SCALE);
-}
-void Map_node::BindLegend(const Legend &legend){
-    legend_hovered=&legend.get_hovered_hb_ref(m_room->room_type);
 }
 std::shared_ptr<Map_edge>Map_node::GetConnectedEdge(const std::shared_ptr<Map_node> &node){
     for(const auto&it:edges){
