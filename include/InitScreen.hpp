@@ -5,19 +5,10 @@
 
 #include "Draw/Draw_2D.hpp"
 #include "Draw/ReText.hpp"
+#include "AppStatus.hpp"
 
 class InitScreen {
 public:
-    enum class State {
-        INIT,
-        STSRT_GAME,
-        ENCYCLOPEDIA,
-        STATISTICS,
-        SETTINGS,
-        UPDATE_CONTENT_LIST,
-        END
-    };
-    
     InitScreen();
     ~InitScreen()=default;
 
@@ -28,15 +19,12 @@ public:
     void CreateWhiteCloud(int i);
     void CreateText(int i);
     void Create();
-    void draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D);
-    State GetCurrentState() const { return m_CurrentState; }
+    void render(const std::shared_ptr<Draw::Draw_2D> &Draw2D) const;
+    void update();
+    AppStatus::State GetCurrentState() const { return m_CurrentState; }
 
 private:
-    State m_CurrentState = State::INIT;
-
-    // std::vector <std::shared_ptr<RUtil::Image_magic>> InitBackgroundImg;
-    // std::vector <std::shared_ptr<Core::Matrices>> InitBackgroundMatrices;
-    // std::shared_ptr<Core::Matrices> LogoMatrices;
+    AppStatus::State m_CurrentState = AppStatus::State::INIT;
     std::shared_ptr<Draw::Image_Region> LogoImg;
     glm::vec2 LogoPos,LogoSize;
     std::vector <std::shared_ptr<Draw::Image_Region>> BlackCloudImg;
@@ -73,6 +61,10 @@ private:
                                       
     std::vector <glm::vec2> TextScale={{105.0f,35.0f},{105.0f,35.0f},{105.0f,35.0f},{52.5f,35.0f},{157.5f,35.0f},{52.5f,35.0f}};
 
+    bool IsFadeOut=false;
+    float fadeTimer,FadeColorA;
+    const float fadeColor=0.0F,fadeTime=1.5F;
+    AppStatus::State m_NextState=AppStatus::State::INIT;
 
 };
 

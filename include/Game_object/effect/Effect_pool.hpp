@@ -10,7 +10,12 @@ namespace Effect{
 template <typename T>
 class Effect_pool{
 public:
-    Effect_pool()=delete;~Effect_pool()=delete;Effect_pool(const Effect_pool &) = delete;Effect_pool(Effect_pool &&) = delete;Effect_pool &operator=(const Effect_pool &) = delete;Effect_pool &operator=(Effect_pool &&) = delete;
+    Effect_pool()=delete;
+    ~Effect_pool()=delete;
+    Effect_pool(const Effect_pool &) = delete;
+    Effect_pool(Effect_pool &&) = delete;
+    Effect_pool &operator=(const Effect_pool &) = delete;
+    Effect_pool &operator=(Effect_pool &&) = delete;
     //Return T* for performance.
     //This Effect_pool guarantees the object will not be released,
     //as long as is_done is false.

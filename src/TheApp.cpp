@@ -10,28 +10,33 @@ TheApp::TheApp(){
         m_dungeon_shared.card_group_handler.add_to_master_deck(std::make_shared<Card::Red::Strike_red>());
 }
 void TheApp::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
-    //assume that now in the room
-    // switch (m_InitScreen->GetCurrentState()) {
-    // case InitScreen::State::INIT:
-    //     m_InitScreen->draw(r2);
-    //     break;
-    // case  InitScreen::State::STSRT_GAME:
+    switch (m_CurrentState) {
+    case  AppStatus::State::INIT:
+        m_InitScreen->render(r2);
+        break;
+    case  AppStatus::State::PLAYING:
         m_dungeon->render(r2);
-    //     break;
-    // default:
-    //     break;
-    // }
+        break;
+    default:
+        break;
+    }
 }
 void TheApp::update(){
-    // switch (m_InitScreen->GetCurrentState()) {
-    // case  InitScreen::State::STSRT_GAME:
+    switch (m_CurrentState) {
+    case AppStatus::State::INIT:
+        m_InitScreen->update();
+        if(m_InitScreen->GetCurrentState()!=AppStatus::State::INIT){
+            m_CurrentState=m_InitScreen->GetCurrentState();
+        }
+        break;
+    case AppStatus::State::PLAYING:
         m_dungeon->update();
-    //     break;
-    // case InitScreen::State::END:
-    //     Core::Context::GetInstance()->SetExit(true);
-    //     break;
-    // default:
-    //     break;
-    // }
+        break;
+    case AppStatus::State::END:
+        Core::Context::GetInstance()->SetExit(true);
+        break;
+    default:
+        break;
+    }
     
 }
