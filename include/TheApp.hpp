@@ -2,6 +2,7 @@
 #define THEAPP_HPP
 #include "Game_object/dungeon/Dungeons.hpp"
 #include "InitScreen.hpp"
+#include "AppStatus.hpp"
 class TheApp {
 public:
     TheApp();
@@ -15,6 +16,7 @@ private:
     std::shared_ptr<Dungeon::Dungeons> m_dungeon;
     RUtil::Random_package random_package;
     unsigned long long int seed;
+    AppStatus::State m_CurrentState=AppStatus::State::INIT;
 };
 
 #endif

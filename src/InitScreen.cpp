@@ -2,17 +2,17 @@
 #include "WindowSize.hpp"
 #include "Util/Input.hpp"
 #include "Util/Keycode.hpp"
-#include "Util/Logger.hpp"
 
 #include "RUtil/ColorValuesOnly.hpp"
 #include "RUtil/Image_book.hpp"
 #include "Draw/Image_Region.hpp"
 #include "Draw/ReText.hpp"
-
+#include "Rutil/Some_Math.hpp"
+#include "RUtil/Game_Input.hpp"
+#include "Game_object/effect/Fade_wide.hpp"
 InitScreen::InitScreen() {
-    LOG_TRACE("InitScreen");
     Create();
-
+    fadeTimer=fadeTime;
 }
 void InitScreen::CreateLogo(){
     LogoImg=(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture
@@ -55,11 +55,19 @@ void InitScreen::Create(){
     CreateBackground();
     CreateTower();
     CreateLogo();
-    for (int i = 0; i < m_Text.size(); i++) {
+    for (std::size_t i = 0; i < m_Text.size(); i++) {
         CreateText(i);
     }
 }
-void InitScreen::draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D){
+void InitScreen::update(){
+    
+    if(fadeTimer<0.0F){
+        fadeTimer=fadeTime;
+        FadeColorA=1.0F;
+        IsFadeOut=false;
+        m_CurrentState=m_NextState;
+    }
+
     if(rand()%100<45 && CloudGenTime>500){
         if(rand()%2==0){
             CreateBlackCloud(rand()%7);
@@ -68,22 +76,14 @@ void InitScreen::draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D){
             CreateWhiteCloud(rand()%13);
         }
         CloudGenTime=1;
-
     }
     else{
         if(CloudGenTime<1000){
             CloudGenTime++;
         }
-        
     }
-    Draw2D->SetColor(RUtil::Colors::WHITE);
-    for(int i=0;i<InitBackgroundImg.size();i++){
-        Draw2D->draw(InitBackgroundImg[i],
-            ShowPos[i].x,ShowPos[i].y,
-            ShowSize[i].x,ShowSize[i].y);
-    }
-    for (int i = 0; i < BlackCloudImg.size(); i++) {
-        Draw2D->draw(BlackCloudImg[i],BlackCloudPos[i].x++,BlackCloudPos[i].y,BlackCloudSize[BlackCloudCount[i]].x*0.5,BlackCloudSize[BlackCloudCount[i]].y*0.7);
+    for (std::size_t i = 0; i < BlackCloudImg.size(); i++) {
+        BlackCloudPos[i].x++;
         if(BlackCloudPos[i].x>Setting::WINDOW_WIDTH){
             BlackCloudImg.erase(BlackCloudImg.begin()+i);
             BlackCloudPos.erase(BlackCloudPos.begin()+i);
@@ -91,8 +91,8 @@ void InitScreen::draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D){
             i--;
         }
     }
-    for (int i = 0; i < WhiteCloudImg.size(); i++) {
-        Draw2D->draw(WhiteCloudImg[i],WhiteCloudPos[i].x--,WhiteCloudPos[i].y,WhiteCloudSize[WhiteCloudCount[i]].x*0.5,WhiteCloudSize[WhiteCloudCount[i]].y);
+    for (std::size_t i = 0; i < WhiteCloudImg.size(); i++) {
+        WhiteCloudPos[i].x--;
         if(WhiteCloudPos[i].x<-WhiteCloudSize[WhiteCloudCount[i]].x){
             WhiteCloudImg.erase(WhiteCloudImg.begin()+i);
             WhiteCloudPos.erase(WhiteCloudPos.begin()+i);
@@ -100,17 +100,46 @@ void InitScreen::draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D){
             i--;
         }
     }
+    for(std::size_t i=0;i<TextObj.size();i++){
+        float x=RUtil::Game_Input::getX(),y=RUtil::Game_Input::getY();
+        if( x>m_TextPos[i].x && x<m_TextPos[i].x+TextScale[i].x && 
+            y>m_TextPos[i].y && y<m_TextPos[i].y+TextScale[i].y){
+            if(RUtil::Game_Input::just_released()){
+                m_NextState=AppStatus::State(i+1);
+                IsFadeOut=true;
+            }
+        }
+    }
+    if (Util::Input::IsKeyPressed(Util::Keycode::ESCAPE)) {
+        m_CurrentState = AppStatus::State::END;
+    }
+    if(IsFadeOut){
+        fadeTimer-=RUtil::Game_Input::delta_time();
+        FadeColorA = RUtil::Math::interpolation_fade(1.0F,0.0F,fadeTimer/fadeTime);
+    }
+
+}
+void InitScreen::render(const std::shared_ptr<Draw::Draw_2D> &Draw2D) const{
+
+    Draw2D->SetColor(RUtil::Colors::WHITE);
+    for(std::size_t i=0;i<InitBackgroundImg.size();i++){
+        Draw2D->draw(InitBackgroundImg[i],
+            ShowPos[i].x,ShowPos[i].y,
+            ShowSize[i].x,ShowSize[i].y);
+    }
+    for (std::size_t i = 0; i < BlackCloudImg.size(); i++) {
+        Draw2D->draw(BlackCloudImg[i],BlackCloudPos[i].x,BlackCloudPos[i].y,BlackCloudSize[BlackCloudCount[i]].x*0.5,BlackCloudSize[BlackCloudCount[i]].y*0.7);
+    }
+    for (std::size_t i = 0; i < WhiteCloudImg.size(); i++) {
+        Draw2D->draw(WhiteCloudImg[i],WhiteCloudPos[i].x,WhiteCloudPos[i].y,WhiteCloudSize[WhiteCloudCount[i]].x*0.5,WhiteCloudSize[WhiteCloudCount[i]].y);
+    }
     Draw2D->draw(LogoImg,LogoPos.x,LogoPos.y,LogoSize.x,LogoSize.y);
     
-    for(int i=0;i<TextObj.size();i++){
-        if(Util::Input::GetCursorPosition().x+Setting::WINDOW_WIDTH/2>m_TextPos[i].x && 
-            Util::Input::GetCursorPosition().x+Setting::WINDOW_WIDTH/2<m_TextPos[i].x+TextScale[i].x && 
-            Util::Input::GetCursorPosition().y+Setting::WINDOW_HEIGHT/2>m_TextPos[i].y && 
-            Util::Input::GetCursorPosition().y+Setting::WINDOW_HEIGHT/2<m_TextPos[i].y+TextScale[i].y){
+    for(std::size_t i=0;i<TextObj.size();i++){
+        float x=RUtil::Game_Input::getX(),y=RUtil::Game_Input::getY();
+        if( x>m_TextPos[i].x && x<m_TextPos[i].x+TextScale[i].x && 
+            y>m_TextPos[i].y && y<m_TextPos[i].y+TextScale[i].y){
             Draw2D->SetColor(255, 0, 0);
-            if(Util::Input::IsKeyPressed(Util::Keycode::MOUSE_LB)){
-                m_CurrentState=State(i+1);
-            }
         }
         else{
             Draw2D->SetColor(255, 255, 255);
@@ -118,7 +147,10 @@ void InitScreen::draw(const std::shared_ptr<Draw::Draw_2D> &Draw2D){
         Draw2D->draw(TextObj[i],m_TextPos[i].x,m_TextPos[i].y,TextScale[i].x,TextScale[i].y);
         Draw2D->SetColor(255, 255, 255);
     }
-    if (Util::Input::IsKeyPressed(Util::Keycode::ESCAPE) || Util::Input::IfExit()) {
-        m_CurrentState = State::END;
+
+    if(IsFadeOut){
+        Draw2D->SetColor(fadeColor,FadeColorA);
+        Draw2D->draw(Effect::Fade_wide::white_square, 0.0F, 0.0F, Setting::WINDOW_WIDTH, Setting::WINDOW_HEIGHT);
     }
+
 }
