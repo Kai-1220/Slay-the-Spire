@@ -3,7 +3,7 @@
 #include "RUtil/Some_Math.hpp"
 #include "RUtil/Game_Input.hpp"
 namespace Character{
-    Characters::Characters(){
+    Characters::Characters(float x, float y, float width, float height) : boss_hitbox(x, y, width, height, false){
         hb_height=HEALTH_BAR_HEIGHT;
         hb_a=1.0F;
         shadow_a = 1.0F;
@@ -33,7 +33,7 @@ namespace Character{
         if(health_width==health_target_width){
             HPDecrease=false;
         }
-
+        boss_hitbox.update();
         
     }
     void Characters::render_HP(const std::shared_ptr<Draw::Draw_2D> &r2)const{

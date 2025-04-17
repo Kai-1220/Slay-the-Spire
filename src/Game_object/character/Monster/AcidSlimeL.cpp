@@ -1,7 +1,7 @@
 #include "Game_object/character/Monster/AcidSlimeL.hpp"
 #include "RUtil/Random.hpp"
 namespace Monster{
-    AcidSlimeL::AcidSlimeL()
+    AcidSlimeL::AcidSlimeL():Monsters(Setting::WINDOW_WIDTH*0.5F, Setting::WINDOW_HEIGHT*0.5F+HEIGHT_OFFSET, WIDTH, HIGHT)
     {
         setHP(65,69);
         setBlock(0);

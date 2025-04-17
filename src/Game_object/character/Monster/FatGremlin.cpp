@@ -2,7 +2,7 @@
 #include "RUtil/Random.hpp"
 #include <iostream>
 namespace Monster{
-    FatGremlin::FatGremlin()
+    FatGremlin::FatGremlin():Monsters(Setting::WINDOW_WIDTH*0.5F+WIDTH_OFFSET,Setting::WINDOW_HEIGHT*0.5F+HEIGHT_OFFSET, WIDTH, HIGHT)
     {
         setHP(40,44);
         setBlock(0);

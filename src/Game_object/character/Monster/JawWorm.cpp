@@ -1,7 +1,7 @@
 #include "Game_object/character/Monster/JawWorm.hpp"
 #include "RUtil/Random.hpp"
 namespace Monster{
-    JawWorm::JawWorm()
+    JawWorm::JawWorm():Monsters(Setting::WINDOW_WIDTH*0.5F+WIDTH_OFFSET,Setting::WINDOW_HEIGHT*0.5F+HEIGHT_OFFSET, WIDTH, HIGHT)
     {
         setHP(40,44);
         setBlock(0);

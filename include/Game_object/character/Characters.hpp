@@ -9,7 +9,7 @@ namespace Character{
 class Characters
 {
 public:
-    Characters();
+    Characters(float x, float y, float width, float height);
     virtual ~Characters()=default;
     virtual void damage(int num)=0;
     virtual void render(const std::shared_ptr<Draw::Draw_2D> &r2) const =0;
@@ -20,9 +20,10 @@ protected:
     int max_HP,current_HP,current_Block;
     void render_HP(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     glm::vec2 getPosition()const{ return pos;};
-    
+    bool hovered()const{return boss_hitbox.Hovered();}
     
 private:
+    RUtil::Hitbox boss_hitbox;
     glm::vec2 pos;
     float hb_height,hb_width,hb_cX,hb_cY,hb_a;
     float DecreaseWaitTimer;

@@ -1,7 +1,7 @@
 #include "Game_object/character/Player.hpp"
 #include "RUtil/Random.hpp"
 namespace Character{
-    Player::Player():player_type(PlayerType::Ironclad)
+    Player::Player():Characters(Setting::WINDOW_WIDTH*0.5F+WIDTH_OFFSET, Setting::WINDOW_HEIGHT*0.5F, WIDTH, HIGHT),player_type(PlayerType::Ironclad) 
     {
         max_energy=3;
         current_energy=3;
