@@ -7,10 +7,10 @@
 
 namespace Effect
 {
-    Card_flash::Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
+    Card_flash::Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const float &card_x,const float &card_y,const float &card_angle,const float &card_scale):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
         change_color(DFAULT_COLOR);
     }
-    Card_flash::Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const int &card_x,const int &card_y,const float &card_angle,const float &card_scale,const bool quick_end):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
+    Card_flash::Card_flash(const std::shared_ptr<Draw::Atlas_Region>&silhouette,const float &card_x,const float &card_y,const float &card_angle,const float &card_scale,const bool quick_end):card_x(card_x),card_y(card_y),card_angle(card_angle),card_scale(card_scale),img(silhouette){
         change_color(DFAULT_COLOR);
         if(quick_end){
             this->duration=0.0F;

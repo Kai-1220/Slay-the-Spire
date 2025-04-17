@@ -13,16 +13,17 @@ public:
     Action_group_handler(Action_group_handler &&) = delete;
     Action_group_handler &operator=(const Action_group_handler &) = delete;
     Action_group_handler &operator=(Action_group_handler &&)=delete;
-
-    void AddActionTop(std::shared_ptr<Actions>&&action);
-    void AddActionBot(std::shared_ptr<Actions>&&action);
-    void AddActionTop(const std::shared_ptr<Actions>&action);
-    void AddActionBot(const std::shared_ptr<Actions>&action);
-    void AddCardQueue(Card::Card_item &&card_item);
-    void AddCardQueue(const Card::Card_item &card_item);
+    
     void update(Card::Card_group_handler &card_group_handler,const RUtil::Random_package &random_package);
     bool is_nothing_to_do()const{return this->current_action==nullptr&&action_box.empty();}
     void prepare_for_battle();
+    
+    void AddActionTop(std::shared_ptr<Actions>&&action){action_box.AddTop(std::move(action));}
+    void AddActionBot(std::shared_ptr<Actions>&&action){action_box.AddBot(std::move(action));}
+    void AddActionTop(const std::shared_ptr<Actions>&action){action_box.AddTop(action);}
+    void AddActionBot(const std::shared_ptr<Actions>&action){action_box.AddBot(action);}
+    void AddCardQueue(Card::Card_item &&card_item){card_queue.emplace_back(std::move(card_item));}
+    void AddCardQueue(const Card::Card_item &card_item){card_queue.emplace_back(card_item);}
 private:
     void get_next_action();
     Action_group action_box,pre_action_box;

@@ -10,10 +10,11 @@
 namespace Card
 {
 Card_soul::Card_soul(){
-    is_flying=false;
     ctl_idx=ctl_len=0;
     ctl_pts.resize(10);
     vfx_timer=0.015F;
+    is_flying=false;
+    is_shuffling=false;
 }
 void Card_soul::discard(){
     //here just do discard move, but not really add the card to card_group.

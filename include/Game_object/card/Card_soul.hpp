@@ -23,7 +23,8 @@ public:
     void shuffle(bool shuffle_invisible);
     bool is_fly()const{return is_flying;}
 protected:
-    bool is_flying,is_shuffling,shuffle_invisible;
+    bool is_flying,is_shuffling;
+    bool shuffle_invisible;// If true, this card will not be rendered during shuffling.
     void update_flying(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB);
     Card_soul();
     float current_x,current_y,target_x,target_y,target_angle,start_wait_timer,end_timer;

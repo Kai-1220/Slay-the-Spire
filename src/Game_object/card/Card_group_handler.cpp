@@ -52,6 +52,12 @@ namespace Card{
         hand_cards.MoveAllCardTo(m_discard);
     }
 
+    void Card_group_handler::render_flying_discard(const std::shared_ptr<Draw::Draw_2D> &r2, const Uint32 PlayerColor_RGB)const{
+        for(const auto&it:m_discard){
+            if(it->is_fly()) it->render(r2,PlayerColor_RGB);
+        }
+    }
+
     void Card_group_handler::discard(const std::shared_ptr<Cards> &card){
         card->Shrink(false);
         card->Darken(false);
@@ -78,7 +84,7 @@ namespace Card{
     void Card_group_handler::play_card(Action::Action_group_handler &action_group_handler){
         hovered_card->Unhover();
         hand_cards.RemoveCard(hovered_card);
-        if(hovered_card->target==Target::enemy||hovered_card->target==Target::self_and_enemy)
+        if(hovered_card->IsSingleTarget())
             action_group_handler.AddCardQueue(Card_item{hovered_card,hovered_monster});
         else
             action_group_handler.AddCardQueue(Card_item{hovered_card,nullptr});
@@ -87,7 +93,7 @@ namespace Card{
     }
 
     void Card_group_handler::refresh_hand_layout()const{
-        const int len=hand_cards.Size();
+        const int len=hand_cards.size();
         if(len==0) return;
         const float angle_start=(float)len*INCREMENT_ANGLE/2.0F,
                     increment_sink=SINK_RANGE/(float)len/2.0F;
@@ -103,7 +109,7 @@ namespace Card{
             if(0<=t)t=-t;
             else if(!bool(len&1))t++;
             t=(int)((float)t*1.7F);
-            hand_cards[i]->SetTargetY(SINK_START+increment_sink*t);
+            hand_cards[i]->SetY(SINK_START+increment_sink*t);
             //set angle
             hand_cards[i]->SetTargetAngle(angle_start-((float)i+0.5F)*INCREMENT_ANGLE);
         }
@@ -112,55 +118,55 @@ namespace Card{
         switch (len)
         {
         case 1:
-            hand_cards[0]->SetTargetX(half_width);
+            hand_cards[0]->SetX(half_width);
             break;
         case 2:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.47F);
-            hand_cards[1]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.53F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*0.47F);
+            hand_cards[1]->SetX(half_width+Cards::IMG_WIDTH_S*0.53F);
             break;
         case 3:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.9F);
-            hand_cards[1]->SetTargetX(half_width);
-            hand_cards[2]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.9F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*0.9F);
+            hand_cards[1]->SetX(half_width);
+            hand_cards[2]->SetX(half_width+Cards::IMG_WIDTH_S*0.9F);
             hand_cards[0]->MoveTargetY(20.0F*Setting::SCALE);
             hand_cards[2]->MoveTargetY(20.0F*Setting::SCALE);
             break;
         case 4:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.36F);
-            hand_cards[1]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.46F);
-            hand_cards[2]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.46F);
-            hand_cards[3]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.36F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*1.36F);
+            hand_cards[1]->SetX(half_width-Cards::IMG_WIDTH_S*0.46F);
+            hand_cards[2]->SetX(half_width+Cards::IMG_WIDTH_S*0.46F);
+            hand_cards[3]->SetX(half_width+Cards::IMG_WIDTH_S*1.36F);
             hand_cards[1]->MoveTargetY(-10.0F*Setting::SCALE);
             hand_cards[2]->MoveTargetY(-10.0F*Setting::SCALE);
             break;
         case 5:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.7F);
-            hand_cards[1]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.9F);
-            hand_cards[2]->SetTargetX(half_width);
-            hand_cards[3]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.9F);
-            hand_cards[4]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.7F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*1.7F);
+            hand_cards[1]->SetX(half_width-Cards::IMG_WIDTH_S*0.9F);
+            hand_cards[2]->SetX(half_width);
+            hand_cards[3]->SetX(half_width+Cards::IMG_WIDTH_S*0.9F);
+            hand_cards[4]->SetX(half_width+Cards::IMG_WIDTH_S*1.7F);
             hand_cards[0]->MoveTargetY(25.0F*Setting::SCALE);
             hand_cards[2]->MoveTargetY(-10.0F*Setting::SCALE);
             hand_cards[4]->MoveTargetY(25.0F*Setting::SCALE);
             break;
         case 6:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*2.1F);
-            hand_cards[1]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.3F);
-            hand_cards[2]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.43F);
-            hand_cards[3]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.43F);
-            hand_cards[4]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.3F);
-            hand_cards[5]->SetTargetX(half_width+Cards::IMG_WIDTH_S*2.1F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*2.1F);
+            hand_cards[1]->SetX(half_width-Cards::IMG_WIDTH_S*1.3F);
+            hand_cards[2]->SetX(half_width-Cards::IMG_WIDTH_S*0.43F);
+            hand_cards[3]->SetX(half_width+Cards::IMG_WIDTH_S*0.43F);
+            hand_cards[4]->SetX(half_width+Cards::IMG_WIDTH_S*1.3F);
+            hand_cards[5]->SetX(half_width+Cards::IMG_WIDTH_S*2.1F);
             hand_cards[0]->MoveTargetY(10.0F*Setting::SCALE);
             hand_cards[5]->MoveTargetY(10.0F*Setting::SCALE);
             break;
         case 7:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*2.4F);
-            hand_cards[1]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.7F);
-            hand_cards[2]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.9F);
-            hand_cards[3]->SetTargetX(half_width);
-            hand_cards[4]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.9F);
-            hand_cards[5]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.7F);
-            hand_cards[6]->SetTargetX(half_width+Cards::IMG_WIDTH_S*2.4F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*2.4F);
+            hand_cards[1]->SetX(half_width-Cards::IMG_WIDTH_S*1.7F);
+            hand_cards[2]->SetX(half_width-Cards::IMG_WIDTH_S*0.9F);
+            hand_cards[3]->SetX(half_width);
+            hand_cards[4]->SetX(half_width+Cards::IMG_WIDTH_S*0.9F);
+            hand_cards[5]->SetX(half_width+Cards::IMG_WIDTH_S*1.7F);
+            hand_cards[6]->SetX(half_width+Cards::IMG_WIDTH_S*2.4F);
             hand_cards[0]->MoveTargetY(25.0F*Setting::SCALE);
             hand_cards[1]->MoveTargetY(18.0F*Setting::SCALE);
             hand_cards[3]->MoveTargetY(-6.0F*Setting::SCALE);
@@ -168,28 +174,28 @@ namespace Card{
             hand_cards[6]->MoveTargetY(25.0F*Setting::SCALE);
             break;
         case 8:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*2.5F);
-            hand_cards[1]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.82F);
-            hand_cards[2]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.1F);
-            hand_cards[3]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.38F);
-            hand_cards[4]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.38F);
-            hand_cards[5]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.1F);
-            hand_cards[6]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.77F);
-            hand_cards[7]->SetTargetX(half_width+Cards::IMG_WIDTH_S*2.5F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*2.5F);
+            hand_cards[1]->SetX(half_width-Cards::IMG_WIDTH_S*1.82F);
+            hand_cards[2]->SetX(half_width-Cards::IMG_WIDTH_S*1.1F);
+            hand_cards[3]->SetX(half_width-Cards::IMG_WIDTH_S*0.38F);
+            hand_cards[4]->SetX(half_width+Cards::IMG_WIDTH_S*0.38F);
+            hand_cards[5]->SetX(half_width+Cards::IMG_WIDTH_S*1.1F);
+            hand_cards[6]->SetX(half_width+Cards::IMG_WIDTH_S*1.77F);
+            hand_cards[7]->SetX(half_width+Cards::IMG_WIDTH_S*2.5F);
             hand_cards[1]->MoveTargetY(10.0F*Setting::SCALE);
             hand_cards[6]->MoveTargetY(10.0F*Setting::SCALE);
             for(const auto&it:hand_cards) it->SetTargetDrawScale(0.7125F);
             break;
         case 9:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*2.8F);
-            hand_cards[1]->SetTargetX(half_width-Cards::IMG_WIDTH_S*2.2F);
-            hand_cards[2]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.53F);
-            hand_cards[3]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.8F);
-            hand_cards[4]->SetTargetX(half_width);
-            hand_cards[5]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.8F);
-            hand_cards[6]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.53F);
-            hand_cards[7]->SetTargetX(half_width+Cards::IMG_WIDTH_S*2.2F);
-            hand_cards[8]->SetTargetX(half_width+Cards::IMG_WIDTH_S*2.8F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*2.8F);
+            hand_cards[1]->SetX(half_width-Cards::IMG_WIDTH_S*2.2F);
+            hand_cards[2]->SetX(half_width-Cards::IMG_WIDTH_S*1.53F);
+            hand_cards[3]->SetX(half_width-Cards::IMG_WIDTH_S*0.8F);
+            hand_cards[4]->SetX(half_width);
+            hand_cards[5]->SetX(half_width+Cards::IMG_WIDTH_S*0.8F);
+            hand_cards[6]->SetX(half_width+Cards::IMG_WIDTH_S*1.53F);
+            hand_cards[7]->SetX(half_width+Cards::IMG_WIDTH_S*2.2F);
+            hand_cards[8]->SetX(half_width+Cards::IMG_WIDTH_S*2.8F);
             hand_cards[1]->MoveTargetY(22.0F*Setting::SCALE);
             hand_cards[2]->MoveTargetY(18.0F*Setting::SCALE);
             hand_cards[3]->MoveTargetY(12.0F*Setting::SCALE);
@@ -199,16 +205,16 @@ namespace Card{
             for(const auto&it:hand_cards) it->SetTargetDrawScale(0.67499995F);
             break;
         case 10:
-            hand_cards[0]->SetTargetX(half_width-Cards::IMG_WIDTH_S*2.9F);
-            hand_cards[1]->SetTargetX(half_width-Cards::IMG_WIDTH_S*2.4F);
-            hand_cards[2]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.8F);
-            hand_cards[3]->SetTargetX(half_width-Cards::IMG_WIDTH_S*1.1F);
-            hand_cards[4]->SetTargetX(half_width-Cards::IMG_WIDTH_S*0.4F);
-            hand_cards[5]->SetTargetX(half_width+Cards::IMG_WIDTH_S*0.4F);
-            hand_cards[6]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.1F);
-            hand_cards[7]->SetTargetX(half_width+Cards::IMG_WIDTH_S*1.8F);
-            hand_cards[8]->SetTargetX(half_width+Cards::IMG_WIDTH_S*2.4F);
-            hand_cards[9]->SetTargetX(half_width+Cards::IMG_WIDTH_S*2.9F);
+            hand_cards[0]->SetX(half_width-Cards::IMG_WIDTH_S*2.9F);
+            hand_cards[1]->SetX(half_width-Cards::IMG_WIDTH_S*2.4F);
+            hand_cards[2]->SetX(half_width-Cards::IMG_WIDTH_S*1.8F);
+            hand_cards[3]->SetX(half_width-Cards::IMG_WIDTH_S*1.1F);
+            hand_cards[4]->SetX(half_width-Cards::IMG_WIDTH_S*0.4F);
+            hand_cards[5]->SetX(half_width+Cards::IMG_WIDTH_S*0.4F);
+            hand_cards[6]->SetX(half_width+Cards::IMG_WIDTH_S*1.1F);
+            hand_cards[7]->SetX(half_width+Cards::IMG_WIDTH_S*1.8F);
+            hand_cards[8]->SetX(half_width+Cards::IMG_WIDTH_S*2.4F);
+            hand_cards[9]->SetX(half_width+Cards::IMG_WIDTH_S*2.9F);
             hand_cards[1]->MoveTargetY(20.0F*Setting::SCALE);
             hand_cards[2]->MoveTargetY(17.0F*Setting::SCALE);
             hand_cards[3]->MoveTargetY(12.0F*Setting::SCALE);
@@ -239,8 +245,11 @@ namespace Card{
 
         if(is_dragging_card){//is_dragging_card==true only if (hovered_card!=nullptr)
             this->update_drop_zone_status();
-            if(is_dragging_card)//if is_dragging_card after update_drop_zone_status();
+            if(is_dragging_card){//if is_dragging_card after update_drop_zone_status();
                 this->handle_dragging(action_group_handler);
+                if(single_target)
+                    return;
+            }
         }
 
         //check hover card
@@ -253,7 +262,7 @@ namespace Card{
 
     void Card_group_handler::check_drag_start(){
         if(just_l&&!this->is_dragging_card){
-            this->hover_start_line=(float)input_y*START_LINE_OFFSET;
+            this->hover_start_line=(float)input_y+START_LINE_OFFSET;
             this->is_dragging_card=true;
             this->pass_hesitation_line=false;
             this->hovered_card->SetTargetDrawScale(0.7F);
@@ -264,8 +273,7 @@ namespace Card{
         if(hovered_card==nullptr){
             hovered_card=hand_cards.GetHoveredCard();
             if(hovered_card!=nullptr){
-                hovered_card->SetTargetY(HOVER_CARD_Y_POSITION);
-                hovered_card->SetY(HOVER_CARD_Y_POSITION);
+                hovered_card->SetY(HOVER_CARD_Y_POSITION,true);
                 hovered_card->SetAngle(0.0F);
                 hovered_card->Hover();
                 this->hand_card_push();
@@ -305,21 +313,21 @@ namespace Card{
                 arrowY=input_y;
                 Cursor::SetVisible(false);
                 refresh_hand_layout();
-                hovered_card->SetTargetX(Setting::WINDOW_WIDTH/2.0F);
-                hovered_card->SetTargetY(Card::Cards::IMG_HEIGHT*0.75F/2.5F);
+                hovered_card->SetX(Setting::WINDOW_WIDTH/2.0F);
+                hovered_card->SetY(Card::Cards::IMG_HEIGHT*0.75F/2.5F);
             }
             return;
         }
 
         if(just_l&&in_drop_zone){//trigger the card
             //remember to add if canuse
-            play_card(action_group_handler);
+            this->play_card(action_group_handler);
             return;
         }
 
         //just move the card to cursor.
-        hovered_card->SetTargetX(input_x);
-        hovered_card->SetTargetY(input_y);
+        hovered_card->SetX(input_x);
+        hovered_card->SetY(input_y);
     }
     
     void Card_group_handler::prepare_for_battle(const std::shared_ptr<RUtil::Random> &rng){
@@ -337,6 +345,7 @@ namespace Card{
             hovered_card->render_hovered_shadow(r2);
         }
         hand_cards.render(r2,PlayerColor_RGB);
+        this->render_flying_discard(r2,PlayerColor_RGB);//may need to check.
         if(single_target)
             render_targeting(r2);
     }
@@ -353,9 +362,10 @@ namespace Card{
         //hover -> arrow
         const glm::vec2 start{hovered_card->GetX(),hovered_card->GetY()},end{arrowX,arrowY};
         float rad=7.0F*Setting::SCALE;
-        glm::vec2 last_pt{ctr_pt},now_pt;
+        glm::vec2 last_pt,now_pt{ctr_pt};
         for(int i=0;i<19;i++){//draw block
             rad+=0.4F*Setting::SCALE;
+            last_pt=now_pt;
             now_pt=RUtil::Math::BezierQuadratic(start,ctr_pt,end,(float)i/20.0F);
             r2->draw(reticleBlock_img, now_pt.x-64.0F, now_pt.y-64.0F, 128.0F, 128.0F, RUtil::Math::GetDegress(now_pt-last_pt)-90.0F, 64.0F, 64.0F, rad/18.0F, rad/18.0F);
         }
@@ -366,28 +376,29 @@ namespace Card{
         hovered_monster=nullptr;
         //monster check
         //for(monst:monster_group)....
-        if(!just_r&&(float)input_y>LOW_LOW_LINE&&(float)input_y>hover_start_line - 400.0F*Setting::SCALE){//check if height is in range, release if not.
-            if(just_l){
-                if(hovered_monster!=nullptr){
-                    single_target=false;
-                    Cursor::SetVisible(true);
-                    hovered_monster=nullptr;
-                }
-            }
-        }else{
+        if(just_r||(float)input_y<LOW_LOW_LINE||(float)input_y<hover_start_line - 400.0F*Setting::SCALE){//release if height is not in range.
             release_card();
             single_target=false;
             Cursor::SetVisible(true);
             hovered_monster=nullptr;
+            return;
         }
 
-        if(single_target){
-            arrowX=RUtil::Math::varlerp(arrowX,(float)input_x,20.0F,UI_THRESHOLD);
-            arrowY=RUtil::Math::varlerp(arrowY,(float)input_y,20.0F,UI_THRESHOLD);
+        if(just_l){
+            if(hovered_monster!=nullptr){
+                single_target=false;
+                Cursor::SetVisible(true);
+                hovered_monster=nullptr;
+            }
+            return;
         }
+
+        arrowX=RUtil::Math::varlerp(arrowX,(float)input_x,20.0F,UI_THRESHOLD);
+        arrowY=RUtil::Math::varlerp(arrowY,(float)input_y,20.0F,UI_THRESHOLD);
     }
+
     void Card_group_handler::hand_card_push()const{
-        const int len=hand_cards.Size();
+        const int len=hand_cards.size();
         if(len>1){
             const int pos=hand_cards.GetCardPos(hovered_card);
             if(pos!=-1){
@@ -410,7 +421,7 @@ namespace Card{
         }
     }
     void Card_group_handler::hand_hide(){
-        for(const auto&it:hand_cards) it->SetTargetY(-Cards::IMG_HEIGHT);
+        for(const auto&it:hand_cards) it->SetY(-Cards::IMG_HEIGHT);
     }
     const std::shared_ptr<Draw::ReTexture>&Card_group_handler::reticleBlock_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/reticleBlock.png"),&Card_group_handler::reticleArrow_img=RUtil::Image_book::GetTexture(RESOURCE_DIR"/Image/combat/reticleArrow.png");
     const int &Card_group_handler::input_x=RUtil::Game_Input::getX(),&Card_group_handler::input_y=RUtil::Game_Input::getY();

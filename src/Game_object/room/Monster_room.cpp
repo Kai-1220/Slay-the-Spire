@@ -4,6 +4,8 @@
 #include "Game_object/action/Draw_card_action.hpp"
 #include "Game_object/dungeon/Overlay.hpp"
 
+#include "Util/Input.hpp"//for test
+
 namespace Room{
 Monster_room::Monster_room():Rooms(Room_type::Monster){
     m_wait_timer=0.0F;
@@ -21,6 +23,13 @@ void Monster_room::update(Action::Action_group_handler &action_group_handler,Car
     if(m_wait_timer<=0.0F){//Loop until end turn. //Idle also loop here.
         action_group_handler.update(card_group_handler,random_package);
         card_group_handler.update(action_group_handler);
+        
+        if(Util::Input::IsKeyDown(Util::Keycode::A)){//for test
+            action_group_handler.AddActionTop(std::make_shared<Action::Draw_card_action>(5));
+        }
+        if(Util::Input::IsKeyDown(Util::Keycode::S)){//for test
+            card_group_handler.discard_all();
+        }
         
     }else{
         if(action_group_handler.is_nothing_to_do()){

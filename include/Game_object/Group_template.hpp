@@ -19,7 +19,7 @@ public:
     bool empty()const{return box.empty();}
     const auto&Top()const{return box.back();}
     const auto&Bot()const{return box.front();}
-    int Size()const{return static_cast<int>(box.size());}
+    int size()const{return static_cast<int>(box.size());}
 protected:
     box_type box;
 };

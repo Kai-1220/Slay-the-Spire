@@ -13,6 +13,7 @@ namespace Card{
     static const std::shared_ptr<Draw::Atlas_Region> &CardMidFrame(Rarity rarity);
     static const std::shared_ptr<Draw::Atlas_Region> &CardRightFrame(Rarity rarity);
     static const std::shared_ptr<Draw::Atlas_Region> &CardBanner(Rarity rarity);
+    
     Cards::Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,Target target,int cost):
                         card_name(card_name),rarity(rarity),type(type),color(color),target(target),cost(cost),
                         m_card_bg_silhouette(BgSilhouette(type)),m_card_bg(CardBg(type,color)),m_card_frame(CardFrame(type,rarity)),
@@ -21,39 +22,12 @@ namespace Card{
                         m_card_flash(m_card_bg_silhouette,this->current_x,this->current_y,this->m_angle,this->m_draw_scale,true),
                         hb(IMG_WIDTH_S,IMG_HEIGHT_S)
     {
-        if(s_type_width_attack==0.0F){
+        static bool once=false;
+        if(!once){
             init_static_menber();
         }
-        switch(type){
-            case Type::attack:
-                m_type_offset=s_type_offset_attack;
-                m_type_width=s_type_width_attack;
-                m_text_pos=0;
-                break;
-            case Type::skill:
-                m_type_offset=s_type_offset_skill;
-                m_type_width=s_type_width_skill;
-                m_text_pos=1;
-                break;
-            case Type::power:
-                m_type_offset=s_type_offset_power;
-                m_type_width=s_type_width_power;
-                m_text_pos=2;
-                break;
-            case Type::curse:
-                m_type_offset=s_type_offset_curse;
-                m_type_width=s_type_width_curse;
-                m_text_pos=3;
-                break;
-            case Type::status:
-                m_type_offset=s_type_offset_status;
-                m_type_width=s_type_width_status;
-                m_text_pos=7;
-                break;
-            default:
-                LOG_ERROR("The type doesn't exist");
-                break;
-        }
+        this->SetFontTypeOffset();
+        
         is_glowing=darken=false;
         m_dark_timer=m_glow_timer=m_hover_timer=0.0F;
         m_draw_scale=m_target_draw_scale=0.7F;
@@ -62,6 +36,7 @@ namespace Card{
         
         //x,y,angle not set
     }
+    
     void Cards::update(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB){
         //flash update
         if(!m_card_flash.IsDone()) m_card_flash.update();
@@ -104,6 +79,7 @@ namespace Card{
         }
         glowgroup.update();
     }
+
     void Cards::render(const std::shared_ptr<Draw::Draw_2D> &r2,const Uint32 PlayerColor_RGB)const{
         if(is_shuffling&&shuffle_invisible) return;
         if(is_shuffling){
@@ -111,9 +87,13 @@ namespace Card{
             format_render(r2,m_card_bg_silhouette,this->current_x,this->current_y,1.0F+this->m_tint_a/5.0F);
         }
         //flash
-        if(!m_card_flash.IsDone())  m_card_flash.render(r2);
+        if(!m_card_flash.IsDone()){
+            m_card_flash.render(r2);
+            r2->SetBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+        }
         //glow
-        glowgroup.render(r2);
+        if(static_cast<int>(glowgroup.size())!=0)
+            glowgroup.render(r2);
         //image
         //shadow
         r2->SetColor(FRAME_SHADOW_COLOR,this->m_color_a/4.0F);
@@ -183,10 +163,6 @@ namespace Card{
     void Cards::Flash(Uint32 _c){
         m_card_flash.change_color(_c);
     }
-    void Cards::SetTargetY(const float value){target_y=value;}
-    void Cards::SetTargetX(const float value){target_x=value;}
-    void Cards::SetY(const float value){current_y=value;}
-    void Cards::SetX(const float value){current_x=value;}
     void Cards::SetTargetAngle(const float value){target_angle=value;}
     void Cards::SetAngle(const float value){m_angle=value;}
     void Cards::SetTargetDrawScale(const float value){m_target_draw_scale=value;}
@@ -239,9 +215,44 @@ namespace Card{
         s_type_offset_status=(jitai_width-mid_frame_width)/2.0F;
         s_type_width_status=(jitai_width/mid_frame_width-1.0F)*2.0F+1.0F;
     }
+    
+    void Cards::SetFontTypeOffset(){
+        switch(this->type){
+            case Type::attack:
+                m_type_offset=s_type_offset_attack;
+                m_type_width=s_type_width_attack;
+                m_text_pos=0;
+                break;
+            case Type::skill:
+                m_type_offset=s_type_offset_skill;
+                m_type_width=s_type_width_skill;
+                m_text_pos=1;
+                break;
+            case Type::power:
+                m_type_offset=s_type_offset_power;
+                m_type_width=s_type_width_power;
+                m_text_pos=2;
+                break;
+            case Type::curse:
+                m_type_offset=s_type_offset_curse;
+                m_type_width=s_type_width_curse;
+                m_text_pos=3;
+                break;
+            case Type::status:
+                m_type_offset=s_type_offset_status;
+                m_type_width=s_type_width_status;
+                m_text_pos=7;
+                break;
+            default:
+                LOG_ERROR("The type doesn't exist");
+                break;
+        }
+    }
+
     const std::vector<std::shared_ptr<Draw::Text_layout>> &Cards::s_ui_vec=RUtil::Text_Vector_Reader::GetTextVector(RUtil::Text_ID::SingleCardViewPopup);
     float Cards::s_type_offset_attack=0.0F,Cards::s_type_offset_skill=0.0F,Cards::s_type_offset_power=0.0F,Cards::s_type_offset_status=0.0F,Cards::s_type_offset_curse=0.0F,Cards::s_type_width_attack=0.0F,Cards::s_type_width_skill=0.0F,Cards::s_type_width_power=0.0F,Cards::s_type_width_status=0.0F,Cards::s_type_width_curse=0.0F;
     const float &Cards::DT=RUtil::Game_Input::delta_time();
+
     using namespace RUtil;
     static const std::shared_ptr<Draw::Atlas_Region> &BgSilhouette(Type type){
         switch(type){

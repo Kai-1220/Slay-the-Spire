@@ -32,8 +32,8 @@ namespace Action
         }else if(!card_queue.empty()){
             //remember check if card can't use
             action_box.AddBot(std::make_shared<Card_use_action>(card_queue.front()));
-            card_queue.front().card->SetTargetX((float)Setting::WINDOW_WIDTH/2.0F);
-            card_queue.front().card->SetTargetY((float)Setting::WINDOW_HEIGHT/2.0F);
+            card_queue.front().card->SetX((float)Setting::WINDOW_WIDTH/2.0F);
+            card_queue.front().card->SetY((float)Setting::WINDOW_HEIGHT/2.0F);
             //reduce energy
             card_queue.pop_front();
         }
@@ -45,10 +45,5 @@ namespace Action
         }
         action_box.AddTop(std::make_shared<Action::Wait_action>(1.0F));
     }
-    void Action_group_handler::AddActionTop(std::shared_ptr<Actions>&&action){action_box.AddTop(std::move(action));}
-    void Action_group_handler::AddActionBot(std::shared_ptr<Actions>&&action){action_box.AddBot(std::move(action));}
-    void Action_group_handler::AddActionTop(const std::shared_ptr<Actions>&action){action_box.AddTop(action);}
-    void Action_group_handler::AddActionBot(const std::shared_ptr<Actions>&action){action_box.AddBot(action);}
-    void Action_group_handler::AddCardQueue(Card::Card_item &&card_item){card_queue.emplace_back(std::move(card_item));}
-    void Action_group_handler::AddCardQueue(const Card::Card_item &card_item){card_queue.emplace_back(card_item);}
+    
 } // namespace Action

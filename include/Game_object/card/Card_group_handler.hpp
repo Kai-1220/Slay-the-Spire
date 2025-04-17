@@ -25,12 +25,13 @@ public:
     void shuffle(bool shuffle_invisible);
     void hand_hide();
     void render_hand(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const;
-
+    void render_flying_discard(const std::shared_ptr<Draw::Draw_2D> &r2, const Uint32 PlayerColor_RGB)const;//need to be check
+    void update_flying_discard(Effect::Effect_group &effs, Uint32 PlayerTrailColor_RGB){m_discard.update(effs,PlayerTrailColor_RGB);}//need to be check
     void update_hand_cards(Effect::Effect_group &effs, Uint32 PlayerTrailColor_RGB){hand_cards.update(effs,PlayerTrailColor_RGB);}
     void add_to_master_deck(std::shared_ptr<Cards> &&card){master_deck.AddTop(std::move(card));}
-    int discard_pile_size()const{return m_discard.Size();}
-    int draw_pile_size()const{return draw_pile.Size();}
-    int hand_cards_size()const{return hand_cards.Size();}
+    int discard_pile_size()const{return m_discard.size();}
+    int draw_pile_size()const{return draw_pile.size();}
+    int hand_cards_size()const{return hand_cards.size();}
     bool draw_pile_flying_check()const{return draw_pile.IsSomeoneFlying();}
     void discard_pile_shuffle_with_rng(const std::shared_ptr<RUtil::Random> &rng){m_discard.ShuffleWithRng(rng);}
 private:
