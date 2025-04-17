@@ -41,6 +41,10 @@ private:
     void play_card(Action::Action_group_handler &action_group_handler);
     void render_targeting(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update_targeting();
+    void update_drop_zone_status();
+    void update_hovered_card();
+    void handle_dragging(Action::Action_group_handler &action_group_handler);
+    void check_drag_start();
     bool single_target,in_drop_zone,pass_hesitation_line,is_dragging_card;
     float arrowX,arrowY,hover_start_line;
     std::shared_ptr<Card::Cards> hovered_card=nullptr;

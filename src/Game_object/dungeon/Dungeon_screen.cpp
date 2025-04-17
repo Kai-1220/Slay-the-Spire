@@ -15,13 +15,15 @@ namespace Dungeon
         on_top=true;
     }
     void Dungeon_screen::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
-        the_map.render(r2);
-        if(display_map!=nullptr){
-            for(const auto&it:*display_map)
-                for(const auto&it2:it)
-                    if(it2!=nullptr)it2->render(r2,offsetY,the_map.get_alpha());
-        }else{
-            LOG_ERROR("Forget to set the dispaly_map.");
+        if(the_map.get_alpha()!=0.0F){
+            the_map.render(r2);
+            if(display_map!=nullptr){
+                for(const auto&it:*display_map)
+                    for(const auto&it2:it)
+                        if(it2!=nullptr)it2->render(r2,offsetY,the_map.get_alpha());
+            }else{
+                LOG_ERROR("Forget to set the dispaly_map.");
+            }
         }
     }
     void Dungeon_screen::update(Dungeon_shared &dungeon_shared){

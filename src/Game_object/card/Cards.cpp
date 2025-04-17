@@ -80,7 +80,7 @@ namespace Card{
         }
         //scale
         this->hb.move(this->current_x,this->current_y);
-        this->hb.resize(HB_W*this->m_draw_scale, HB_H*this->m_draw_scale);
+        this->hb.resize(IMG_WIDTH*this->m_draw_scale, IMG_HEIGHT*this->m_draw_scale);
         if(hb.ClickStarted()){
             this->m_draw_scale=RUtil::Math::varlerp(this->m_draw_scale, this->m_target_draw_scale*0.9F, 7.5F, 0.003F);
             this->m_draw_scale=RUtil::Math::varlerp(this->m_draw_scale, this->m_target_draw_scale*0.9F, 7.5F, 0.003F);
@@ -110,7 +110,6 @@ namespace Card{
             r2->SetColor(PlayerColor_RGB,1.0F);
             format_render(r2,m_card_bg_silhouette,this->current_x,this->current_y,1.0F+this->m_tint_a/5.0F);
         }
-        //this.renderHelper(sb, AbstractDungeon.player.getCardRenderColor(), this.getCardBgAtlas(), this.current_x, this.current_y, 1.0F + this.tintColor.a / 5.0F);
         //flash
         if(!m_card_flash.IsDone())  m_card_flash.render(r2);
         //glow
@@ -197,7 +196,8 @@ namespace Card{
     void Cards::MoveTargetX(const float value){target_x+=value;}
     void Cards::MoveTargetAngle(const float value){target_angle+=value;}
     bool Cards::IsHoveredInHand(const float scale)const{
-        //The hover detection area here will be larger than the card's hitbox.
+        //The hover detection area here will be larger than the card's hitbox if scale>m_draw_scale,
+        //will be smaller if scale<m_draw_scale
         if(m_hover_timer>0.0F) return false;
         const float x=(float)RUtil::Game_Input::getX(),y=(float)RUtil::Game_Input::getY(),
                     hw=IMG_WIDTH*scale/2.0F,hh=IMG_HEIGHT*scale/2.0F;

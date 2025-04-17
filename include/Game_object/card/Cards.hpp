@@ -48,9 +48,11 @@ enum class Target{
 class Cards:public Card_soul{
 public:
     Cards(RUtil::AtlasRegionID card_name,Rarity rarity,Type type,Color color,Target target,int cost);
+    virtual ~Cards() =default;
     void render(const std::shared_ptr<Draw::Draw_2D> &r2,const Uint32 PlayerColor_RGB)const;
     void render_hovered_shadow(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB);
+    void update_hover_logic();
     void SetTargetY(const float value);
     void SetTargetX(const float value);
     void SetY(const float value);
@@ -59,7 +61,7 @@ public:
     void SetAngle(const float value);
     void SetTargetDrawScale(const float value);
     void SetDrawScale(const float value);
-    void SetHoverTimer(const float value);
+    void SetHoverTimer(const float value);//hover timer will be set when releasing card.
     void MoveTargetY(const float value);
     void MoveTargetX(const float value);
     void MoveTargetAngle(const float value);
@@ -72,12 +74,14 @@ public:
     void stop_glow();
     void draw();
     void Flash(Uint32 _c);
+
     bool CanUse()const{return true;}
     int GetCost()const{return cost;}
     float GetX()const{return current_x;}
     float GetY()const{return current_y;}
     bool IsHoveredInHand(const float scale)const;
-    virtual ~Cards() =default;
+    bool IsSingleTarget()const noexcept{return target==Target::enemy||target==Target::self_and_enemy;}
+
     const RUtil::AtlasRegionID card_name;
     const Rarity rarity;
     const Type type;
@@ -98,9 +102,7 @@ private:
     static constexpr Uint32 FRAME_SHADOW_COLOR=0,DEFAULT_COLOR=RUtil::Math::GetColorUint32_RGB(255,255,255),TYPE_COLOR=RUtil::Math::GetColorUint32_RGB(0.35F,0.35F,0.35F),TINT_COLOR=RUtil::Math::GetColorUint32_RGB(43,37,65);
     static constexpr float  SHADOW_OFFSET_X = 18.0F * Setting::SCALE,
                             SHADOW_OFFSET_Y = 14.0F * Setting::SCALE,
-                            CARD_SNAP_THRESHOLD = 1.0F * Setting::SCALE,
-                            HB_W = 300.0F * Setting::SCALE,
-                            HB_H = 420.0F * Setting::SCALE;
+                            CARD_SNAP_THRESHOLD = 1.0F * Setting::SCALE;
     static const std::vector<std::shared_ptr<Draw::Text_layout>> &s_ui_vec;
     static float s_type_offset_attack,s_type_offset_skill,s_type_offset_power,s_type_offset_status,s_type_offset_curse,s_type_width_attack,s_type_width_skill,s_type_width_power,s_type_width_status,s_type_width_curse;
     static constexpr int CARD_FONT_SIZE=17;

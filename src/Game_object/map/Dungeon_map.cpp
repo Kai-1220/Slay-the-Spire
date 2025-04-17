@@ -10,15 +10,13 @@ namespace Map{
         boss_node_color_rgb=Map_node::NOT_TAKEN_COLOR;
     }
     void Dungeon_map::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
-        if(map_a!=0.0F){
-            r2->SetColor(RUtil::Colors::WHITE,map_a);
-            r2->draw(map_top, 0.0F, H + screen_offsetY + map_offsetY, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
-            r2->draw(map_mid, 0.0F, screen_offsetY + map_offsetY, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
-            r2->draw(map_bottom, 0.0F, -map_mid_pos +screen_offsetY + map_offsetY + 1.0F, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
-            r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY + 800.0F * Setting::SCALE, (float)Setting::WINDOW_WIDTH, BLEND_H);
-            r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY - 220.0F * Setting::SCALE, (float)Setting::WINDOW_WIDTH, BLEND_H);
-            legend.render(r2);
-        }
+        r2->SetColor(RUtil::Colors::WHITE,map_a);
+        r2->draw(map_top, 0.0F, H + screen_offsetY + map_offsetY, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
+        r2->draw(map_mid, 0.0F, screen_offsetY + map_offsetY, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
+        r2->draw(map_bottom, 0.0F, -map_mid_pos +screen_offsetY + map_offsetY + 1.0F, (float)Setting::WINDOW_WIDTH, 1080.0F * Setting::SCALE);
+        r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY + 800.0F * Setting::SCALE, (float)Setting::WINDOW_WIDTH, BLEND_H);
+        r2->draw(map_blend, 0.0F, screen_offsetY+ map_offsetY - 220.0F * Setting::SCALE, (float)Setting::WINDOW_WIDTH, BLEND_H);
+        legend.render(r2);
     }
     // void Dungeon_map::show() {
     //     map_target_a = 1.0F;

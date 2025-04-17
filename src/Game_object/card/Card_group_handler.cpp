@@ -9,8 +9,8 @@ namespace Card{
     static constexpr float CARD_DROP_START_Y=350.0F*Setting::SCALE;
 
     Card_group_handler::Card_group_handler(){
-        single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
-        //in_drop_zone:(x,y) in area that can use card.
+        single_target=pass_hesitation_line=is_dragging_card=false;
+        //in_drop_zone:(x,y) in area that can use card.  //This is ok without init.
         //in_draggin_card: dragging card,include in single_target mode
         //single_target: targeting one enemy
         //pass_hesitation_line: dragging card to in_drop_zone
@@ -62,9 +62,9 @@ namespace Card{
 
     void Card_group_handler::release_card(){
         single_target=false;
-        in_drop_zone=false;
         pass_hesitation_line=false;
         is_dragging_card=false;
+
         if(hovered_card!=nullptr){
             //hovertimer
             hovered_card->SetHoverTimer(0.25F);
@@ -231,67 +231,97 @@ namespace Card{
     }
     
     void Card_group_handler::update(Action::Action_group_handler &action_group_handler){
+        //single_target -> drop zone -> drag -> hover -> check drag start
         if(single_target){
-            update_targeting();
-        }else{
-            const bool last_in=in_drop_zone;
-            in_drop_zone=CARD_DROP_START_Y<(float)input_y&&(float)input_y<CARD_DROP_END_Y;
-            if(!last_in&&in_drop_zone&&is_dragging_card){
-                hovered_card->Flash(0x87ceeb00);//color.sky
-            }
-            if(is_dragging_card&&in_drop_zone){
-                pass_hesitation_line=true;
-            }
-            if(is_dragging_card&&(float)input_y<LOW_LOW_LINE&&pass_hesitation_line){
-                pass_hesitation_line=false;
-                this->release_card();
-            }
-            //check hover card
-            if(hovered_card==nullptr){
-                hovered_card=hand_cards.GetHoveredCard();
-                if(hovered_card!=nullptr){
-                    hovered_card->SetTargetY(HOVER_CARD_Y_POSITION);
-                    hovered_card->SetY(HOVER_CARD_Y_POSITION);
-                    hovered_card->SetAngle(0.0F);
-                    hovered_card->Hover();
-                    hand_card_push();
-                }
-            }
-            //check if start to drag card
-            if(just_l&&hovered_card!=nullptr&&!is_dragging_card){
-                hover_start_line=(float)input_y*START_LINE_OFFSET;
-                is_dragging_card=true;
-                pass_hesitation_line=false;
-                hovered_card->SetTargetDrawScale(0.7F);
-            }else if(is_dragging_card){
-                if(!just_r){
-                    if(just_l){
-                        if(in_drop_zone&&hovered_card->target!=Target::enemy&&hovered_card->target!=Target::self_and_enemy){//and canuse
-                            play_card(action_group_handler);
-                        }else{
-                            release_card();
-                        }
-                    }else{
-                        hovered_card->SetTargetX(input_x);
-                        hovered_card->SetTargetY(input_y);
-                        if(in_drop_zone&&(hovered_card->target==Target::enemy||hovered_card->target==Target::self_and_enemy)){
-                            single_target=true;
-                            arrowX=input_x;
-                            arrowY=input_y;
-                            Cursor::SetVisible(false);
-                            refresh_hand_layout();
-                            hovered_card->SetTargetX(Setting::WINDOW_WIDTH/2.0F);
-                            hovered_card->SetTargetY(Card::Cards::IMG_HEIGHT*0.75F/2.5F);
-                        }
-                    }
-                }else{
-                    release_card();
-                }
-            }
+            this->update_targeting();
+            return;
+        }
 
+        if(is_dragging_card){//is_dragging_card==true only if (hovered_card!=nullptr)
+            this->update_drop_zone_status();
+            if(is_dragging_card)//if is_dragging_card after update_drop_zone_status();
+                this->handle_dragging(action_group_handler);
+        }
+
+        //check hover card
+        this->update_hovered_card();
+        
+        //check drag start
+        if(hovered_card!=nullptr)
+            this->check_drag_start();
+    }
+
+    void Card_group_handler::check_drag_start(){
+        if(just_l&&!this->is_dragging_card){
+            this->hover_start_line=(float)input_y*START_LINE_OFFSET;
+            this->is_dragging_card=true;
+            this->pass_hesitation_line=false;
+            this->hovered_card->SetTargetDrawScale(0.7F);
         }
     }
 
+    void Card_group_handler::update_hovered_card(){
+        if(hovered_card==nullptr){
+            hovered_card=hand_cards.GetHoveredCard();
+            if(hovered_card!=nullptr){
+                hovered_card->SetTargetY(HOVER_CARD_Y_POSITION);
+                hovered_card->SetY(HOVER_CARD_Y_POSITION);
+                hovered_card->SetAngle(0.0F);
+                hovered_card->Hover();
+                this->hand_card_push();
+            }
+        }else if(!is_dragging_card&&!hovered_card->IsHoveredInHand(1.0F)){
+            this->release_card();
+        }
+    }
+
+    void Card_group_handler::update_drop_zone_status(){
+        const bool last_in=in_drop_zone;
+        in_drop_zone=CARD_DROP_START_Y<(float)input_y&&(float)input_y<CARD_DROP_END_Y;
+        if(!last_in&&in_drop_zone){//first in
+            hovered_card->Flash(0x87ceeb00);//color.sky
+        }
+        if(in_drop_zone){//in_drop_zone is false not equel pass_hesitation_line is false.
+            pass_hesitation_line=true;
+        }
+        if((float)input_y<LOW_LOW_LINE&&pass_hesitation_line){//If this is true, then in_drop_zone must be false.
+            pass_hesitation_line=false;
+            this->release_card();
+        }
+    }
+
+    void Card_group_handler::handle_dragging(Action::Action_group_handler &action_group_handler){
+        if(just_r){
+            release_card();
+            return;
+        }
+
+        if(in_drop_zone&&hovered_card->IsSingleTarget()){//start single target
+            if(just_l){//but if just_l cancle the start and release card.
+                release_card();
+            }else{
+                single_target=true;
+                arrowX=input_x;
+                arrowY=input_y;
+                Cursor::SetVisible(false);
+                refresh_hand_layout();
+                hovered_card->SetTargetX(Setting::WINDOW_WIDTH/2.0F);
+                hovered_card->SetTargetY(Card::Cards::IMG_HEIGHT*0.75F/2.5F);
+            }
+            return;
+        }
+
+        if(just_l&&in_drop_zone){//trigger the card
+            //remember to add if canuse
+            play_card(action_group_handler);
+            return;
+        }
+
+        //just move the card to cursor.
+        hovered_card->SetTargetX(input_x);
+        hovered_card->SetTargetY(input_y);
+    }
+    
     void Card_group_handler::prepare_for_battle(const std::shared_ptr<RUtil::Random> &rng){
         this->m_discard.Clear();
         this->hand_cards.Clear();
@@ -299,7 +329,7 @@ namespace Card{
         this->draw_pile=this->master_deck;
         draw_pile.ShuffleWithRng(rng);
         hovered_card=nullptr;
-        single_target=in_drop_zone=pass_hesitation_line=is_dragging_card=false;
+        single_target=pass_hesitation_line=is_dragging_card=false;
         hovered_monster=nullptr;
     }
     void Card_group_handler::render_hand(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const{
