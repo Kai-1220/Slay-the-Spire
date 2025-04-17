@@ -3,7 +3,10 @@
 #include "Game_object/room/rooms.hpp"
 #include "RUtil/Image_book.hpp"
 #include "Game_object/character/Monster/Monsters.hpp"
-
+#include "Game_object/character/Monster/AcidSlimeL.hpp"
+#include "Game_object/character/Monster/FatGremlin.hpp"
+#include "Game_object/character/Monster/JawWorm.hpp"
+#include "Game_object/character/Player.hpp"
 namespace Room{
 //need:Monster Player Cards BattleManage
 class Monster_room:public Rooms
@@ -22,6 +25,10 @@ private:
     Monster::MonsterID m_monster_id=Monster::MonsterID::None;
     static const std::shared_ptr<Draw::ReTexture> &IMG;
     static const std::shared_ptr<Draw::ReTexture> &IMG_O;
+    std::shared_ptr<Monster::AcidSlimeL> m_acid_slime_l;
+    std::shared_ptr<Monster::FatGremlin> m_fat_gremlin;
+    std::shared_ptr<Monster::JawWorm> m_jaw_worm;
+    std::shared_ptr<Character::Player> m_player;
 };
 }
 #endif
