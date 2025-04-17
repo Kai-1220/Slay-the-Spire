@@ -1,6 +1,8 @@
 #pragma once
+
 #include <memory>
 #include <vector>
+
 //fwd decl
 namespace Draw{
     class Image_Region;
