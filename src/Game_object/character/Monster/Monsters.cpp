@@ -1,6 +1,8 @@
 #include "Game_object/character/Monster/Monsters.hpp"
 namespace Monster
 {
+    Monsters::Monsters(float x, float y, float width, float height) : Characters(x, y, width, height) {
+}
 void Monsters::damage(int num){
     this->current_HP-=num;
 }

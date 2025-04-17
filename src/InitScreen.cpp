@@ -58,6 +58,10 @@ void InitScreen::Create(){
     for (std::size_t i = 0; i < m_Text.size(); i++) {
         CreateText(i);
     }
+    CreateBlackCloud(rand()%7);
+    CreateBlackCloud(rand()%7);
+    CreateWhiteCloud(rand()%13);
+    CreateWhiteCloud(rand()%13);
 }
 void InitScreen::update(){
     

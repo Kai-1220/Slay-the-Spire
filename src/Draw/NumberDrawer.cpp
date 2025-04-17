@@ -10,6 +10,7 @@
 
 #include "Util/Logger.hpp"
 
+
 namespace Draw{
     NumberDrawer::NumberDrawer(int fontsize):fontsize(fontsize){
         TTF_Font* m_Font=TTF_OpenFont(Setting::LANGUAGE_POS,fontsize);
@@ -19,16 +20,17 @@ namespace Draw{
     void NumberDrawer::render(const std::shared_ptr<Draw_2D> &r2,const std::string &num_str,const float center_x,const float center_y,const float scale)const{
         auto& nums=GetNums();
         const int len=static_cast<int>(num_str.size());
-        float now_x=float(-len*unit_w)/2.0F;
+        float adjust_w=unit_w*Setting::SCALE;
+        float now_x=float(-len*adjust_w)/2.0F;
         for(const auto&it:num_str){
             if('0'<=it&&it<='9'){
-                r2->draw(nums[it^48], center_x+now_x, center_y-(float)unit_h/2.0F, (float)unit_w, (float)unit_h, 0.0F, center_x, center_y, scale*Setting::SCALE, scale*Setting::SCALE);
+                r2->draw(nums[it^48], center_x+now_x, center_y-(float)unit_h/2.0F, (float)unit_w, (float)unit_h, 0.0F, now_x+adjust_w/2.0F, (float)unit_h/2.0F, scale*Setting::SCALE, scale*Setting::SCALE);
             }else if(it=='/'){
-                r2->draw(nums[10], center_x+now_x, center_y-(float)unit_h/2.0F, (float)unit_w, (float)unit_h, 0.0F, center_x, center_y, scale*Setting::SCALE, scale*Setting::SCALE);
+                r2->draw(nums[10], center_x+now_x, center_y-(float)unit_h/2.0F, (float)unit_w, (float)unit_h, 0.0F, now_x+adjust_w/2.0F, (float)unit_h/2.0F, scale*Setting::SCALE, scale*Setting::SCALE);
             }else{
                 LOG_ERROR("NumberDrawer can't draw '{}'",it);
             }
-            now_x+=unit_w;
+            now_x+=adjust_w;
         }
     }
     const std::vector<std::shared_ptr<Image_Region>> &NumberDrawer::GetNums(){
