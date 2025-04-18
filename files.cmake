@@ -35,9 +35,17 @@ set(SRC_FILES
 	Game_object/character/Characters.cpp
 	Game_object/character/Player.cpp
 	Game_object/character/Monster/AcidSlimeL.cpp
+	Game_object/character/Monster/AcidSlimeM.cpp
+	Game_object/character/Monster/AcidSlimeS.cpp
+	Game_object/character/Monster/Cultist.cpp
 	Game_object/character/Monster/FatGremlin.cpp
+	Game_object/character/Monster/GreenLouse.cpp
 	Game_object/character/Monster/JawWorm.cpp
 	Game_object/character/Monster/Monsters.cpp
+	Game_object/character/Monster/RedLouse.cpp
+	Game_object/character/Monster/SpikeSlimeL.cpp
+	Game_object/character/Monster/SpikeSlimeM.cpp
+	Game_object/character/Monster/SpikeSlimeS.cpp
 	Game_object/character/Monster/TempMonster.cpp
 	Game_object/dungeon/Dungeons.cpp
 	Game_object/dungeon/Dungeon_manager.cpp
@@ -77,6 +85,7 @@ set(SRC_FILES
 )
 
 set(INCLUDE_FILES
+	AppStatus.hpp
 	Cursor.hpp
 	draw_test.hpp
 	InitScreen.hpp
@@ -117,9 +126,17 @@ set(INCLUDE_FILES
 	Game_object/character/Characters.hpp
 	Game_object/character/Player.hpp
 	Game_object/character/Monster/AcidSlimeL.hpp
+	Game_object/character/Monster/AcidSlimeM.hpp
+	Game_object/character/Monster/AcidSlimeS.hpp
+	Game_object/character/Monster/Cultist.hpp
 	Game_object/character/Monster/FatGremlin.hpp
+	Game_object/character/Monster/GreenLouse.hpp
 	Game_object/character/Monster/JawWorm.hpp
 	Game_object/character/Monster/Monsters.hpp
+	Game_object/character/Monster/RedLouse.hpp
+	Game_object/character/Monster/SpikeSlimeL.hpp
+	Game_object/character/Monster/SpikeSlimeM.hpp
+	Game_object/character/Monster/SpikeSlimeS.hpp
 	Game_object/character/Monster/TempMonster.hpp
 	Game_object/dungeon/Dungeons.hpp
 	Game_object/dungeon/Dungeon_manager.hpp
@@ -166,6 +183,6 @@ set(INCLUDE_FILES
 	RUtil/Some_Math.hpp
 	RUtil/Text_Vector_Reader.hpp
 )
-
+ 
 set(TEST_FILES
 )

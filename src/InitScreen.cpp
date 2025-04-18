@@ -33,17 +33,17 @@ void InitScreen::CreateTower(){
     ShowSize.push_back(glm::vec2{Setting::WINDOW_WIDTH,Setting::WINDOW_HEIGHT});
     ShowPos.push_back(glm::vec2{0,0});
 }
-void InitScreen::CreateBlackCloud(int i){
+void InitScreen::CreateBlackCloud(int i,float posX){
     BlackCloudImg.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture
         (RESOURCE_DIR"/Image/Start_screen/title"+ std::to_string(BlackCloudImgNum[i]) +".png"),BlackCloudSourcePos[i].x,BlackCloudSourcePos[i].y,BlackCloudSize[i].x,BlackCloudSize[i].y));
-    BlackCloudPos.push_back(glm::vec2{-BlackCloudSize[i].x-5, rand()%(Setting::WINDOW_HEIGHT-180)-50});
+    BlackCloudPos.push_back(glm::vec2{posX, rand()%(Setting::WINDOW_HEIGHT-180)-50});
     BlackCloudCount.push_back(i);
 }
-void InitScreen::CreateWhiteCloud(int i){
+void InitScreen::CreateWhiteCloud(int i,float posX){
 
     WhiteCloudImg.push_back(std::make_shared<Draw::Image_Region>(RUtil::Image_book::GetTexture
         (RESOURCE_DIR"/Image/Start_screen/title"+ std::to_string(WhiteCloudImgNum[i]) +".png"),WhiteCloudSourcePos[i].x,WhiteCloudSourcePos[i].y,WhiteCloudSize[i].x,WhiteCloudSize[i].y));
-    WhiteCloudPos.push_back(glm::vec2{Setting::WINDOW_WIDTH+WhiteCloudSize[i].x+5, rand()%(Setting::WINDOW_HEIGHT-180)-50});
+    WhiteCloudPos.push_back(glm::vec2{posX, rand()%(Setting::WINDOW_HEIGHT-180)-50});
     WhiteCloudCount.push_back(i);
 }
 void InitScreen::CreateText(int i){
@@ -58,10 +58,8 @@ void InitScreen::Create(){
     for (std::size_t i = 0; i < m_Text.size(); i++) {
         CreateText(i);
     }
-    CreateBlackCloud(rand()%7);
-    CreateBlackCloud(rand()%7);
-    CreateWhiteCloud(rand()%13);
-    CreateWhiteCloud(rand()%13);
+    CreateBlackCloud(rand()%7,rand()%Setting::WINDOW_WIDTH);
+    CreateWhiteCloud(rand()%13,rand()%Setting::WINDOW_WIDTH);
 }
 void InitScreen::update(){
     
@@ -71,18 +69,20 @@ void InitScreen::update(){
         IsFadeOut=false;
         m_CurrentState=m_NextState;
     }
-
-    if(rand()%100<45 && CloudGenTime>500){
-        if(rand()%2==0){
-            CreateBlackCloud(rand()%7);
+    int randInt=rand();
+    if(randInt%100<45 && CloudGenTime>300){
+        if(randInt%2==0){
+            randInt=rand()%7;
+            CreateBlackCloud(randInt,-BlackCloudSize[randInt].x);
         }
         else{
-            CreateWhiteCloud(rand()%13);
+            randInt=rand()%13;
+            CreateWhiteCloud(randInt,Setting::WINDOW_WIDTH+WhiteCloudSize[randInt].x);
         }
         CloudGenTime=1;
     }
     else{
-        if(CloudGenTime<1000){
+        if(CloudGenTime<500){
             CloudGenTime++;
         }
     }
@@ -120,6 +120,9 @@ void InitScreen::update(){
     if(IsFadeOut){
         fadeTimer-=RUtil::Game_Input::delta_time();
         FadeColorA = RUtil::Math::interpolation_fade(1.0F,0.0F,fadeTimer/fadeTime);
+    }
+    if(m_NextState==AppStatus::State::END){
+        m_CurrentState=AppStatus::State::END;
     }
 
 }

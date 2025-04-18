@@ -15,8 +15,8 @@ public:
     void CreateLogo();
     void CreateBackground();
     void CreateTower();
-    void CreateBlackCloud(int i);
-    void CreateWhiteCloud(int i);
+    void CreateBlackCloud(int i,float posX);
+    void CreateWhiteCloud(int i,float posX);
     void CreateText(int i);
     void Create();
     void render(const std::shared_ptr<Draw::Draw_2D> &Draw2D) const;
