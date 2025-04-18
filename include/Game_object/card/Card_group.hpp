@@ -18,7 +18,6 @@ public:
     void SortByCost(const bool ascending);
     void MoveAllCardTo(Card_group &group);
     void RemoveCard(const std::shared_ptr<Cards>&card);
-    bool IsSomeoneFlying()const;
     std::shared_ptr<Cards> GetHoveredCard()const;
     int GetCardPos(const std::shared_ptr<Cards> &card)const;
     void ShuffleWithRng(const std::shared_ptr<RUtil::Random> &rng);

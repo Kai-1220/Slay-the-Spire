@@ -62,9 +62,4 @@ namespace Card{
     void Card_group::ShuffleWithRng(const std::shared_ptr<RUtil::Random> &rng){
         std::shuffle(box.begin(),box.end(),*rng);
     }
-    bool Card_group::IsSomeoneFlying()const{
-        for(const auto&it:box)
-            if(it->is_fly()) return true;
-        return false;
-    }
 }

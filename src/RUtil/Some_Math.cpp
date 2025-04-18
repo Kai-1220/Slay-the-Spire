@@ -83,7 +83,7 @@ namespace RUtil{
         return glm::acos(glm::dot(glm::normalize(v),glm::vec2(1.0F,0.0F)));
     }
     float Math::GetDegress(const glm::vec2 &v){
-        return glm::degrees(glm::acos(glm::dot(glm::normalize(v),glm::vec2(1.0F,0.0F))));
+        return glm::degrees(atan2f(v.y,v.x));
     }
     float Math::BounceOut(float t){
         if (t < 0.36363637F) {

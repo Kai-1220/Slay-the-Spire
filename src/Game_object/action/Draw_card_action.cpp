@@ -13,6 +13,8 @@ namespace Action
             is_done=true;
             return;
         }
+        if(card_group_handler.is_someone_flying())
+            return;
         if(first_time){
             first_time=false;
             if(amount+card_group_handler.hand_cards_size()>10){

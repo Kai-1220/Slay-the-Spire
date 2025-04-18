@@ -26,11 +26,13 @@ namespace Card{
             card->Darken(true);
             card->Shrink(true);
             card->shuffle(shuffle_invisible);
+            flying_cards.emplace_back(card);
             draw_pile.AddTop(card);
         }
     }
 
     void Card_group_handler::draw(){
+        //to hand, don't need to add to flying card list.
         if(draw_pile.empty()){
             LOG_ERROR("the draw_pile is empty but, it was drawn.");
         }else{
@@ -48,14 +50,9 @@ namespace Card{
             it->Darken(false);
             it->discard();
             it->start_glow();
+            flying_cards.emplace_back(it);
         }
         hand_cards.MoveAllCardTo(m_discard);
-    }
-
-    void Card_group_handler::render_flying_discard(const std::shared_ptr<Draw::Draw_2D> &r2, const Uint32 PlayerColor_RGB)const{
-        for(const auto&it:m_discard){
-            if(it->is_fly()) it->render(r2,PlayerColor_RGB);
-        }
     }
 
     void Card_group_handler::discard(const std::shared_ptr<Cards> &card){
@@ -63,6 +60,7 @@ namespace Card{
         card->Darken(false);
         card->discard();
         card->start_glow();
+        flying_cards.emplace_back(card);
         m_discard.AddTop(card);
     }
 
@@ -345,7 +343,7 @@ namespace Card{
             hovered_card->render_hovered_shadow(r2);
         }
         hand_cards.render(r2,PlayerColor_RGB);
-        this->render_flying_discard(r2,PlayerColor_RGB);//may need to check.
+        this->render_flying_cards(r2,PlayerColor_RGB);//may need to check.
         if(single_target)
             render_targeting(r2);
     }
@@ -367,7 +365,7 @@ namespace Card{
             rad+=0.4F*Setting::SCALE;
             last_pt=now_pt;
             now_pt=RUtil::Math::BezierQuadratic(start,ctr_pt,end,(float)i/20.0F);
-            r2->draw(reticleBlock_img, now_pt.x-64.0F, now_pt.y-64.0F, 128.0F, 128.0F, RUtil::Math::GetDegress(now_pt-last_pt)-90.0F, 64.0F, 64.0F, rad/18.0F, rad/18.0F);
+            r2->draw(reticleBlock_img, now_pt.x-64.0F, now_pt.y-64.0F, 128.0F, 128.0F, RUtil::Math::GetDegress(now_pt-last_pt)+(i==0?90.0F:-90.0F), 64.0F, 64.0F, rad/18.0F, rad/18.0F);
         }
         //draw arrow
         r2->draw(reticleArrow_img, arrowX-128.0F, arrowY-128.0F, 256.0F, 256.0F, RUtil::Math::GetDegress(now_pt-last_pt)-90.0F, 128.0F, 128.0F);
