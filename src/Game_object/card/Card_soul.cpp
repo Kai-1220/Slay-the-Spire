@@ -62,7 +62,8 @@ void Card_soul::update_flying(Effect::Effect_group &effs,const Uint32 PlayerTrai
                     if(target_angle<0.0F) target_angle+=360.0F;
                 }
 
-                if(glm::length(dir_vec)<HOME_IN_THRESHOLD || std::abs(target_angle-end_angle)<DT*rotate_rate){
+                const float angle_diff = std::fmod(std::abs(target_angle - end_angle), 360.0f);
+                if(glm::length(dir_vec)<HOME_IN_THRESHOLD || (angle_diff<180.0F?angle_diff:360.0F-angle_diff)<DT*rotate_rate){
                     target_angle=end_angle;
                     stop_rotate=true;
                 }

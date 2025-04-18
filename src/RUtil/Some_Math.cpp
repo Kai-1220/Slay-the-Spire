@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <glm/glm.hpp>
 
 #include "RUtil/Some_Math.hpp"
 #include "RUtil/Game_Input.hpp"
@@ -78,12 +77,6 @@ namespace RUtil{
     int Math::GetIntLength(int x){
         return x<100000?(x<100?(x<10?1:2):(x<1000?3:4)):(x<10000000?(x<1000000?6:7):(x<100000000?8:(x<1000000000?9:10)));
         //        5               [12]        [34]                       [67]                    [8 9 10]
-    }
-    float Math::GetRadian(const glm::vec2 &v){
-        return glm::acos(glm::dot(glm::normalize(v),glm::vec2(1.0F,0.0F)));
-    }
-    float Math::GetDegress(const glm::vec2 &v){
-        return glm::degrees(atan2f(v.y,v.x));
     }
     float Math::BounceOut(float t){
         if (t < 0.36363637F) {

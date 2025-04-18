@@ -1,7 +1,8 @@
 #pragma once
 
-#include <SDL_stdinc.h>
-#include <glm/vec2.hpp>
+#include <SDL_stdinc.h>//Uint
+#include <glm/vec2.hpp>//vec2
+#include <glm/glm.hpp>//glm::degress
 #include <vector>
 #include <string>
 
@@ -34,8 +35,8 @@ public:
     static float interpolation_powout2(float start,float target,float a);
     static int StrToInt(const std::string &str);
     static int GetIntLength(int x);
-    static float GetRadian(const glm::vec2 &v);
-    static float GetDegress(const glm::vec2 &v);
+    static constexpr float GetRadian(const glm::vec2 &v){return atan2f(v.y,v.x);}
+    static constexpr float GetDegress(const glm::vec2 &v){return glm::degrees(atan2f(v.y,v.x));}
     static float BounceOut(float t);
     static float BounceIn(float t);
     template <typename T>
