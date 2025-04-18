@@ -46,72 +46,76 @@ void Card_soul::prepare_to_fly(){
     this->stop_rotate=false;
 }
 void Card_soul::update_flying(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB){
-    if(is_flying){
-        if(start_wait_timer>0.0F) start_wait_timer-=DT;
-        else{
-            const glm::vec2 dir_vec{end_x-current_x,end_y-current_y};
-            //let target angle closer to end_angle
-            if(!stop_rotate){
-                const float end_angle=glm::degrees(RUtil::Math::GetRadian(dir_vec));
-                rotate_rate+=DT*800.0F;
-                if(is_clockwise){
-                    target_angle+=DT*rotate_rate;
-                    if(target_angle>=360.0F) target_angle-=360.0F;
-                }else{
-                    target_angle-=DT*rotate_rate;
-                    if(target_angle<0.0F) target_angle+=360.0F;
-                }
+    if(!is_flying) return;
 
-                const float angle_diff = std::fmod(std::abs(target_angle - end_angle), 360.0f);
-                if(glm::length(dir_vec)<HOME_IN_THRESHOLD || (angle_diff<180.0F?angle_diff:360.0F-angle_diff)<DT*rotate_rate){
-                    target_angle=end_angle;
-                    stop_rotate=true;
-                }
-            }
-            //let current pos closer to end_pos
-            const float target_rad=glm::radians(target_angle);
-            glm::vec2 unit_dir_vec={glm::cos(target_rad), glm::sin(target_rad)};
-            unit_dir_vec*=DT*this->current_speed;//to translation_vec
-            current_x+=unit_dir_vec.x;
-            current_y+=unit_dir_vec.y;
-            if(stop_rotate&&end_timer<1.3499999F)
-                this->current_speed+=DT*VELOCITY_RAMP_RATE*3.0F;
-            else
-                this->current_speed+=DT*VELOCITY_RAMP_RATE*1.5F;
+    if(0.0F<start_wait_timer){
+        start_wait_timer-=DT;
+        return;
+    }
 
-            if(current_speed>MAX_VELOCITY) current_speed=MAX_VELOCITY;
-            if((end_x<(float)Setting::WINDOW_WIDTH/2.0F&&current_x<0.0F)||(end_x>(float)Setting::WINDOW_WIDTH/2.0F&&current_x>(float)Setting::WINDOW_WIDTH)){
-                this->is_done=true;
-            }else if(glm::length(glm::vec2{current_x-end_x,current_y-end_y})<DST_THRESHOLD){
-                this->is_done=true;
-            }
-            //create effect trail
-            vfx_timer-=DT;
-            if(!is_done&&vfx_timer<0.0F){
-                vfx_timer=0.015F;
-                if(ctl_len==0||ctl_pts[ctl_idx]!=glm::vec2{current_x,current_y}){
-                    ctl_pts[RUtil::Math::SimpleRangeChange(ctl_idx+ctl_len,10)]=glm::vec2{current_x,current_y};
-                    ctl_len++;
-                }
-                if(ctl_len>3){
-                    for(int i=0;i<20;i++){
-                        effs.AddTop(
-                            Effect::Effect_pool<Effect::Card_trail_effect>::GetEffect(
-                                RUtil::Math::CatmullRomSpline(ctl_pts,i/19.0F,ctl_len,ctl_idx),
-                                PlayerTrailColor_RGB
-                            )
-                        );
-                    }
-                }
-                if(ctl_len>=10){
-                    ctl_len--;
-                    ctl_idx=RUtil::Math::SimpleRangeChange(ctl_idx+1,10);
-                }
-            }
-            //update end_timer
-            end_timer-=DT;
-            if(end_timer<0.0F) is_done=true;
+    const glm::vec2 dir_vec{end_x-current_x,end_y-current_y};
+    //let target angle closer to end_angle
+    if(!stop_rotate){
+        const float end_angle=glm::degrees(RUtil::Math::GetRadian(dir_vec));
+        rotate_rate+=DT*800.0F;
+        if(is_clockwise){
+            target_angle+=DT*rotate_rate;
+            if(target_angle>=360.0F) target_angle-=360.0F;
+        }else{
+            target_angle-=DT*rotate_rate;
+            if(target_angle<0.0F) target_angle+=360.0F;
         }
+
+        const float angle_diff = std::fmod(std::abs(target_angle - end_angle), 360.0f);
+        if(glm::length(dir_vec)<HOME_IN_THRESHOLD || (angle_diff<180.0F?angle_diff:360.0F-angle_diff)<DT*rotate_rate){
+            target_angle=end_angle;
+            stop_rotate=true;
+        }
+    }
+    //let current pos closer to end_pos
+    const float target_rad=glm::radians(target_angle);
+    glm::vec2 unit_dir_vec={glm::cos(target_rad), glm::sin(target_rad)};
+    unit_dir_vec*=DT*this->current_speed;//to translation_vec
+    current_x+=unit_dir_vec.x;
+    current_y+=unit_dir_vec.y;
+    if(stop_rotate&&end_timer<1.3499999F)
+        this->current_speed+=DT*VELOCITY_RAMP_RATE*3.0F;
+    else
+        this->current_speed+=DT*VELOCITY_RAMP_RATE*1.5F;
+
+    if(current_speed>MAX_VELOCITY) current_speed=MAX_VELOCITY;
+    if((end_x<(float)Setting::WINDOW_WIDTH/2.0F&&current_x<0.0F)||(end_x>(float)Setting::WINDOW_WIDTH/2.0F&&current_x>(float)Setting::WINDOW_WIDTH)){
+        this->is_done=true;
+    }else if(glm::length(glm::vec2{current_x-end_x,current_y-end_y})<DST_THRESHOLD){
+        this->is_done=true;
+    }
+    //create effect trail
+    vfx_timer-=DT;
+    if(!is_done&&vfx_timer<0.0F){
+        vfx_timer=0.015F;
+        if(ctl_len==0||ctl_pts[ctl_idx]!=glm::vec2{current_x,current_y}){
+            ctl_pts[RUtil::Math::SimpleRangeChange(ctl_idx+ctl_len,10)]=glm::vec2{current_x,current_y};
+            ctl_len++;
+        }
+        if(ctl_len>3){
+            for(int i=0;i<20;i++){
+                effs.AddTop(
+                    Effect::Effect_pool<Effect::Card_trail_effect>::GetEffect(
+                        RUtil::Math::CatmullRomSpline(ctl_pts,i/19.0F,ctl_len,ctl_idx),
+                        PlayerTrailColor_RGB
+                    )
+                );
+            }
+        }
+        if(ctl_len>=10){
+            ctl_len--;
+            ctl_idx=RUtil::Math::SimpleRangeChange(ctl_idx+1,10);
+        }
+        
+        //update end_timer
+        end_timer-=DT;
+        if(end_timer<0.0F) is_done=true;
+        
         //done
         if(is_done){
             is_flying=false;

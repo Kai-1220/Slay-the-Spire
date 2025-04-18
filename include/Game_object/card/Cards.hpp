@@ -72,8 +72,6 @@ public:
     void render_hovered_shadow(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     void update(Effect::Effect_group &effs,const Uint32 PlayerTrailColor_RGB);
     void update_hover_logic();
-    void SetTargetAngle(const float value);
-    void SetAngle(const float value);
     void SetTargetDrawScale(const float value);
     void SetDrawScale(const float value);
     void SetHoverTimer(const float value);//hover timer will be set when releasing card.
@@ -90,13 +88,14 @@ public:
     void draw();
     void Flash(Uint32 _c);
     bool IsHoveredInHand(const float scale)const;
-
+    
     bool CanUse()const noexcept{return true;}
     int GetCost()const noexcept{return cost;}
     float GetX()const noexcept{return current_x;}
     float GetY()const noexcept{return current_y;}
     void SetY(const float value,const bool immediate=false)noexcept{target_y=value;if(immediate)current_y=value;}
     void SetX(const float value,const bool immediate=false)noexcept{target_x=value;if(immediate)current_x=value;}
+    void SetAngle(const float value,const bool immediate=false)noexcept{target_angle=value;if(immediate)m_angle=value;}
     bool IsSingleTarget()const noexcept{return target==Target::enemy||target==Target::self_and_enemy;}
 
     const RUtil::AtlasRegionID card_name;

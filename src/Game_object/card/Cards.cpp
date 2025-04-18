@@ -163,8 +163,6 @@ namespace Card{
     void Cards::Flash(Uint32 _c){
         m_card_flash.change_color(_c);
     }
-    void Cards::SetTargetAngle(const float value){target_angle=value;}
-    void Cards::SetAngle(const float value){m_angle=value;}
     void Cards::SetTargetDrawScale(const float value){m_target_draw_scale=value;}
     void Cards::SetDrawScale(const float value){m_draw_scale=value;}
     void Cards::SetHoverTimer(const float value){m_hover_timer=value;}

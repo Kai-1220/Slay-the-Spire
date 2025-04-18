@@ -49,7 +49,6 @@ namespace Card{
             it->Shrink(false);
             it->Darken(false);
             it->discard();
-            it->start_glow();
             flying_cards.emplace_back(it);
         }
         hand_cards.MoveAllCardTo(m_discard);
@@ -59,7 +58,6 @@ namespace Card{
         card->Shrink(false);
         card->Darken(false);
         card->discard();
-        card->start_glow();
         flying_cards.emplace_back(card);
         m_discard.AddTop(card);
     }
@@ -109,7 +107,7 @@ namespace Card{
             t=(int)((float)t*1.7F);
             hand_cards[i]->SetY(SINK_START+increment_sink*t);
             //set angle
-            hand_cards[i]->SetTargetAngle(angle_start-((float)i+0.5F)*INCREMENT_ANGLE);
+            hand_cards[i]->SetAngle(angle_start-((float)i+0.5F)*INCREMENT_ANGLE);
         }
         //adjust y & set x
         constexpr float half_width=(float)Setting::WINDOW_WIDTH/2.0F;
@@ -313,6 +311,7 @@ namespace Card{
                 refresh_hand_layout();
                 hovered_card->SetX(Setting::WINDOW_WIDTH/2.0F);
                 hovered_card->SetY(Card::Cards::IMG_HEIGHT*0.75F/2.5F);
+                hovered_card->SetAngle(0.0F);
             }
             return;
         }
@@ -340,9 +339,15 @@ namespace Card{
     }
     void Card_group_handler::render_hand(const std::shared_ptr<Draw::Draw_2D> &r2,Uint32 PlayerColor_RGB)const{
         if(hovered_card!=nullptr){
+            //for ensure the hovered card is on top.
             hovered_card->render_hovered_shadow(r2);
+            for(const auto&it:hand_cards) 
+                if(it!=hovered_card)
+                    it->render(r2,PlayerColor_RGB);
+            hovered_card->render(r2,PlayerColor_RGB);
+        }else{
+            hand_cards.render(r2,PlayerColor_RGB);
         }
-        hand_cards.render(r2,PlayerColor_RGB);
         this->render_flying_cards(r2,PlayerColor_RGB);//may need to check.
         if(single_target)
             render_targeting(r2);

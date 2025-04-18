@@ -34,7 +34,6 @@ public:
     static float interpolation_fade(float start,float target,float a);
     static float interpolation_powout2(float start,float target,float a);
     static int StrToInt(const std::string &str);
-    static int GetIntLength(int x);
     static constexpr float GetRadian(const glm::vec2 &v){return atan2f(v.y,v.x);}
     static constexpr float GetDegress(const glm::vec2 &v){return glm::degrees(atan2f(v.y,v.x));}
     static float BounceOut(float t);
@@ -43,9 +42,13 @@ public:
     static constexpr T Apply(const T start,const T target,const float t){return start+(target-start)*t;}
     static glm::vec2 BezierQuadratic(const glm::vec2 p0,const glm::vec2 p1,const glm::vec2 p2,const float t);
     static glm::vec2 CatmullRomSpline(const std::vector<glm::vec2> &controls,float t,const int len,const int vec_start_pos=0);
-    static constexpr Uint32 GetColorUint32_RGB(int r,int g,int b){return r<<24|g<<16|b<<8;};
-    static constexpr Uint32 GetColorUint32_RGB(float r,float g,float b){return static_cast<Uint32>(r*255.0F)<<24|static_cast<Uint32>(g*255.0F)<<16|static_cast<Uint32>(b*255.0F)<<8;};
+    static constexpr int GetIntLength(const int x)noexcept{
+        return x<100000?(x<100?(x<10?1:2):(x<1000?3:4)):(x<10000000?(x<1000000?6:7):(x<100000000?8:(x<1000000000?9:10)));
+        //        5               [12]        [34]                       [67]                    [8 9 10]
+    };
+    static constexpr Uint32 GetColorUint32_RGB(int r,int g,int b)noexcept{return r<<24|g<<16|b<<8;};
+    static constexpr Uint32 GetColorUint32_RGB(float r,float g,float b)noexcept{return static_cast<Uint32>(r*255.0F)<<24|static_cast<Uint32>(g*255.0F)<<16|static_cast<Uint32>(b*255.0F)<<8;};
     //only work if value not bigger or smaller than 2*len
-    static constexpr int SimpleRangeChange(const int value,const int len){return len<=value?value-len:(value<0?value+len:value);}
+    static constexpr int SimpleRangeChange(const int value,const int len)noexcept{return len<=value?value-len:(value<0?value+len:value);}
 };
 }

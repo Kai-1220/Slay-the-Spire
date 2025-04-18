@@ -74,10 +74,6 @@ namespace RUtil{
             }
         return re;
     }
-    int Math::GetIntLength(int x){
-        return x<100000?(x<100?(x<10?1:2):(x<1000?3:4)):(x<10000000?(x<1000000?6:7):(x<100000000?8:(x<1000000000?9:10)));
-        //        5               [12]        [34]                       [67]                    [8 9 10]
-    }
     float Math::BounceOut(float t){
         if (t < 0.36363637F) {
             return 7.5625F * t * t;
