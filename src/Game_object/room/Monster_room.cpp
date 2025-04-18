@@ -28,6 +28,10 @@ void Monster_room::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{
 }
 void Monster_room::update(Action::Action_group_handler &action_group_handler,Card::Card_group_handler &card_group_handler,Dungeon::Overlay &overlay,const RUtil::Random_package &random_package){
     //remember monster update
+    // m_fat_gremlin->hovered();
+    m_fat_gremlin->update();
+    m_acid_slime_l->update();
+    m_jaw_worm->update();
     if(m_wait_timer<=0.0F){//Loop until end turn. //Idle also loop here.
         action_group_handler.update(card_group_handler,random_package);
         card_group_handler.update(action_group_handler);
@@ -37,6 +41,11 @@ void Monster_room::update(Action::Action_group_handler &action_group_handler,Car
         }
         if(Util::Input::IsKeyDown(Util::Keycode::S)){//for test
             card_group_handler.discard_all();
+        }
+        if(Util::Input::IsKeyDown(Util::Keycode::D)){//for test
+            m_acid_slime_l->damage(10);
+            m_fat_gremlin->damage(10);
+            m_jaw_worm->damage(10);
         }
         
     }else{

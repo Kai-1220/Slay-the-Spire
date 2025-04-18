@@ -16,11 +16,12 @@ public:
     void update();
     void setPosition(glm::vec2 vec,int WIDTH);
     void setHPBarWidth(float width);
+    bool hovered()const{return boss_hitbox.Hovered();}
 protected:
     int max_HP,current_HP,current_Block;
     void render_HP(const std::shared_ptr<Draw::Draw_2D> &r2)const;
     glm::vec2 getPosition()const{ return pos;};
-    bool hovered()const{return boss_hitbox.Hovered();}
+    
     
 private:
     RUtil::Hitbox boss_hitbox;
