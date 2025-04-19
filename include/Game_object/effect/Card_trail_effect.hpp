@@ -25,6 +25,7 @@ public:
         this->color=RGB_color;
         this->duration=0.5F;
         this->scale=0.01F;
+        this->is_done=false;
     }
     //pool function
     static constexpr bool UseAutoRelease()noexcept{return true;}

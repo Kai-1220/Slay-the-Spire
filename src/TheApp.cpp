@@ -6,7 +6,7 @@ TheApp::TheApp(){
     random_package.SetAllSeed(seed);
     m_dungeon=std::make_shared<Dungeon::Dungeons>(m_dungeon_shared,random_package,seed);
     m_InitScreen=std::make_shared<InitScreen>();
-    for(int i=0;i<6;i++)//for test
+    for(int i=0;i<1;i++)//for test
         m_dungeon_shared.card_group_handler.add_to_master_deck(std::make_shared<Card::Red::Strike_red>());
 }
 void TheApp::render(const std::shared_ptr<Draw::Draw_2D> &r2)const{

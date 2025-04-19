@@ -21,8 +21,6 @@ namespace Card{
         if(m_discard.empty()) LOG_ERROR("Try to discard card when the m_discard is empty.");
         else{
             auto card=m_discard.PopTop();
-            card->SetHoverTimer(0.0F);
-            card->Unhover();
             card->Darken(true);
             card->Shrink(true);
             card->shuffle(shuffle_invisible);
@@ -34,7 +32,7 @@ namespace Card{
     void Card_group_handler::draw(){
         //to hand, don't need to add to flying card list.
         if(draw_pile.empty()){
-            LOG_ERROR("the draw_pile is empty but, it was drawn.");
+            LOG_ERROR("the draw_pile is empty, but it was drawn.");
         }else{
             auto card=draw_pile.PopTop();
             card->draw();
@@ -366,12 +364,15 @@ namespace Card{
         const glm::vec2 start{hovered_card->GetX(),hovered_card->GetY()},end{arrowX,arrowY};
         float rad=7.0F*Setting::SCALE;
         glm::vec2 last_pt,now_pt{ctr_pt};
+        const float step=1.0F/20.0F;
         for(int i=0;i<19;i++){//draw block
             rad+=0.4F*Setting::SCALE;
             last_pt=now_pt;
-            now_pt=RUtil::Math::BezierQuadratic(start,ctr_pt,end,(float)i/20.0F);
+            now_pt=RUtil::Math::BezierQuadratic(start,ctr_pt,end,(float)i*step);
             r2->draw(reticleBlock_img, now_pt.x-64.0F, now_pt.y-64.0F, 128.0F, 128.0F, RUtil::Math::GetDegress(now_pt-last_pt)+(i==0?90.0F:-90.0F), 64.0F, 64.0F, rad/18.0F, rad/18.0F);
         }
+        last_pt=now_pt;
+        now_pt=end;
         //draw arrow
         r2->draw(reticleArrow_img, arrowX-128.0F, arrowY-128.0F, 256.0F, 256.0F, RUtil::Math::GetDegress(now_pt-last_pt)-90.0F, 128.0F, 128.0F);
     }

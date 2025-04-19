@@ -50,5 +50,6 @@ public:
     static constexpr Uint32 GetColorUint32_RGB(float r,float g,float b)noexcept{return static_cast<Uint32>(r*255.0F)<<24|static_cast<Uint32>(g*255.0F)<<16|static_cast<Uint32>(b*255.0F)<<8;};
     //only work if value not bigger or smaller than 2*len
     static constexpr int SimpleRangeChange(const int value,const int len)noexcept{return len<=value?value-len:(value<0?value+len:value);}
+    static constexpr float SimpleRangeChange(const float value,const float len)noexcept{return len<=value?value-len:(value<0.0F?value+len:value);}
 };
 }
